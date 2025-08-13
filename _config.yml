@@ -54,6 +54,18 @@ plugins:
 #   - vendor/gems/
 #   - vendor/ruby/
 
+navigation:
+  - title: Home
+    url: /
+  - title: About
+    url: /about/
+  - title: Posts
+    url: /posts/
+  - title: Open Problems
+    url: /problems/
+  - title: Contact
+    url: /contact/
+
 
 defaults:
   - scope:
