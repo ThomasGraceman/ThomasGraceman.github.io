@@ -67,8 +67,22 @@ navigation:
     url: /contact/
 
 
+collections:
+  problems:
+    output: true
+    permalink: /problems/:name/
+
+defaults:
+
+
 defaults:
   - scope:
       path: "_posts"
     values:
       layout: "posts"
+      
+  - scope:
+      path: ""
+      type: "problems"
+    values:
+      layout: "problem"    

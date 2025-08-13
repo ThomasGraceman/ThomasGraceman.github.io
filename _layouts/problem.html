@@ -1,0 +1,42 @@
+---
+layout: default
+---
+
+<article class="problem">
+  <header class="problem-header">
+    <h1 class="problem-title">{{ page.title }}</h1>
+    <div class="problem-meta">
+      <span class="problem-status status-{{ page.status }}">{{ page.status | capitalize }}</span>
+      <span class="problem-difficulty">Difficulty: {{ page.difficulty }}</span>
+      {% if page.tags %}
+        <div class="problem-tags">
+          {% for tag in page.tags %}
+            <span class="tag">{{ tag }}</span>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </header>
+
+  <div class="problem-content">
+    {{ content }}
+  </div>
+
+  {% if page.related_problems %}
+  <section class="related-problems">
+    <h3>Related Problems</h3>
+    <ul>
+      {% for problem in page.related_problems %}
+        <li><a href="{{ problem.url }}">{{ problem.title }}</a></li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  <footer class="problem-footer">
+    <p class="problem-date">
+      {% if page.date_posted %}Posted: {{ page.date_posted | date: "%B %d, %Y" }}{% endif %}
+      {% if page.last_updated %} | Updated: {{ page.last_updated | date: "%B %d, %Y" }}{% endif %}
+    </p>
+  </footer>
+</article>
