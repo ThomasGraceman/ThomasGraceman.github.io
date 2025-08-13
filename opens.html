@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mathematical Open Problems</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            color: white;
+        }
+
+        h1 {
+            font-size: 3.5em;
+            font-weight: 300;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            background: linear-gradient(45deg, #fff, #f0f8ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            opacity: 0.9;
+            font-style: italic;
+        }
+
+        .problems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .problem-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .problem-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+            border-radius: 20px 20px 0 0;
+        }
+
+        .problem-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+
+        .problem-title {
+            font-size: 1.8em;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .problem-description {
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            color: #555;
+        }
+
+        .problem-statement {
+            background: #f8f9ff;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 4px solid #667eea;
+        }
+
+        .reward {
+            background: linear-gradient(45deg, #ff6b6b, #ffa500);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 15px;
+            font-size: 0.9em;
+        }
+
+        .status {
+            background: #e74c3c;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .year {
+            color: #7f8c8d;
+            font-style: italic;
+            font-size: 0.9em;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 30px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            color: white;
+        }
+
+        .footer a {
+            color: #f0f8ff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .math-display {
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .problems-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2.5em;
+            }
+            
+            .problem-card {
+                padding: 20px;
+            }
+        }
+
+        /* Animation for mathematical expressions */
+        .MathJax {
+            transition: all 0.3s ease;
+        }
+
+        .MathJax:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Mathematical Open Problems</h1>
+            <p class="subtitle">Unsolved mysteries that continue to challenge the greatest minds</p>
+        </header>
+
+        <div class="problems-grid">
+            <div class="problem-card">
+                <div class="status">UNSOLVED</div>
+                <h2 class="problem-title">The Riemann Hypothesis</h2>
+                <p class="year">Proposed: 1859</p>
+                <p class="problem-description">
+                    Perhaps the most famous unsolved problem in mathematics, concerning the distribution of prime numbers.
+                </p>
+                <div class="problem-statement">
+                    <strong>Statement:</strong> All non-trivial zeros of the Riemann zeta function have real part equal to 1/2.
+                    <div class="math-display">
+                        $$\zeta(s) = \sum_{n=1}^{\infty} \frac{1}{n^s} = \prod_{p \text{ prime}} \frac{1}{1-p^{-s}}$$
+                    </div>
+                    The hypothesis states that all zeros $\rho$ with $0 < \Re(\rho) < 1$ satisfy $\Re(\rho) = \frac{1}{2}$.
+                </div>
+                <div class="reward">Clay Prize: $1,000,000</div>
+            </div>
+
+            <div class="problem-card">
+                <div class="status">UNSOLVED</div>
+                <h2 class="problem-title">P vs NP Problem</h2>
+                <p class="year">Formalized: 1971</p>
+                <p class="problem-description">
+                    The central question of computational complexity theory, asking whether every problem whose solution can be quickly verified can also be quickly solved.
+                </p>
+                <div class="problem-statement">
+                    <strong>Statement:</strong> Does P = NP?
+                    <div class="math-display">
+                        $$P = \{L : \exists \text{ polynomial-time TM } M \text{ such that } L = L(M)\}$$
+                        $$NP = \{L : \exists \text{ polynomial } p, \text{ TM } M \text{ such that}$$
+                        $$L = \{x : \exists y, |y| \leq p(|x|), M(x,y) = 1\}\}$$
+                    </div>
+                </div>
+                <div class="reward">Clay Prize: $1,000,000</div>
+            </div>
+
+            <div class="problem-card">
+                <div class="status">UNSOLVED</div>
+                <h2 class="problem-title">Navier-Stokes Existence and Smoothness</h2>
+                <p class="year">Formulated: 1822</p>
+                <p class="problem-description">
+                    Concerns the mathematical description of fluid motion and whether smooth solutions always exist.
+                </p>
+                <div class="problem-statement">
+                    <strong>Statement:</strong> For the 3D Navier-Stokes equations:
+                    <div class="math-display">
+                        $$\frac{\partial \mathbf{u}}{\partial t} + (\mathbf{u} \cdot \nabla)\mathbf{u} = -\nabla p + \nu \nabla^2 \mathbf{u} + \mathbf{f}$$
+                        $$\nabla \cdot \mathbf{u} = 0$$
+                    </div>
+                    Do smooth solutions exist globally in time for all smooth initial data?
+                </div>
+                <div class="reward">Clay Prize: $1,000,000</div>
+            </div>
+
+            <div class="problem-card">
+                <div class="status">UNSOLVED</div>
+                <h2 class="problem-title">Goldbach's Conjecture</h2>
+                <p class="year">Proposed: 1742</p>
+                <p class="problem-description">
+                    A simple statement about prime numbers that has resisted proof for nearly three centuries.
+                </p>
+                <div class="problem-statement">
+                    <strong>Statement:</strong> Every even integer greater than 2 can be expressed as the sum of two primes.
+                    <div class="math-display">
+                        $$\forall n \in \mathbb{N}, n > 2, n \text{ even} : \exists p, q \text{ prime}, n = p + q$$
+                    </div>
+                    Examples: $4 = 2 + 2$, $6 = 3 + 3$, $8 = 3 + 5$, $10 = 3 + 7 = 5 + 5$
+                </div>
+                <div class="reward">Various prizes offered</div>
+            </div>
+
+            <div class="problem-card">
+                <div class="status">UNSOLVED</div>
+                <h2 class="problem-title">The Twin Prime Conjecture</h2>
+                <p class="year">Ancient origins</p>
+                <p class="problem-description">
+                    Asks whether there are infinitely many pairs of primes that differ by exactly 2.
+                </p>
+                <div class="problem-statement">
+                    <strong>Statement:</strong> There are infinitely many primes $p$ such that $p + 2$ is also prime.
+                    <div class="math-display">
+                        $$|\{p \text{ prime} : p + 2 \text{ is also prime}\}| = \infty$$
+                    </div>
+                    Examples of twin primes: $(3,5)$, $(5,7)$, $(11,13)$, $(17,19)$, $(29,31)$...
+                </div>
+                <div class="reward">Various prizes offered</div>
+            </div>
+
+            <div class="problem-card">
+                <div class="status">UNSOLVED</div>
+                <h2 class="problem-title">The Birch and Swinnerton-Dyer Conjecture</h2>
+                <p class="year">Proposed: 1960s</p>
+                <p class="problem-description">
+                    Connects the arithmetic and analytic properties of elliptic curves, fundamental to number theory.
+                </p>
+                <div class="problem-statement">
+                    <strong>Statement:</strong> For an elliptic curve $E$ over $\mathbb{Q}$:
+                    <div class="math-display">
+                        $$\text{rank}(E(\mathbb{Q})) = \text{ord}_{s=1} L(E,s)$$
+                    </div>
+                    The rank of the group of rational points equals the order of vanishing of the L-function at $s = 1$.
+                </div>
+                <div class="reward">Clay Prize: $1,000,000</div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <h3>The Quest Continues</h3>
+            <p>These problems represent some of humanity's greatest intellectual challenges. Each breakthrough not only advances our understanding but often leads to revolutionary applications across science and technology.</p>
+            <p><strong>Total Prize Money:</strong> Over $6 million in rewards await those who can solve these mysteries</p>
+        </div>
+    </div>
+
+    <script>
+        // Configure MathJax
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                processEnvironments: true
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+            }
+        };
+
+        // Add smooth scroll behavior
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add animation delay to cards
+            const cards = document.querySelectorAll('.problem-card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+            });
+
+            // Add hover effect for mathematical expressions
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('MathJax')) {
+                    e.target.style.background = 'rgba(102, 126, 234, 0.1)';
+                    setTimeout(() => {
+                        e.target.style.background = 'transparent';
+                    }, 1000);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
