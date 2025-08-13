@@ -1,83 +1,364 @@
-// Problems page styles for Jekyll Minima theme
+// Ultra Cool Cyberpunk Problems Page CSS
 
-.problems-container {
-  display: grid;
-  gap: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;600&display=swap');
+
+// Custom properties for the cyberpunk theme
+:root {
+  --neon-blue: #00ffff;
+  --neon-pink: #ff00ff;
+  --neon-green: #39ff14;
+  --neon-orange: #ff6600;
+  --dark-bg: #0a0a0a;
+  --card-bg: rgba(20, 20, 20, 0.95);
+  --glass-border: rgba(255, 255, 255, 0.1);
 }
 
+// Animated background
+.problems-container {
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  background: 
+    linear-gradient(45deg, transparent 30%, rgba(0, 255, 255, 0.03) 30%, rgba(0, 255, 255, 0.03) 70%, transparent 70%),
+    linear-gradient(-45deg, transparent 30%, rgba(255, 0, 255, 0.03) 30%, rgba(255, 0, 255, 0.03) 70%, transparent 70%),
+    radial-gradient(circle at 20% 50%, rgba(57, 255, 20, 0.1) 0%, transparent 70%),
+    radial-gradient(circle at 80% 20%, rgba(255, 102, 0, 0.1) 0%, transparent 70%),
+    #0a0a0a;
+  background-size: 60px 60px, 60px 60px, 100% 100%, 100% 100%, 100% 100%;
+  animation: backgroundShift 20s ease-in-out infinite;
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 98px,
+        rgba(0, 255, 255, 0.03) 100px
+      );
+    pointer-events: none;
+    z-index: -1;
+  }
+}
+
+@keyframes backgroundShift {
+  0%, 100% { background-position: 0% 0%, 0% 0%, 0% 0%, 0% 0%; }
+  50% { background-position: 100% 100%, -100% -100%, 50% 50%, -50% -50%; }
+}
+
+// Main title styling
+.problems-container h1 {
+  font-family: 'Orbitron', monospace;
+  font-weight: 900;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  text-align: center;
+  margin-bottom: 3rem;
+  background: linear-gradient(45deg, var(--neon-blue), var(--neon-pink), var(--neon-green));
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientShift 3s ease-in-out infinite alternate;
+  text-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--neon-blue), transparent);
+    animation: pulse 2s infinite;
+  }
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+// Problem cards with holographic effect
 .problem-card {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 12px;
-  padding: 2rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  color: white;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: var(--card-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 2.5rem;
+  margin-bottom: 2rem;
   position: relative;
   overflow: hidden;
-
+  backdrop-filter: blur(20px);
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+  font-family: 'JetBrains Mono', monospace;
+  
+  // Holographic border effect
   &::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1, #f9ca24);
+    bottom: 0;
+    border-radius: 20px;
+    padding: 2px;
+    background: linear-gradient(45deg, 
+      var(--neon-blue), 
+      var(--neon-pink), 
+      var(--neon-green), 
+      var(--neon-orange)
+    );
+    background-size: 300% 300%;
+    animation: holographicBorder 4s linear infinite;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: xor;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    opacity: 0;
+    transition: opacity 0.3s ease;
   }
-
+  
+  // Scanning line effect
+  &::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--neon-blue), transparent);
+    transition: left 0.5s ease;
+  }
+  
   &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 
+      0 20px 40px rgba(0, 0, 0, 0.5),
+      0 0 30px rgba(0, 255, 255, 0.3),
+      inset 0 0 30px rgba(0, 255, 255, 0.1);
+    
+    &::before {
+      opacity: 1;
+    }
+    
+    &::after {
+      left: 100%;
+    }
   }
 }
 
+@keyframes holographicBorder {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+// Header styling
 .problem-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   flex-wrap: wrap;
+  gap: 1rem;
 }
 
 .problem-title {
+  font-family: 'Orbitron', monospace;
+  font-weight: 700;
+  font-size: 1.5rem;
   margin: 0;
-  font-size: 1.4rem;
-  font-weight: 600;
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
   flex: 1;
-  min-width: 200px;
+  min-width: 250px;
+  
+  &::before {
+    content: '◆ ';
+    color: var(--neon-blue);
+    animation: pulse 2s infinite;
+  }
 }
 
+// Enhanced difficulty badges
 .problem-difficulty {
-  padding: 0.3rem 0.8rem;
-  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  font-family: 'Orbitron', monospace;
+  font-weight: 700;
   font-size: 0.8rem;
-  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid;
+  background: transparent;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+  }
+  
+  &:hover::before {
+    left: 100%;
+  }
 }
 
 .difficulty-easy {
-  background-color: #2ecc71;
-  color: white;
+  color: var(--neon-green);
+  border-color: var(--neon-green);
+  box-shadow: 0 0 15px rgba(57, 255, 20, 0.3);
 }
 
 .difficulty-medium {
-  background-color: #f39c12;
-  color: white;
+  color: var(--neon-orange);
+  border-color: var(--neon-orange);
+  box-shadow: 0 0 15px rgba(255, 102, 0, 0.3);
 }
 
 .difficulty-hard {
-  background-color: #e74c3c;
-  color: white;
+  color: var(--neon-pink);
+  border-color: var(--neon-pink);
+  box-shadow: 0 0 15px rgba(255, 0, 255, 0.3);
 }
 
 .difficulty-extreme {
-  background-color: #8e44ad;
-  color: white;
-  animation: pulse 2s infinite;
+  color: #ff0040;
+  border-color: #ff0040;
+  box-shadow: 0 0 20px rgba(255, 0, 64, 0.4);
+  animation: extremePulse 1.5s infinite alternate;
+}
+
+@keyframes extremePulse {
+  0% { 
+    box-shadow: 0 0 20px rgba(255, 0, 64, 0.4);
+    text-shadow: 0 0 10px rgba(255, 0, 64, 0.8);
+  }
+  100% { 
+    box-shadow: 0 0 30px rgba(255, 0, 64, 0.8);
+    text-shadow: 0 0 20px rgba(255, 0, 64, 1);
+  }
+}
+
+// Description text
+.problem-description {
+  color: #e0e0e0;
+  line-height: 1.7;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  
+  p {
+    margin-bottom: 1rem;
+  }
+}
+
+// Mathematical formulas with enhanced styling
+.problem-math {
+  background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 255, 0.1));
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  text-align: center;
+  font-size: 1.1rem;
+  color: #ffffff;
+  position: relative;
+  backdrop-filter: blur(10px);
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    background: linear-gradient(45deg, var(--neon-blue), var(--neon-pink));
+    border-radius: 15px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  &:hover::before {
+    opacity: 0.3;
+  }
+}
+
+// Metadata section
+.problem-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(0, 255, 255, 0.2);
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 0.9rem;
+}
+
+.problem-category {
+  background: linear-gradient(45deg, rgba(0, 255, 255, 0.2), rgba(57, 255, 20, 0.2));
+  border: 1px solid rgba(0, 255, 255, 0.4);
+  padding: 0.4rem 1rem;
+  border-radius: 15px;
+  color: var(--neon-blue);
+  font-weight: 600;
+  font-family: 'Orbitron', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: linear-gradient(45deg, rgba(0, 255, 255, 0.3), rgba(57, 255, 20, 0.3));
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
+  }
+}
+
+.problem-date {
+  color: rgba(255, 255, 255, 0.7);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.problem-reward {
+  background: linear-gradient(45deg, #ffd700, #ffed4a);
+  color: #000;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: 700;
+  font-family: 'Orbitron', monospace;
+  animation: rewardGlow 2s ease-in-out infinite alternate;
+  border: 2px solid #ffd700;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+  
+  &::before {
+    content: '💎 ';
+    margin-right: 0.5rem;
+  }
+}
+
+@keyframes rewardGlow {
+  0% { 
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+  }
+  100% { 
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+    text-shadow: 0 0 20px rgba(255, 215, 0, 1);
+  }
 }
 
 @keyframes pulse {
@@ -86,83 +367,90 @@
   100% { opacity: 1; }
 }
 
-.problem-description {
-  margin-bottom: 1.5rem;
-  line-height: 1.6;
-  font-size: 1rem;
-}
-
-.problem-math {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  padding: 1rem;
-  margin: 1rem 0;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  text-align: center;
-}
-
-.problem-meta {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 1.5rem;
-  padding-top: 1rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  font-size: 0.9rem;
-}
-
-.problem-category {
-  background: rgba(255, 255, 255, 0.2);
-  padding: 0.2rem 0.6rem;
-  border-radius: 12px;
-  font-weight: 500;
-}
-
-.problem-date {
-  opacity: 0.8;
-}
-
-.problem-reward {
-  background: #f39c12;
-  padding: 0.3rem 0.8rem;
-  border-radius: 12px;
-  font-weight: 600;
-  animation: glow 3s ease-in-out infinite alternate;
-}
-
-@keyframes glow {
-  from { box-shadow: 0 0 5px rgba(243, 156, 18, 0.5); }
-  to { box-shadow: 0 0 20px rgba(243, 156, 18, 0.8); }
-}
-
-// Dark mode support (Minima supports dark mode)
-@media (prefers-color-scheme: dark) {
-  .problem-card {
-    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-  }
-}
-
-// Mobile responsiveness
+// Mobile responsiveness with enhanced effects
 @media (max-width: 768px) {
   .problems-container {
     padding: 1rem 0.5rem;
+    
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+    }
   }
   
   .problem-card {
-    padding: 1.5rem;
+    padding: 2rem;
+    border-radius: 15px;
   }
   
   .problem-header {
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.5rem;
+    gap: 1rem;
+  }
+  
+  .problem-title {
+    font-size: 1.3rem;
+    min-width: unset;
   }
   
   .problem-meta {
     flex-direction: column;
     align-items: flex-start;
   }
+}
+
+// Additional glitch effect for extreme difficulty
+.difficulty-extreme {
+  position: relative;
+  
+  &::after {
+    content: attr(class);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: inherit;
+    color: inherit;
+    animation: glitch 0.3s infinite;
+    opacity: 0;
+  }
+}
+
+@keyframes glitch {
+  0% {
+    opacity: 0;
+    transform: translateX(0);
+  }
+  10% {
+    opacity: 0.8;
+    transform: translateX(-2px);
+  }
+  20% {
+    opacity: 0;
+    transform: translateX(2px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(0);
+  }
+}
+
+// Scrollbar styling
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--dark-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, var(--neon-blue), var(--neon-pink));
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, var(--neon-pink), var(--neon-green));
 }
