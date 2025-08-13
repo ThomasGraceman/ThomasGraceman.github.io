@@ -1,19 +1,23 @@
 ---
+layout: default
 title: Open Problems
 permalink: /problems/
-mathjax: true
 ---
-
 
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <script>
-  MathJax = {
-    tex: {
-      inlineMath: [['$', '$'], ['\\(', '\\)']],
-      displayMath: [['$$', '$$'], ['\\[', '\\]']]
-    }
-  };
+window.MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true,
+    processEnvironments: true
+  },
+  options: {
+    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+  }
+};
 </script>
 
 # Open Problems & Research Questions
@@ -43,3 +47,12 @@ mathjax: true
   </div>
   {% endfor %}
 </div>
+
+<script>
+// Force MathJax to process the page after it loads
+document.addEventListener('DOMContentLoaded', function() {
+  if (typeof MathJax !== 'undefined') {
+    MathJax.typesetPromise();
+  }
+});
+</script>
