@@ -33,6 +33,17 @@ github_username:  thomasgraceman
 theme: minima
 plugins:
   - jekyll-feed
+  - jekyll-feed
+  - jekyll-sitemap
+
+
+markdown: kramdown
+kramdown:
+  math_engine: mathjax
+  math_engine_opts:
+    preview: true
+    preview_as_code: false
+
 
 # Exclude from processing.
 # The following items will not be processed, by default.

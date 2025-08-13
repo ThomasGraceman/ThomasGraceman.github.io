@@ -1,0 +1,33 @@
+- title: "Optimal Sorting Networks"
+  difficulty: "hard"
+  category: "Algorithms"
+  date: "2025-01-15"
+  description: |
+    Find the minimal number of comparisons needed to sort n elements using a comparison network.
+  math: "$$T(n) = \\min\\{d : \\exists \\text{ sorting network of depth } d\\}$$"
+  reward: "$1000"
+
+- title: "Graph Coloring Complexity"
+  difficulty: "medium"
+  category: "Graph Theory"
+  date: "2025-01-10"
+  description: |
+    Determine the computational complexity of k-coloring for specific graph classes.
+  math: "$$\\chi(G) = \\min\\{k : \\exists \\text{ proper } k\\text{-coloring of } G\\}$$"
+
+- title: "Prime Gap Bounds"
+  difficulty: "extreme"
+  category: "Number Theory"
+  date: "2025-01-08"
+  description: |
+    Improve the upper bound on gaps between consecutive primes.
+  math: "$$g_n = p_{n+1} - p_n \\leq ?$$"
+  reward: "$10000"
+
+- title: "Machine Learning Convergence"
+  difficulty: "easy"
+  category: "ML Theory"
+  date: "2025-01-05"
+  description: |
+    Analyze convergence rates for gradient descent with momentum on non-convex functions.
+  math: "$$\\theta_{t+1} = \\theta_t - \\alpha \\nabla f(\\theta_t) + \\beta (\\theta_t - \\theta_{t-1})$$"
