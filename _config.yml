@@ -5,7 +5,7 @@
 # yourself editing this file very often, consider using Jekyll's data files
 # feature for the data you need to update frequently.
 #
-# For technical reasons, this file is NOT reloaded automatically when you use
+# For technical reasons, this file is *NOT* reloaded automatically when you use
 # 'bundle exec jekyll serve'. If you change this file, please restart the server process.
 #
 # If you need help with YAML syntax, here are some quick references for you:
@@ -26,31 +26,13 @@ description: >- # this means to ignore newlines until "baseurl:"
   hope you find this blog useful, and i am open about takling math, feel free to emeil me.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: -
-github_username: thomasgraceman
+twitter_username: nothing here yet
+github_username:  thomasgraceman
 
 # Build settings
 theme: minima
 plugins:
   - jekyll-feed
-
-# Collections
-collections:
-  problems:
-    output: true
-    permalink: /problems/:name/
-
-# Defaults
-defaults:
-  - scope:
-      path: "_posts"
-    values:
-      layout: "post"
-  - scope:
-      path: ""
-      type: "problems"
-    values:
-      layout: "problem"
 
 # Exclude from processing.
 # The following items will not be processed, by default.
@@ -71,3 +53,11 @@ defaults:
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+
+
+
+defaults:
+  - scope:
+      path: "_posts"
+    values:
+      layout: "posts"
