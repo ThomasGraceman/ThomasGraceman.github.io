@@ -1,33 +1,10 @@
-- title: "Optimal Sorting Networks"
-  difficulty: "hard"
-  category: "Algorithms"
+- title: "Bukh's problem"
+  difficulty: "hard - medium"
+  category: "Graph Theory"
   date: "2025-01-15"
   description: |
-    Find the minimal number of comparisons needed to sort n elements using a comparison network.
+    So recently i have been reading Shinkar's paper called "On Coloring Random Subgraphs of a Fixed Graph"
+    which states in a erdos-renyi random graph we denote by  
   math: "$$T(n) = \\min\\{d : \\exists \\text{ sorting network of depth } d\\}$$"
-  reward: "$1000"
+  reward: "$ a great paper"
 
-- title: "Graph Coloring Complexity"
-  difficulty: "medium"
-  category: "Graph Theory"
-  date: "2025-01-10"
-  description: |
-    Determine the computational complexity of k-coloring for specific graph classes.
-  math: "$$\\chi(G) = \\min\\{k : \\exists \\text{ proper } k\\text{-coloring of } G\\}$$"
-
-- title: "Prime Gap Bounds"
-  difficulty: "extreme"
-  category: "Number Theory"
-  date: "2025-01-08"
-  description: |
-    Improve the upper bound on gaps between consecutive primes.
-  math: "$$g_n = p_{n+1} - p_n \\leq ?$$"
-  reward: "$10000"
-
-- title: "Machine Learning Convergence"
-  difficulty: "easy"
-  category: "ML Theory"
-  date: "2025-01-05"
-  description: |
-    Analyze convergence rates for gradient descent with momentum on non-convex functions.
-  math: "$$\\theta_{t+1} = \\theta_t - \\alpha \\nabla f(\\theta_t) + \\beta (\\theta_t - \\theta_{t-1})$$"
