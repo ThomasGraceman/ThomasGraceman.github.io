@@ -21,8 +21,8 @@
 title: A steeper descent
 email: tahahoseinpourasli@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
-  Hi, this is my personal blog in which i try to share some open problems interesting to me,
-  give some descreption about the porblems that i read and maintain a list of open problems which i deem interesting.
+  Hi, this is my personal blog in which i try to give some descreption about the porblems that i read 
+  and maintain a list of open problems which i deem interesting.
   hope you find this blog useful, and i am open about takling math, feel free to emeil me.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
