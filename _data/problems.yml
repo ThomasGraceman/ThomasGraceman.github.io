@@ -12,15 +12,17 @@
     You can find more in [Bukh's problem](https://thomasgraceman.github.io/2025/08/13/Bukh's-problem.html).
   reward: "$ a good paper"
 
+---
   
 - title: "Does Ramsey lie in PAP?"
-  difficulty: "i dont know yet"
+  difficulty: "-"
   category: "Computational Complexity"
   date: "2025-01-15"
   description: |
     Robert Robere et al. in their paper "On Pigeonhole Principles and Ramsey in TFNP" state the following open problem:
     Let t-PPP be all the total search problems reducible to t-Pigeon, namely, all the problems that the pigeonhole principle proves the existence of a solution.
-    Then let PAP be the set of all problems reducible to n-PPP. So in order to further solidify their peck ordering, they ask whether Ramsey belongs (lies) in PAP or not.
+    Then let PAP be the set of all problems reducible to n-PPP.
+    > So in order to further solidify their Pecking Order, they ask whether Ramsey belongs (lies) in PAP or not.
     Later, when I find enough free time, I'll try to explain all the techniques of the paper in a blog post.
     Here's their paper: [On Pigeonhole Principles and Ramsey in TFNP](https://arxiv.org/pdf/2401.12604).
   reward: "$ a good paper also"
