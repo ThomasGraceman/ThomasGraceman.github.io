@@ -18,40 +18,33 @@ so the study of this garph coloring number is really motivated by the following 
 in shinkar's paper theorem 1.6 goes as follow: 
 
 **Theorem 1.6.**  
-Let \( G = (V, E) \) be a graph with  
-\[
-\alpha(G) \le C \cdot \frac{n}{k}
-\]
-for some \( C > 1 \). Then for all  
-\[
-d \le \frac{k}{16 C \log(k)}
-\]
+Let G = (V, E) be a graph with  
+$$\alpha(G) \le C \cdot \frac{n}{k}$$
+for some C > 1. Then for all  
+$$d \le \frac{k}{16 C \log(k)}$$
 it holds that  
-\[
-\Pr\big[ \chi(G_p) \le d \big] \ \le\ \Pr\big[ \alpha(G_p) > \frac{n}{d} \big] \ \le\ 2^{ - \frac{pkn}{8 C d^2} } .
-\]
+$$\Pr\big[ \chi(G_p) \le d \big] \ \le\ \Pr\big[ \alpha(G_p) > \frac{n}{d} \big] \ \le\ 2^{ - \frac{pkn}{8 C d^2} } .$$
 
-In particular, for all \( p \ge \frac{1}{k} \) it holds that  
-\[
-\mathbb{E} \big[ \chi(G_p) \big] \ \ge\ \frac{p k}{ 32 C \log(p k) } .
-\]
+In particular, for all $$( p \ge \frac{1}{k} )$$ it holds that  
+
+$$\mathbb{E} \big[ \chi(G_p) \big] \ \ge\ \frac{p k}{ 32 C \log(p k) } .$$
 
 later at the end of the paper he asks the following question:
 
 > **Question 6.2.**  
-> Is it true that every graph \(G\) contains an induced subgraph \(G' \subseteq G\) such that
-> \[
+> Is it true that every graph (G) contains an induced subgraph $$(G' \subseteq G)$$ such that
+> $$
 > \chi(G') \;>\; c \cdot \chi(G)
 > \quad\text{and}\quad
 > \alpha(G') \;\le\; C \,\frac{|V(G')|}{\chi(G')}
-> \]
-> for some absolute constants \(C, c > 0\)?
+> $$
+> for some absolute constants C, c > 0?
 
 ---
 
 ### Notes
 - Here \(\chi(\cdot)\) denotes the chromatic number and \(\alpha(\cdot)\) denotes the independence number.  
-- The question asks for an **induced** \(G'\) that simultaneously preserves a constant fraction of the chromatic number of \(G\) while having independence number at most a constant multiple of the Turán-type benchmark \(|V(G')|/\chi(G')\).
+- The question asks for an **induced** G' that simultaneously preserves a constant fraction of the chromatic number of G while having independence number at most a constant multiple of the Turán-type benchmark $$|V(G')|/\chi(G')$$.
 
 <style>
   .problem-card {
