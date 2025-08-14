@@ -1,11 +1,9 @@
 ---
 layout: default
 ---
-
 <head>
   <link rel="stylesheet" href="{{ '/assets/problems.css' | relative_url }}">
 </head>
-
 <article class="problem">
   <header class="problem-header">
     <h1 class="problem-title">{{ page.title }}</h1>
@@ -21,11 +19,11 @@ layout: default
       {% endif %}
     </div>
   </header>
-
+  
   <div class="problem-content">
     {{ content }}
   </div>
-
+  
   {% if page.related_problems %}
   <section class="related-problems">
     <h3>Related Problems</h3>
@@ -36,7 +34,7 @@ layout: default
     </ul>
   </section>
   {% endif %}
-
+  
   <footer class="problem-footer">
     <p class="problem-date">
       {% if page.date_posted %}Posted: {{ page.date_posted | date: "%B %d, %Y" }}{% endif %}
@@ -44,3 +42,37 @@ layout: default
     </p>
   </footer>
 </article>
+
+<style>
+/* Add spacing between problem instances */
+.problem {
+  margin-bottom: 3rem; /* 48px spacing between problems */
+  padding-bottom: 2rem; /* 32px internal bottom padding */
+  border-bottom: 1px solid #e5e7eb; /* Optional: visual separator line */
+}
+
+/* Remove border from last problem to avoid trailing line */
+.problem:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+/* Additional spacing within problem sections */
+.problem-header {
+  margin-bottom: 1.5rem;
+}
+
+.problem-content {
+  margin-bottom: 1.5rem;
+}
+
+.related-problems {
+  margin-bottom: 1.5rem;
+}
+
+.problem-footer {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #f3f4f6;
+}
+</style>
