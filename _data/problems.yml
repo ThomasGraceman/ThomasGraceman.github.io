@@ -4,7 +4,7 @@
   date: "2025-01-15"
   description: |
     So recently I have been reading Shinkar's paper called "On Coloring Random Subgraphs of a Fixed Graph"
-    which states in an Erdős–Rényi random graph we denote by  $$\\chi(G_{1/2})$$.
+    which states in an Erdős–Rényi random graph we denote by  $$ \chi(G_{1/2}) $$.
     He asks if:
     > Is there a constant $c > 0$ such that  $$E(\chi(G_{1/2})) > c \cdot \frac{\chi(G)}{\log \chi(G)}$$
     for all graphs $G$?
@@ -12,4 +12,16 @@
     You can find more in [Bukh's problem](https://arxiv.org/pdf/2312.08340).
   reward: "$ a good paper"
 
+  
+- title: "Does Ramsey lie in PAP?"
+  difficulty: "i dont know yet"
+  category: "Computational Complexity"
+  date: "2025-01-15"
+  description: |
+    Robert Robere et al. in their paper "On Pigeonhole Principles and Ramsey in TFNP" state the following open problem:
+    Let t-PPP be all the total search problems reducible to t-Pigeon, namely, all the problems that the pigeonhole principle proves the existence of a solution.
+    Then let PAP be the set of all problems reducible to n-PPP. So in order to further solidify their peck ordering, they ask whether Ramsey belongs (lies) in PAP or not.
+    Later, when I find enough free time, I'll try to explain all the techniques of the paper in a blog post.
+    Here's their paper: [On Pigeonhole Principles and Ramsey in TFNP](https://arxiv.org/pdf/2401.12604).
+  reward: "$ a good paper also"
   
