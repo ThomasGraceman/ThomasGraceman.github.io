@@ -9,7 +9,7 @@
     > Is there a constant $c > 0$ such that  $$E(\chi(G_{1/2})) > c \cdot \frac{\chi(G)}{\log \chi(G)}$$
     for all graphs $G$?
 
-    You can find more in [Bukh's problem](https://arxiv.org/pdf/2312.08340).
+    You can find more in [Bukh's problem](https://thomasgraceman.github.io/2025/08/13/Bukh's-problem.html).
   reward: "$ a good paper"
 
   
