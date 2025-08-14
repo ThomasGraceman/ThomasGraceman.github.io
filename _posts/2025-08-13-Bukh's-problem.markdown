@@ -1,7 +1,12 @@
 So, assume that we have a graph G = (V , E) by $$G_{p}$$ for some $$ p \in (0,1) $$ we mean a subgraph such that the 
 probibility of each edge appearing in that subgraph is independent with probability p. now that we have the defination set
-the main motive of shinkar's ppaer `On Coloring Random Subgraphs of a Fixed Graph`, is to study the $$ \chi(G_{1/2}) $$ the coloring number
+the main motive of [shinkar]'s paper `On Coloring Random Subgraphs of a Fixed Graph`, is to study the $$ \chi(G_{1/2}) $$ the coloring number
 of the subgraph that we randomly get by removing each edge with the probibility of 1/2. 
+
+so the study of this garph coloring number is really motivated by the following question from Bukh's: 
+
+  is there a constant c > 0 such that $$ E(\chi(G_{1/2}) > c.\frac{\chi(G)}{\chi(G_{1/2}} $$ for all Graphs G? 
+
 
 Jekyll requires blog post files to be named according to the following format:
 
@@ -26,3 +31,4 @@ Check out the [Jekyll docs][jekyll-docs] for more info on how to get the most ou
 [jekyll-talk]: https://talk.jekyllrb.com/
 
 
+[shinkar]: https://arxiv.org/pdf/1612.04319
