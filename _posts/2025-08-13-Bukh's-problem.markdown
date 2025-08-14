@@ -1,4 +1,7 @@
-You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file is updated.
+So, assume that we have a graph G = (V , E) by $$G_{p}$$ for some $$ p \in (0,1) $$ we mean a subgraph such that the 
+probibility of each edge appearing in that subgraph is independent with probability p. now that we have the defination set
+the main motive of shinkar's ppaer `On Coloring Random Subgraphs of a Fixed Graph`, is to study the $$ \chi(G_{1/2}) $$ the coloring number
+of the subgraph that we randomly get by removing each edge with the probibility of 1/2. 
 
 Jekyll requires blog post files to be named according to the following format:
 
@@ -23,6 +26,3 @@ Check out the [Jekyll docs][jekyll-docs] for more info on how to get the most ou
 [jekyll-talk]: https://talk.jekyllrb.com/
 
 
-$$e=mc^2$$
-$e=mc^2$
-\\( e=mc^2 \\)
