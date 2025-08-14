@@ -115,7 +115,19 @@ then he computes the probability,
 
 his useag of defining matinagle is clever, it means a process in which we try to refine the information that we have anout a certain proccess, then if that certain procces revalse the information in a specefic manner, we can use it to deduce some probabilistic inequality due to Alon, -> i guess this technique would work very well in some areas and it is to be noted:
 
-**Proof.**  
+**Proposition 3.4.**  
+Let \( X_1, \dots, X_k \) be a sequence of random variables adapted to some filter \( ( \mathcal{F}_i ) \) such that  
+\[
+|X_{i+1} - X_i| \le 1 \quad \text{for all } i = 1, \dots, k-1.
+\]  
+Then for any \( 0 < \varepsilon < \frac{1}{2} \) it holds that  
+$$
+\Pr\left[
+\left| \frac{X_k}{\mathbb{E}[X_k]} - 1 \right| > \varepsilon
+\right] < O\left(e^{-\Omega\left(\varepsilon^2 \mathbb{E}[X_k]\right)}\right).
+$$
+
+using this and letting the refining information gathering kind of procces we could use that lemma to infer somehing about the probability inequality of the chormatic number,
 
 Let 
 $$
@@ -172,6 +184,10 @@ $$
 X_{i+1} - X_i \in \{0, 1\},
 $$
 since adding edges from an independent set \(C_{i+1}\) can increase the chromatic number by at most 1.
+
+i guees we can use some form of Doob-Dynkin Lemma to prove that $$
+X_0 = \mathbb{E}[\chi(G_{1/2})], \qquad X_k = \chi(G_{1/2}).
+$$ if i found the proof i will share it as a blog post.
 
 
 <style>
