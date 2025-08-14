@@ -3,11 +3,13 @@
   category: "Graph Theory"
   date: "2025-01-15"
   description: |
-    So recently i have been reading Shinkar's paper called "On Coloring Random Subgraphs of a Fixed Graph"
-    which states in a erdos-renyi random graph we denote by  $$\\chi(G_{1/2})$$.
-    he asks if > Is there a constant $c > 0$ such that  $$E(\chi(G_{1/2})) > c \cdot \frac{\chi(G)}{\log \chi(G)}$$
->  for all graphs $G$?** you could find more in [Bukh's problem]: https://arxiv.org/pdf/2312.08340
+    So recently I have been reading Shinkar's paper called "On Coloring Random Subgraphs of a Fixed Graph"
+    which states in an Erdős–Rényi random graph we denote by  $$\\chi(G_{1/2})$$.
+    He asks if:
+    > Is there a constant $c > 0$ such that  $$E(\chi(G_{1/2})) > c \cdot \frac{\chi(G)}{\log \chi(G)}$$
+    for all graphs $G$?
 
-  
+    You can find more in [Bukh's problem](https://arxiv.org/pdf/2312.08340).
   reward: "$ a good paper"
+
   
