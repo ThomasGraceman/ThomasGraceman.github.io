@@ -276,18 +276,21 @@ $$P_{\text{err}} = P(\hat{s}(x) \neq s) = \sum_x P(X =x) P(\hat{s}(x) \neq s | X
 
 and 
 
-$$P(s = i | X=x) = \frac{\frac{P(x| s=i)}{2}}{P(x)} = \frac{1/2P_i(x)}{P(x)}$$.
+$$ P(s = i | X=x) =  \frac{\frac{P(x| s=i)}{2}}{P(x)} 
+= \frac{1/2P_i(x)}{P(x)}$$.
 
 So when will the error be minimum? When the probability that we have guessed wrong over the inputs gets to the minimum.
 Look that we are trying to get a lower bound for the best average case deterministic algorithm, so the lower bound would be that the probability that we have guessed wrong is minimum. 
 Therefore we have $$P(\hat{s}(x) \neq s | X=x) = 1 - P(\hat{s} = s |X =x)$$. 
 So in order for our deterministic algorithm to have the minimum error it should pick $$\hat{s}$$ that makes the $$P(\hat{s} = s |X =x)$$ maximum, hence:
 
-$$P(\hat{s}(x) \neq s | X=x) = 1 - P(\hat{s} = s |X =x) \geq 1 - \max_i P(s = i | X=x) = \min_i (1 - P(s = i | X=x)) = \frac{1}{2}\min_i P_i(x)/P(x)$$
+$$P(\hat{s}(x) \neq s | X=x) = 1 - P(\hat{s} = s |X =x) \geq 1 - \max_i P(s = i | X=x) = \min_i (1 - P(s = i | X=x)) = 
+\frac{1}{2}\min_i P_i(x)/P(x)$$
 
 Then:
 
-$P_{\text{err}} = P(\hat{s}(x) \neq s) = \sum_x P(X =x) P(\hat{s}(x) \neq s | X=x) \geq \frac{1}{2} \sum_x \min_i P_i(x)$
+$$P_{\text{err}} = P(\hat{s}(x) \neq s) = \sum_x P(X =x) P(\hat{s}(x) \neq s | X=x) 
+\geq \frac{1}{2} \sum_x \min_i P_i(x)$$
 
 Hence we have showed it to be true.
 
