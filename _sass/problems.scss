@@ -1,19 +1,26 @@
-// Ultra Cool Cyberpunk Problems Page CSS
+// Ultra Cool Cyberpunk Problems Page CSS - Enhanced Edition
 
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
 
-// Custom properties for the cyberpunk theme
+// Enhanced custom properties for the cyberpunk theme
 :root {
   --neon-blue: #00ffff;
   --neon-pink: #ff00ff;
   --neon-green: #39ff14;
   --neon-orange: #ff6600;
+  --neon-purple: #8a2be2;
+  --neon-yellow: #ffff00;
   --dark-bg: #0a0a0a;
   --card-bg: rgba(20, 20, 20, 0.95);
   --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --shadow-neon: 0 0 20px rgba(0, 255, 255, 0.3);
+  --shadow-neon-pink: 0 0 20px rgba(255, 0, 255, 0.3);
+  --shadow-neon-green: 0 0 20px rgba(57, 255, 20, 0.3);
+  --shadow-neon-orange: 0 0 20px rgba(255, 102, 0, 0.3);
 }
 
-// Animated background
+// Enhanced animated background with particle effects
 .problems-container {
   min-height: 100vh;
   padding: 2rem 1rem;
@@ -22,8 +29,9 @@
     linear-gradient(-45deg, transparent 30%, rgba(255, 0, 255, 0.03) 30%, rgba(255, 0, 255, 0.03) 70%, transparent 70%),
     radial-gradient(circle at 20% 50%, rgba(57, 255, 20, 0.1) 0%, transparent 70%),
     radial-gradient(circle at 80% 20%, rgba(255, 102, 0, 0.1) 0%, transparent 70%),
+    radial-gradient(circle at 50% 80%, rgba(138, 43, 226, 0.08) 0%, transparent 70%),
     #0a0a0a;
-  background-size: 60px 60px, 60px 60px, 100% 100%, 100% 100%, 100% 100%;
+  background-size: 60px 60px, 60px 60px, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
   animation: backgroundShift 20s ease-in-out infinite;
   position: relative;
   
@@ -44,61 +52,122 @@
     pointer-events: none;
     z-index: -1;
   }
+  
+  &::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      radial-gradient(2px 2px at 20px 30px, var(--neon-blue), transparent),
+      radial-gradient(2px 2px at 40px 70px, var(--neon-pink), transparent),
+      radial-gradient(1px 1px at 90px 40px, var(--neon-green), transparent),
+      radial-gradient(1px 1px at 130px 80px, var(--neon-orange), transparent),
+      radial-gradient(2px 2px at 160px 30px, var(--neon-purple), transparent);
+    background-repeat: repeat;
+    background-size: 200px 100px, 300px 150px, 400px 200px, 250px 120px, 350px 180px;
+    animation: particleFloat 15s linear infinite;
+    opacity: 0.3;
+    pointer-events: none;
+    z-index: -1;
+  }
 }
 
 @keyframes backgroundShift {
-  0%, 100% { background-position: 0% 0%, 0% 0%, 0% 0%, 0% 0%; }
-  50% { background-position: 100% 100%, -100% -100%, 50% 50%, -50% -50%; }
+  0%, 100% { background-position: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%; }
+  50% { background-position: 100% 100%, -100% -100%, 50% 50%, -50% -50%, 25% 75%; }
 }
 
-// Main title styling
+@keyframes particleFloat {
+  0% { transform: translateY(0px) translateX(0px); }
+  25% { transform: translateY(-10px) translateX(5px); }
+  50% { transform: translateY(-20px) translateX(-5px); }
+  75% { transform: translateY(-10px) translateX(10px); }
+  100% { transform: translateY(0px) translateX(0px); }
+}
+
+// Enhanced main title styling with 3D effects
 .problems-container h1 {
   font-family: 'Orbitron', monospace;
   font-weight: 900;
   font-size: clamp(2.5rem, 5vw, 4rem);
   text-align: center;
   margin-bottom: 3rem;
-  background: linear-gradient(45deg, var(--neon-blue), var(--neon-pink), var(--neon-green));
-  background-size: 300% 300%;
+  background: linear-gradient(45deg, var(--neon-blue), var(--neon-pink), var(--neon-green), var(--neon-purple));
+  background-size: 400% 400%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: gradientShift 3s ease-in-out infinite alternate;
-  text-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+  animation: gradientShift 4s ease-in-out infinite alternate;
+  text-shadow: 
+    0 0 30px rgba(0, 255, 255, 0.5),
+    0 0 60px rgba(0, 255, 255, 0.3),
+    0 0 90px rgba(0, 255, 255, 0.1);
   position: relative;
+  letter-spacing: 2px;
+  
+  &::before {
+    content: attr(data-text);
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    background: linear-gradient(45deg, var(--neon-blue), var(--neon-pink));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    opacity: 0.3;
+    filter: blur(1px);
+    z-index: -1;
+  }
   
   &::after {
     content: '';
     position: absolute;
-    bottom: -10px;
+    bottom: -15px;
     left: 50%;
     transform: translateX(-50%);
-    width: 200px;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--neon-blue), transparent);
+    width: 250px;
+    height: 3px;
+    background: linear-gradient(90deg, 
+      transparent, 
+      var(--neon-blue), 
+      var(--neon-pink), 
+      var(--neon-green), 
+      transparent
+    );
     animation: pulse 2s infinite;
+    border-radius: 2px;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
   }
 }
 
 @keyframes gradientShift {
   0% { background-position: 0% 50%; }
-  100% { background-position: 100% 50%; }
+  25% { background-position: 100% 50%; }
+  50% { background-position: 100% 100%; }
+  75% { background-position: 0% 100%; }
+  100% { background-position: 0% 50%; }
 }
 
-// Problem cards with holographic effect
+// Enhanced problem cards with advanced holographic effects
 .problem-card {
   background: var(--card-bg);
   border: 1px solid var(--glass-border);
-  border-radius: 20px;
-  padding: 2.5rem;
-  margin-bottom: 2rem;
+  border-radius: 25px;
+  padding: 3rem;
+  margin-bottom: 2.5rem;
   position: relative;
   overflow: hidden;
-  backdrop-filter: blur(20px);
-  transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+  backdrop-filter: blur(25px);
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
   font-family: 'JetBrains Mono', monospace;
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
   
-  // Holographic border effect
+  // Enhanced holographic border effect
   &::before {
     content: '';
     position: absolute;
@@ -106,42 +175,65 @@
     left: 0;
     right: 0;
     bottom: 0;
-    border-radius: 20px;
-    padding: 2px;
+    border-radius: 25px;
+    padding: 3px;
     background: linear-gradient(45deg, 
       var(--neon-blue), 
       var(--neon-pink), 
       var(--neon-green), 
-      var(--neon-orange)
+      var(--neon-orange),
+      var(--neon-purple),
+      var(--neon-blue)
     );
-    background-size: 300% 300%;
-    animation: holographicBorder 4s linear infinite;
+    background-size: 400% 400%;
+    animation: holographicBorder 6s linear infinite;
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     mask-composite: xor;
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.4s ease;
   }
   
-  // Scanning line effect
+  // Enhanced scanning line effect
   &::after {
     content: '';
     position: absolute;
-    top: -2px;
+    top: -3px;
     left: -100%;
     width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--neon-blue), transparent);
-    transition: left 0.5s ease;
+    height: 3px;
+    background: linear-gradient(90deg, 
+      transparent, 
+      var(--neon-blue), 
+      var(--neon-pink), 
+      var(--neon-green), 
+      transparent
+    );
+    transition: left 0.8s ease;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+  }
+  
+  // Corner accents
+  &::before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 30px;
+    height: 30px;
+    border-top: 2px solid var(--neon-blue);
+    border-right: 2px solid var(--neon-blue);
+    border-radius: 0 10px 0 0;
+    opacity: 0.6;
   }
   
   &:hover {
-    transform: translateY(-10px) scale(1.02);
+    transform: translateY(-15px) scale(1.03);
     box-shadow: 
-      0 20px 40px rgba(0, 0, 0, 0.5),
-      0 0 30px rgba(0, 255, 255, 0.3),
-      inset 0 0 30px rgba(0, 255, 255, 0.1);
+      0 25px 50px rgba(0, 0, 0, 0.6),
+      0 0 40px rgba(0, 255, 255, 0.4),
+      inset 0 0 40px rgba(0, 255, 255, 0.15);
     
     &::before {
       opacity: 1;
@@ -151,12 +243,28 @@
       left: 100%;
     }
   }
+  
+  // Glitch effect on hover
+  &:hover::before {
+    animation: glitchEffect 0.3s infinite;
+  }
 }
 
 @keyframes holographicBorder {
   0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+  25% { background-position: 100% 50%; }
+  50% { background-position: 100% 100%; }
+  75% { background-position: 0% 100%; }
   100% { background-position: 0% 50%; }
+}
+
+@keyframes glitchEffect {
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  100% { transform: translate(0); }
 }
 
 // Header styling
@@ -453,4 +561,340 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(45deg, var(--neon-pink), var(--neon-green));
+}
+
+// Enhanced mathematical content styling
+.problem-math {
+  background: linear-gradient(135deg, 
+    rgba(0, 255, 255, 0.1), 
+    rgba(255, 0, 255, 0.1),
+    rgba(57, 255, 20, 0.1)
+  );
+  border: 2px solid rgba(0, 255, 255, 0.4);
+  border-radius: 20px;
+  padding: 2rem;
+  margin: 2rem 0;
+  text-align: center;
+  font-size: 1.2rem;
+  color: #ffffff;
+  position: relative;
+  backdrop-filter: blur(15px);
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, 
+      var(--neon-blue), 
+      var(--neon-pink), 
+      var(--neon-green), 
+      var(--neon-orange)
+    );
+    border-radius: 20px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    animation: holographicBorder 4s linear infinite;
+  }
+  
+  &:hover::before {
+    opacity: 0.3;
+  }
+  
+  // Mathematical symbols enhancement
+  .math-symbol {
+    color: var(--neon-blue);
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+    font-weight: 600;
+  }
+  
+  // Formula highlighting
+  .formula {
+    background: rgba(0, 255, 255, 0.1);
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    margin: 0.5rem 0;
+    display: inline-block;
+  }
+}
+
+// Enhanced code blocks
+.problem-card pre {
+  background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+  border: 1px solid var(--neon-blue);
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, 
+      var(--neon-blue), 
+      var(--neon-pink), 
+      var(--neon-green)
+    );
+  }
+  
+  code {
+    color: #e0e0e0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    
+    .keyword { color: var(--neon-blue); }
+    .string { color: var(--neon-green); }
+    .number { color: var(--neon-orange); }
+    .comment { color: var(--neon-pink); opacity: 0.7; }
+  }
+}
+
+// Enhanced blockquotes
+.problem-card blockquote {
+  border-left: 4px solid var(--neon-blue);
+  background: linear-gradient(135deg, 
+    rgba(0, 255, 255, 0.05), 
+    rgba(255, 0, 255, 0.05)
+  );
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 0 15px 15px 0;
+  position: relative;
+  
+  &::before {
+    content: '"';
+    font-size: 3rem;
+    color: var(--neon-blue);
+    position: absolute;
+    top: -10px;
+    left: 1rem;
+    opacity: 0.4;
+  }
+  
+  p {
+    margin: 0;
+    color: #e0e0e0;
+    font-style: italic;
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+}
+
+// Enhanced lists
+.problem-card ul, .problem-card ol {
+  li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.75rem;
+    
+    &::before {
+      content: '◆';
+      position: absolute;
+      left: 0;
+      color: var(--neon-blue);
+      animation: pulse 2s infinite;
+    }
+  }
+}
+
+// Enhanced tables
+.problem-card table {
+  background: rgba(20, 20, 20, 0.8);
+  border: 1px solid var(--neon-blue);
+  border-radius: 15px;
+  overflow: hidden;
+  margin: 1.5rem 0;
+  
+  th {
+    background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+    color: #000;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 1rem;
+  }
+  
+  td {
+    padding: 1rem;
+    border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+    color: #e0e0e0;
+  }
+  
+  tr:hover {
+    background: rgba(0, 255, 255, 0.1);
+  }
+}
+
+// Enhanced links
+.problem-card a {
+  color: var(--neon-blue);
+  text-decoration: none;
+  position: relative;
+  transition: all 0.3s ease;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+    transition: width 0.3s ease;
+  }
+  
+  &:hover {
+    color: var(--neon-pink);
+    text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+    
+    &::after {
+      width: 100%;
+    }
+  }
+}
+
+// Enhanced metadata badges
+.problem-meta {
+  .problem-category {
+    background: linear-gradient(135deg, 
+      rgba(0, 255, 255, 0.2), 
+      rgba(57, 255, 20, 0.2)
+    );
+    border: 2px solid var(--neon-blue);
+    padding: 0.5rem 1.5rem;
+    border-radius: 20px;
+    color: var(--neon-blue);
+    font-weight: 600;
+    font-family: 'Orbitron', monospace;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+    
+    &:hover {
+      background: linear-gradient(135deg, 
+        rgba(0, 255, 255, 0.3), 
+        rgba(57, 255, 20, 0.3)
+      );
+      transform: translateY(-3px);
+      box-shadow: 0 5px 25px rgba(0, 255, 255, 0.4);
+    }
+  }
+  
+  .problem-reward {
+    background: linear-gradient(135deg, #ffd700, #ffed4a, #ffd700);
+    color: #000;
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    font-weight: 700;
+    font-family: 'Orbitron', monospace;
+    animation: rewardGlow 2s ease-in-out infinite alternate;
+    border: 2px solid #ffd700;
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
+    position: relative;
+    overflow: hidden;
+    
+    &::before {
+      content: '💎';
+      margin-right: 0.5rem;
+      animation: sparkle 1.5s ease-in-out infinite alternate;
+    }
+    
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.4), 
+        transparent
+      );
+      transition: left 0.5s ease;
+    }
+    
+    &:hover::after {
+      left: 100%;
+    }
+  }
+}
+
+@keyframes sparkle {
+  0% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(1.2) rotate(180deg); }
+  100% { transform: scale(1) rotate(360deg); }
+}
+
+// Enhanced mobile responsiveness
+@media (max-width: 768px) {
+  .problems-container {
+    padding: 1rem 0.5rem;
+    
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      
+      &::after {
+        width: 150px;
+      }
+    }
+  }
+  
+  .problem-card {
+    padding: 2rem;
+    border-radius: 20px;
+    margin-bottom: 2rem;
+  }
+  
+  .problem-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .problem-title {
+    font-size: 1.3rem;
+    min-width: unset;
+  }
+  
+  .problem-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .problem-math {
+    padding: 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+// Enhanced focus states for accessibility
+.problem-card:focus-within {
+  outline: 2px solid var(--neon-blue);
+  outline-offset: 2px;
+}
+
+// Enhanced loading states
+.problem-card.loading {
+  animation: cardLoading 1.5s ease-in-out infinite;
+}
+
+@keyframes cardLoading {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
 }

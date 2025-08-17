@@ -13,7 +13,7 @@ Suppose that you have a graph in which the edges are weighted, and you are asked
 
 This is one of the earlier papers in sublinear algorithms and definitely a classic, worth giving a shot at analyzing the techniques they used to solve the problem and working out the details. I must say that Luca Trevisan is one of my idols, and I plan to read most of his works anyway, so in the name of the supreme mathematician, we begin.
 
-As they point out in their paper:
+As they point out in their [paper](https://people.csail.mit.edu/ronitt/papers/mst.pdf):
 
 > In this paper, we show that there are conditions under which it is possible to approximate the weight of the MST of a connected graph in time sublinear in the number of edges. We give an algorithm which approximates the MST of a graph $G$ to within a multiplicative factor of $1 + \varepsilon$ and runs in time $O\left(dw\varepsilon^{-2} \log \frac{dw}{\varepsilon}\right)$ for any $G$ with average degree $d$ and edge weights in the set $\{1, \ldots, w\}$. The algorithm requires no prior information about the graph besides $w$ and $n$; in particular, the average degree is assumed to be unknown. The relative error $\varepsilon$ ($0 < \varepsilon < 1/2$) is specified as an input parameter. Note that if $d$ and $\varepsilon$ are constant and the ratios of the edge weights are bounded, then the algorithm runs in constant time. We also extend our algorithm to the case where $G$ has nonintegral weights in the range $[1, w]$, achieving a comparable runtime with a somewhat worse dependence on $\varepsilon$.
 
@@ -57,7 +57,7 @@ So just forget about the algorithm for a second! First, let us approximate the a
 
 ### Approximating the Average Degree
 
-Let $C$ be some large constant, then let us pick $\frac{C}{\epsilon}$ vertices from our graph $G$ at random. We count each of those vertices' degrees and pick the maximum among them and set that equal to $d^*$. In order to find the degree of each vertex, we must make $\mathcal{O}(d)$ operations on average (since each vertex on average has $d$ degrees). So in an amortized sense, to count each degree is going to take $\mathcal{O}(d)$ time, so that makes the expected running time to be $\mathcal{O}(C\frac{d}{\epsilon}) = \mathcal{O}(\frac{d}{\epsilon})$.
+Let $C$ be some large constant, then let us pick $\frac{C}{\epsilon}$ vertices from our graph $G$ at random. We count each of those vertices' degrees and pick the maximum among them and set that equal to $d^*$. In order to find the degree of each vertex, we must make $O(d)$ operations on average (since each vertex on average has $d$ degrees). So in an amortized sense, to count each degree is going to take $O(d)$ time, so that makes the expected running time to be $O(C\frac{d}{\epsilon}) = O(\frac{d}{\epsilon})$.
 
 Imagine that we have each degree sorted in a non-increasing manner for example, the highest degree is the first one and so on. We let the place that our maximum degree takes to be $\rho$. For example, if our degree is the third highest degree, then $\rho = 3$. We will show that with high probability we have that $\rho = \Theta(\epsilon n)$, where $n$ is the number of vertices.
 
@@ -73,7 +73,7 @@ Now we devise a lower bound: assume that the probability that $d^*$ doesn't lie 
 
 **Lemma 4:** In $O(d/\varepsilon)$ expected time, we can compute a vertex degree $d^*$ that, with high probability, is the $k$-th largest vertex degree, for some $k = \Theta(\varepsilon n)$.
 
-Also note that we have $d^* = \mathcal{O}(\frac{d}{\epsilon})$. To see that we have $\Omega(\epsilon n)$, so $\frac{\sum_{u \in G}d_u}{n} = d \geq \rho \frac{d^*}{n} = \epsilon n \frac{d^*}{n}$, then $d \geq \epsilon d^*$, so $d^* \leq \frac{d}{\epsilon} = \mathcal{O}(\frac{d}{\epsilon})$. And if we scale $\epsilon$ properly, with very high probability we have that only $\epsilon \frac{n}{4}$ vertices have higher degree than $d^*$.
+Also note that we have $d^* = O(\frac{d}{\epsilon})$. To see that we have $\Omega(\epsilon n)$, so $\frac{\sum_{u \in G}d_u}{n} = d \geq \rho \frac{d^*}{n} = \epsilon n \frac{d^*}{n}$, then $d \geq \epsilon d^*$, so $d^* \leq \frac{d}{\epsilon} = O(\frac{d}{\epsilon})$. And if we scale $\epsilon$ properly, with very high probability we have that only $\epsilon \frac{n}{4}$ vertices have higher degree than $d^*$.
 
 So that's how we approximated the degrees. This leads me to the **third principle** that I have observed: observe in a random way so that you can have some lower and upper bounds with very high probability. We must bear that in mind.
 
@@ -85,31 +85,31 @@ So that leads me to the **fourth principle** that I really find intuitive: **RUL
 
 ### Analyzing the Algorithm
 
-So let's get to the algorithm. We sample $r = \mathcal{O}(\frac{1}{\epsilon^2})$ vertices at random uniformly. We have vertices $u_1, \ldots, u_r$. For each vertex $u_i$, we set $\beta_i$ to be equal to zero, then we flip a coin, and if the conditions were satisfied (spoiler: in the condition we are ruling out the extreme cases!), then take the first step of a BFS from $u_i$. By the first step, the authors clarified that it is visiting vertex $u_i$ and its $d_{u_i}$ neighbors.
+So let's get to the algorithm. We sample $r = O(\frac{1}{\epsilon^2})$ vertices at random uniformly. We have vertices $u_1, \ldots, u_r$. For each vertex $u_i$, we set $\beta_i$ to be equal to zero, then we flip a coin, and if the conditions were satisfied (spoiler: in the condition we are ruling out the extreme cases!), then take the first step of a BFS from $u_i$. By the first step, the authors clarified that it is visiting vertex $u_i$ and its $d_{u_i}$ neighbors.
 
 Then each other time, resume BFS to double the number of visited edges, till we complete the algorithm namely, seeing every vertex in a component. Then we set the parameters! And then we aggregate a set of approximated parameters to approximate $c$, namely $\hat{c}$.
 
 Let $S$ denote the set of vertices that lie in components with fewer than $W$ vertices, all of which are of degree at most $d^*$. We have $|S| \leq n$.
 
-Now we want to compute $E(\beta_i)$. There are two cases: one where BFS completes and the second where we abort for whatever reason. In the latter, $\beta_i = 0$, so it doesn't affect the mean. In the former, if BFS completes, we flip the coin at least $\frac{m_i}{d_i}$ times, because each time we are doubling the number of new edges visited. So $2^t d_i \geq m_i$ number of visited edges for the BFS to be complete, so $t \geq \log(\frac{m_i}{d_i})$.
+Now we want to compute $\mathbb{E}[\beta_i]$. There are two cases: one where BFS completes and the second where we abort for whatever reason. In the latter, $\beta_i = 0$, so it doesn't affect the mean. In the former, if BFS completes, we flip the coin at least $\frac{m_i}{d_i}$ times, because each time we are doubling the number of new edges visited. So $2^t d_i \geq m_i$ number of visited edges for the BFS to be complete, so $t \geq \log(\frac{m_i}{d_i})$.
 
 The expected value would be:
-$$E(\beta_i) = \sum_{s \in S} \frac{1}{n} 2^{-\log(\frac{m_i}{d_i})} 2^{\log(\frac{m_i}{d_i})}\frac{d_i}{m_i} \leq \frac{2c}{n}$$
+$$\mathbb{E}[\beta_i] = \sum_{s \in S} \frac{1}{n} 2^{-\log(\frac{m_i}{d_i})} 2^{\log(\frac{m_i}{d_i})}\frac{d_i}{m_i} \leq \frac{2c}{n}$$
 
 So the mean of $\beta_i = \frac{d_i}{m_i}$. Actually, what we were doing now is making sense! Because we are setting $\beta$ in a sense that on average we would get a value akin to $\frac{d_i}{m_i}$. In the case that $m_i = 0$, we would flip a coin and get a 2, so that way we are handling that case too. So on average, we would get a good approximation of the number of components! That was very smart of the authors! I like this approach :) Note that in each case, $\beta \leq 2$.
 
 Computing the variance gives us:
-$$\text{var}(\beta_i) \leq E(\beta_i^2) \leq E(2\beta_i) \leq \frac{2}{n} \sum_{s \in S} \frac{d_{u_i}}{m_{u_i}} \leq \frac{2}{n} 2c = \frac{4c}{n}$$
+$$\text{var}(\beta_i) \leq \mathbb{E}[\beta_i^2] \leq \mathbb{E}[2\beta_i] \leq \frac{2}{n} \sum_{s \in S} \frac{d_{u_i}}{m_{u_i}} \leq \frac{2}{n} 2c = \frac{4c}{n}$$
 
 And for the variance of $\hat{c}$:
 $$\text{var}(\hat{c}) = \text{var}\left(\frac{n}{2r}\sum_{i}\beta_i\right) = \frac{n^2}{4r^2} \cdot r \cdot \text{var}(\beta_i) \leq \frac{nc}{r}$$
 
 The mean of $\hat{c}$ is:
-$$E(\hat{c}) = \frac{n}{2r} \sum_r E(\beta_r) \leq \frac{n}{2r} \frac{2cr}{n} \leq c$$
+$$\mathbb{E}[\hat{c}] = \frac{n}{2r} \sum_r \mathbb{E}[\beta_r] \leq \frac{n}{2r} \frac{2cr}{n} \leq c$$
 
 So the mean is less than $c$, which is kind of what we wanted.
 
-As I have said earlier, in our algorithm only when our degree was more than $d^*$ or the set of vertices visited was more than $W = \frac{\epsilon n}{4}$ did we abort the algorithm. So if $\epsilon$ is small enough, we have $\frac{1}{\epsilon^2} \gg n$, so with very high probability we draw the vertices in $S$. So we count at least $c - \frac{n \epsilon}{4} - \frac{n \epsilon}{4}$. Why? Because the probability that we draw an extreme case vertex is $\epsilon/2$ at most, so with very high probability, if we try to draw $\mathcal{O}(\frac{1}{\epsilon^2})$, we mostly draw the good vertices, so the mean would be $c \geq E(\hat{c}) \geq c - \frac{n \epsilon}{2}$.
+As I have said earlier, in our algorithm only when our degree was more than $d^*$ or the set of vertices visited was more than $W = \frac{\epsilon n}{4}$ did we abort the algorithm. So if $\epsilon$ is small enough, we have $\frac{1}{\epsilon^2} \gg n$, so with very high probability we draw the vertices in $S$. So we count at least $c - \frac{n \epsilon}{4} - \frac{n \epsilon}{4}$. Why? Because the probability that we draw an extreme case vertex is $\epsilon/2$ at most, so with very high probability, if we try to draw $O(\frac{1}{\epsilon^2})$, we mostly draw the good vertices, so the mean would be $c \geq \mathbb{E}[\hat{c}] \geq c - \frac{n \epsilon}{2}$.
 
 ### Chebyshev's Inequality
 
@@ -140,12 +140,12 @@ See it? It is very interesting we ruled out some extreme vertices and started to
 Now let's compute the complexity of it. Notice that in each iteration, BFS meets at most $2^k d_i$ edges, assuming that we see $2^{k-1}d_i$ previously seen edges again. What would be the expected number of meeting new edges be?
 
 Note that it is equal to:
-$$E(\text{edges-met}) = \frac{1}{2}d_i + \frac{1}{4}2d_i + \ldots + \frac{1}{2^{k+1}}2^k d_i$$
+$$\mathbb{E}[\text{edges-met}] = \frac{1}{2}d_i + \frac{1}{4}2d_i + \ldots + \frac{1}{2^{k+1}}2^k d_i$$
 
 We have to notice that a desired component has at most $d^*W$ edges inside it, so hence at most we do this $k = \log(d^*W)$ times. Hence:
-$$E(\text{edges-met}) = \mathcal{O}(d_i \cdot d^*W) = \mathcal{O}\left(\frac{d}{\epsilon^2}\right)$$
+$$\mathbb{E}[\text{edges-met}] = O(d_i \cdot d^*W) = O\left(\frac{d}{\epsilon^2}\right)$$
 
-Hence we run the algorithm for $\mathcal{O}(r)$ vertices, and each time in each iteration we do this $\mathcal{O}\left(\frac{d}{\epsilon^2}\right)$ times:
+Hence we run the algorithm for $O(r)$ vertices, and each time in each iteration we do this $O\left(\frac{d}{\epsilon^2}\right)$ times:
 $$O(r) \cdot \frac{1}{n} \sum_{u \in V} d_u \log(W d^*) = O(dr \log(W d^*)) = O\left(d\varepsilon^{-2} \log \frac{d}{\varepsilon}\right)$$
 
 So we have the following theorem proved:
@@ -156,16 +156,16 @@ So we have the following theorem proved:
 
 Here comes another nice technique that they have used: it could be a good principle instead of doing things at once, make cumulative good approximation in several phases. Now we see an example.
 
-Now we fine-tune the algorithm instead of doing it all at once: we first run $\mathcal{O}(1/\epsilon)$ times.
+Now we fine-tune the algorithm instead of doing it all at once: we first run $O(1/\epsilon)$ times.
 
 By Chebyshev and the previous results:
-$$\Pr\left[ |\hat{c} - E[\hat{c}]| > \frac{E[\hat{c}] + \varepsilon n}{2} \right] < \frac{4nc}{r(c + \varepsilon n/2)^2} \leq \frac{4n}{r(c + \varepsilon n/2)}$$
+$$\Pr\left[ |\hat{c} - \mathbb{E}[\hat{c}]| > \frac{\mathbb{E}[\hat{c}] + \varepsilon n}{2} \right] < \frac{4nc}{r(c + \varepsilon n/2)^2} \leq \frac{4n}{r(c + \varepsilon n/2)}$$
 
 which is arbitrarily small for $r\varepsilon$ large enough. Next, we use this approximation $\hat{c}$ to "improve" the value of $r$. We set $r = A/\varepsilon + A\hat{c}/(\varepsilon^2 n)$ for some large enough constant $A$ and we run the algorithm again, with the effect of producing a second estimate $c^*$. By the previous results:
 
-$$\Pr[ |c^* - E[c^*]| > \varepsilon n/2 ] < \frac{4c}{\varepsilon^2 rn} \leq \frac{8c}{A\varepsilon n + AE[\hat{c}]} \leq \frac{8}{A}$$
+$$\Pr[ |c^* - \mathbb{E}[c^*]| > \varepsilon n/2 ] < \frac{4c}{\varepsilon^2 rn} \leq \frac{8c}{A\varepsilon n + A\mathbb{E}[\hat{c}]} \leq \frac{8}{A}$$
 
-And so, with overwhelming probability, our second estimate $c^*$ of the number of connected components deviates from $c$ by at most $\varepsilon n$ (they designed $r$ in such a way that we would have $A\varepsilon n + AE[\hat{c}]$; we have to remember that this procedure is valid only when $c$ is small, because if $c$ is not small, the $E(\hat{c})$ might deviate from its supposed lower bound which was $c-\frac{n \epsilon}{2}$).
+And so, with overwhelming probability, our second estimate $c^*$ of the number of connected components deviates from $c$ by at most $\varepsilon n$ (they designed $r$ in such a way that we would have $A\varepsilon n + A\mathbb{E}[\hat{c}]$; we have to remember that this procedure is valid only when $c$ is small, because if $c$ is not small, the $\mathbb{E}[\hat{c}]$ might deviate from its supposed lower bound which was $c-\frac{n \epsilon}{2}$).
 
 So we have the following theorem proved in this way:
 
@@ -209,9 +209,9 @@ In the following, we assume that $w/n < 1/2$, since otherwise we might as well c
 **Theorem 6:** Let $w/n < 1/2$. Let $v$ be the weight of the MST of $G$. Algorithm `approx-mst-weight` runs in time $O\left(dw\varepsilon^{-2} \log \frac{dw}{\varepsilon}\right)$ and outputs a value $\hat{v}$ that, with probability at least $3/4$, differs from $v$ by at most $\varepsilon v$.
 
 **Proof:** Let $c = \sum_{i=1}^{w-1} c(i)$. Repeating the previous analysis, we find that the previous results become:
-$$c(i) - \frac{\varepsilon n}{2w} \leq E[\hat{c}(i)] \leq c(i) \quad \text{and} \quad \text{var}(\hat{c}(i)) \leq \frac{nc(i)}{r}$$
+$$c(i) - \frac{\varepsilon n}{2w} \leq \mathbb{E}[\hat{c}(i)] \leq c(i) \quad \text{and} \quad \text{var}(\hat{c}(i)) \leq \frac{nc(i)}{r}$$
 
-By summing over $i$, it follows that $c - \varepsilon n/2 \leq E[\hat{c}] \leq c$ (that's why we set $d^* = \frac{\epsilon n}{4w}$) and $\text{var}(\hat{c}) \leq nc/r$, where $\hat{c} = \sum_{i=1}^{w-1} \hat{c}(i)$.
+By summing over $i$, it follows that $c - \varepsilon n/2 \leq \mathbb{E}[\hat{c}] \leq c$ (that's why we set $d^* = \frac{\epsilon n}{4w}$) and $\text{var}(\hat{c}) \leq nc/r$, where $\hat{c} = \sum_{i=1}^{w-1} \hat{c}(i)$.
 
 Choosing $r\varepsilon^2$ large enough, by Chebyshev we have (notice that we have the term $(n - w + c)$ in the inequality because it equals the weight $v$):
 
@@ -224,7 +224,7 @@ Since the expected running time of each call to `approx-number-connected-compone
 
 ## Approximating Non-integral Weights
 
-Here comes another interesting technique: suppose that you can compute the algorithm for some sort of inputs, then turn any other input to the desired input such that you can have the result back with an error of at most something like $\mathcal{O}(\epsilon)$.
+Here comes another interesting technique: suppose that you can compute the algorithm for some sort of inputs, then turn any other input to the desired input such that you can have the result back with an error of at most something like $O(\epsilon)$.
 
 Suppose the weights of $G$ are all in the range $[1, w]$, but are not necessarily integral. To extend the algorithm to this case, one can multiply all the weights by $1/\varepsilon$ and round each weight to the nearest integer. Then one can run the above algorithm with error parameter $\varepsilon/2$ and with a new range of weights $[1, \lceil w/\varepsilon \rceil]$ to get a value $v'$. Finally, output $\varepsilon v'$. The relative error introduced by the rounding is at most $\varepsilon/2$ per edge in the MST, and hence $\varepsilon/2$ for the whole MST, which gives a total relative error of at most $\varepsilon$. The runtime of the above algorithm is $O\left(dw\varepsilon^{-3} \log \frac{w}{\varepsilon}\right)$.
 
@@ -236,7 +236,7 @@ It uses the classic Yao's minimax principle, and it uses a nice technique to sho
 
 Here comes another of my observations: **IN ORDER TO SHOW THE LOWER BOUND, MAKE SOME ADVERSARIALLY CLOSE DISTRIBUTIONS, AND SOMEHOW HAVE THEM AFFECTING THE INPUT THAT THE ALGORITHM TAKES.**
 
-### Yao's Minimax Principle
+### [Yao's Minimax](https://faculty.cc.gatech.edu/~ssingla7/courses/Spring22/lec8.pdf) Principle
 
 Yao's Minimax Lemma is a very simple, yet powerful tool to prove impossibility results regarding worst-case performance of randomized algorithms, which are not necessarily online. We state it for algorithms that always do something correct, but the profit or cost may vary. Such algorithms are called **Las Vegas algorithms**.
 
@@ -257,7 +257,7 @@ Consider a probabilistic algorithm that, given access to such a random bit strin
 
 **Lemma:** Any probabilistic algorithm that can guess the value of $s$ with a probability of error below $1/4$ requires $\Omega(\varepsilon^{-2}/q)$ bit lookups on average.
 
-**Proof:** By Yao's minimax principle, we may assume that the algorithm is deterministic and that the input is distributed according to $D$. It is intuitively obvious that any algorithm might as well scan $b_1 b_2 \cdots$ until it decides it has seen enough to produce an estimate of $s$ (just like our algorithm where we sample $\mathcal{O}(r)$ samples to estimate the connected components). In other words, there is no need to be adaptive in the choice of bit indices to probe (but the running time itself can be adaptive, and by probing we mean seeing parts of the input or feeding different parts of our input to our algorithm).
+**Proof:** By Yao's minimax principle, we may assume that the algorithm is deterministic and that the input is distributed according to $D$. It is intuitively obvious that any algorithm might as well scan $b_1 b_2 \cdots$ until it decides it has seen enough to produce an estimate of $s$ (just like our algorithm where we sample $O(r)$ samples to estimate the connected components). In other words, there is no need to be adaptive in the choice of bit indices to probe (but the running time itself can be adaptive, and by probing we mean seeing parts of the input or feeding different parts of our input to our algorithm).
 
 To see why is easy: an algorithm can be modeled as a binary tree with a bit index at each node and a $0/1$ label at each edge. An adaptive algorithm may have an arbitrary set of bit indices at the nodes, although we can assume that the same index does not appear twice along any path. Each leaf is naturally associated with a probability, which is that of a random input from $D$ following the path to that leaf. The performance of the algorithm is entirely determined by these probabilities and the corresponding estimates of $s$. Because of the independence of the random $b_is, we can relabel the tree so that each path is a prefix of the same sequence of bit probes $b_1 b_2 \cdots$. This oblivious algorithm has the same performance as the adaptive one. What it means is that suppose you have an arbitrary deterministic algorithm that takes inputs from different indices for example $b_1, b_2, b_7, b_9, \ldots, b_{20}$ just like a decision tree, and goes from the root to leaf based on the possibilities, then we can devise a similar deterministic algorithm which really does the same procedure with the same probability. Hence their expected cost values are all the same, so we can assume that we are just reading the first $n$ inputs, namely 0 and 1.
 
@@ -362,7 +362,7 @@ For values of $d$ smaller than one, we may simply build a graph of the previous 
 
 If $d > 1$, then we may simply add $d \pm O(1)$ self-loops to each vertex in order to bring the average degree up to $d$. Each linked list thus consists of two "cycle" pointers and about $d$ "loop" ones. If we place the cycle pointers at random among the loop ones, then it takes $\Omega(d)$ probes on average to hit a cycle pointer. If we single out the probes involving cycle pointers, it is not hard to argue that the probes involving cycle pointers are, alone, sufficient to solve the connected components problem on the graph deprived of its loops: one expects at most $O(T / d)$ such probes and therefore $T = \Omega(d \varepsilon^{-2})$.
 
-Why? It is also a good technique look at it. We take the simple cycle and add self loops, so we have a case of a graph with average degree $d$. Now, look that we have degree $d$ for each vertex, and notice that for each vertex and its adjacency list, only two pointers to other vertices determine the number of connected components. So the algorithm should work in this way: every $d$ probings gives us a pointer that determines the number of connected components. So then by a total of $\mathcal{O}(T/d)$ times on average we can see the pointers that determine the number of connected components. Hence after that we can run the previous case 1 algorithm, so $T = \Omega(d \varepsilon^{-2})$ probes are needed.
+Why? It is also a good technique look at it. We take the simple cycle and add self loops, so we have a case of a graph with average degree $d$. Now, look that we have degree $d$ for each vertex, and notice that for each vertex and its adjacency list, only two pointers to other vertices determine the number of connected components. So the algorithm should work in this way: every $d$ probings gives us a pointer that determines the number of connected components. So then by a total of $O(T/d)$ times on average we can see the pointers that determine the number of connected components. Hence after that we can run the previous case 1 algorithm, so $T = \Omega(d \varepsilon^{-2})$ probes are needed.
 
 ## Conclusion
 
