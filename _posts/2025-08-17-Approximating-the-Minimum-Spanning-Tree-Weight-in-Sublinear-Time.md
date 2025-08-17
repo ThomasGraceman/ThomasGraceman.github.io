@@ -141,30 +141,6 @@ So we have the following theorem proved:
 **Theorem 2** Let $c$ be the number of components in a graph with $n$ vertices. Then Algorithm approx-number-connected-components runs in time $O\left(d\varepsilon^{-2} \log \frac{d}{\varepsilon}\right)$
  and with probability at least $3/4$ outputs $\hat{c}$ such that $$|c - \hat{c}| \leq \varepsilon n$$. Remember that $3/4$ here is an arbitrary constant. In fact we can get the probability arbitrarily close to $1$ with the right $$\varepsilon$$.
 
-And here comes another nice technique that they have used, namely:
-
-It could be a good principle: instead of doing things at once, make cumulative good approximation in several phases. Now we see an example.
-
-Now we fine tune the algorithm instead of doing it all at once: we first run $O(1/\varepsilon)$ times.
-
-By Chebyshev and (1, 2):
-$$\Pr\left[ |\hat{c} - E[\hat{c}]| > \frac{E[\hat{c}] + \varepsilon n}{2} \right] < \frac{4nc}{r(c + \varepsilon n/2)^2} \leq \frac{4n}{r(c + \varepsilon n/2)}$$
-
-which is arbitrarily small for $r\varepsilon$ large enough. Next, we use this approximation $\hat{c}$ to "improve" the value of $r$. We set $r = A/\varepsilon + A\hat{c}/(\varepsilon^2 n)$ for some large enough constant $A$ and we run the algorithm again, with the effect of producing a second estimate $c^*$. By (2, 3):
-
-$$\begin{align}
-\Pr[ |c^* - E[c^*]| > \varepsilon n/2 ] &< \frac{4c}{\varepsilon^2 rn} \\
-&\leq \frac{8c}{A\varepsilon n + AE[\hat{c}]} \\
-&\leq \frac{8}{A}
-\end{align}$$
-
-and so, with overwhelming probability, our second estimate $c^*$ of the number of connected components deviates from $c$ by at most $\varepsilon n$ (they designed $r$ in such a way that we would have $A\varepsilon n + AE[\hat{c}]$. We have to remember that this procedure is valid only when $c$ is small, because if $c$ is not small the $E(\hat{c})$ might deviate from its supposed lower bound which was $c-\frac{n \varepsilon}{2}$).
-
-So we have the following theorem proved in this way:
-
-**Theorem 2-modified** Let $c$ be the number of components in a graph with $n$ vertices. Then Algorithm approx-number-connected-components runs in time $O\left(\left(\varepsilon + \frac{c}{n}\right)d\varepsilon^{-2} \log \frac{d}{\varepsilon}\right)$ 
-and with probability at least $3/4$ outputs $$\hat{c}$$ such that $$|c - \hat{c}| \leq \varepsilon n$$. Remember that $3/4$ here is an arbitrary constant. In fact we can get the probability arbitrarily close to $1$ with the right $\varepsilon$.
-
 So here comes the main algorithm: they start with an ingenious observation:
 
 And let me explain:
@@ -212,6 +188,31 @@ which is arbitrarily small. It follows that, with high probability, the error on
 $$|v - \hat{v}| = |c - \hat{c}| \leq \frac{\varepsilon n}{2} + \frac{\varepsilon(n - w + c)}{3} \leq \varepsilon v.$$
 
 Since the expected running time of each call to approx-number-connected-components is $O(dr \log(W d^*))$, the total expected running time is $O\left(dw\varepsilon^{-2} \log \frac{dw}{\varepsilon}\right)$.
+
+
+And here comes another nice technique that they have used, namely:
+
+It could be a good principle: instead of doing things at once, make cumulative good approximation in several phases. Now we see an example.
+
+Now we fine tune the algorithm instead of doing it all at once: we first run $O(1/\varepsilon)$ times.
+
+By Chebyshev and (1, 2):
+$$\Pr\left[ |\hat{c} - E[\hat{c}]| > \frac{E[\hat{c}] + \varepsilon n}{2} \right] < \frac{4nc}{r(c + \varepsilon n/2)^2} \leq \frac{4n}{r(c + \varepsilon n/2)}$$
+
+which is arbitrarily small for $r\varepsilon$ large enough. Next, we use this approximation $\hat{c}$ to "improve" the value of $r$. We set $r = A/\varepsilon + A\hat{c}/(\varepsilon^2 n)$ for some large enough constant $A$ and we run the algorithm again, with the effect of producing a second estimate $c^*$. By (2, 3):
+
+$$\begin{align}
+\Pr[ |c^* - E[c^*]| > \varepsilon n/2 ] &< \frac{4c}{\varepsilon^2 rn} \\
+&\leq \frac{8c}{A\varepsilon n + AE[\hat{c}]} \\
+&\leq \frac{8}{A}
+\end{align}$$
+
+and so, with overwhelming probability, our second estimate $c^*$ of the number of connected components deviates from $c$ by at most $\varepsilon n$ (they designed $r$ in such a way that we would have $A\varepsilon n + AE[\hat{c}]$. We have to remember that this procedure is valid only when $c$ is small, because if $c$ is not small the $E(\hat{c})$ might deviate from its supposed lower bound which was $c-\frac{n \varepsilon}{2}$).
+
+So we have the following theorem proved in this way:
+
+**Theorem 2-modified** Let $c$ be the number of components in a graph with $n$ vertices. Then Algorithm approx-number-connected-components runs in time $O\left(\left(\varepsilon + \frac{c}{n}\right)d\varepsilon^{-2} \log \frac{d}{\varepsilon}\right)$ 
+and with probability at least $3/4$ outputs $$\hat{c}$$ such that $$|c - \hat{c}| \leq \varepsilon n$$. Remember that $3/4$ here is an arbitrary constant. In fact we can get the probability arbitrarily close to $1$ with the right $\varepsilon$.
 
 ## Approximating Nonintegral Weights
 
