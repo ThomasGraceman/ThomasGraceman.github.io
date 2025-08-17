@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Approximating the Minimum Spanning Tree Weight in Sublinear Time"
-date: 2025-01-17
+date: 2025-08-17
 categories: [algorithms, graph-theory, sublinear-algorithms]
 tags: [minimum-spanning-tree, approximation-algorithms, luca-trevisan, sublinear-time]
 author: [taha hoseinpour asli]
@@ -15,7 +15,7 @@ This is one of the earlier papers in sublinear algorithms and definitely a class
 
 As they point out in their paper:
 
-> In this paper, we show that there are conditions under which it is possible to approximate the weight of the MST of a connected graph in time sublinear in the number of edges. We give an algorithm which approximates the MST of a graph $G$ to within a multiplicative factor of $1 + \varepsilon$ and runs in time $O\left(dw\varepsilon^{-2} \log \frac{dw}{\varepsilon}\right)$ for any $G$ with average degree $d$ and edge weights in the set $\{1, \ldots, w\}$. The algorithm requires no prior information about the graph besides $w$ and $n$; in particular, the average degree is assumed to be unknown. The relative error $\varepsilon$ ($0 < \varepsilon < 1/2$) is specified as an input parameter. Note that if $d$ and $\varepsilon$ are constant and the ratios of the edge weights are bounded, then the algorithm runs in constant time. We also extend our algorithm to the case where $G$ has nonintegral weights in the range $[1, w]$, achieving a comparable runtime with a somewhat worse dependence on $\varepsilon$.
+> In this paper, we show that there are conditions under which it is possible to approximate the weight of the MST of a connected graph in time sublinear in the number of edges. We give an algorithm which approximates the MST of a graph $$G$$ to within a multiplicative factor of $$1 + \varepsilon$$ and runs in time $$O\left(dw\varepsilon^{-2} \log \frac{dw}{\varepsilon}\right)$$ for any $$G$$ with average degree $$d$$ and edge weights in the set $$\{1, \ldots, w\}$$. The algorithm requires no prior information about the graph besides $$w$$ and $$n$$; in particular, the average degree is assumed to be unknown. The relative error $$\varepsilon$$ ($$0 < \varepsilon < 1/2$$) is specified as an input parameter. Note that if $$d$$ and $$\varepsilon$$ are constant and the ratios of the edge weights are bounded, then the algorithm runs in constant time. We also extend our algorithm to the case where $$G$$ has nonintegral weights in the range $$[1, w]$$, achieving a comparable runtime with a somewhat worse dependence on $$\varepsilon$$.
 
 ## Approximating Connected Components
 
@@ -71,7 +71,7 @@ So assume that $d^*$ is not in the first $\epsilon n$ highest degrees. Then each
 
 Now we devise a lower bound: assume that the probability that $d^*$ doesn't lie within the first $\epsilon \frac{n}{C^2}$ is $(1-\epsilon/C^2)^{C/\epsilon} \geq e^{-2/C} \geq 1 - 2/C$. So with very high probability, the position $\rho$ of $d^*$ lies between $\epsilon \frac{n}{C^2}$ and $\epsilon n$, hence $\rho = \Theta(\epsilon n)$. Hence we have the following lemma proved:
 
-**Lemma 4.** In $O(d/\varepsilon)$ expected time, we can compute a vertex degree $d^*$ that, with high probability, is the $k$-th largest vertex degree, for some $k = \Theta(\varepsilon n)$.
+**Lemma 4:** In $O(d/\varepsilon)$ expected time, we can compute a vertex degree $d^*$ that, with high probability, is the $k$-th largest vertex degree, for some $k = \Theta(\varepsilon n)$.
 
 Also note that we have $d^* = \mathcal{O}(\frac{d}{\epsilon})$. To see that we have $\Omega(\epsilon n)$, so $\frac{\sum_{u \in G}d_u}{n} = d \geq \rho \frac{d^*}{n} = \epsilon n \frac{d^*}{n}$, then $d \geq \epsilon d^*$, so $d^* \leq \frac{d}{\epsilon} = \mathcal{O}(\frac{d}{\epsilon})$. And if we scale $\epsilon$ properly, with very high probability we have that only $\epsilon \frac{n}{4}$ vertices have higher degree than $d^*$.
 
@@ -94,18 +94,18 @@ Let $S$ denote the set of vertices that lie in components with fewer than $W$ ve
 Now we want to compute $E(\beta_i)$. There are two cases: one where BFS completes and the second where we abort for whatever reason. In the latter, $\beta_i = 0$, so it doesn't affect the mean. In the former, if BFS completes, we flip the coin at least $\frac{m_i}{d_i}$ times, because each time we are doubling the number of new edges visited. So $2^t d_i \geq m_i$ number of visited edges for the BFS to be complete, so $t \geq \log(\frac{m_i}{d_i})$.
 
 The expected value would be:
-$$\mathbb{E}(\beta_i) = \sum_{s \in S} \frac{1}{n} 2^{-\log(\frac{m_i}{d_i})} 2^{\log(\frac{m_i}{d_i})}\frac{d_i}{m_i} \leq \frac{2c}{n}$$
+$$E(\beta_i) = \sum_{s \in S} \frac{1}{n} 2^{-\log(\frac{m_i}{d_i})} 2^{\log(\frac{m_i}{d_i})}\frac{d_i}{m_i} \leq \frac{2c}{n}$$
 
 So the mean of $\beta_i = \frac{d_i}{m_i}$. Actually, what we were doing now is making sense! Because we are setting $\beta$ in a sense that on average we would get a value akin to $\frac{d_i}{m_i}$. In the case that $m_i = 0$, we would flip a coin and get a 2, so that way we are handling that case too. So on average, we would get a good approximation of the number of components! That was very smart of the authors! I like this approach :) Note that in each case, $\beta \leq 2$.
 
 Computing the variance gives us:
-$$\text{var}(\beta_i) \leq \mathbb{E}(\beta_i^2) \leq \mathbb{E}(2\beta_i) \leq \frac{2}{n} \sum_{s \in S} \frac{d_{u_i}}{m_{u_i}} \leq \frac{2}{n} 2c = \frac{4c}{n}$$
+$$\text{var}(\beta_i) \leq E(\beta_i^2) \leq E(2\beta_i) \leq \frac{2}{n} \sum_{s \in S} \frac{d_{u_i}}{m_{u_i}} \leq \frac{2}{n} 2c = \frac{4c}{n}$$
 
 And for the variance of $\hat{c}$:
 $$\text{var}(\hat{c}) = \text{var}\left(\frac{n}{2r}\sum_{i}\beta_i\right) = \frac{n^2}{4r^2} \cdot r \cdot \text{var}(\beta_i) \leq \frac{nc}{r}$$
 
 The mean of $\hat{c}$ is:
-$$\mathbb{E}(\hat{c}) = \frac{n}{2r} \sum_r \mathbb{E}(\beta_r) \leq \frac{n}{2r} \frac{2cr}{n} \leq c$$
+$$E(\hat{c}) = \frac{n}{2r} \sum_r E(\beta_r) \leq \frac{n}{2r} \frac{2cr}{n} \leq c$$
 
 So the mean is less than $c$, which is kind of what we wanted.
 
@@ -115,7 +115,7 @@ As I have said earlier, in our algorithm only when our degree was more than $d^*
 
 The **fifth thing** that I have learned is that Chebyshev is a very good friend of ours!
 
-**Chebyshev's Inequality.** For any random variable $X$ with finite mean $\mu$ and variance $\sigma^2$, and for any $k > 0$:
+**Chebyshev's Inequality:** For any random variable $X$ with finite mean $\mu$ and variance $\sigma^2$, and for any $k > 0$:
 
 $$\Pr[|X - \mu| \geq k] \leq \frac{\sigma^2}{k^2}$$
 
@@ -129,7 +129,7 @@ In terms of standard deviations:
 $$\Pr[|X - \mu| \geq k\sigma] \leq \frac{1}{k^2}$$
 
 So now we have:
-$$\Pr\left[ |\hat{c} - \mathbb{E}[\hat{c}]| > \varepsilon n/2 \right] < \frac{\text{var}(\hat{c})}{(\varepsilon n/2)^2} \leq \frac{4c}{\varepsilon^2 rn}$$
+$$\Pr\left[ |\hat{c} - E[\hat{c}]| > \varepsilon n/2 \right] < \frac{\text{var}(\hat{c})}{(\varepsilon n/2)^2} \leq \frac{4c}{\varepsilon^2 rn}$$
 
 Choosing $r = O(1/\varepsilon^2)$ ensures that, with constant probability arbitrarily close to 1, our estimate $\hat{c}$ of the number of connected components deviates from the actual value by at most $\varepsilon n$.
 
@@ -150,7 +150,7 @@ $$O(r) \cdot \frac{1}{n} \sum_{u \in V} d_u \log(W d^*) = O(dr \log(W d^*)) = O\
 
 So we have the following theorem proved:
 
-**Theorem 2.** Let $c$ be the number of components in a graph with $n$ vertices. Then Algorithm `approx-number-connected-components` runs in time $O\left(d\varepsilon^{-2} \log \frac{d}{\varepsilon}\right)$ and with probability at least $3/4$ outputs $\hat{c}$ such that $|c - \hat{c}| \leq \varepsilon n$. Remember that $3/4$ here is an arbitrary constant. In fact, we can get the probability arbitrarily close to 1 with the right $\epsilon$.
+**Theorem 2:** Let $c$ be the number of components in a graph with $n$ vertices. Then Algorithm `approx-number-connected-components` runs in time $O\left(d\varepsilon^{-2} \log \frac{d}{\varepsilon}\right)$ and with probability at least $3/4$ outputs $\hat{c}$ such that $|c - \hat{c}| \leq \varepsilon n$. Remember that $3/4$ here is an arbitrary constant. In fact, we can get the probability arbitrarily close to 1 with the right $\epsilon$.
 
 ### Iterative Improvement
 
@@ -159,17 +159,17 @@ Here comes another nice technique that they have used: it could be a good princi
 Now we fine-tune the algorithm instead of doing it all at once: we first run $\mathcal{O}(1/\epsilon)$ times.
 
 By Chebyshev and the previous results:
-$$\Pr\left[ |\hat{c} - \mathbb{E}[\hat{c}]| > \frac{\mathbb{E}[\hat{c}] + \varepsilon n}{2} \right] < \frac{4nc}{r(c + \varepsilon n/2)^2} \leq \frac{4n}{r(c + \varepsilon n/2)}$$
+$$\Pr\left[ |\hat{c} - E[\hat{c}]| > \frac{E[\hat{c}] + \varepsilon n}{2} \right] < \frac{4nc}{r(c + \varepsilon n/2)^2} \leq \frac{4n}{r(c + \varepsilon n/2)}$$
 
 which is arbitrarily small for $r\varepsilon$ large enough. Next, we use this approximation $\hat{c}$ to "improve" the value of $r$. We set $r = A/\varepsilon + A\hat{c}/(\varepsilon^2 n)$ for some large enough constant $A$ and we run the algorithm again, with the effect of producing a second estimate $c^*$. By the previous results:
 
-$$\Pr[ |c^* - \mathbb{E}[c^*]| > \varepsilon n/2 ] < \frac{4c}{\varepsilon^2 rn} \leq \frac{8c}{A\varepsilon n + A\mathbb{E}[\hat{c}]} \leq \frac{8}{A}$$
+$$\Pr[ |c^* - E[c^*]| > \varepsilon n/2 ] < \frac{4c}{\varepsilon^2 rn} \leq \frac{8c}{A\varepsilon n + AE[\hat{c}]} \leq \frac{8}{A}$$
 
-And so, with overwhelming probability, our second estimate $c^*$ of the number of connected components deviates from $c$ by at most $\varepsilon n$ (they designed $r$ in such a way that we would have $A\varepsilon n + A\mathbb{E}[\hat{c}]$; we have to remember that this procedure is valid only when $c$ is small, because if $c$ is not small, the $\mathbb{E}(\hat{c})$ might deviate from its supposed lower bound which was $c-\frac{n \epsilon}{2}$).
+And so, with overwhelming probability, our second estimate $c^*$ of the number of connected components deviates from $c$ by at most $\varepsilon n$ (they designed $r$ in such a way that we would have $A\varepsilon n + AE[\hat{c}]$; we have to remember that this procedure is valid only when $c$ is small, because if $c$ is not small, the $E(\hat{c})$ might deviate from its supposed lower bound which was $c-\frac{n \epsilon}{2}$).
 
 So we have the following theorem proved in this way:
 
-**Theorem 2 (Improved).** Let $c$ be the number of components in a graph with $n$ vertices. Then Algorithm `approx-number-connected-components` runs in time $O\left(\left(\varepsilon + \frac{c}{n}\right)d\varepsilon^{-2} \log \frac{d}{\varepsilon}\right)$ and with probability at least $3/4$ outputs $\hat{c}$ such that $|c - \hat{c}| \leq \varepsilon n$. Remember that $3/4$ here is an arbitrary constant. In fact, we can get the probability arbitrarily close to 1 with the right $\epsilon$.
+**Theorem 2 (Improved):** Let $c$ be the number of components in a graph with $n$ vertices. Then Algorithm `approx-number-connected-components` runs in time $O\left(\left(\varepsilon + \frac{c}{n}\right)d\varepsilon^{-2} \log \frac{d}{\varepsilon}\right)$ and with probability at least $3/4$ outputs $\hat{c}$ such that $|c - \hat{c}| \leq \varepsilon n$. Remember that $3/4$ here is an arbitrary constant. In fact, we can get the probability arbitrarily close to 1 with the right $\epsilon$.
 
 ## The Main Algorithm
 
@@ -179,7 +179,7 @@ Suppose that we have the subgraph where we only keep edges that have weight 1. I
 
 We have the following theorem:
 
-**Claim 5.** For integer $w \geq 2$,
+**Claim 5:** For integer $w \geq 2$,
 $$M(G) = n - w + \sum_{i=1}^{w-1} c(i)$$
 
 **Proof:** Let $\alpha_i$ be the number of edges of weight $i$ in an MST of $G$. (Note that $\alpha_i$ is independent of which MST we choose.) Observe that for all $0 \leq \ell \leq w - 1$, $\sum_{i>\ell} \alpha_i = c(\ell) - 1$, therefore:
@@ -206,18 +206,18 @@ Our algorithm approximates the value of the MST by estimating each of the $c(\el
 
 In the following, we assume that $w/n < 1/2$, since otherwise we might as well compute the MST explicitly, which can be done in $O(dn)$ time with high probability.
 
-**Theorem 6.** Let $w/n < 1/2$. Let $v$ be the weight of the MST of $G$. Algorithm `approx-mst-weight` runs in time $O\left(dw\varepsilon^{-2} \log \frac{dw}{\varepsilon}\right)$ and outputs a value $\hat{v}$ that, with probability at least $3/4$, differs from $v$ by at most $\varepsilon v$.
+**Theorem 6:** Let $w/n < 1/2$. Let $v$ be the weight of the MST of $G$. Algorithm `approx-mst-weight` runs in time $O\left(dw\varepsilon^{-2} \log \frac{dw}{\varepsilon}\right)$ and outputs a value $\hat{v}$ that, with probability at least $3/4$, differs from $v$ by at most $\varepsilon v$.
 
 **Proof:** Let $c = \sum_{i=1}^{w-1} c(i)$. Repeating the previous analysis, we find that the previous results become:
-$$c(i) - \frac{\varepsilon n}{2w} \leq \mathbb{E}[\hat{c}(i)] \leq c(i) \quad \text{and} \quad \text{var}(\hat{c}(i)) \leq \frac{nc(i)}{r}$$
+$$c(i) - \frac{\varepsilon n}{2w} \leq E[\hat{c}(i)] \leq c(i) \quad \text{and} \quad \text{var}(\hat{c}(i)) \leq \frac{nc(i)}{r}$$
 
-By summing over $i$, it follows that $c - \varepsilon n/2 \leq \mathbb{E}[\hat{c}] \leq c$ (that's why we set $d^* = \frac{\epsilon n}{4w}$) and $\text{var}(\hat{c}) \leq nc/r$, where $\hat{c} = \sum_{i=1}^{w-1} \hat{c}(i)$.
+By summing over $i$, it follows that $c - \varepsilon n/2 \leq E[\hat{c}] \leq c$ (that's why we set $d^* = \frac{\epsilon n}{4w}$) and $\text{var}(\hat{c}) \leq nc/r$, where $\hat{c} = \sum_{i=1}^{w-1} \hat{c}(i)$.
 
 Choosing $r\varepsilon^2$ large enough, by Chebyshev we have (notice that we have the term $(n - w + c)$ in the inequality because it equals the weight $v$):
 
-$$\Pr\left[ |\hat{c} - \mathbb{E}[\hat{c}]| > \frac{(n - w + c)\varepsilon}{3} \right] < \frac{9nc}{r\varepsilon^2(n - w + c)^2}$$
+$$\Pr\left[ |\hat{c} - E[\hat{c}]| > \frac{(n - w + c)\varepsilon}{3} \right] < \frac{9nc}{r\varepsilon^2(n - w + c)^2}$$
 
-which is arbitrarily small. It follows that, with high probability, the error on the estimate satisfies ($\frac{\epsilon n}{2}$ is there to account for the deviation of the mean of $\mathbb{E}(\hat{c})$):
+which is arbitrarily small. It follows that, with high probability, the error on the estimate satisfies ($\frac{\epsilon n}{2}$ is there to account for the deviation of the mean of $E(\hat{c})$):
 $$|v - \hat{v}| = |c - \hat{c}| \leq \frac{\varepsilon n}{2} + \frac{\varepsilon(n - w + c)}{3} \leq \varepsilon v$$
 
 Since the expected running time of each call to `approx-number-connected-components` is $O(dr \log(W d^*))$, the total expected running time is $O\left(dw\varepsilon^{-2} \log \frac{dw}{\varepsilon}\right)$.
@@ -242,7 +242,7 @@ Yao's Minimax Lemma is a very simple, yet powerful tool to prove impossibility r
 
 We assume that we have a class of deterministic algorithms $\mathcal{A}$ and a class of instances $\mathcal{X}$. Algorithm $a \in \mathcal{A}$ on instance $x \in \mathcal{X}$ incurs cost $c(a, x) \in \mathbb{R}$. A randomized algorithm is simply a probability distribution over the set of deterministic algorithms $\mathcal{A}$.
 
-**Theorem (Yao's Minimax Lemma).** Let $A$ be any random variable with values in $\mathcal{A}$ and let $X$ be any random variable with values in $\mathcal{X}$. Then,
+**Theorem (Yao's Minimax Lemma):** Let $A$ be any random variable with values in $\mathcal{A}$ and let $X$ be any random variable with values in $\mathcal{X}$. Then,
 $$\max_{x \in \mathcal{X}} \mathbb{E}[c(A, x)] \geq \min_{a \in \mathcal{A}} \mathbb{E}[c(a, X)]$$
 
 The left-hand side is the worst-case performance of the randomized algorithm $A$. The right-hand side will be easier to talk about, because algorithms are deterministic. This is a sort of average-case performance of the best deterministic algorithm in our class.
@@ -255,7 +255,7 @@ For any $0 < q \leq 1/2$ and $s = 0, 1$, let $D^s_q$ denote the distribution ind
 
 Consider a probabilistic algorithm that, given access to such a random bit string, outputs an estimate on the value of $s$. How well can it do? Notice that we are devising two arbitrarily close different distributions!
 
-**Lemma.** Any probabilistic algorithm that can guess the value of $s$ with a probability of error below $1/4$ requires $\Omega(\varepsilon^{-2}/q)$ bit lookups on average.
+**Lemma:** Any probabilistic algorithm that can guess the value of $s$ with a probability of error below $1/4$ requires $\Omega(\varepsilon^{-2}/q)$ bit lookups on average.
 
 **Proof:** By Yao's minimax principle, we may assume that the algorithm is deterministic and that the input is distributed according to $D$. It is intuitively obvious that any algorithm might as well scan $b_1 b_2 \cdots$ until it decides it has seen enough to produce an estimate of $s$ (just like our algorithm where we sample $\mathcal{O}(r)$ samples to estimate the connected components). In other words, there is no need to be adaptive in the choice of bit indices to probe (but the running time itself can be adaptive, and by probing we mean seeing parts of the input or feeding different parts of our input to our algorithm).
 
@@ -327,7 +327,7 @@ Note that by choosing $\gamma_0$ small enough, we can always assume that $\alpha
 
 Now let's prove the following theorem:
 
-**Theorem.** Given a graph with $n$ vertices and average degree $d$, any probabilistic algorithm for approximating the number of connected components with an additive error of $\varepsilon n$ requires $\Omega(d\varepsilon^{-2})$ edge lookups on average. It is assumed that $C/\sqrt{n} < \varepsilon < 1/2$, for some large enough constant $C$.
+**Theorem:** Given a graph with $n$ vertices and average degree $d$, any probabilistic algorithm for approximating the number of connected components with an additive error of $\varepsilon n$ requires $\Omega(d\varepsilon^{-2})$ edge lookups on average. It is assumed that $C/\sqrt{n} < \varepsilon < 1/2$, for some large enough constant $C$.
 
 **Proof:** Consider the graph $G$ consisting of a simple cycle of $n$ vertices $v_1,\ldots,v_n$. Pick $s\in\{0,1\}$ at random and take a random $n$-bit string $b_1\cdots b_n$ with bits drawn independently from $D^{(s)}_{1/2}$. Next, remove from $G$ any edge $(v_i, v_{i+1 \bmod n})$ if $b_i=0$. Because $\varepsilon > C/\sqrt{n}$, the standard deviation of the number of components, which is $\Theta(\sqrt{n})$, is sufficiently smaller than $\varepsilon n$.
 
@@ -343,16 +343,16 @@ Let $K = \#\{i : b_i = 0\}$ be the number of removed edges. Then the number of c
 Hence we can read off the mean and variance from the binomial $K \sim \mathrm{Bin}(n, 1-q_s)$.
 
 **Mean:** We have:
-$$\mathbb{E}[C] = \mathbb{E}[K] + \Pr[K=0]\cdot (1-0) = n(1-q_s) + o(1) = \frac{n}{2}(1 - (-1)^s \varepsilon) + o(1)$$
+$\mathbb{E}[C] = \mathbb{E}[K] + \Pr[K=0]\cdot (1-0) = n(1-q_s) + o(1) = \frac{n}{2}(1 - (-1)^s \varepsilon) + o(1)$
 
 In particular, the two cases differ by:
-$$\mathbb{E}[C \mid s=1] - \mathbb{E}[C \mid s=0] = n \varepsilon$$
+$\mathbb{E}[C \mid s=1] - \mathbb{E}[C \mid s=0] = n \varepsilon$
 
 **Standard deviation:** Similarly:
-$$\operatorname{sd}(C) = \sqrt{\operatorname{Var}(K)} + o(1) = \sqrt{n q_s (1-q_s)} + o(1) = \sqrt{\frac{n}{4}(1-\varepsilon^2)} + o(1) = \Theta(\sqrt{n})$$
+$\operatorname{sd}(C) = \sqrt{\operatorname{Var}(K)} + o(1) = \sqrt{n q_s (1-q_s)} + o(1) = \sqrt{\frac{n}{4}(1-\varepsilon^2)} + o(1) = \Theta(\sqrt{n})$
 
 because $\epsilon^2$ is sufficiently smaller than 1. Since $\varepsilon > \frac{C}{\sqrt{n}}$, the gap in expectations:
-$$\mathbb{E}[C \mid s=1] - \mathbb{E}[C \mid s=0] = n \varepsilon$$
+$\mathbb{E}[C \mid s=1] - \mathbb{E}[C \mid s=0] = n \varepsilon$
 
 is much larger than the standard deviation $\operatorname{sd}(C) = \Theta(\sqrt{n})$.
 
