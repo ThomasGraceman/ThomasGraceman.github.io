@@ -59,7 +59,7 @@ So just forget about the algorithm for a second! First, let us approximate the a
 
 Let $C$ be some large constant, then let us pick $\frac{C}{\epsilon}$ vertices from our graph $G$ at random. We count each of those vertices' degrees and pick the maximum among them and set that equal to $d^*$. In order to find the degree of each vertex, we must make $\mathcal{O}(d)$ operations on average (since each vertex on average has $d$ degrees). So in an amortized sense, to count each degree is going to take $\mathcal{O}(d)$ time, so that makes the expected running time to be $\mathcal{O}(C\frac{d}{\epsilon}) = \mathcal{O}(\frac{d}{\epsilon})$.
 
-Imagine that we have each degree sorted in a non-increasing manner—for example, the highest degree is the first one and so on. We let the place that our maximum degree takes to be $\rho$. For example, if our degree is the third highest degree, then $\rho = 3$. We will show that with high probability we have that $\rho = \Theta(\epsilon n)$, where $n$ is the number of vertices.
+Imagine that we have each degree sorted in a non-increasing manner for example, the highest degree is the first one and so on. We let the place that our maximum degree takes to be $\rho$. For example, if our degree is the third highest degree, then $\rho = 3$. We will show that with high probability we have that $\rho = \Theta(\epsilon n)$, where $n$ is the number of vertices.
 
 Before proving this, we first have to know certain inequalities. Here comes the **second principle** of devising a good approximation algorithm: know thy inequalities! Devising sublinear algorithms seems to be the art of approximating with high probabilities of certainty.
 
@@ -87,7 +87,7 @@ So that leads me to the **fourth principle** that I really find intuitive: **RUL
 
 So let's get to the algorithm. We sample $r = \mathcal{O}(\frac{1}{\epsilon^2})$ vertices at random uniformly. We have vertices $u_1, \ldots, u_r$. For each vertex $u_i$, we set $\beta_i$ to be equal to zero, then we flip a coin, and if the conditions were satisfied (spoiler: in the condition we are ruling out the extreme cases!), then take the first step of a BFS from $u_i$. By the first step, the authors clarified that it is visiting vertex $u_i$ and its $d_{u_i}$ neighbors.
 
-Then each other time, resume BFS to double the number of visited edges, till we complete the algorithm—namely, seeing every vertex in a component. Then we set the parameters! And then we aggregate a set of approximated parameters to approximate $c$, namely $\hat{c}$.
+Then each other time, resume BFS to double the number of visited edges, till we complete the algorithm namely, seeing every vertex in a component. Then we set the parameters! And then we aggregate a set of approximated parameters to approximate $c$, namely $\hat{c}$.
 
 Let $S$ denote the set of vertices that lie in components with fewer than $W$ vertices, all of which are of degree at most $d^*$. We have $|S| \leq n$.
 
@@ -133,7 +133,7 @@ $$\Pr\left[ |\hat{c} - E[\hat{c}]| > \varepsilon n/2 \right] < \frac{\text{var}(
 
 Choosing $r = O(1/\varepsilon^2)$ ensures that, with constant probability arbitrarily close to 1, our estimate $\hat{c}$ of the number of connected components deviates from the actual value by at most $\varepsilon n$.
 
-See it? It is very interesting—we ruled out some extreme vertices and started to count the good ones, so now with very high probability we get a good approximation of the number of connected components, and that's cool.
+See it? It is very interesting we ruled out some extreme vertices and started to count the good ones, so now with very high probability we get a good approximation of the number of connected components, and that's cool.
 
 ### Complexity Analysis
 
@@ -154,7 +154,7 @@ So we have the following theorem proved:
 
 ### Iterative Improvement
 
-Here comes another nice technique that they have used: it could be a good principle—instead of doing things at once, make cumulative good approximation in several phases. Now we see an example.
+Here comes another nice technique that they have used: it could be a good principle instead of doing things at once, make cumulative good approximation in several phases. Now we see an example.
 
 Now we fine-tune the algorithm instead of doing it all at once: we first run $\mathcal{O}(1/\epsilon)$ times.
 
@@ -259,7 +259,7 @@ Consider a probabilistic algorithm that, given access to such a random bit strin
 
 **Proof:** By Yao's minimax principle, we may assume that the algorithm is deterministic and that the input is distributed according to $D$. It is intuitively obvious that any algorithm might as well scan $b_1 b_2 \cdots$ until it decides it has seen enough to produce an estimate of $s$ (just like our algorithm where we sample $\mathcal{O}(r)$ samples to estimate the connected components). In other words, there is no need to be adaptive in the choice of bit indices to probe (but the running time itself can be adaptive, and by probing we mean seeing parts of the input or feeding different parts of our input to our algorithm).
 
-To see why is easy: an algorithm can be modeled as a binary tree with a bit index at each node and a $0/1$ label at each edge. An adaptive algorithm may have an arbitrary set of bit indices at the nodes, although we can assume that the same index does not appear twice along any path. Each leaf is naturally associated with a probability, which is that of a random input from $D$ following the path to that leaf. The performance of the algorithm is entirely determined by these probabilities and the corresponding estimates of $s$. Because of the independence of the random $b_is, we can relabel the tree so that each path is a prefix of the same sequence of bit probes $b_1 b_2 \cdots$. This oblivious algorithm has the same performance as the adaptive one. What it means is that suppose you have an arbitrary deterministic algorithm that takes inputs from different indices—for example $b_1, b_2, b_7, b_9, \ldots, b_{20}$—just like a decision tree, and goes from the root to leaf based on the possibilities, then we can devise a similar deterministic algorithm which really does the same procedure with the same probability. Hence their expected cost values are all the same, so we can assume that we are just reading the first $n$ inputs, namely 0 and 1.
+To see why is easy: an algorithm can be modeled as a binary tree with a bit index at each node and a $0/1$ label at each edge. An adaptive algorithm may have an arbitrary set of bit indices at the nodes, although we can assume that the same index does not appear twice along any path. Each leaf is naturally associated with a probability, which is that of a random input from $D$ following the path to that leaf. The performance of the algorithm is entirely determined by these probabilities and the corresponding estimates of $s$. Because of the independence of the random $b_is, we can relabel the tree so that each path is a prefix of the same sequence of bit probes $b_1 b_2 \cdots$. This oblivious algorithm has the same performance as the adaptive one. What it means is that suppose you have an arbitrary deterministic algorithm that takes inputs from different indices for example $b_1, b_2, b_7, b_9, \ldots, b_{20}$ just like a decision tree, and goes from the root to leaf based on the possibilities, then we can devise a similar deterministic algorithm which really does the same procedure with the same probability. Hence their expected cost values are all the same, so we can assume that we are just reading the first $n$ inputs, namely 0 and 1.
 
 We can go one step further and assume that the running time is the same for all inputs. Let $t^*$ be the expected number of probes, and let $0 < \alpha < 1$ be a small constant. With probability at most $\alpha$, a random input takes time $\geq t \stackrel{\text{def}}{=} t^*/\alpha$ because by Markov's inequality we have:
 $P(X \geq a) \leq \frac{E[X]}{a}$
@@ -312,7 +312,7 @@ This shows that $p^s(k) = \Omega(1/\sqrt{qt})$ over an interval $I_s$ of length 
 
 Note $|\mu_0 - \mu_1| = t|q_0 - q_1| = 2tq\epsilon$.
 
-If $qt\varepsilon^2$ is smaller than a suitable constant $\gamma_0$, then $|tq_0 - tq_1|$ is small enough that $I_0 \cap I_1$ is itself an interval of length $\Omega(\sqrt{qt})$ (this is an intuitive result—make sure to derive it yourself; working it out is easy).
+If $qt\varepsilon^2$ is smaller than a suitable constant $\gamma_0$, then $|tq_0 - tq_1|$ is small enough that $I_0 \cap I_1$ is itself an interval of length $\Omega(\sqrt{qt})$ (this is an intuitive result make sure to derive it yourself; working it out is easy).
 
 So the indistinguishable area is $I_0 \cap I_1$ and its expected value is greater than:
 $\int_{I_0 \cap I_1} p^s(k)dk \geq \Omega(1/\sqrt{qt}) \cdot \Omega(\sqrt{qt}) = \Omega(1)$
@@ -362,7 +362,7 @@ For values of $d$ smaller than one, we may simply build a graph of the previous 
 
 If $d > 1$, then we may simply add $d \pm O(1)$ self-loops to each vertex in order to bring the average degree up to $d$. Each linked list thus consists of two "cycle" pointers and about $d$ "loop" ones. If we place the cycle pointers at random among the loop ones, then it takes $\Omega(d)$ probes on average to hit a cycle pointer. If we single out the probes involving cycle pointers, it is not hard to argue that the probes involving cycle pointers are, alone, sufficient to solve the connected components problem on the graph deprived of its loops: one expects at most $O(T / d)$ such probes and therefore $T = \Omega(d \varepsilon^{-2})$.
 
-Why? It is also a good technique—look at it. We take the simple cycle and add self loops, so we have a case of a graph with average degree $d$. Now, look that we have degree $d$ for each vertex, and notice that for each vertex and its adjacency list, only two pointers to other vertices determine the number of connected components. So the algorithm should work in this way: every $d$ probings gives us a pointer that determines the number of connected components. So then by a total of $\mathcal{O}(T/d)$ times on average we can see the pointers that determine the number of connected components. Hence after that we can run the previous case 1 algorithm, so $T = \Omega(d \varepsilon^{-2})$ probes are needed.
+Why? It is also a good technique look at it. We take the simple cycle and add self loops, so we have a case of a graph with average degree $d$. Now, look that we have degree $d$ for each vertex, and notice that for each vertex and its adjacency list, only two pointers to other vertices determine the number of connected components. So the algorithm should work in this way: every $d$ probings gives us a pointer that determines the number of connected components. So then by a total of $\mathcal{O}(T/d)$ times on average we can see the pointers that determine the number of connected components. Hence after that we can run the previous case 1 algorithm, so $T = \Omega(d \varepsilon^{-2})$ probes are needed.
 
 ## Conclusion
 
@@ -382,8 +382,3 @@ This paper presents a fascinating approach to approximating minimum spanning tre
 
 7. **Lower bounds via indistinguishable distributions**: Create adversarially close distributions to prove impossibility results.
 
-The elegant connection between connected components and MST weight through the formula $M(G) = n - w + \sum_{i=1}^{w-1} c(i)$ is what makes the entire approach work. By reducing the MST problem to multiple connected components problems, the authors achieve a remarkable sublinear-time approximation algorithm.
-
-The lower bound analysis using Yao's minimax principle and the construction of indistinguishable distributions shows the fundamental limits of what's possible in this setting. The technique of using cycles with randomly removed edges to create hard instances is particularly clever.
-
-Overall, this paper showcases the beauty of sublinear algorithms—achieving meaningful approximations while reading only a small fraction of the input. It's a testament to the power of combining the right mathematical tools with clever algorithmic insights.
