@@ -331,9 +331,11 @@ So with high probability we have that $p^s(k) \geq \Omega(\frac{1}{\sqrt{qt}})$.
 
 This shows that $p^s(k) = \Omega(1/\sqrt{qt})$ over an interval $I_s$ of length $\Omega(\sqrt{qt})$ centered at $tq_s$.
 
-Note $$|\mu_0 - \mu_1| = t|q_0 - q_1| = 2tq\varepsilon$$.
+Note 
+$$|\mu_0 - \mu_1| = t|q_0 - q_1| = 2tq\varepsilon$$.
 
-So if $qt\varepsilon^2$ is smaller than a suitable constant $\gamma_0$, then $|tq_0 - tq_1|$ is small enough that $I_0 \cap I_1$ is itself an interval of length $\Omega(\sqrt{qt})$. It is an intuitive result, make sure to derive it yourself, working it out is easy.
+So if $qt\varepsilon^2$ is smaller than a suitable constant $\gamma_0$, then $$|tq_0 - tq_1|$ $is small enough that $$I_0 \cap I_1$$ is itself an interval of length $$\Omega(\sqrt{qt})$$. 
+It is an intuitive result, make sure to derive it yourself, working it out is easy.
 
 So the indistinguishable area is $I_0 \cap I_1$ and its expected value is greater than $\int_{I_0 \cap I_1} p^s(k)dk \geq \Omega(1/\sqrt{qt}) \cdot \Omega(\sqrt{qt}) = \Omega(1)$.
 
