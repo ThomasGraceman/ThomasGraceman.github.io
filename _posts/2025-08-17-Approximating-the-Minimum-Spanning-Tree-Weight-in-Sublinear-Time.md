@@ -162,7 +162,7 @@ and so, with overwhelming probability, our second estimate $c^*$ of the number o
 
 So we have the following theorem proved in this way:
 
-**Theorem 2** Let $c$ be the number of components in a graph with $n$ vertices. Then Algorithm approx-number-connected-components runs in time $O\left(\left(\varepsilon + \frac{c}{n}\right)d\varepsilon^{-2} \log \frac{d}{\varepsilon}\right)$ 
+**Theorem 2-modified** Let $c$ be the number of components in a graph with $n$ vertices. Then Algorithm approx-number-connected-components runs in time $O\left(\left(\varepsilon + \frac{c}{n}\right)d\varepsilon^{-2} \log \frac{d}{\varepsilon}\right)$ 
 and with probability at least $3/4$ outputs $$\hat{c}$$ such that $$|c - \hat{c}| \leq \varepsilon n$$. Remember that $3/4$ here is an arbitrary constant. In fact we can get the probability arbitrarily close to $1$ with the right $\varepsilon$.
 
 So here comes the main algorithm: they start with an ingenious observation:
@@ -193,7 +193,7 @@ So here the magic has already happened! We have an algorithm that can approximat
    - $\hat{c}(i) = $ approx-number-connected-components$(G(i), \varepsilon, 4w/\varepsilon, d^*)$
 2. **Output** $\hat{v} = n - w + \sum_{i=1}^{w-1} \hat{c}(i)$
 
-Our algorithm approximates the value of the MST by estimating each of the $c(\ell)$'s. The algorithm is given in Figure 2. Note that we do not set $W = 4/\varepsilon$ in the call to the connected-components algorithm. For the same reason (to be explained below) we need a different estimate of the degree $d^*$. We use Lemma 4 just once to compute, in $O(dw/\varepsilon)$ time, an estimate $d^* = O(dw/\varepsilon)$ such that at most $\varepsilon n/(4w)$ vertices have degree higher than $d^*$.
+Our algorithm approximates the value of the MST by estimating each of the $c(\ell)$'s. The algorithm is given in Figure 2. Note that we do not set $W = 4/\varepsilon$ in the call to the connected-components algorithm. For the same reason (to be explained below) we need a different estimate of the degree $$d^*$$. We use Lemma 4 just once to compute, in $$O(dw/\varepsilon)$$ time, an estimate $$d^* = O(dw/\varepsilon)$$ such that at most $$\varepsilon n/(4w)$$ vertices have degree higher than $$d^*$$.
 
 In the following, we assume that $w/n < 1/2$, since otherwise we might as well compute the MST explicitly, which can be done in $O(dn)$ time with high probability.
 
