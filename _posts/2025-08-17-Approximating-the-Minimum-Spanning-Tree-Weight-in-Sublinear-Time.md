@@ -271,7 +271,6 @@ Why?
 
 We have $$P(0) = P(1) = 1/2$$ and we have $$P_s(x) = P[x|s]$$ hence $$p(x) = 1/2P_0(x) + 1/2P_1(x)$$ . 
 Let our algorithm output be denoted by $\hat{s}(x)$.
-
 $$ P_{\text{err}} = P(\hat{s}(x) \neq s) = 
 \sum_x P(X =x) P(\hat{s}(x) \neq s | X=x)$$
 
@@ -358,9 +357,8 @@ with:
 $q_s = \frac{1}{2}(1 + (-1)^s \varepsilon), \quad s \in \{0,1\}.$
 
 Let:
-$K = \\{ i : b_i = 0 \}$
-be the number of removed edges. Then, the number of connected components is:
-$C = \max\{1, K\} = K \quad \text{w.h.p.}$
+K be the number of removed edges. Then, the number of connected components is:
+$C = K$
 
 Hence we can read off the mean and variance from the binomial:
 $K \sim \mathrm{Bin}(n, 1-q_s).$
