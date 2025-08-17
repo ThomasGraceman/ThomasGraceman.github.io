@@ -134,11 +134,12 @@ Note that it is equal to $E(\text{edges-met}) = \frac{1}{2}d_i + \frac{1}{4}2d_i
 
 We have to notice that a desired component has at most $$d^*W$$ edges inside it, so hence at most we do this $k = \log(d^*W)$ times. Hence, $E(\text{edges-met}) = O(d_i \cdot d^*W) = O({\frac{d}{\varepsilon^2}})$.
 
-Hence we run the algorithm for $O(r)$ edges and each time in each iteration we do this $O({\frac{d}{\varepsilon^2}})$ times, $O(r) \cdot \frac{1}{n} \sum_{u \in V} d_u \log(W d^*) = O(dr \log(W d^*)) = O\left(d\varepsilon^{-2} \log \frac{d}{\varepsilon}\right)$.
+Hence we run the algorithm for $O(r)$ edges and each time in each iteration we do this $O({\frac{d}{\varepsilon^2}})$ times, $$O(r) \cdot \frac{1}{n} \sum_{u \in V} d_u \log(W d^*) = O(dr \log(W d^*)) = O\left(d\varepsilon^{-2} \log \frac{d}{\varepsilon}\right)$$.
 
 So we have the following theorem proved:
 
-**Theorem 2** Let $c$ be the number of components in a graph with $n$ vertices. Then Algorithm approx-number-connected-components runs in time $O\left(d\varepsilon^{-2} \log \frac{d}{\varepsilon}\right)$ and with probability at least $3/4$ outputs $\hat{c}$ such that $$|c - \hat{c}| \leq \varepsilon n$$. Remember that $3/4$ here is an arbitrary constant. In fact we can get the probability arbitrarily close to $1$ with the right $\varepsilon$.
+**Theorem 2** Let $c$ be the number of components in a graph with $n$ vertices. Then Algorithm approx-number-connected-components runs in time $O\left(d\varepsilon^{-2} \log \frac{d}{\varepsilon}\right)$
+ and with probability at least $3/4$ outputs $\hat{c}$ such that $$|c - \hat{c}| \leq \varepsilon n$$. Remember that $3/4$ here is an arbitrary constant. In fact we can get the probability arbitrarily close to $1$ with the right $$\varepsilon$$.
 
 And here comes another nice technique that they have used, namely:
 
