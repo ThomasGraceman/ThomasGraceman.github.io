@@ -162,7 +162,8 @@ and so, with overwhelming probability, our second estimate $c^*$ of the number o
 
 So we have the following theorem proved in this way:
 
-**Theorem 2** Let $c$ be the number of components in a graph with $n$ vertices. Then Algorithm approx-number-connected-components runs in time $O\left(\left(\varepsilon + \frac{c}{n}\right)d\varepsilon^{-2} \log \frac{d}{\varepsilon}\right)$ and with probability at least $3/4$ outputs $\hat{c}$ such that $|c - \hat{c}| \leq \varepsilon n$. Remember that $3/4$ here is an arbitrary constant. In fact we can get the probability arbitrarily close to $1$ with the right $\varepsilon$.
+**Theorem 2** Let $c$ be the number of components in a graph with $n$ vertices. Then Algorithm approx-number-connected-components runs in time $O\left(\left(\varepsilon + \frac{c}{n}\right)d\varepsilon^{-2} \log \frac{d}{\varepsilon}\right)$ 
+and with probability at least $3/4$ outputs $$\hat{c}$$ such that $$|c - \hat{c}| \leq \varepsilon n$$. Remember that $3/4$ here is an arbitrary constant. In fact we can get the probability arbitrarily close to $1$ with the right $\varepsilon$.
 
 So here comes the main algorithm: they start with an ingenious observation:
 
