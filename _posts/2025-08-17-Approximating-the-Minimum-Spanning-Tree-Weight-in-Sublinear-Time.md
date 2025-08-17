@@ -70,7 +70,7 @@ So assume that $$d^*$$ is not in the first $\varepsilon n$ highest degrees, then
 
 **Lemma 4** In $O(d/\varepsilon)$ expected time, we can compute a vertex degree $d^*$ that, with high probability, is the $k$-th largest vertex degree, for some $k = \Theta(\varepsilon n)$.
 
-Also note that we have $d^* = O(\frac{d}{\varepsilon})$. To see that we have $$\Omega(\varepsilon n)$, so $\frac{\sum_{u \in G}d_u}{n} = d \geq \rho d^* = \varepsilon n \frac{d^*}{n}$$, then $\frac{d}{\varepsilon}$, so $d^* = O(\frac{d}{\varepsilon})$. And if we scale $\varepsilon$ properly, with very high probability we have that only $\varepsilon \frac{n}{4}$ vertices have higher degree than $d^*$ (with high probability).
+Also note that we have $d^* = O(\frac{d}{\varepsilon})$. To see that we have $$\Omega(\varepsilon n), so \frac{\sum_{u \in G}d_u}{n} = d \geq \rho d^* = \varepsilon n \frac{d^*}{n}$$, then $\frac{d}{\varepsilon}$, so $d^* = O(\frac{d}{\varepsilon})$. And if we scale $\varepsilon$ properly, with very high probability we have that only $\varepsilon \frac{n}{4}$ vertices have higher degree than $d^*$ (with high probability).
 
 So that's how we approximated the degrees. It leads me to the third principle that I have observed, that is: observe in a way randomly so that you can have some lower and higher bounds with very high probability. We must bear that in mind.
 
