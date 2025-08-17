@@ -269,7 +269,8 @@ $p_{\text{err}} \geq \frac{1}{2} \sum_{b_1 \cdots b_t} \min_s p^s(b_1 \cdots b_t
 
 Why?
 
-We have $P(0) = P(1) = 1/2$ and we have $P_s(x) = P[x|s]$ hence $p(x) = 1/2P_0(x) + 1/2P_1(x)$. Let our algorithm output be denoted by $\hat{s}(x)$.
+We have $$P(0) = P(1) = 1/2$$ and we have $$P_s(x) = P[x|s]$$ hence $$p(x) = 1/2P_0(x) + 1/2P_1(x)$$. 
+Let our algorithm output be denoted by $\hat{s}(x)$.
 
 $P_{\text{err}} = P(\hat{s}(x) \neq s) = \sum_x P(X =x) P(\hat{s}(x) \neq s | X=x)$
 
