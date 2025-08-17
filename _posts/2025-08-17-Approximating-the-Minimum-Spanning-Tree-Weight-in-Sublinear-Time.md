@@ -284,7 +284,7 @@ Look that we are trying to get a lower bound for the best average case determini
 Therefore we have $$P(\hat{s}(x) \neq s | X=x) = 1 - P(\hat{s} = s |X =x)$$. 
 So in order for our deterministic algorithm to have the minimum error it should pick $$\hat{s}$$ that makes the $$P(\hat{s} = s |X =x)$$ maximum, hence:
 
-$$P(\hat{s}(x) \neq s | X=x) = 1 - P(\hat{s} = s |X =x) \geq 1 - \max_i P(s = i | X=x) = \min_i (1 - P(s = i | X=x)) = 
+$$P(\hat{s}(x) \neq s | X=x) = 1 - P(\hat{s} = s |X =x) \geq 1 - \max_i P(s = i | X=x) = \min_i (1 - P(s = i | X=x)) = \newline 
 \frac{1}{2}\min_i P_i(x)/P(x)$$
 
 Then:
@@ -306,17 +306,17 @@ Given $q_s = q(1 + (-1)^s\varepsilon)$, we calculate $q_s(1-q_s)$:
 
 $\begin{align}
 q_s(1-q_s) &= q(1 + (-1)^s\varepsilon) \cdot (1 - q(1 + (-1)^s\varepsilon)) \\
-&= q(1 + (-1)^s\varepsilon) \cdot (1 - q - q(-1)^s\varepsilon) \\
-&= q(1 + (-1)^s\varepsilon) \cdot (1 - q + q(-1)^{s+1}\varepsilon) \\
-&= q(1-q)(1 + (-1)^s\varepsilon)(1 + \frac{q(-1)^{s+1}\varepsilon}{1-q}) \\
-&= q(1-q)\left(1 + (-1)^s\varepsilon + \frac{q(-1)^{s+1}\varepsilon}{1-q} + \frac{q(-1)^s(-1)^{s+1}\varepsilon^2}{1-q}\right) \\
-&= q(1-q)\left(1 + (-1)^s\varepsilon - \frac{q(-1)^s\varepsilon}{1-q} - \frac{q\varepsilon^2}{1-q}\right) \\
-&= q(1-q)\left(1 + (-1)^s\varepsilon\left(1 - \frac{q}{1-q}\right) - \frac{q\varepsilon^2}{1-q}\right) \\
-&= q(1-q)\left(1 + (-1)^s\varepsilon\frac{1-2q}{1-q} - \frac{q\varepsilon^2}{1-q}\right)
+&= q(1 + (-1)^s\varepsilon) \cdot (1 - q - q(-1)^s\varepsilon) \\ \newline
+&= q(1 + (-1)^s\varepsilon) \cdot (1 - q + q(-1)^{s+1}\varepsilon) \\ \newline
+&= q(1-q)(1 + (-1)^s\varepsilon)(1 + \frac{q(-1)^{s+1}\varepsilon}{1-q}) \\ \newline
+&= q(1-q)\left(1 + (-1)^s\varepsilon + \frac{q(-1)^{s+1}\varepsilon}{1-q} + \frac{q(-1)^s(-1)^{s+1}\varepsilon^2}{1-q}\right) \\ \newline
+&= q(1-q)\left(1 + (-1)^s\varepsilon - \frac{q(-1)^s\varepsilon}{1-q} - \frac{q\varepsilon^2}{1-q}\right) \\ \newline
+&= q(1-q)\left(1 + (-1)^s\varepsilon\left(1 - \frac{q}{1-q}\right) - \frac{q\varepsilon^2}{1-q}\right) \\ \newline
+&= q(1-q)\left(1 + (-1)^s\varepsilon\frac{1-2q}{1-q} - \frac{q\varepsilon^2}{1-q}\right) 
 \end{align}$
 
 For small $\varepsilon$, ignoring higher-order terms:
-$q_s(1-q_s) \approx q(1-q) = \Theta(q)$
+$$q_s(1-q_s) \approx q(1-q) = \Theta(q)$$
 
 Based on the said previous inequalities for Gaussian distribution we have:
 
