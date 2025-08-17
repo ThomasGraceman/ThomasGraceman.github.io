@@ -257,8 +257,8 @@ $P(X \geq a) \leq \frac{E[X]}{a}$
 Substituting the given variables, we have:
 $P(\text{probes} \geq t) \leq \frac{t^*}{t}$
 
-Now, substitute the definition of $$t = t^*/\alpha$:
-$P(\text{probes} \geq t) \leq \frac{t^*}{t^*/\alpha} \leq \alpha$$
+Now, substitute the definition of $$t = t^*/\alpha:
+P(\text{probes} \geq t) \leq \frac{t^*}{t^*/\alpha} \leq \alpha$$
 
 Suppose that the prefix of bits examined by the algorithm is $b_1 \cdots b_u$. If $u < t$, simply go on probing $b_{u+1} \cdots b_t$ without changing the outcome. If $u > t$, then stop at $b_t$ and output $s = 1$. Thus, by adding $\alpha$ to the probability of error, we can assume that the algorithm consists of looking up $b_1 \cdots b_t$ regardless of the input string because $P(\text{err}_{\text{new}}) \leq (1-\alpha)P(\text{err}) +\alpha \leq P(\text{err}) + \alpha$.
 
@@ -272,9 +272,10 @@ Why?
 We have $$P(0) = P(1) = 1/2$$ and we have $$P_s(x) = P[x|s]$$ hence $$p(x) = 1/2P_0(x) + 1/2P_1(x)$$. 
 Let our algorithm output be denoted by $\hat{s}(x)$.
 
-$P_{\text{err}} = P(\hat{s}(x) \neq s) = \sum_x P(X =x) P(\hat{s}(x) \neq s | X=x)$
+$$P_{\text{err}} = P(\hat{s}(x) \neq s) = \sum_x P(X =x) P(\hat{s}(x) \neq s | X=x)$$
 
 and 
+
 $P(s = i | X=x) = \frac{\frac{P(x| s=i)}{2}}{P(x)} = \frac{1/2P_i(x)}{P(x)}$.
 
 So when will the error be minimum? When the probability that we have guessed wrong over the inputs gets to the minimum. Look that we are trying to get a lower bound for the best average case deterministic algorithm, so the lower bound would be that the probability that we have guessed wrong is minimum. Therefore we have $P(\hat{s}(x) \neq s | X=x) = 1 - P(\hat{s} = s |X =x)$. So in order for our deterministic algorithm to have the minimum error it should pick $\hat{s}$ that makes the $P(\hat{s} = s |X =x)$ maximum, hence:
