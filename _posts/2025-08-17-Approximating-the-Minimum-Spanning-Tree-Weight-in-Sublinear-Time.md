@@ -1,6 +1,6 @@
 # Approximating the Minimum Spanning Tree Weight in Sublinear Time
 
-Such a good paper, although the writing was a bit terse and working out the details was hell painful :D.
+Such a good [paper](https://people.csail.mit.edu/ronitt/papers/mst.pdf), although the writing was a bit terse and working out the details was hell painful :D.
 
 Suppose that you have a graph in which the edges are weighted, and you are asked to find the minimum spanning tree in a sublinear amount of time! What does that mean? It means that before you end up reading the whole input you should come up with some sort of close approximation of a good minimum spanning tree.
 
@@ -228,7 +228,7 @@ Here comes another of my observations: IN ORDER TO SHOW THE LOWER BOUND, MAKE SO
 
 So now I will explain:
 
-Yao's Minimax Lemma is a very simple, yet powerful tool to prove impossibility results regarding worst-case performance of randomized algorithms, which are not necessarily online. We state it for algorithms that always do something correct but the profit or cost may vary. Such algorithms are called **Las Vegas algorithms**. We first state it for minimization problems because this is the usual way.
+[Yao's Minimax](https://faculty.cc.gatech.edu/~ssingla7/courses/Spring22/lec8.pdf) Lemma is a very simple, yet powerful tool to prove impossibility results regarding worst-case performance of randomized algorithms, which are not necessarily online. We state it for algorithms that always do something correct but the profit or cost may vary. Such algorithms are called **Las Vegas algorithms**. We first state it for minimization problems because this is the usual way.
 
 We assume that we have a class of deterministic algorithms $\mathcal{A}$ and a class of instances $\mathcal{X}$. In order to avoid technicalities, assume that both classes are finite. Algorithm $a \in \mathcal{A}$ on instance $x \in \mathcal{X}$ incurs cost $c(a, x) \in \mathbb{R}$. A randomized algorithm is simply a probability distribution over the set of deterministic algorithms $\mathcal{A}$. So, let $A$ be a randomized algorithm (which is now a random variable), then $A$'s worst-case cost is $\max_{x \in \mathcal{X}} \mathbb{E}[c(A, x)]$.
 
