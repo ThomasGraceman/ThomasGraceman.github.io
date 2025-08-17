@@ -271,6 +271,7 @@ Why?
 
 We have $$P(0) = P(1) = 1/2$$ and we have $$P_s(x) = P[x|s]$$ hence $$p(x) = 1/2P_0(x) + 1/2P_1(x)$$. 
 Let our algorithm output be denoted by $\hat{s}(x)$.
+
 $$P_{\text{err}} = P(\hat{s}(x) \neq s) = \sum_x P(X =x) P(\hat{s}(x) \neq s | X=x)$$
 
 and 
@@ -333,9 +334,8 @@ This shows that $p^s(k) = \Omega(1/\sqrt{qt})$ over an interval $I_s$ of length 
 Note 
 $$|\mu_0 - \mu_1| = t|q_0 - q_1| = 2tq\varepsilon$$.
 
-So if $qt\varepsilon^2$ is smaller than a suitable constant $$\gamma_0$$, then $$|tq_0 - tq_1|$ $is small enough that $$I_0 \cap I_1$$ is itself an interval of length $$\Omega(\sqrt{qt})$$. 
+So if $qt\varepsilon^2$ is smaller than a suitable constant $$\gamma_0$$, then $$|tq_0 - tq_1|$$ is small enough that $$I_0 \cap I_1$$ is itself an interval of length $$\Omega(\sqrt{qt})$$. 
 It is an intuitive result, make sure to derive it yourself, working it out is easy.
-
 So the indistinguishable area is $I_0 \cap I_1$ and its expected value is greater than $\int_{I_0 \cap I_1} p^s(k)dk \geq \Omega(1/\sqrt{qt}) \cdot \Omega(\sqrt{qt}) = \Omega(1)$.
 
 This shows that if the algorithm runs in expected time $\gamma_0\varepsilon^{-2}/q$, for some constant $\gamma_0 > 0$ small enough, then it will fail with probability at least some absolute constant. By setting $\alpha$ small enough, we can make that constant larger than $2\alpha$. This means that, prior to uniformizing the running time, the algorithm must still fail with probability $\alpha$.
