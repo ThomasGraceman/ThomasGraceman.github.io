@@ -284,7 +284,7 @@ Look that we are trying to get a lower bound for the best average case determini
 Therefore we have $$P(\hat{s}(x) \neq s | X=x) = 1 - P(\hat{s} = s |X =x)$$. 
 So in order for our deterministic algorithm to have the minimum error it should pick $$\hat{s}$$ that makes the $$P(\hat{s} = s |X =x)$$ maximum, hence:
 
-$$P(\hat{s}(x) \neq s | X=x) = 1 - P(\hat{s} = s |X =x) \geq 1 - \max_i P(s = i | X=x) = \min_i (1 - P(s = i | X=x)) = \newline 
+$$P(\hat{s}(x) \neq s | X=x) = 1 - P(\hat{s} = s |X =x) \geq 1 - \max_i P(s = i | X=x) = \min_i (1 - P(s = i | X=x)) = \\ \newline
 \frac{1}{2}\min_i P_i(x)/P(x)$$
 
 Then:
@@ -305,7 +305,7 @@ Note that we have:
 Given $q_s = q(1 + (-1)^s\varepsilon)$, we calculate $q_s(1-q_s)$:
 
 $\begin{align}
-q_s(1-q_s) &= q(1 + (-1)^s\varepsilon) \cdot (1 - q(1 + (-1)^s\varepsilon)) \\
+q_s(1-q_s) &= q(1 + (-1)^s\varepsilon) \cdot (1 - q(1 + (-1)^s\varepsilon)) \\ \newline
 &= q(1 + (-1)^s\varepsilon) \cdot (1 - q - q(-1)^s\varepsilon) \\ \newline
 &= q(1 + (-1)^s\varepsilon) \cdot (1 - q + q(-1)^{s+1}\varepsilon) \\ \newline
 &= q(1-q)(1 + (-1)^s\varepsilon)(1 + \frac{q(-1)^{s+1}\varepsilon}{1-q}) \\ \newline
@@ -320,7 +320,7 @@ $$q_s(1-q_s) \approx q(1-q) = \Theta(q)$$
 
 Based on the said previous inequalities for Gaussian distribution we have:
 
-$P(|X - \mu| \geq C\sigma) \leq e^{-C^2/2}$
+$$P(|X - \mu| \geq C\sigma) \leq e^{-C^2/2}$$
 
 So with high probability we have:
 $|X - \mu| \leq C\sigma$
@@ -331,7 +331,7 @@ So with high probability we have that $p^s(k) \geq \Omega(\frac{1}{\sqrt{qt}})$.
 
 This shows that $p^s(k) = \Omega(1/\sqrt{qt})$ over an interval $I_s$ of length $\Omega(\sqrt{qt})$ centered at $tq_s$.
 
-Note $|\mu_0 - \mu_1| = t|q_0 - q_1| = 2tq\varepsilon$.
+Note $$|\mu_0 - \mu_1| = t|q_0 - q_1| = 2tq\varepsilon$$.
 
 So if $qt\varepsilon^2$ is smaller than a suitable constant $\gamma_0$, then $|tq_0 - tq_1|$ is small enough that $I_0 \cap I_1$ is itself an interval of length $\Omega(\sqrt{qt})$. It is an intuitive result, make sure to derive it yourself, working it out is easy.
 
