@@ -1,10 +1,10 @@
 ---
-layout: post
 title: "Approximating the Minimum Spanning Tree Weight in Sublinear Time"
 date: 2025-08-17
 categories: [algorithms, graph-theory, sublinear-algorithms]
 tags: [minimum-spanning-tree, approximation-algorithms, luca-trevisan, sublinear-time]
 author: [taha hoseinpour asli]
+math: yes
 ---
 
 Such a good paper, although the writing was a bit terse and working out the details was hella painful :D.
