@@ -271,7 +271,6 @@ Why?
 
 We have $$P(0) = P(1) = 1/2$$ and we have $$P_s(x) = P[x|s]$$ hence $$p(x) = 1/2P_0(x) + 1/2P_1(x)$$. 
 Let our algorithm output be denoted by $\hat{s}(x)$.
-
 $$P_{\text{err}} = P(\hat{s}(x) \neq s) = \sum_x P(X =x) P(\hat{s}(x) \neq s | X=x)$$
 
 and 
@@ -334,7 +333,7 @@ This shows that $p^s(k) = \Omega(1/\sqrt{qt})$ over an interval $I_s$ of length 
 Note 
 $$|\mu_0 - \mu_1| = t|q_0 - q_1| = 2tq\varepsilon$$.
 
-So if $qt\varepsilon^2$ is smaller than a suitable constant $\gamma_0$, then $$|tq_0 - tq_1|$ $is small enough that $$I_0 \cap I_1$$ is itself an interval of length $$\Omega(\sqrt{qt})$$. 
+So if $qt\varepsilon^2$ is smaller than a suitable constant $$\gamma_0$$, then $$|tq_0 - tq_1|$ $is small enough that $$I_0 \cap I_1$$ is itself an interval of length $$\Omega(\sqrt{qt})$$. 
 It is an intuitive result, make sure to derive it yourself, working it out is easy.
 
 So the indistinguishable area is $I_0 \cap I_1$ and its expected value is greater than $\int_{I_0 \cap I_1} p^s(k)dk \geq \Omega(1/\sqrt{qt}) \cdot \Omega(\sqrt{qt}) = \Omega(1)$.
@@ -349,7 +348,7 @@ So now let's prove the following theorem:
 
 **Theorem** Given a graph with $n$ vertices and average degree $d$, any probabilistic algorithm for approximating the number of connected components with an additive error of $\varepsilon n$ requires $\Omega(d\varepsilon^{-2})$ edge lookups on average. It is assumed that $C/\sqrt{n} < \varepsilon < 1/2$, for some large enough constant $C$.
 
-Consider the graph $G$ consisting of a simple cycle of $n$ vertices $v_1,\ldots,v_n$. Pick $s\in\{0,1\}$ at random and take a random $n$-bit string $b_1\cdots b_n$ with bits drawn independently from $D^{(s)}_{1/2}$. Next, remove from $G$ any edge $(v_i, v_{i+1 \bmod n})$ if $b_i=0$. Because $\varepsilon > C/\sqrt{n}$, the standard deviation of the number of components, which is $\Theta(\sqrt{n})$, is sufficiently smaller than $\varepsilon n$.
+Consider the graph $G$ consisting of a simple cycle of $n$ vertices $v_1,\ldots,v_n$. Pick $s\in\{0,1\}$ at random and take a random $n$-bit string $b_1\cdots b_n$ with bits drawn independently from $$D^{(s)}_{1/2}$$. Next, remove from G any edge $$(v_i, v_{i+1 \bmod n})$$ if $$b_i=0$$. Because $$\varepsilon > C/\sqrt{n}$$, the standard deviation of the number of components, which is $$\Theta(\sqrt{n})$$, is sufficiently smaller than $$\varepsilon n$$.
 
 So what is happening here with standard deviation and mean?
 
