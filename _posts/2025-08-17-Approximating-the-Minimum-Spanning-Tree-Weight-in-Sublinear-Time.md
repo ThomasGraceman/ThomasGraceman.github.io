@@ -248,21 +248,21 @@ Consider a probabilistic algorithm that, given access to such a random bit strin
 
 **Lemma** Any probabilistic algorithm that can guess the value of $s$ with a probability of error below $1/4$ requires $\Omega(\varepsilon^{-2}/q)$ bit lookups on average.
 
-**Proof:** By Yao's minimax principle, we may assume that the algorithm is deterministic and that the input is distributed according to $D$. It is intuitively obvious that any algorithm might as well scan $b_1 b_2 \cdots$ until it decides it has seen enough to produce an estimate of $s$ (just like our algorithm where we sample $O(r)$ samples for example to estimate the connected components). In other words, there is no need to be adaptive in the choice of bit indices to probe (but the running time itself can be adaptive and by probing we mean seeing parts of the input or feeding different parts of our input to our algorithm). To see why is easy. An algorithm can be modeled as a binary tree with a bit index at each node and a $0/1$ label at each edge (I guess this part is intuitive enough, I will try to draw a picture of it somehow). An adaptive algorithm may have an arbitrary set of bit indices at the nodes, although we can assume that the same index does not appear twice along any path. Each leaf is naturally associated with a probability, which is that of a random input from $D$ following the path to that leaf. The performance of the algorithm is entirely determined by these probabilities and the corresponding estimates of $s$. Because of the independence of the random $$b_is, we can relabel the tree so that each path is a prefix of the same sequence of bit probes $b_1 b_2 \cdots$$. This oblivious algorithm has the same performance as the adaptive one. What it means is that suppose you have an arbitrary deterministic algorithm that takes inputs from different indices for example $$b_1, b_2, b_7, b_9, \ldots b_{20}$$ just like a decision tree, and goes from the root to leaf based on the possibility, then we can devise the similar deterministic algorithm, which really does the same procedure with same probability hence their expected cost values are all the same, hence we can assume that we are just reading the first $n$ inputs namely $$0$$ and $$1$$ for example.
+**Proof:** By Yao's minimax principle, we may assume that the algorithm is deterministic and that the input is distributed according to $D$. It is intuitively obvious that any algorithm might as well scan $b_1 b_2 \cdots$ until it decides it has seen enough to produce an estimate of $s$ (just like our algorithm where we sample $O(r)$ samples for example to estimate the connected components). In other words, there is no need to be adaptive in the choice of bit indices to probe (but the running time itself can be adaptive and by probing we mean seeing parts of the input or feeding different parts of our input to our algorithm). To see why is easy. An algorithm can be modeled as a binary tree with a bit index at each node and a $0/1$ label at each edge (I guess this part is intuitive enough, I will try to draw a picture of it somehow). An adaptive algorithm may have an arbitrary set of bit indices at the nodes, although we can assume that the same index does not appear twice along any path. Each leaf is naturally associated with a probability, which is that of a random input from $D$ following the path to that leaf. The performance of the algorithm is entirely determined by these probabilities and the corresponding estimates of $s$. Because of the independence of the random $$b_is, we can relabel the tree so that each path is a prefix of the same sequence of bit probes $$b_1 b_2 \cdots$$. This oblivious algorithm has the same performance as the adaptive one. What it means is that suppose you have an arbitrary deterministic algorithm that takes inputs from different indices for example $$b_1, b_2, b_7, b_9, \ldots b_{20}$$ just like a decision tree, and goes from the root to leaf based on the possibility, then we can devise the similar deterministic algorithm, which really does the same procedure with same probability hence their expected cost values are all the same, hence we can assume that we are just reading the first $n$ inputs namely $$0$$ and $$1$$ for example.
 
 We can go one step further and assume that the running time is the same for all inputs. Let $t^*$ be the expected number of probes, and let $$0 < \alpha < 1$$ be a small constant. With probability at most $$\alpha$$, a random input takes time $$\geq t \stackrel{\text{def}}{=} t^*/\alpha$$ because by Markov inequality we have:
 
-$P(X \geq a) \leq \frac{E[X]}{a}$
+$Pr(X \geq a) \leq \frac{E[X]}{a}$
 
 Substituting the given variables, we have:
-$P(\text{probes} \geq t) \leq \frac{t^*}{t}$
+$Pr(\text{probes} \geq t) \leq \frac{t^*}{t}$
 
-Now, substitute the definition of $t = t^*/\alpha$:
-$P(\text{probes} \geq t) \leq \frac{t^*}{t^*/\alpha} \leq \alpha$
+Now, substitute the definition of $$t = t^*/\alpha$:
+$Pr(\text{probes} \geq t) \leq \frac{t^*}{t^*/\alpha} \leq \alpha$$
 
 Suppose that the prefix of bits examined by the algorithm is $b_1 \cdots b_u$. If $u < t$, simply go on probing $b_{u+1} \cdots b_t$ without changing the outcome. If $u > t$, then stop at $b_t$ and output $s = 1$. Thus, by adding $\alpha$ to the probability of error, we can assume that the algorithm consists of looking up $b_1 \cdots b_t$ regardless of the input string because $P(\text{err}_{\text{new}}) \leq (1-\alpha)P(\text{err}) +\alpha \leq P(\text{err}) + \alpha$.
 
-Denote $P(\text{err}_{\text{new}}) = p_{\text{err}}$.
+Denote $$Pr(\text{err}_{\text{new}}) = p_{\text{err}}$$.
 
 Let $p^s(b_1 \cdots b_t)$ be the probability that a random $t$-bit string chosen from $D^s_q$ is equal to $b_1 \cdots b_t$. The probability of error satisfies:
 $p_{\text{err}} \geq \frac{1}{2} \sum_{b_1 \cdots b_t} \min_s p^s(b_1 \cdots b_t).$
@@ -274,7 +274,8 @@ Let our algorithm output be denoted by $\hat{s}(x)$.
 
 $P_{\text{err}} = P(\hat{s}(x) \neq s) = \sum_x P(X =x) P(\hat{s}(x) \neq s | X=x)$
 
-and $P(s = i | X=x) = \frac{\frac{P(x| s=i)}{2}}{P(x)} = \frac{1/2P_i(x)}{P(x)}$.
+and 
+$P(s = i | X=x) = \frac{\frac{P(x| s=i)}{2}}{P(x)} = \frac{1/2P_i(x)}{P(x)}$.
 
 So when will the error be minimum? When the probability that we have guessed wrong over the inputs gets to the minimum. Look that we are trying to get a lower bound for the best average case deterministic algorithm, so the lower bound would be that the probability that we have guessed wrong is minimum. Therefore we have $P(\hat{s}(x) \neq s | X=x) = 1 - P(\hat{s} = s |X =x)$. So in order for our deterministic algorithm to have the minimum error it should pick $\hat{s}$ that makes the $P(\hat{s} = s |X =x)$ maximum, hence:
 
