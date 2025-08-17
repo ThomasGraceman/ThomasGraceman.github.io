@@ -269,10 +269,11 @@ $p_{\text{err}} \geq \frac{1}{2} \sum_{b_1 \cdots b_t} \min_s p^s(b_1 \cdots b_t
 
 Why?
 
-We have $$P(0) = P(1) = 1/2$$ and we have $$P_s(x) = P[x|s]$$ hence $$p(x) = 1/2P_0(x) + 1/2P_1(x)$$. 
+We have $$P(0) = P(1) = 1/2$$ and we have $$P_s(x) = P[x|s]$$ hence $$p(x) = 1/2P_0(x) + 1/2P_1(x)$$ . 
 Let our algorithm output be denoted by $\hat{s}(x)$.
 
-$$P_{\text{err}} = P(\hat{s}(x) \neq s) = \sum_x P(X =x) P(\hat{s}(x) \neq s | X=x)$$
+$$ P_{\text{err}} = P(\hat{s}(x) \neq s) = 
+\sum_x P(X =x) P(\hat{s}(x) \neq s | X=x)$$
 
 and 
 
@@ -284,8 +285,7 @@ Look that we are trying to get a lower bound for the best average case determini
 Therefore we have $$P(\hat{s}(x) \neq s | X=x) = 1 - P(\hat{s} = s |X =x)$$. 
 So in order for our deterministic algorithm to have the minimum error it should pick $$\hat{s}$$ that makes the $$P(\hat{s} = s |X =x)$$ maximum, hence:
 
-$$P(\hat{s}(x) \neq s | X=x) = 1 - P(\hat{s} = s |X =x) \geq 1 - \max_i P(s = i | X=x) = \min_i (1 - P(s = i | X=x)) = \\ \newline
-\frac{1}{2}\min_i P_i(x)/P(x)$$
+$$P(\hat{s}(x) \neq s | X=x) = 1 - P(\hat{s} = s |X =x) \geq 1 - \max_i P(s = i | X=x) = \min_i (1 - P(s = i | X=x)) = \\ \newline \frac{1}{2}\min_i P_i(x)/P(x)$$
 
 Then:
 
@@ -358,7 +358,7 @@ with:
 $q_s = \frac{1}{2}(1 + (-1)^s \varepsilon), \quad s \in \{0,1\}.$
 
 Let:
-$K = \#\{ i : b_i = 0 \}$
+$K = \\{ i : b_i = 0 \}$
 be the number of removed edges. Then, the number of connected components is:
 $C = \max\{1, K\} = K \quad \text{w.h.p.}$
 
