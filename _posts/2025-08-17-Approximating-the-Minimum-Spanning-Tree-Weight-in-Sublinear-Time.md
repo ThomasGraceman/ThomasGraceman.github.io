@@ -46,7 +46,7 @@ And we want our estimate to actually be accurate enough, meaning we want it to b
      - Resume BFS to double number of visited edges
      - **If** this allows BFS to complete:
        - **If** $m_{u_i} = 0$: set $\beta_i = 2$
-       - **Else**: set $\beta_i = \frac{d_{u_i}}{2} \cdot \frac{2^{# coin flips}}{\text{# edges visited in BFS}}$
+       - **Else**: set $\beta_i = \frac{d_{u_i}}{1} \cdot \frac{2^{ coin fliped}}{\text{# edges visited in BFS}}$
      - **Else**: go to (*)
 3. **Output** $\hat{c} = \frac{n}{2r} \sum_{i=1}^{r} \beta_i$
 
