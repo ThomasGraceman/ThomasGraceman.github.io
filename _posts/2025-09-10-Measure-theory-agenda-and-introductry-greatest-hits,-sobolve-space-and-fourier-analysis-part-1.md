@@ -385,7 +385,7 @@ Proving that this norm is actually a norm is pretty simple. For the triangle ine
 So why do we have 
 $\int_{\mathbb{R}^d} g_\alpha(x) \varphi(x) \, dx = (-1)^{|\alpha|} \int_{\mathbb{R}^d} f(x) \partial_x^\alpha \varphi(x) \, dx \quad ?$
 
-I cite a theorem contributed by PhoemueX on Math Stack Exchange:
+I cite a theorem contributed by [PhoemueX](https://math.stackexchange.com/questions/919480/weak-derivative-and-integration-by-parts) on Math Stack Exchange:
 
 **Lemma:** Let $\emptyset \neq V \subset \mathbb{R}^d$ be open and bounded. Let $\varphi \in C(\overline{V})$ with $\varphi|_{\partial V} \equiv c$ for some $c \in \mathbb{R}$. Furthermore, let $i \in \{1, \ldots, d\}$ and assume that $\partial_i \varphi \in C(V) \cap L^1(V)$. <br />
 Then $\int_V (\partial_i \varphi)(x) \, dx = 0.$
@@ -444,3 +444,5 @@ $
    = \int_V \varphi \cdot \partial_i u + u \cdot \partial_i \varphi \, dx,
 $
 which yields the integration by parts formula that justifies our definition of weak derivatives. □
+
+for this post royden's real analysis and stein's functional analysis books, and a lecture note of [visintin](https://visintin.maths.unitn.it/Sobolev2011.pdf) were used.
