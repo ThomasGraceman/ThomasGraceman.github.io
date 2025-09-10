@@ -31,8 +31,8 @@ I take this quote from Royden's book:
 
 Egorov's Theorem: A Cornerstone Example
 
-**Theorem (Egorov's theorem):** Let $(E,\mathcal{M},m)$ be a measurable set with $m(E)<\infty \\ \newline  $. 
-Let $\{f_n\}$ be a sequence of measurable functions on $E$ which converges pointwise a.e. to a real-valued measurable function $f$ on $E \\ \newline  $. 
+**Theorem (Egorov's theorem):** Let $(E,\mathcal{M},m)$ be a measurable set with $m(E)<\infty \\ \newline  $.   <br />
+Let $\{f_n\}$ be a sequence of measurable functions on $E$ which converges pointwise a.e. to a real-valued measurable function $f$ on $E \\ \newline  $.   <br />
 Then for every $\varepsilon>0$ there exists a closed set $F\subset E$ such that
 $$
 f_n\to f \quad\text{uniformly on }F
@@ -81,7 +81,7 @@ Here comes another limiting argument. We have nice information about the behavio
 Based on the subadditivity of the measure function:  <br /> 
 $$
 \begin{aligned}
-E \setminus \bigcap_{n=1}^{\infty} A_n &= \bigcup_{n=1}^{\infty} (E \setminus A_n), \\ \newline 
+E \setminus \bigcap_{n=1}^{\infty} A_n &= \bigcup_{n=1}^{\infty} (E \setminus A_n) \text{hence: }, \\ \newline 
 m\left(E \setminus \bigcap_{n=1}^{\infty} A_n\right) &\le \sum_{n=1}^{\infty} m(E \setminus A_n) \\ \newline 
 &\le \sum_{n=1}^{\infty} \frac{\epsilon}{2^{n+1}} = \frac{\epsilon}{2}.
 \end{aligned}
@@ -109,7 +109,7 @@ $$f = g \text{ on } F \quad \text{and} \quad m(E \setminus F) < \varepsilon.$$
 
 **Proof:** Based on the definition of simple functions, we have $f(x) = \sum_{i=1}^{n} a_i \chi_{E_i}$.
 
-We can approximate each $E_i$ such that there exist closed sets $F_i \subseteq E_i$ with $m(E_i \setminus F_i) \leq \frac{\varepsilon}{n} \\ \newline  .$.  <br />
+We can approximate each $E_i$ such that there exist closed sets $F_i \subseteq E_i$ with $m(E_i \setminus F_i) \leq \frac{\varepsilon}{n} \\ \newline  .$ <br />
 Then we take their union $F = \bigcup_{i=1}^n F_i$, which gives us a closed subset with the property that 
 $$m(E \setminus F) \leq \sum_{i=1}^n m(E_i \setminus F_i) \leq \varepsilon.$$
 
@@ -177,20 +177,22 @@ $$\lim_{n \to \infty} \int_E f_n = \int_E f.$$
 
 **Proof:** We have to show that $\lim_{n \to \infty} \int_E (f_n - f) = 0$.
 
-Based on uniform continuity, we have $$ |f_n - f| \le \epsilon \text{for} n \ge N$$ ,
+Based on uniform continuity, we have $$ |f_n - f| \le \epsilon \text{, for } n \ge N$$ ,
 and we have 
  $$\left|\lim_{n \to \infty} \int_E (f_n - f)\right| \le \lim_{n \to \infty} \int_E |f_n - f|$$.
 
 To prove it, it suffices to establish the inequality for simple functions approximating $\lim_{n \to \infty} \int_E (f_n - f)$.
 
 So for the desired $\frac{\epsilon}{m(E)}$ and for $N$ large enough and $n \ge N$, we have:
+
 $$\left| \int_E (f_n - f)\right| \le \int_E |f_n - f| \le \epsilon \cdot m(E)$$
 
 Hence the proposition is proved. □
 
 As we have seen, the uniform case is extremely simple. However, if that sufficed, life would have been too good. Thus, we must turn to other methods to capture the more subtle behaviors of measurable functions.
 
-**Theorem (The Bounded Convergence Theorem):** Let $\{f_n\}$ be a sequence of measurable functions on a set of finite measure $E$. Suppose $\{f_n\}$ is uniformly pointwise bounded on $E$, that is, there is a number $M > 0$ for which $|f_n| \leq M$ on $E$ for all $n$. If $\{f_n\} \to f$ pointwise on $E$, then 
+**Theorem (The Bounded Convergence Theorem):** Let $\{f_n\}$ be a sequence of measurable functions on a set of finite measure $E$.<br />
+ Suppose $\{f_n\}$ is uniformly pointwise bounded on $E$, that is, there is a number $M > 0$ for which $|f_n| \leq M$ on $E$ for all $n$. If $\{f_n\} \to f$ pointwise on $E$, then 
 $$\lim_{n \to \infty} \int_E f_n = \int_E f.$$
 
 **Proof:** This is a nice application of Egorov's theorem.
@@ -201,7 +203,8 @@ Since we know that the $f_n$'s are bounded, we have:
 $$\left| \int_E (f_n - f)\right| \le \int_E |f_n - f| \le \int_F |f_n - f| + \int_{E \setminus F} |f_n - f| \le \int_F |f_n - f| + 2M \cdot \epsilon$$
 
 By Egorov's theorem, we have uniformness on $F$, so for $N$ large enough and $n \ge N$,
-we have $|f_n - f| \le \epsilon$. Hence:
+we have $|f_n - f| \le \epsilon$. <br />
+Hence:
 $$\left| \int_E (f_n - f)\right| \le \int_F |f_n - f| + 2M \cdot \epsilon \le \epsilon \cdot m(F) + 2M \cdot \epsilon \le \epsilon \cdot m(E) + 2M \cdot \epsilon$$
 
 So if we let $\epsilon = \frac{\epsilon_1}{2M + m(E)}$, then:
@@ -244,11 +247,12 @@ As we may see, it is very hard to derive this integral directly, so now we turn 
 
 Let us consider a bounded measurable function $h$ with compact support that is used to compute the integral of $\int f$. Here we use this because it is the fixed object of our problem, and we also note that $f$ is also measurable, because it is the result of pointwise convergence of measurable functions, meaning pointwise convergence preserves measurability.
 
-Now having $h$, how can we derive a bounded measurable function with compact support that approximates $f_n$? The answer is to set $h_n = \min\{h, f_n\}$. It is measurable, bounded (obviously), with compact support. If support is not compact here, we know that support is bounded, and we can select a closed subset with measure difference $m(E \setminus F) \le \epsilon$, which makes it suitable. We can make a limiting argument to argue that $\int h_n \le \int f_n$.
+Now having $h$, how can we derive a bounded measurable function with compact support that approximates $f_n$? The answer is to set $h_n = min{h, f_n}$. It is measurable, bounded (obviously), with compact support. If support is not compact here, we know that support is bounded, and we can select a closed subset with measure difference $m(E \setminus F) \le \epsilon$, which makes it suitable. 
+<br /> We can make a limiting argument to argue that $\int h_n \le \int f_n$.
 
 So now we know that $\int h_n \le \int f_n$. What happens if we make another limiting argument?
 
-We know that $h_n = \min\{h, f_n\}$, then $\lim_{n \to \infty} h_n = h$. Because of the fact that $f_n$ were nonnegative, $h_n$ are bounded measurable functions, so we have pointwise convergence and boundedness. Hence we can use the bounded convergence theorem:
+We know that $h_n = min{h, f_n}$, then $\lim_{n \to \infty} h_n = h$. Because of the fact that $f_n$ were nonnegative, $h_n$ are bounded measurable functions, so we have pointwise convergence and boundedness. Hence we can use the bounded convergence theorem:
 
 $$\lim_{n \to \infty} \int h_n = \int h$$
 
@@ -274,8 +278,10 @@ But notice that if we have $f_n \le f$, hence for each function $h \le f_n$, we 
 
 We also state (which is not very hard to prove it is a direct application of Fatou's lemma):
 
-**Theorem (General Lebesgue Dominated Convergence Theorem):** Let $\{f_n\}$ be a sequence of measurable functions on $E$ that converges pointwise a.e. on $E$ to $f$. Suppose there is a sequence $\{g_n\}$ of nonnegative measurable functions on $E$ that converges pointwise a.e. on $E$ to $g$ and dominates $\{f_n\}$ on $E$ in the sense that $|f_n| \leq g_n$ on $E$ for all $n$.
-
+**Theorem (General Lebesgue Dominated Convergence Theorem):** 
+Let $\{f_n\}$ be a sequence of measurable functions on $E$ that converges pointwise a.e. on $E$ to $f$. 
+Suppose there is a sequence $\{g_n\}$ of nonnegative measurable functions on $E$ that converges pointwise a.e. <br />
+ on $E$ to $g$ and dominates $\{f_n\}$ on $E$ in the sense that $$|f_n| \leq g_n$$ on $E$ for all $n$. <br />
 If $\lim_{n \to \infty} \int_E g_n = \int_E g < \infty$, then 
 $$\lim_{n \to \infty} \int_E f_n = \int_E f.$$
 
@@ -284,18 +290,17 @@ $$\lim_{n \to \infty} \int_E f_n = \int_E f.$$
 We now turn to functional analysis and try to prove some inequalities which make for a powerful arsenal. Then we will try to prove certain introductory things about Sobolev spaces.
 
 The following passage belongs to Stein's book.
-
 If $1 \leq p < \infty$, the space $L^p(X, \mathcal{F}, \mu)$ consists of all complex-valued measurable functions on $X$ that satisfy 
 $$\int_X |f(x)|^p \, d\mu(x) < \infty.$$
-
 To simplify the notation, we write $L^p(X, \mu)$, or $L^p(X)$, or simply $L^p$ when the underlying measure space has been specified.
 
 Then, if $f \in L^p(X, \mathcal{F}, \mu)$, we define the $L^p$ norm of $f$ by
 $$\|f\|_{L^p(X, \mathcal{F}, \mu)} = \left( \int_X |f(x)|^p \, d\mu(x) \right)^{1/p}.$$
 
-We also abbreviate this to $\|f\|_{L^p(X)}$, $\|f\|_{L^p}$, or $\|f\|_p$.
+We also abbreviate this to $$\|f\|_{L^p(X)}$$, $$\|f\|_{L^p}$$, or $$\|f\|_p$$.
 
-**Theorem (Hölder inequality):** Suppose $1 < p < \infty$ and $1 < q < \infty$ are conjugate exponents. If $f \in L^p$ and $g \in L^q$, then $fg \in L^1$ and 
+**Theorem (Hölder inequality):**
+ Suppose $1 < p < \infty$ and $1 < q < \infty$ are conjugate exponents. If $f \in L^p$ and $g \in L^q$, then $fg \in L^1$ and 
 $$\|fg\|_{L^1} \leq \|f\|_{L^p} \|g\|_{L^q}.$$
 
 **Proof:** The nature of this inequality is very geometric. Let's try to prove this.
