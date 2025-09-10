@@ -90,13 +90,14 @@ $$
 
 Then it is easy to determine the uniformity of our function on the set $F$:
 
-It is easy to show that $\{f_n\}$ converges to $f$ uniformly on $F$. Indeed, let $\varepsilon > 0$. Choose an index $N_0$ such that $\frac{1}{N_0} < \varepsilon$. Then:
+It is easy to show that $\{f_n\}$ converges to $f$ uniformly on $F$.\
+Indeed, let $\varepsilon > 0$. Choose an index $N_0$ such that $\frac{1}{N_0} < \varepsilon$. Then:
 $$
 |f_k - f| < \frac{1}{N_0} \quad \text{on } A_{N_0} \text{ for } k > N_0.
 $$
 However, $F \subseteq A_{N_0}$ and $\frac{1}{N_0} < \varepsilon$, therefore:
 $ |f_k - f| < \varepsilon \quad \text{on } F \text{ for } k > N_0  \\ .$
-and we can choose a closed subset of F namely $F_0$ such that $m(F \setminus F_0) \le  \varepsilon/2 \\ .$ .
+and we can choose a closed subset of F namely $F_0$ such that $m(F \setminus F_0) \le  \varepsilon/2 \\ $.
 Thus, $\{f_n\}$ converges to $f$ uniformly on $F$, and $m(E \setminus F_0) < \varepsilon$.
 
 We have seen an example of the arguments used in measure theory and the context behind it. □
@@ -108,7 +109,8 @@ $$f = g \text{ on } F \quad \text{and} \quad m(E \setminus F) < \varepsilon.$$
 
 **Proof:** Based on the definition of simple functions, we have $f(x) = \sum_{i=1}^{n} a_i \chi_{E_i}$.
 
-We can approximate each $E_i$ such that there exist closed sets $F_i \subseteq E_i$ with $m(E_i \setminus F_i) \leq \frac{\varepsilon}{n} \n $. Then we take their union $F = \bigcup_{i=1}^n F_i$, which gives us a closed subset with the property that 
+We can approximate each $E_i$ such that there exist closed sets $F_i \subseteq E_i$ with $m(E_i \setminus F_i) \leq \frac{\varepsilon}{n} \\ .$. 
+Then we take their union $F = \bigcup_{i=1}^n F_i$, which gives us a closed subset with the property that 
 $$m(E \setminus F) \leq \sum_{i=1}^n m(E_i \setminus F_i) \leq \varepsilon.$$
 
 Since $\mathbb{Q}$ is dense in $\mathbb{R}$, every open set can be written as a union of countably many open intervals. Hence, $F^c$ is open and can be expressed as a union of countable intervals. We can then extend the function $f$ defined on $F$ to a function $g$ on the whole real line such that $g = f$ on $F$ by defining $g$ linearly on each interval of the form $(a,b)$.
@@ -175,7 +177,8 @@ $$\lim_{n \to \infty} \int_E f_n = \int_E f.$$
 
 **Proof:** We have to show that $\lim_{n \to \infty} \int_E (f_n - f) = 0$.
 
-Based on uniform continuity, we have $|f_n - f| \le \epsilon$ for $n \ge N$, and we have $\left|\lim_{n \to \infty} \int_E (f_n - f)\right| \le \lim_{n \to \infty} \int_E |f_n - f|$.
+Based on uniform continuity, we have $|f_n - f| \le \epsilon$ for $n \ge N$,
+and we have $\left|\lim_{n \to \infty} \int_E (f_n - f)\right| \le \lim_{n \to \infty} \int_E |f_n - f|$.
 
 To prove it, it suffices to establish the inequality for simple functions approximating $\lim_{n \to \infty} \int_E (f_n - f)$.
 
@@ -196,7 +199,8 @@ We have a subset $F$ of $E$ such that $m(E \setminus F) \le \epsilon$.
 Since we know that the $f_n$'s are bounded, we have:
 $$\left| \int_E (f_n - f)\right| \le \int_E |f_n - f| \le \int_F |f_n - f| + \int_{E \setminus F} |f_n - f| \le \int_F |f_n - f| + 2M \cdot \epsilon$$
 
-By Egorov's theorem, we have uniformness on $F$, so for $N$ large enough and $n \ge N$, we have $|f_n - f| \le \epsilon$. Hence:
+By Egorov's theorem, we have uniformness on $F$, so for $N$ large enough and $n \ge N$,
+we have $|f_n - f| \le \epsilon$. Hence:
 $$\left| \int_E (f_n - f)\right| \le \int_F |f_n - f| + 2M \cdot \epsilon \le \epsilon \cdot m(F) + 2M \cdot \epsilon \le \epsilon \cdot m(E) + 2M \cdot \epsilon$$
 
 So if we let $\epsilon = \frac{\epsilon_1}{2M + m(E)}$, then:
