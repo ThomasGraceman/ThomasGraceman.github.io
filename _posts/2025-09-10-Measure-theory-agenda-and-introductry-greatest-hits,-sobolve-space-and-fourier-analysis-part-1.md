@@ -317,7 +317,9 @@ Note that if $f$ or $g = 0$ a.e., then $fg = 0$ almost everywhere, and the inequ
 
 We may further assume that $$\|f\|_{L^p} = \|g\|_{L^q} = 1$$. We now need to prove that $$\|fg\|_{L^1} \leq 1$$.
 
-If we set $$A = |f(x)|^p$$, $$B = |g(x)|^q$$, and $$\theta = 1/p$$ so that $$1 - \theta = 1/q$$, then the above inequality gives
+If we set $$A = |f(x)|^p$$, $$B = |g(x)|^q$$, 
+and $$\theta = 1/p$$ so that $$1 - \theta = 1/q$$, 
+then the above inequality gives
 
 $$|f(x)g(x)| \leq \frac{1}{p} |f(x)|^p + \frac{1}{q} |g(x)|^q.$$
 
@@ -330,8 +332,8 @@ $$\|f + g\|_{L^p} \leq \|f\|_{L^p} + \|g\|_{L^p}.$$
 **Proof:** 
 The case p = 1 is obtained by integrating $$|f(x) + g(x)| \leq |f(x)| + |g(x)|$$. 
 
-When $p > 1$, we may begin by verifying that $f + g \in L^p$ when both $f$ and $g$ belong to $L^p$. Indeed,
-$$|f(x) + g(x)|^p \leq 2^p(|f(x)|^p + |g(x)|^p),$$
+When $p > 1$, we may begin by verifying that $f + g \in L^p$ when both $f$ and $g$ belong to $L^p$. <br /> Indeed, 
+$$|f(x) + g(x)|^p \leq 2^p(|f(x)|^p + |g(x)|^p),$$ <br />
 as can be seen by considering separately the cases $|f(x)| \leq |g(x)|$ and $|g(x)| \leq |f(x)|$.
 
 Next we note that  <br />
@@ -353,8 +355,9 @@ Now, let us talk about Sobolev spaces, derive some basic relations needed to pro
 
 Sobolev spaces are a form of generalization I like to call "soft abstraction," which means instead of having an object be a precise something for example, a function being precisely differentiable we just require it to behave on the surface like the nice object that we like to have. So that is a postmodern agenda, I suppose. Well, the problem was that mathematicians couldn't derive some differentiations from PDE problems, but in nature, those problems behaved just fine, as if differentiations existed. So I guess this form of abstraction is a valid one.
 
-A function $f \in L^p(\mathbb{R}^d)$ is said to have **weak derivatives** in $L^p$ up to order $k$, if for every multi-index $\alpha = (\alpha_1, \ldots, \alpha_d)$ with $|\alpha| = \alpha_1 + \cdots + \alpha_d \leq k$, there is a $g_\alpha \in L^p$ with
-$\int_{\mathbb{R}^d} g_\alpha(x) \varphi(x) \, dx = (-1)^{|\alpha|} \int_{\mathbb{R}^d} f(x) \partial_x^\alpha \varphi(x) \, dx$
+A function $f \in L^p(\mathbb{R}^d)$ is said to have **weak derivatives** in $L^p$ up to order $k$, if for every multi-index $\alpha = (\alpha_1, \ldots, \alpha_d)$ with $|\alpha| = \alpha_1 + \cdots + \alpha_d \leq k$, <br /> 
+there is a $g_\alpha \in L^p$ with
+$\int_{\mathbb{R}^d} g_\alpha(x) \varphi(x) \, dx = (-1)^{|\alpha|} \int_{\mathbb{R}^d} f(x) \partial_x^\alpha \varphi(x) \, dx$ <br />
 for all smooth functions $\varphi$ that have compact support in $\mathbb{R}^d$.
 
 Here, we use the multi-index notation 
@@ -362,17 +365,18 @@ $\partial_x^\alpha = \frac{\partial^{|\alpha|}}{\partial x^\alpha} = \frac{\part
 
 The space $L^p_k(\mathbb{R}^d)$ is the subspace of $L^p(\mathbb{R}^d)$ of all functions that have weak derivatives up to order $k$. This space is usually referred to as a **Sobolev space**.
 
-A norm that turns $L^p_k(\mathbb{R}^d)$ into a Banach space is
-$\|f\|_{L^p_k(\mathbb{R}^d)} = \sum_{|\alpha| \leq k} \|\partial_x^\alpha f\|_{L^p(\mathbb{R}^d)}.$
+A norm that turns $$L^p_k(\mathbb{R}^d)$$ into a Banach space is <br />
+$$\|f\|_{L^p_k(\mathbb{R}^d)} = \sum_{|\alpha| \leq k} \|\partial_x^\alpha f\|_{L^p(\mathbb{R}^d)}.$$
 
 More generally, we have:
 
-For any domain $\Omega \subseteq \mathbb{R}^N$, any $m \in \mathbb{N}$ and any $p \in [1, +\infty]$, we set
-$W^{m,p}(\Omega) := \{v \in L^p(\Omega) : D^\alpha v \in L^p(\Omega), \forall \alpha \in \mathbb{N}^N, |\alpha| \leq m\}.$
+For any domain $$\Omega \subseteq \mathbb{R}^N$$, any $$m \in \mathbb{N}$$ and any $$p \in [1, +\infty]$$, we set <br />
 
-(Thus $W^{0,p}(\Omega) := L^p(\Omega)$.) This is a vector space over $\mathbb{C}$, that we equip with the norm
-$\|v\|_{W^{m,p}(\Omega)} := \left( \sum_{|\alpha| \leq m} \|D^\alpha v\|_{L^p(\Omega)}^p \right)^{1/p} \quad \forall p \in [1, +\infty[,$
-$\|v\|_{W^{m,\infty}(\Omega)} := \max_{|\alpha| \leq m} \|D^\alpha v\|_{L^\infty(\Omega)}.$
+$$W^{m,p}(\Omega) := \{v \in L^p(\Omega) : D^\alpha v \in L^p(\Omega), \forall \alpha \in \mathbb{N}^N, |\alpha| \leq m\}.$$
+
+(Thus $W^{0,p}(\Omega) := L^p(\Omega)$.) This is a vector space over $$\mathbb{C}$$, that we equip with the norm
+$$\|v\|_{W^{m,p}(\Omega)} := \left( \sum_{|\alpha| \leq m} \|D^\alpha v\|_{L^p(\Omega)}^p \right)^{1/p} \quad \forall p \in [1, +\infty[,$$
+$$\|v\|_{W^{m,\infty}(\Omega)} := \max_{|\alpha| \leq m} \|D^\alpha v\|_{L^\infty(\Omega)}.$$
 
 Proving that this norm is actually a norm is pretty simple. For the triangle inequality requirement of the norm, Hölder's inequality is needed; the other two requirements are pretty easy to solve.
 
@@ -383,12 +387,14 @@ $\int_{\mathbb{R}^d} g_\alpha(x) \varphi(x) \, dx = (-1)^{|\alpha|} \int_{\mathb
 
 I cite a theorem contributed by PhoemueX on Math Stack Exchange:
 
-**Lemma:** Let $\emptyset \neq V \subset \mathbb{R}^d$ be open and bounded. Let $\varphi \in C(\overline{V})$ with $\varphi|_{\partial V} \equiv c$ for some $c \in \mathbb{R}$. Furthermore, let $i \in \{1, \ldots, d\}$ and assume that $\partial_i \varphi \in C(V) \cap L^1(V)$. Then 
-$\int_V (\partial_i \varphi)(x) \, dx = 0.$
+**Lemma:** Let $\emptyset \neq V \subset \mathbb{R}^d$ be open and bounded. Let $\varphi \in C(\overline{V})$ with $\varphi|_{\partial V} \equiv c$ for some $c \in \mathbb{R}$. Furthermore, let $i \in \{1, \ldots, d\}$ and assume that $\partial_i \varphi \in C(V) \cap L^1(V)$. <br />
+Then $\int_V (\partial_i \varphi)(x) \, dx = 0.$
 
-**Proof:** Since $\partial_d \varphi \in L^1(V)$ and $\chi_V$ is measurable, Fubini–Tonelli applies to the function $(x', x_d) \mapsto \partial_d \varphi(x', x_d) \chi_V(x', x_d)$. Hence for a.e. $x' \in \mathbb{R}^{d-1}$ the inner integral
+**Proof:**  <br />
+Since $\partial_d \varphi \in L^1(V)$ and $\chi_V$ is measurable, Fubini–Tonelli applies to the function $(x', x_d) \mapsto \partial_d \varphi(x', x_d) \chi_V(x', x_d)$. <br />
+ Hence for a.e. $x' \in \mathbb{R}^{d-1}$ the inner integral
 $\int_{\mathbb{R}} \partial_d \varphi(x', x_d) \chi_V(x', x_d) \, dx_d$
-converges absolutely and
+converges absolutely and <br />
 $\int_V \partial_d \varphi(x) \, dx = \int_{\mathbb{R}^{d-1}} \left( \int_{\mathbb{R}} \partial_d \varphi(x', x_d) \chi_V(x', x_d) \, dx_d \right) dx'.$
 
 For fixed $x' = (x_1, \ldots, x_{d-1})$ the slice
