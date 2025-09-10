@@ -78,9 +78,8 @@ According to the previous lemma, for each $\eta = \frac{1}{n}$, we have a subset
 
 Here comes another limiting argument. We have nice information about the behavior of each $A_n$ which was easy to compute. If we tried to find a set where the function is uniformly continuous from the start, it would be very hard. Now that we have partial behavior sets, we can use limiting arguments to determine the desired uniform behavior we were after. Consider: <br /> $ \\ \newline   F = \bigcap_{n=1}^{\infty} A_n$.
 
-Based on the subadditivity of the measure function:
+Based on the subadditivity of the measure function:  <br /> 
 $$
-\\ \newline 
 \begin{aligned}
 E \setminus \bigcap_{n=1}^{\infty} A_n &= \bigcup_{n=1}^{\infty} (E \setminus A_n), \\ \newline 
 m\left(E \setminus \bigcap_{n=1}^{\infty} A_n\right) &\le \sum_{n=1}^{\infty} m(E \setminus A_n) \\ \newline 
@@ -90,12 +89,13 @@ $$
 
 Then it is easy to determine the uniformity of our function on the set $F$:
 
-It is easy to show that $\{f_n\}$ converges to $f$ uniformly on $F$.\
-Indeed, let $\varepsilon > 0$. Choose an index $N_0$ such that $\frac{1}{N_0} < \varepsilon$. Then:
+It is easy to show that $\{f_n\}$ converges to $f$ uniformly on $F$.  <br /> 
+Indeed, let $\varepsilon > 0$. Choose an index $N_0$ such that $\frac{1}{N_0} < \varepsilon$.  <br /> Then:
 $$
 |f_k - f| < \frac{1}{N_0} \quad \text{on } A_{N_0} \text{ for } k > N_0.
 $$
-However, $F \subseteq A_{N_0}$ and $\frac{1}{N_0} < \varepsilon$, therefore:
+ <br />
+However, $F \subseteq A_{N_0}$ and $\frac{1}{N_0} < \varepsilon$, therefore:  <br />
 $ |f_k - f| < \varepsilon \quad \text{on } F \text{ for } k > N_0  \\ \newline $ <br />
 and we can choose a closed subset of F namely $F_0$ such that $m(F \setminus F_0) \le  \varepsilon/2 \\ \newline  $. <br />
 Thus, $\{f_n\}$ converges to $f$ uniformly on $F$, and $m(E \setminus F_0) < \varepsilon$.
