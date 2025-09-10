@@ -31,8 +31,8 @@ I take this quote from Royden's book:
 
 Egorov's Theorem: A Cornerstone Example
 
-**Theorem (Egorov's theorem):** Let $(E,\mathcal{M},m)$ be a measurable set with $m(E)<\infty \\ $. 
-Let $\{f_n\}$ be a sequence of measurable functions on $E$ which converges pointwise a.e. to a real-valued measurable function $f$ on $E \\ $. 
+**Theorem (Egorov's theorem):** Let $(E,\mathcal{M},m)$ be a measurable set with $m(E)<\infty \\ \newline  $. 
+Let $\{f_n\}$ be a sequence of measurable functions on $E$ which converges pointwise a.e. to a real-valued measurable function $f$ on $E \\ \newline  $. 
 Then for every $\varepsilon>0$ there exists a closed set $F\subset E$ such that
 $$
 f_n\to f \quad\text{uniformly on }F
@@ -76,14 +76,14 @@ Using these two agendas approximating and capturing partial behavior, plus using
 
 According to the previous lemma, for each $\eta = \frac{1}{n}$, we have a subset $A_n$ such that $m(E \setminus A_n) < \frac{\epsilon}{2^{n+1}}$.
 
-Here comes another limiting argument. We have nice information about the behavior of each $A_n$ which was easy to compute. If we tried to find a set where the function is uniformly continuous from the start, it would be very hard. Now that we have partial behavior sets, we can use limiting arguments to determine the desired uniform behavior we were after. Consider: $ \\ F = \bigcap_{n=1}^{\infty} A_n$.
+Here comes another limiting argument. We have nice information about the behavior of each $A_n$ which was easy to compute. If we tried to find a set where the function is uniformly continuous from the start, it would be very hard. Now that we have partial behavior sets, we can use limiting arguments to determine the desired uniform behavior we were after. Consider: $ \\ \newline   F = \bigcap_{n=1}^{\infty} A_n$.
 
 Based on the subadditivity of the measure function:
 $$
-\\
+\\ \newline 
 \begin{aligned}
-E \setminus \bigcap_{n=1}^{\infty} A_n &= \bigcup_{n=1}^{\infty} (E \setminus A_n), \\
-m\left(E \setminus \bigcap_{n=1}^{\infty} A_n\right) &\le \sum_{n=1}^{\infty} m(E \setminus A_n) \\
+E \setminus \bigcap_{n=1}^{\infty} A_n &= \bigcup_{n=1}^{\infty} (E \setminus A_n), \\ \newline 
+m\left(E \setminus \bigcap_{n=1}^{\infty} A_n\right) &\le \sum_{n=1}^{\infty} m(E \setminus A_n) \\ \newline 
 &\le \sum_{n=1}^{\infty} \frac{\epsilon}{2^{n+1}} = \frac{\epsilon}{2}.
 \end{aligned}
 $$
@@ -96,8 +96,8 @@ $$
 |f_k - f| < \frac{1}{N_0} \quad \text{on } A_{N_0} \text{ for } k > N_0.
 $$
 However, $F \subseteq A_{N_0}$ and $\frac{1}{N_0} < \varepsilon$, therefore:
-$ |f_k - f| < \varepsilon \quad \text{on } F \text{ for } k > N_0  \\ .$
-and we can choose a closed subset of F namely $F_0$ such that $m(F \setminus F_0) \le  \varepsilon/2 \\ $.
+$ |f_k - f| < \varepsilon \quad \text{on } F \text{ for } k > N_0  \\ \newline $
+and we can choose a closed subset of F namely $F_0$ such that $m(F \setminus F_0) \le  \varepsilon/2 \\ \newline  $.
 Thus, $\{f_n\}$ converges to $f$ uniformly on $F$, and $m(E \setminus F_0) < \varepsilon$.
 
 We have seen an example of the arguments used in measure theory and the context behind it. □
@@ -109,7 +109,7 @@ $$f = g \text{ on } F \quad \text{and} \quad m(E \setminus F) < \varepsilon.$$
 
 **Proof:** Based on the definition of simple functions, we have $f(x) = \sum_{i=1}^{n} a_i \chi_{E_i}$.
 
-We can approximate each $E_i$ such that there exist closed sets $F_i \subseteq E_i$ with $m(E_i \setminus F_i) \leq \frac{\varepsilon}{n} \\ .$. 
+We can approximate each $E_i$ such that there exist closed sets $F_i \subseteq E_i$ with $m(E_i \setminus F_i) \leq \frac{\varepsilon}{n} \\ \newline  .$. 
 Then we take their union $F = \bigcup_{i=1}^n F_i$, which gives us a closed subset with the property that 
 $$m(E \setminus F) \leq \sum_{i=1}^n m(E_i \setminus F_i) \leq \varepsilon.$$
 
@@ -177,8 +177,9 @@ $$\lim_{n \to \infty} \int_E f_n = \int_E f.$$
 
 **Proof:** We have to show that $\lim_{n \to \infty} \int_E (f_n - f) = 0$.
 
-Based on uniform continuity, we have $|f_n - f| \le \epsilon$ for $n \ge N$,
-and we have $\left|\lim_{n \to \infty} \int_E (f_n - f)\right| \le \lim_{n \to \infty} \int_E |f_n - f|$.
+Based on uniform continuity, we have $$ |f_n - f| \le \epsilon$ for $n \ge N$$ ,
+and we have
+ $$\left|\lim_{n \to \infty} \int_E (f_n - f)\right| \le \lim_{n \to \infty} \int_E |f_n - f|$$.
 
 To prove it, it suffices to establish the inequality for simple functions approximating $\lim_{n \to \infty} \int_E (f_n - f)$.
 
