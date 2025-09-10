@@ -31,8 +31,8 @@ I take this quote from Royden's book:
 
 Egorov's Theorem: A Cornerstone Example
 
-**Theorem (Egorov's theorem):** Let $(E,\mathcal{M},m)$ be a measurable set with $m(E)<\infty$. 
-Let $\{f_n\}$ be a sequence of measurable functions on $E$ which converges pointwise a.e. to a real-valued measurable function $f$ on $E$. 
+**Theorem (Egorov's theorem):** Let $(E,\mathcal{M},m)$ be a measurable set with $m(E)<\infty \n $. 
+Let $\{f_n\}$ be a sequence of measurable functions on $E$ which converges pointwise a.e. to a real-valued measurable function $f$ on $E \n $. 
 Then for every $\varepsilon>0$ there exists a closed set $F\subset E$ such that
 $$
 f_n\to f \quad\text{uniformly on }F
@@ -74,12 +74,13 @@ For every measurable set, we can approximate it with a closed set which is a sub
 
 Using these two agendas approximating and capturing partial behavior, plus using limiting arguments we can prove the lemma. Now let's turn to the actual theorem.
 
-According to the previous lemma, for each $\eta = \frac{1}{n}$, we have a closed set $A_n$ such that $m(E \setminus A_n) < \frac{\epsilon}{2^{n+1}}$.
+According to the previous lemma, for each $\eta = \frac{1}{n}$, we have a subset $A_n$ such that $m(E \setminus A_n) < \frac{\epsilon}{2^{n+1}}$.
 
-Here comes another limiting argument. We have nice information about the behavior of each $A_n$ which was easy to compute. If we tried to find a set where the function is uniformly continuous from the start, it would be very hard. Now that we have partial behavior sets, we can use limiting arguments to determine the desired uniform behavior we were after. Consider: $F = \bigcap_{n=1}^{\infty} A_n$.
+Here comes another limiting argument. We have nice information about the behavior of each $A_n$ which was easy to compute. If we tried to find a set where the function is uniformly continuous from the start, it would be very hard. Now that we have partial behavior sets, we can use limiting arguments to determine the desired uniform behavior we were after. Consider: $ \n F = \bigcap_{n=1}^{\infty} A_n$.
 
 Based on the subadditivity of the measure function:
 $$
+\n
 \begin{aligned}
 E \setminus \bigcap_{n=1}^{\infty} A_n &= \bigcup_{n=1}^{\infty} (E \setminus A_n), \\
 m\left(E \setminus \bigcap_{n=1}^{\infty} A_n\right) &\le \sum_{n=1}^{\infty} m(E \setminus A_n) \\
@@ -95,9 +96,12 @@ $$
 $$
 However, $F \subseteq A_{N_0}$ and $\frac{1}{N_0} < \varepsilon$, therefore:
 $$
+\n
+
 |f_k - f| < \varepsilon \quad \text{on } F \text{ for } k > N_0.
 $$
-Thus, $\{f_n\}$ converges to $f$ uniformly on $F$, and $m(E \setminus F) < \varepsilon$.
+and we can choose a closed subset of F namely $F_0$ such that $m(F \setminus F_0) \le  \varepsilon/2 \n $ .
+Thus, $\{f_n\}$ converges to $f$ uniformly on $F$, and $m(E \setminus F_0) < \varepsilon$.
 
 We have seen an example of the arguments used in measure theory and the context behind it. □
 
