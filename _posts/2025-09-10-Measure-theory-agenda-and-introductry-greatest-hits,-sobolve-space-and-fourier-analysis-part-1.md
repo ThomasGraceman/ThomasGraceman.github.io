@@ -403,7 +403,8 @@ is an open subset of $\mathbb{R}$. Any open subset of $\mathbb{R}$ is a (countab
 $V_{x'} = \bigsqcup_{n \in \mathbb{N}} (a_n, b_n),$
 where $-\infty < a_n \leq b_n < \infty$ because $V$ is bounded.
 
-If $a_n < b_n$, then $a_n$ and $b_n$ are endpoints of a maximal open interval contained in $V_{x'}$, so they cannot belong to $V_{x'}$. Thus 
+If $a_n < b_n$, then $a_n$ and $b_n$ are endpoints of a maximal open interval contained in $V_{x'}$, so they cannot belong to $V_{x'}$.<br />
+Thus 
 $
 (x',a_n), (x',b_n) \notin V.
 $
@@ -423,10 +424,10 @@ Hence the fundamental theorem of calculus gives
 $
 \int_{a_n}^{b_n} \partial_d \varphi(x',t)\,dt 
 = \varphi(x',b_n) - \varphi(x',a_n) = c - c = 0.
-$
+$ <br />
 If $a_n=b_n$ the integral is trivially $0$.
 
-For the fixed $x'$ (for which the inner integral converges absolutely) we therefore have
+For the fixed $x'$ (for which the inner integral converges absolutely) we therefore have <br /> 
 $
 \int_{\mathbb{R}} \partial_d \varphi(x',x_d) \,\chi_V(x',x_d)\,dx_d
 = \sum_n \int_{a_n}^{b_n} \partial_d \varphi(x',x_d)\,dx_d
@@ -443,7 +444,3 @@ $
    = \int_V \varphi \cdot \partial_i u + u \cdot \partial_i \varphi \, dx,
 $
 which yields the integration by parts formula that justifies our definition of weak derivatives. □
-
-Conclusion
-
-This concludes our foundational exploration of measure theory, functional analysis, and the introduction to Sobolev spaces. We have seen how the core principles of measure theory limiting arguments, approximation, and bottom-up construction provide the framework for understanding more sophisticated objects.
