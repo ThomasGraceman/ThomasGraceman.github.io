@@ -247,12 +247,15 @@ As we may see, it is very hard to derive this integral directly, so now we turn 
 
 Let us consider a bounded measurable function $h$ with compact support that is used to compute the integral of $\int f$. Here we use this because it is the fixed object of our problem, and we also note that $f$ is also measurable, because it is the result of pointwise convergence of measurable functions, meaning pointwise convergence preserves measurability.
 
-Now having $h$, how can we derive a bounded measurable function with compact support that approximates $f_n$? The answer is to set $h_n = min{h, f_n}$. It is measurable, bounded (obviously), with compact support. If support is not compact here, we know that support is bounded, and we can select a closed subset with measure difference $m(E \setminus F) \le \epsilon$, which makes it suitable. 
+Now having $h$, how can we derive a bounded measurable function with compact support that approximates $f_n$? The answer is to set $h_n = \text{min}(h, f_n)$. <br /> 
+It is measurable, bounded (obviously), with compact support. If support is not compact here, we know that support is bounded, and we can select a closed subset with measure difference $m(E \setminus F) \le \epsilon$, which makes it suitable. 
 <br /> We can make a limiting argument to argue that $\int h_n \le \int f_n$.
 
 So now we know that $\int h_n \le \int f_n$. What happens if we make another limiting argument?
 
-We know that $h_n = min{h, f_n}$, then $\lim_{n \to \infty} h_n = h$. Because of the fact that $f_n$ were nonnegative, $h_n$ are bounded measurable functions, so we have pointwise convergence and boundedness. Hence we can use the bounded convergence theorem:
+We know that $h_n = \text{min}(h, f_n)$, then $\lim_{n \to \infty} h_n = h$. Because of the fact that $f_n$ were nonnegative, $h_n$ are bounded measurable functions, so we have pointwise convergence and boundedness. <br />
+
+Hence we can use the bounded convergence theorem:
 
 $$\lim_{n \to \infty} \int h_n = \int h$$
 
@@ -278,8 +281,8 @@ But notice that if we have $f_n \le f$, hence for each function $h \le f_n$, we 
 
 We also state (which is not very hard to prove it is a direct application of Fatou's lemma):
 
-**Theorem (General Lebesgue Dominated Convergence Theorem):** 
-Let $\{f_n\}$ be a sequence of measurable functions on $E$ that converges pointwise a.e. on $E$ to $f$. 
+**Theorem (General Lebesgue Dominated Convergence Theorem):** <br /> 
+Let $\{f_n\}$ be a sequence of measurable functions on $E$ that converges pointwise a.e. on $E$ to $f$.  <br />
 Suppose there is a sequence $\{g_n\}$ of nonnegative measurable functions on $E$ that converges pointwise a.e. <br />
  on $E$ to $g$ and dominates $\{f_n\}$ on $E$ in the sense that $$|f_n| \leq g_n$$ on $E$ for all $n$. <br />
 If $\lim_{n \to \infty} \int_E g_n = \int_E g < \infty$, then 
@@ -312,33 +315,36 @@ $$A^{\theta} B^{1-\theta} \leq \theta A + (1-\theta) B.$$
 
 Note that if $f$ or $g = 0$ a.e., then $fg = 0$ almost everywhere, and the inequality is true, so let's consider the other case. We now consider $\frac{f}{\|f\|}$ and $\frac{g}{\|g\|}$.
 
-We may further assume that $\|f\|_{L^p} = \|g\|_{L^q} = 1$. We now need to prove that $\|fg\|_{L^1} \leq 1$.
+We may further assume that $$\|f\|_{L^p} = \|g\|_{L^q} = 1$$. We now need to prove that $$\|fg\|_{L^1} \leq 1$$.
 
-If we set $A = |f(x)|^p$, $B = |g(x)|^q$, and $\theta = 1/p$ so that $1 - \theta = 1/q$, then the above inequality gives
+If we set $$A = |f(x)|^p$$, $$B = |g(x)|^q$$, and $$\theta = 1/p$$ so that $$1 - \theta = 1/q$$, then the above inequality gives
+
 $$|f(x)g(x)| \leq \frac{1}{p} |f(x)|^p + \frac{1}{q} |g(x)|^q.$$
 
 Integrating this inequality yields $\|fg\|_{L^1} \leq 1$, and the proof of the Hölder inequality is complete. □
 
-**Theorem (Minkowski inequality):** If $1 \leq p < \infty$ and $f, g \in L^p$, then $f + g \in L^p$ and 
+**Theorem (Minkowski inequality):** <br />
+If $1 \leq p < \infty$ and $f, g \in L^p$, then $f + g \in L^p$ and 
 $$\|f + g\|_{L^p} \leq \|f\|_{L^p} + \|g\|_{L^p}.$$
 
-**Proof:** The case $p = 1$ is obtained by integrating $|f(x) + g(x)| \leq |f(x)| + |g(x)|$.
+**Proof:** 
+The case p = 1 is obtained by integrating $$|f(x) + g(x)| \leq |f(x)| + |g(x)|$$. 
 
 When $p > 1$, we may begin by verifying that $f + g \in L^p$ when both $f$ and $g$ belong to $L^p$. Indeed,
 $$|f(x) + g(x)|^p \leq 2^p(|f(x)|^p + |g(x)|^p),$$
 as can be seen by considering separately the cases $|f(x)| \leq |g(x)|$ and $|g(x)| \leq |f(x)|$.
 
-Next we note that 
+Next we note that  <br />
 $|f(x) + g(x)|^p \leq |f(x)| |f(x) + g(x)|^{p-1} + |g(x)| |f(x) + g(x)|^{p-1}.$
 
-If $q$ denotes the conjugate exponent of $p$, then $(p-1)q = p$, so we see that $(f + g)^{p-1}$ belongs to $L^q$, and therefore Hölder's inequality applied to the two terms on the right-hand side of the above inequality gives
-$\|f + g\|_{L^p}^p \leq \|f\|_{L^p} \|(f + g)^{p-1}\|_{L^q} + \|g\|_{L^p} \|(f + g)^{p-1}\|_{L^q}.$
+If $q$ denotes the conjugate exponent of $p$, then $(p-1)q = p$, so we see that $(f + g)^{p-1}$ belongs to $L^q$, and therefore Hölder's inequality applied to the two terms on the right-hand side of the above inequality gives <br />
+$$\|f + g\|_{L^p}^p \leq \|f\|_{L^p} \|(f + g)^{p-1}\|_{L^q} + \|g\|_{L^p} \|(f + g)^{p-1}\|_{L^q}.$$
 
 However, using once again $(p-1)q = p$, we get 
-$\|(f + g)^{p-1}\|_{L^q} = \|f + g\|_{L^p}^{p/q}.$
+$$\|(f + g)^{p-1}\|_{L^q} = \|f + g\|_{L^p}^{p/q}.$$
 
-From the above, since $p - p/q = 1$, and because we may suppose that $\|f + g\|_{L^p} > 0$, we find
-$\|f + g\|_{L^p} \leq \|f\|_{L^p} + \|g\|_{L^p},$
+From the above, since $$p - p/q = 1$$, and because we may suppose that $$\|f + g\|_{L^p} > 0$$,  we find
+$$\|f + g\|_{L^p} \leq \|f\|_{L^p} + \|g\|_{L^p},$$
 so the proof is finished. □
 
 ## Introduction to Sobolev Spaces
