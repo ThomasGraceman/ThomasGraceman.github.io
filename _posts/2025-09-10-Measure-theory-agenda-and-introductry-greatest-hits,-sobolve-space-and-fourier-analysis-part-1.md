@@ -95,12 +95,8 @@ $$
 |f_k - f| < \frac{1}{N_0} \quad \text{on } A_{N_0} \text{ for } k > N_0.
 $$
 However, $F \subseteq A_{N_0}$ and $\frac{1}{N_0} < \varepsilon$, therefore:
-$$
-\\
-
-|f_k - f| < \varepsilon \quad \text{on } F \text{ for } k > N_0.
-$$
-and we can choose a closed subset of F namely $F_0$ such that $m(F \setminus F_0) \le  \varepsilon/2 \\ $ .
+$ |f_k - f| < \varepsilon \quad \text{on } F \text{ for } k > N_0  \\ .$
+and we can choose a closed subset of F namely $F_0$ such that $m(F \setminus F_0) \le  \varepsilon/2 \\ .$ .
 Thus, $\{f_n\}$ converges to $f$ uniformly on $F$, and $m(E \setminus F_0) < \varepsilon$.
 
 We have seen an example of the arguments used in measure theory and the context behind it. □
