@@ -27,11 +27,13 @@ We have the definition of measurable functions, which translate inverses of meas
 I take this quote from Royden's book:
 
 > J. E. Littlewood says:  
-> "The extent of knowledge required is nothing like so great as is sometimes supposed. There are three principles, roughly expressible in the following terms: Every [measurable] set is nearly a finite union of intervals; every [measurable] function is nearly continuous; every pointwise convergent sequence of [measurable] functions is nearly uniformly convergent. Most of the results of [the theory] are fairly intuitive applications of these ideas, and the student armed with them should be equal to most occasions when real variable theory is called for. If one of the principles would be the obvious means to settle the problem if it were 'quite' true, it is natural to ask if the 'nearly' is near enough, and for a problem that is actually solvable it generally is."
+> "The extent of knowledge required is nothing like so great as is sometimes supposed. There are three principles, roughly expressible in the following terms: Every measurable set is nearly a finite union of intervals; every measurable function is nearly continuous; every pointwise convergent sequence of measurable functions is nearly uniformly convergent. Most of the results of [the theory] are fairly intuitive applications of these ideas, and the student armed with them should be equal to most occasions when real variable theory is called for. If one of the principles would be the obvious means to settle the problem if it were 'quite' true, it is natural to ask if the 'nearly' is near enough, and for a problem that is actually solvable it generally is."
 
 Egorov's Theorem: A Cornerstone Example
 
-**Theorem (Egorov's theorem):** Let $(E,\mathcal{M},m)$ be a measurable set with $m(E)<\infty$. Let $\{f_n\}$ be a sequence of measurable functions on $E$ which converges pointwise a.e. to a real-valued measurable function $f$ on $E$. Then for every $\varepsilon>0$ there exists a closed set $F\subset E$ such that
+**Theorem (Egorov's theorem):** Let $(E,\mathcal{M},m)$ be a measurable set with $m(E)<\infty$. 
+Let $\{f_n\}$ be a sequence of measurable functions on $E$ which converges pointwise a.e. to a real-valued measurable function $f$ on $E$. 
+Then for every $\varepsilon>0$ there exists a closed set $F\subset E$ such that
 $$
 f_n\to f \quad\text{uniformly on }F
 $$
@@ -42,7 +44,8 @@ $$
 
 **Proof:** Following Royden, we first prove the following lemma:
 
-**Lemma:** Under the assumptions of Egorov's theorem, for each $\eta>0$ and $\epsilon>0$, there exists a measurable subset $A\subseteq E$ and an index $N\in\mathbb{N}$ such that
+**Lemma:** Under the assumptions of Egorov's theorem, for each $\eta>0$ and $\epsilon>0$, 
+there exists a measurable subset $A\subseteq E$ and an index $N\in\mathbb{N}$ such that
 $$
 |f_n-f|<\eta \quad \text{on } A \quad \text{for all } n>N,
 $$
@@ -59,7 +62,8 @@ $$N_{M,\eta} = \left\{ x \in E : \text{for all } n > M, \, |f_n(x) - f(x)| < \et
 
 Let $N = \bigcup_{M=1}^\infty N_{M,\eta}$. By the measurability of functions, we know that each $N_M$ is measurable, and the union of measurable sets is measurable, hence $N$ is measurable. But is there any correlation between $N$ and $E$?
 
-For each $x \in E$, there exists an $M$ such that for all $n > M$, we have $|f_n(x) - f(x)| < \eta$ based on the pointwise convergence assumption. Hence we can deduce that $E = N$, and the $N_M$ form an ascending collection of measurable sets.
+For each $x \in E$, there exists an $M$ such that for all $n > M$, we have $|f_n(x) - f(x)| < \eta$ based on the pointwise convergence assumption. 
+Hence we can deduce that $E = N$, and the $N_M$ form an ascending collection of measurable sets.
 
 Based on the continuity of measure, we have:
 $$m\left(\bigcup_{k=1}^\infty N_k\right) = \lim_{k \to \infty} m(N_k)$$
