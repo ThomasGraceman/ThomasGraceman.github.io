@@ -375,7 +375,7 @@ For any domain $$\Omega \subseteq \mathbb{R}^N$$, any $$m \in \mathbb{N}$$ and a
 $$W^{m,p}(\Omega) := \{v \in L^p(\Omega) : D^\alpha v \in L^p(\Omega), \forall \alpha \in \mathbb{N}^N, |\alpha| \leq m\}.$$
 
 (Thus $W^{0,p}(\Omega) := L^p(\Omega)$.) This is a vector space over $$\mathbb{C}$$, that we equip with the norm
-$$\|v\|_{W^{m,p}(\Omega)} := \left( \sum_{|\alpha| \leq m} \|D^\alpha v\|_{L^p(\Omega)}^p \right)^{1/p} \quad \forall p \in [1, +\infty[,$$
+$$\|v\|_{W^{m,p}(\Omega)} := \left( \sum_{|\alpha| \leq m} \|D^\alpha v\|_{L^p(\Omega)}^p \right)^{1/p} \quad \forall p \in [1, +\infty[,$$ <br />
 $$\|v\|_{W^{m,\infty}(\Omega)} := \max_{|\alpha| \leq m} \|D^\alpha v\|_{L^\infty(\Omega)}.$$
 
 Proving that this norm is actually a norm is pretty simple. For the triangle inequality requirement of the norm, Hölder's inequality is needed; the other two requirements are pretty easy to solve.
@@ -412,12 +412,14 @@ $
 (x',a_n),(x',b_n) \in \overline{V}\setminus V = \partial V.
 $
 
-By hypothesis $\varphi \in C(\overline{V})$ and $\varphi|_{\partial V} \equiv c$. Therefore
+By hypothesis $\varphi \in C(\overline{V})$ and $\varphi|_{\partial V} \equiv c$. <br />
+Therefore
 $
 \varphi(x',a_n) = \varphi(x',b_n) = c \quad \text{for each $n$ with } a_n < b_n.
 $
 
-For each interval $(a_n,b_n)$ the function $t \mapsto \varphi(x',t)$ is $C^1$ on $(a_n,b_n)$ (because $\partial_d \varphi$ is continuous on $V$), and extends continuously to $[a_n,b_n]$. Hence the fundamental theorem of calculus gives
+For each interval $(a_n,b_n)$ the function $t \mapsto \varphi(x',t)$ is $C^1$ on $(a_n,b_n)$ (because $\partial_d \varphi$ is continuous on $V$), and extends continuously to $[a_n,b_n]$. <br />
+Hence the fundamental theorem of calculus gives
 $
 \int_{a_n}^{b_n} \partial_d \varphi(x',t)\,dt 
 = \varphi(x',b_n) - \varphi(x',a_n) = c - c = 0.
