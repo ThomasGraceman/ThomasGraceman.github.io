@@ -31,8 +31,8 @@ I take this quote from Royden's book:
 
 Egorov's Theorem: A Cornerstone Example
 
-**Theorem (Egorov's theorem):** Let $(E,\mathcal{M},m)$ be a measurable set with $m(E)<\infty \n $. 
-Let $\{f_n\}$ be a sequence of measurable functions on $E$ which converges pointwise a.e. to a real-valued measurable function $f$ on $E \n $. 
+**Theorem (Egorov's theorem):** Let $(E,\mathcal{M},m)$ be a measurable set with $m(E)<\infty \\ $. 
+Let $\{f_n\}$ be a sequence of measurable functions on $E$ which converges pointwise a.e. to a real-valued measurable function $f$ on $E \\ $. 
 Then for every $\varepsilon>0$ there exists a closed set $F\subset E$ such that
 $$
 f_n\to f \quad\text{uniformly on }F
@@ -76,11 +76,11 @@ Using these two agendas approximating and capturing partial behavior, plus using
 
 According to the previous lemma, for each $\eta = \frac{1}{n}$, we have a subset $A_n$ such that $m(E \setminus A_n) < \frac{\epsilon}{2^{n+1}}$.
 
-Here comes another limiting argument. We have nice information about the behavior of each $A_n$ which was easy to compute. If we tried to find a set where the function is uniformly continuous from the start, it would be very hard. Now that we have partial behavior sets, we can use limiting arguments to determine the desired uniform behavior we were after. Consider: $ \n F = \bigcap_{n=1}^{\infty} A_n$.
+Here comes another limiting argument. We have nice information about the behavior of each $A_n$ which was easy to compute. If we tried to find a set where the function is uniformly continuous from the start, it would be very hard. Now that we have partial behavior sets, we can use limiting arguments to determine the desired uniform behavior we were after. Consider: $ \\ F = \bigcap_{n=1}^{\infty} A_n$.
 
 Based on the subadditivity of the measure function:
 $$
-\n
+\\
 \begin{aligned}
 E \setminus \bigcap_{n=1}^{\infty} A_n &= \bigcup_{n=1}^{\infty} (E \setminus A_n), \\
 m\left(E \setminus \bigcap_{n=1}^{\infty} A_n\right) &\le \sum_{n=1}^{\infty} m(E \setminus A_n) \\
@@ -96,11 +96,11 @@ $$
 $$
 However, $F \subseteq A_{N_0}$ and $\frac{1}{N_0} < \varepsilon$, therefore:
 $$
-\n
+\\
 
 |f_k - f| < \varepsilon \quad \text{on } F \text{ for } k > N_0.
 $$
-and we can choose a closed subset of F namely $F_0$ such that $m(F \setminus F_0) \le  \varepsilon/2 \n $ .
+and we can choose a closed subset of F namely $F_0$ such that $m(F \setminus F_0) \le  \varepsilon/2 \\ $ .
 Thus, $\{f_n\}$ converges to $f$ uniformly on $F$, and $m(E \setminus F_0) < \varepsilon$.
 
 We have seen an example of the arguments used in measure theory and the context behind it. □
@@ -112,7 +112,7 @@ $$f = g \text{ on } F \quad \text{and} \quad m(E \setminus F) < \varepsilon.$$
 
 **Proof:** Based on the definition of simple functions, we have $f(x) = \sum_{i=1}^{n} a_i \chi_{E_i}$.
 
-We can approximate each $E_i$ such that there exist closed sets $F_i \subseteq E_i$ with $m(E_i \setminus F_i) \leq \frac{\varepsilon}{n}$. Then we take their union $F = \bigcup_{i=1}^n F_i$, which gives us a closed subset with the property that 
+We can approximate each $E_i$ such that there exist closed sets $F_i \subseteq E_i$ with $m(E_i \setminus F_i) \leq \frac{\varepsilon}{n} \n $. Then we take their union $F = \bigcup_{i=1}^n F_i$, which gives us a closed subset with the property that 
 $$m(E \setminus F) \leq \sum_{i=1}^n m(E_i \setminus F_i) \leq \varepsilon.$$
 
 Since $\mathbb{Q}$ is dense in $\mathbb{R}$, every open set can be written as a union of countably many open intervals. Hence, $F^c$ is open and can be expressed as a union of countable intervals. We can then extend the function $f$ defined on $F$ to a function $g$ on the whole real line such that $g = f$ on $F$ by defining $g$ linearly on each interval of the form $(a,b)$.
@@ -133,7 +133,9 @@ $$f = g \text{ on } F \quad \text{and} \quad m(E \setminus F) < \varepsilon.$$
 
 First, assume that we have a function which is not simple, but we can use simple functions to approximate it pointwise. For example, if a function equals $f = \sum_{i=1}^{\infty} a_i \chi_{E_i}$, then we can use $f_n = \sum_{i=1}^{n} a_i \chi_{E_i}$ to approximate it and have pointwise convergence.
 
-Alternatively, we could consider the truncated function by setting $E_n = \{x : |f(x)| \leq n\}$ and approximating the function on this subset first. It is easy to show that we can approximate this function with the desired error $|f(x) - g_n(x)| \le \frac{1}{n}$ using another simple function $g_n$ on $E_n$ and setting $g_n$ to equal $n$ on $E_n^c$. It is easy to show that this converges pointwise to $f$.
+Alternatively, we could consider the truncated function by setting $E_n = \{x : |f(x)| \leq n\}$ and approximating the function on this subset first. 
+It is easy to show that we can approximate this function with the desired error $|f(x) - g_n(x)| \le \frac{1}{n}$ using another simple function $g_n$ on $E_n$ and setting $g_n$ to equal $n$ on $E_n^c$.
+ It is easy to show that this converges pointwise to $f$.
 
 Using this approach, we have a sequence of simple function approximations $\{f_n\}$. Based on the previous proposition, we can extend them to continuous functions $\{g_n\}$: $g_n = f_n$ on $F_n$ where $m(E \setminus F_n) < \frac{\varepsilon}{2^{n+1}}$.
 
