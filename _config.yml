@@ -9,7 +9,7 @@
 # Basic Site Settings
 locale                   : "en-US"
 site_theme               : "default" # The available themes options are "default", "air", "sunrise", "mint", "dirt" and "contrast"
-title                    : "Your Name / Site Title"
+title                    : "A steeper descent"
 title_separator          : "-"
 name                     : &name "Taha hoseinpour"
 description              : &description "In this blog, I will share all about my research interests and the things that i have read"   # Update this with a general description of your site, this is the default if not overridden by a page
@@ -28,7 +28,7 @@ author:
   pronouns         : # example: "she/her"  
   bio              : "Short biography for the left-hand sidebar"
   location         : "Earth"
-  employer         : "Sharif University of Science and Technology"
+  employer         : "Sharif University of Technology"
   uri              : # URL
   email            : "tahahoseinpourasli@gmail.com" 
 
