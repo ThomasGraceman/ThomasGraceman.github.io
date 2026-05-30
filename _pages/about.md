@@ -7,13 +7,15 @@ redirect_from:
   - /about.html
 ---
 
-Hi my name is taha hoseinpour asli and i am a master's student, with a deep passion for TCS, Especially i am interested in problems reagarding discretizing continouse structures such as the themes that James R lee works on, to give an i like the problem of spasification of graphs, more generally working on specteral graph theory.  "When does a discrete problem secretly live in a continuous geometric world, and can we exploit that to solve it?" and What is the geometric structure underlying a computational or probabilistic problem, and how does that structure determine what is efficiently possible
+Hello, my name is Taha Hoseinpour, and I am a master's student in theoretical computer science at Sharif University of Technology.
 
-Moreover, i ilike the problems that Guy Blanc works on, more specifically i like the idea to work on  ability to perform a statistical task, such as learning, when an adversary corrupts the sample. Such adversaries are specified by the types of corruption they can make and their level of knowledge about the sa , and his works on adaptive data analysis, i raelly like to find answer to this grand problem "When can we trust statistical conclusions drawn from data that has been looked at before?" 
+My primary research interest is understanding how complex continuous or high-dimensional structures can be represented by simpler discrete objects while preserving their essential properties. This perspective appears in many areas of theoretical computer science, including graph and hypergraph sparsification, metric embeddings, spectral graph theory, and approximation algorithms.
 
-and also i really like to work on problems that Daniel Kane works on, namely the problem of  High-Dimensional Robust Statistics i like the problems of high dimensional statistics, more specifically fiding efficient algorithms for the case when basic idea is that one wants to answer basic statistical questions even if a small fraction of your samples have been adversarially corrupted
+More broadly, I am interested in geometric and analytic approaches to algorithm design. In particular, I enjoy studying how high-dimensional objects can be approximated by lower-dimensional ones, how complicated metrics can be embedded into simpler spaces, and how these ideas can be used to design efficient algorithms.
 
-( will clarigy them all later)
+Recently, I have been interested in applications of metric embeddings and geometric methods to online algorithms, especially metrical task systems and related optimization techniques. I am also interested in modern approaches to sparsification that extend beyond graphs to more general continuous and geometric settings.
+
+On this blog, I write about papers and books that I read, focusing on their motivation, historical development, and main technical ideas. I also maintain a reading list of books and papers that I am currently studying.
 
 ======
 
