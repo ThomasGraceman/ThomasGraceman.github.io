@@ -48,7 +48,7 @@ author:
 
   # Social media
   artstation       : # Username
-  bluesky          : "bsky.app" # Replace this with you Bluesky username
+  bluesky          : # Username
   goodreads        : # Username
   linkedin         : # Username
   mastodon         : # URL
@@ -203,9 +203,9 @@ collections:
   publications:
     output: true
     permalink: /:collection/:path/
-  portfolio:
+  readinglist:
     output: true
-    permalink: /:collection/:path/
+    permalink: /:readinglist/:path/
   talks:
     output: true
     permalink: /:collection/:path/
