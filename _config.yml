@@ -203,9 +203,9 @@ collections:
   publications:
     output: true
     permalink: /:collection/:path/
-  readinglist:
+  portfolio:
     output: true
-    permalink: /:readinglist/:path/
+    permalink: /:collection/:path/
   talks:
     output: true
     permalink: /:collection/:path/
