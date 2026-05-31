@@ -19,15 +19,7 @@ Last but not least, I occasionally read papers in proof complexity, particularly
 
 On this blog, I write about papers and books that I read, focusing on their motivation, historical development, and main technical ideas. I also maintain a reading list of books and papers that I am currently studying.
 
-======
-
-Getting started
-======
 
 ------
-
-**Markdown generator**
-
-------
-For more info
+Please check the blog and the reading list; thank you.
 ------
