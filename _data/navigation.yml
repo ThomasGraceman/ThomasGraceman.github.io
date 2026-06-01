@@ -17,7 +17,7 @@ main:
   #- title: "Teaching"
   #  url: /teaching/    
     
-  - title: "readinglist"
+  - title: "Reading List"
     url: /readinglist/
         
   - title: "Blog Posts"
