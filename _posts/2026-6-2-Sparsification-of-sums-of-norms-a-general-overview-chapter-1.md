@@ -16,9 +16,9 @@ redirect_from:
 
 ## 1. From Graphs to Sums of Norms
 
-Sparsification usually means replacing a large object by a smaller one that is still close in a useful sense. The classical starting point is **graph sparsification**: for example Benczúr and Karger (1996), *Approximating s-t Minimum Cuts in $\tilde{O}(n^2)$ Time*, build sparse subgraphs that preserve cuts. More recently, **spectral** notions of closeness became central — see Tasuku Soma, *Spectral Sparsification of Hypergraphs*, or James R. Lee, *Spectral Hypergraph Sparsification via Chaining*, where one minimizes an energy $Q_h$ over convex bodies tied to the hypergraph.
+Sparsification usually means replacing a large object by a smaller one that is still close in a useful sense. The classical starting point in computer science to my knowledge is **graph sparsification**: for example Benczúr and Karger (1996), *Approximating s-t Minimum Cuts in $\tilde{O}(n^2)$ Time*, build sparse subgraphs that preserve cuts. From 2000, preserving **spectral** notions has became central, see Tasuku Soma, *Spectral Sparsification of Hypergraphs*, or James R. Lee, *Spectral Hypergraph Sparsification via Chaining*, where one minimizes an energy $Q_h$ over convex bodies tied to the hypergraph.
 
-The paper I am following here steps back and treats a more general problem. A later companion is Jambulapati, Lee, Liu, Sidford, *Sparsifying Generalized Linear Models*. Some techniques utilized also found justifications in *Chaining, Group Leverage Score Overestimates, and Fast Spectral Hypergraph Sparsification* (in my opinion).
+The paper I am following here tries to propose an abstraction, a more general framwork. A later paper is Jambulapati, Lee, Liu, Sidford, *Sparsifying Generalized Linear Models*. Some techniques utilized also found justifications in *Chaining, Group Leverage Score Overestimates, and Fast Spectral Hypergraph Sparsification* (in my opinion).
 
 ---
 
@@ -73,7 +73,7 @@ This abstraction covers graph sparsification and other cases (for example some s
 
 ## 3. The Problem in One Place
 
-Let $N_1,\ldots,N_m : \mathbb{R}^n \to \mathbb{R}_{+}$ be seminorms and $N(x) := \sum_{i=1}^{m} N_i(x)$. Given weights $w_1,\ldots,w_m \ge 0$, the weighted seminorm is
+Let $$N_1,\ldots,N_m : \mathbb{R}^n \to \mathbb{R}_{+}$$ be seminorms and $$N(x) := \sum_{i=1}^{m} N_i(x)$$. Given weights $$w_1,\ldots,w_m \ge 0$$, the weighted seminorm is
 
 $$
 \widetilde{N}(x) := \sum_{i=1}^{m} w_i\, N_i(x).
@@ -104,7 +104,7 @@ I will unpack each step in later chapters; the homotopy method especially seems 
 
 ## 5. Lewis Weights and Row Sampling
 
-The specific algorithmic use of Lewis weights, to my knowledge, goes back to Cohen and Peng, [*$\ell_p$ Row Sampling by Lewis Weights*](https://arxiv.org/abs/1412.0588). Randomized row sampling then becomes a template for many algorithms. A standard instance: given
+The specific algorithmic use of Lewis weights, to my knowledge, goes back to Cohen and Peng, [*$\ell_p$ Row Sampling by Lewis Weights*](https://arxiv.org/abs/1412.0588). Randomized row sampling is a nice technique that can be use to design many algorithms. A standard instance: given
 
 $$
 A \in \mathbb{R}^{n\times d},
@@ -120,7 +120,7 @@ $$
 
 where $a \approx_{1+\varepsilon} b$ means $\frac{1}{1+\varepsilon}\,b \le a \le (1+\varepsilon)b$.
 
-Strong $\ell_p$ row-sampling bounds use Lewis's change-of-density construction ([Lewis, 1978](https://eudml.org/doc/218208)), later used by Talagrand and others ([Bourgain–Lindenstrauss–Milman, 1989](https://doi.org/10.1007/BF02392835); [Talagrand, 1995](https://archive.org/details/isbn_9783764352073_77)): assign a weight to each row (like a leverage score), sample by those weights — the **Lewis weights**. In short, Lewis weights let us study an $\ell_p$ matrix through an associated $\ell_2$ matrix $B$, where much more is known.
+Strong $\ell_p$ row-sampling bounds use Lewis's change-of-density construction ([Lewis, 1978](https://eudml.org/doc/218208)), later used by Talagrand and others ([Bourgain–Lindenstrauss–Milman, 1989](https://doi.org/10.1007/BF02392835); [Talagrand, 1995](https://archive.org/details/isbn_9783764352073_77)): assign a weight to each row (like a leverage score), sample by those weights aka the **Lewis weights**. In short, Lewis weights let us study an $\ell_p$ matrix through an associated $\ell_2$ matrix $B$, where the space is much nicer in general.
 
 ---
 
