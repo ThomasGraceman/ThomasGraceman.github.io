@@ -1,7 +1,8 @@
 ---
-title: '$\ell_p$ Row Sampling by Lewis Weights'
-collection: paper
+title: 'Asymptotic Convex Geometry'
+excerpt: "image <br/><img src='/images/asymptotic_book.png'>"
+collection: lecturenote
 paperurl: "https://arxiv.org/abs/1412.0588"
 ---
 
-This paper studies row sampling in $\ell_p$ spaces through the notion of Lewis weights. I am interested in it because Lewis weights are one of the main tools behind several modern sparsification results, including the recent paper of James R. Lee and his collaborators on sparsifying sums of norms.
+Historically, asymptotic convex geometry emerged from the local theory of Banach spaces. One of its main goals is to understand the structure of high dimensional normed spaces through their finite-dimensional sections and projections. A central theme of the field is that high dimensional objects often contain large pieces that behave almost like Euclidean space. These ideas were developed through the work of Dvoretzky, Milman, Bourgain, Pisier, and many others. Over time, they found numerous applications in theoretical computer science. I am studying this book to get a general overview.
