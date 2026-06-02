@@ -1,5 +1,5 @@
 ---
-title: "$\ell_p$ Row Sampling by Lewis Weights"
+title: '$\ell_p$ Row Sampling by Lewis Weights'
 collection: paper
 paperurl: "https://homes.cs.washington.edu/~jrl/papers/pdf/norm-sparsify.pdf"
 ---
