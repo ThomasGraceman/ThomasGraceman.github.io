@@ -1,6 +1,6 @@
 ---
 title: 'Upper and Lower Bounds for Stochastic Processes'
-excerpt: "<br/><img src='/images/talagrand_1.png' style='max-width: 200px; height: auto;'>"
+excerpt: "<br/><img src='/images/talagrand_1.jpg' style='max-width: 200px; height: auto;'>"
 collection: book
 ---
 
