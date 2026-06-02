@@ -15,7 +15,7 @@ More broadly, I am interested in geometric and analytic approaches to algorithm 
 
 Recently, I have been interested in applications of metric embeddings and geometric methods to online algorithms, especially metrical task systems and related optimization techniques. I am also interested in modern approaches to sparsification that extend beyond graphs to more general continuous and geometric settings.
 
-Last but not least, I occasionally read papers in proof complexity, particularly those concerned with separation results and lower bounds.
+Last but not least, I occasionally read papers in proof complexity, especially those dealing with lower bounds and separation results. I am particularly interested in lifting techniques and communication complexity methods that are used to prove such results.
 
 On this blog, I write about papers and books that I read, focusing on their motivation, historical development, and main technical ideas. I also maintain a reading list of books and papers that I am currently studying.
 
