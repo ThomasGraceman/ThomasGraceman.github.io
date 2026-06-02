@@ -252,7 +252,7 @@ defaults:
   # _portfolio
   - scope:
       path: ""
-      type: portfolio
+      type: readinglist
     values:
       layout: single
       author_profile: true
