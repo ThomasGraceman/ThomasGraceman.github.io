@@ -7,8 +7,14 @@ author_profile: true
 
 {% include base_path %}
 
+{% assign pinned_posts = site.readinglist | where: "pinned", true %}
+{% assign other_posts = site.readinglist | where_exp: "item", "item.pinned != true" %}
 
-{% for post in site.readinglist reversed %}
+{% for post in pinned_posts %}
+  {% include archive-single.html %}
+{% endfor %}
+
+{% for post in other_posts reversed %}
   {% include archive-single.html %}
 {% endfor %}
 
