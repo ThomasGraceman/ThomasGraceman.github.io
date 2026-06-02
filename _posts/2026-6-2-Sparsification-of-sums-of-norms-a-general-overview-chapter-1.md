@@ -168,7 +168,7 @@ $$
 \end{array}
 $$
 
-Used carefully, this theory is one route toward sparsification. As in [Lee's course notes](https://homes.cs.washington.edu/~jrl/teaching/cse599au23) (*Sparsification, sampling, and optimization*, Autumn 2023), we start from a concrete $\ell_2$ setting and build outward — that is what the next sections do.
+Used carefully, this theory is one route toward sparsification. As in [Lee's course notes](https://homes.cs.washington.edu/~jrl/teaching/cse599au23) (*Sparsification, sampling, and optimization*, Autumn 2023), we start from a concrete $\ell_2$ setting and build outward, that is what the next sections do.
 
 ---
 
@@ -200,7 +200,7 @@ so $\mathbb{E}[\widetilde{F}(x)] = F(x)$.
 
 ## 7. Importance Sampling
 
-Unbiasedness holds for any $\rho$, but a good $\varepsilon$-approximation with small $M$ needs $\rho$ chosen to **lower variance** — importance sampling: sample large contributors more often.
+Unbiasedness holds for any $\rho$, but a good $\varepsilon$-approximation with small $M$ needs $\rho$ chosen to **lower variance**, importance sampling: sample large contributors more often.
 
 With $\rho \in (0,1]^m$, sample $i_1,\ldots,i_M$ from $\rho$ and define
 
@@ -373,6 +373,8 @@ M = C\,\frac{n}{\varepsilon^2}(\log n)^2\log\!\left(\frac{n}{\varepsilon}\right)
 $$
 
 for large enough $C$ gives the $\varepsilon$-scale bound needed for the approximation. That is the $\ell_2$ backbone; later chapters push the same pattern toward sums of general norms.
+
+(I will try to keep the notes really short, and also try to add some novelty into them hopefully, i perhaps will investigate this paper through the lens of banach space theory, but it will take a lot of time and effort.)
 
 ---
 
