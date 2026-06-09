@@ -50,6 +50,76 @@
     return out;
   }
 
+  function fmtSet(arr) {
+    return '{' + arr.join(',') + '}';
+  }
+
+  function clusterKey(cluster) {
+    return cluster.slice().sort().join(',');
+  }
+
+  function findParentCluster(vertex, partition) {
+    for (var i = 0; i < partition.length; i++) {
+      if (partition[i].indexOf(vertex) >= 0) {
+        return partition[i];
+      }
+    }
+    return null;
+  }
+
+  function partitionRefines(fine, coarse) {
+    return fine.every(function (fCluster) {
+      return coarse.some(function (cCluster) {
+        return fCluster.every(function (v) { return cCluster.indexOf(v) >= 0; });
+      });
+    });
+  }
+
+  function runPartition(pi, beta) {
+    var delta = computeDelta();
+    var levels = {};
+    levels[delta] = [V.slice()];
+
+    var i = delta - 1;
+    var current = levels[delta].map(function (c) { return c.slice(); });
+
+    while (i >= 0 && current.some(function (S) { return S.length > 1; })) {
+      var beta_i = Math.pow(2, i - 1) * beta;
+      var assigned = {};
+      V.forEach(function (v) { assigned[v] = false; });
+      var clusters = [];
+
+      for (var l = 0; l < V.length; l++) {
+        var center = pi[l];
+        for (var s = 0; s < current.length; s++) {
+          var S = current[s];
+          var candidates = S.filter(function (u) {
+            return !assigned[u] && dist[u][center] <= beta_i;
+          });
+          if (candidates.length > 0) {
+            clusters.push(candidates.slice());
+            candidates.forEach(function (u) { assigned[u] = true; });
+          }
+        }
+      }
+
+      levels[i] = clusters.map(function (c) { return c.slice(); });
+      current = levels[i];
+      i--;
+    }
+
+    if (!levels[0]) {
+      var finest = levels[1] || levels[delta];
+      if (finest && finest.every(function (c) { return c.length === 1; })) {
+        levels[0] = finest.map(function (c) { return c.slice(); });
+      } else {
+        levels[0] = V.map(function (v) { return [v]; });
+      }
+    }
+
+    return { levels: levels, delta: delta };
+  }
+
   function buildSteps(pi, beta) {
     var steps = [];
     var delta = computeDelta();
@@ -62,7 +132,8 @@
       beta: beta,
       delta: delta,
       levels: cloneLevels(levels),
-      message: 'Choose permutation \u03C0 = [' + pi.join(', ') + '] and \u03B2 = ' + beta.toFixed(3) + ' \u2208 [1,2]. Set D_' + delta + ' = {V}.'
+      highlightLevel: delta,
+      message: 'Draw \u03C0 = [' + pi.join(', ') + '] and \u03B2 = ' + beta.toFixed(3) + ' \u2208 [1,2]. Start with D_' + delta + ' = {V}.'
     });
 
     var i = delta - 1;
@@ -73,6 +144,7 @@
       var assigned = {};
       V.forEach(function (v) { assigned[v] = false; });
       var clusters = [];
+      var partialLevels = cloneLevels(levels);
 
       steps.push({
         type: 'level_start',
@@ -80,7 +152,9 @@
         beta_i: beta_i,
         parent: current.map(function (S) { return S.slice(); }),
         levels: cloneLevels(levels),
-        message: 'Level i = ' + i + ': set \u03B2_i = 2^{' + (i - 1) + '}\u00B7\u03B2 = ' + beta_i.toFixed(3) + '. Refine D_' + (i + 1) + ' into D_' + i + '.'
+        partial: [],
+        highlightLevel: i + 1,
+        message: 'Refine D_' + (i + 1) + ' into D_' + i + ' using \u03B2_i = 2^{' + (i - 1) + '}\u00B7\u03B2 = ' + beta_i.toFixed(3) + '.'
       });
 
       for (var l = 0; l < V.length; l++) {
@@ -91,67 +165,87 @@
             return !assigned[u] && dist[u][center] <= beta_i;
           });
 
+          if (candidates.length === 0) {
+            continue;
+          }
+
+          clusters.push(candidates.slice());
+          candidates.forEach(function (u) { assigned[u] = true; });
+          partialLevels[i] = clusters.map(function (c) { return c.slice(); });
+
           steps.push({
-            type: 'consider',
+            type: 'assign',
             i: i,
             l: l + 1,
             center: center,
+            cluster: candidates.slice(),
             S: S.slice(),
             beta_i: beta_i,
-            candidates: candidates.slice(),
             assigned: V.filter(function (u) { return assigned[u]; }),
-            partial: clusters.map(function (c) { return c.slice(); }),
             levels: cloneLevels(levels),
-            message: candidates.length
-              ? 'For cluster S = ' + fmtSet(S) + ', center \u03C0(' + (l + 1) + ') = ' + center + ' claims vertices with d(\u00B7,' + center + ') \u2264 ' + beta_i.toFixed(3) + ': ' + fmtSet(candidates) + '.'
-              : 'For cluster S = ' + fmtSet(S) + ', center \u03C0(' + (l + 1) + ') = ' + center + ' claims no unassigned vertices.'
+            partial: clusters.map(function (c) { return c.slice(); }),
+            highlightLevel: i,
+            message: 'Center \u03C0(' + (l + 1) + ') = ' + center + ' settles ' + fmtSet(candidates) + ' from parent cluster ' + fmtSet(S) + ' (all unassigned u with d(u,' + center + ') \u2264 ' + beta_i.toFixed(3) + ').'
           });
-
-          if (candidates.length > 0) {
-            clusters.push(candidates.slice());
-            candidates.forEach(function (u) { assigned[u] = true; });
-            var nextLevels = cloneLevels(levels);
-            nextLevels[i] = clusters.map(function (c) { return c.slice(); });
-            steps.push({
-              type: 'assign',
-              i: i,
-              l: l + 1,
-              center: center,
-              cluster: candidates.slice(),
-              S: S.slice(),
-              beta_i: beta_i,
-              assigned: V.filter(function (u) { return assigned[u]; }),
-              levels: nextLevels,
-              message: 'Create cluster ' + fmtSet(candidates) + ' (first center that settles each vertex at this level).'
-            });
-          }
         }
       }
 
       levels[i] = clusters.map(function (c) { return c.slice(); });
       current = levels[i];
+      partialLevels = cloneLevels(levels);
+
       steps.push({
         type: 'level_end',
         i: i,
         beta_i: beta_i,
         partition: clusters.map(function (c) { return c.slice(); }),
         levels: cloneLevels(levels),
-        message: 'D_' + i + ' = ' + clusters.map(fmtSet).join('  ') + '.'
+        partial: [],
+        highlightLevel: i,
+        message: 'Finished D_' + i + ' = ' + clusters.map(fmtSet).join('  ') + '.'
       });
       i--;
     }
 
+    var finalLevels = runPartition(pi, beta).levels;
+    var levelKeys = Object.keys(finalLevels).map(Number).sort(function (a, b) { return b - a; });
+    var refineOk = true;
+    for (var k = 0; k < levelKeys.length - 1; k++) {
+      var coarse = levelKeys[k];
+      var fine = levelKeys[k + 1];
+      if (!partitionRefines(finalLevels[fine], finalLevels[coarse])) {
+        refineOk = false;
+      }
+    }
+
+    var summary = levelKeys.map(function (lv) {
+      return 'D_' + lv + ' = ' + finalLevels[lv].map(fmtSet).join('  ');
+    }).join(' \u227A ');
+
+    var showcase = 1;
+    if (!finalLevels[1] || finalLevels[1].every(function (c) { return c.length === 1; })) {
+      showcase = 0;
+    }
+
     steps.push({
       type: 'done',
-      levels: cloneLevels(levels),
-      message: 'Partition complete. The nested partitions D_0 \u227A D_1 \u227A D_2 form a hierarchical cut decomposition.'
+      pi: pi.slice(),
+      beta: beta,
+      levels: cloneLevels(finalLevels),
+      highlightLevel: showcase,
+      refineOk: refineOk,
+      message: 'Done. ' + summary + (refineOk ? ' (each level refines the one above).' : '')
     });
 
     return steps;
   }
 
-  function fmtSet(arr) {
-    return '{' + arr.join(',') + '}';
+  function clusterColorForVertex(vertex, partition) {
+    var cluster = findParentCluster(vertex, partition);
+    if (!cluster) {
+      return '#fff';
+    }
+    return clusterColors[cluster[0]];
   }
 
   function initPartitionAlgoViz() {
@@ -185,7 +279,7 @@
       .attr('fill', '#999')
       .attr('font-size', '11px')
       .attr('font-family', 'Courier New, monospace')
-      .text('vertices (metric distances on edges)');
+      .text('metric space (edge labels are d(\u00B7,\u00B7))');
 
     var links = [];
     for (var i = 0; i < V.length; i++) {
@@ -196,7 +290,6 @@
 
     g.append('g').selectAll('line')
       .data(links).enter().append('line')
-      .attr('class', 'metric-edge')
       .attr('x1', function (d) { return positions[d.source].x; })
       .attr('y1', function (d) { return positions[d.source].y; })
       .attr('x2', function (d) { return positions[d.target].x; })
@@ -206,7 +299,6 @@
 
     g.append('g').selectAll('text.edge-label')
       .data(links).enter().append('text')
-      .attr('class', 'edge-label')
       .attr('x', function (d) { return (positions[d.source].x + positions[d.target].x) / 2; })
       .attr('y', function (d) { return (positions[d.source].y + positions[d.target].y) / 2 - 5; })
       .attr('text-anchor', 'middle')
@@ -241,27 +333,57 @@
 
     var state = { steps: [], index: 0, levels: {}, pi: [], beta: 1, playTimer: null };
 
-    function renderPartitionPanel(levels, activeLevel, activeCluster, activeParent) {
+    function renderPartitionPanel(step) {
       var el = document.getElementById('algo-partitions');
       if (!el) { return; }
-      var html = '';
+
+      var levels = step.levels || state.levels;
       var keys = Object.keys(levels).map(Number).sort(function (a, b) { return b - a; });
+      var html = '';
+      var highlightLevel = step.highlightLevel;
+
       keys.forEach(function (lv) {
-        html += '<div class="algo-level-block"><div class="level-title">D<sub>' + lv + '</sub></div>';
-        levels[lv].forEach(function (cluster) {
-          var isActive = lv === activeLevel && activeCluster && activeCluster.join() === cluster.join();
-          var isParent = activeParent && activeParent.join() === cluster.join();
-          var color = clusterColors[cluster[0]];
-          html += '<span class="algo-cluster' + (isActive ? ' active' : '') + (isParent ? ' parent' : '') + '" style="border-color:' + color + ';background:' + color + '22">' + fmtSet(cluster) + '</span>';
-        });
+        var isCurrent = step.type === 'level_start' && lv === step.i + 1;
+        var isBuilding = (step.type === 'assign' || step.type === 'level_end') && lv === step.i;
+        var isDoneFocus = step.type === 'done' && lv === step.highlightLevel;
+        var titleExtra = isCurrent ? ' \u2190 refining' : (isBuilding ? ' \u2190 building' : (isDoneFocus ? ' \u2190 highlight' : ''));
+
+        html += '<div class="algo-level-block"><div class="level-title">D<sub>' + lv + '</sub>' + titleExtra + '</div>';
+
+        if (isBuilding && step.partial && step.partial.length > 0 && step.type === 'assign') {
+          step.partial.forEach(function (cluster) {
+            var isActive = step.cluster && clusterKey(cluster) === clusterKey(step.cluster);
+            var color = clusterColors[cluster[0]];
+            html += '<span class="algo-cluster' + (isActive ? ' active' : '') + '" style="border-color:' + color + ';background:' + color + '22">' + fmtSet(cluster) + '</span>';
+          });
+        } else {
+          levels[lv].forEach(function (cluster) {
+            var isActive = step.type === 'assign' && step.cluster && clusterKey(cluster) === clusterKey(step.cluster);
+            var isParent = (step.type === 'assign' || step.type === 'level_start') && step.parent && step.parent.some(function (p) {
+              return clusterKey(p) === clusterKey(cluster);
+            });
+            var color = clusterColors[cluster[0]];
+            html += '<span class="algo-cluster' + (isActive ? ' active' : '') + (isParent ? ' parent' : '') + (isDoneFocus ? ' done-focus' : '') + '" style="border-color:' + color + ';background:' + color + '22">' + fmtSet(cluster) + '</span>';
+          });
+        }
+
         html += '</div>';
       });
+
       el.innerHTML = html || '\u2014';
     }
 
-    function renderStep(step, index) {
+    function colorPartition(step) {
       var levels = step.levels || state.levels;
-      state.levels = levels;
+      var lv = step.highlightLevel;
+      if (lv == null || !levels[lv]) {
+        return null;
+      }
+      return levels[lv];
+    }
+
+    function renderStep(step, index) {
+      state.levels = step.levels || state.levels;
 
       var status = document.getElementById('algo-status');
       var counter = document.getElementById('algo-step-counter');
@@ -274,39 +396,41 @@
       var betaIEl = document.getElementById('algo-beta-i');
       var centerEl = document.getElementById('algo-center');
 
-      if (step.type === 'init' || step.type === 'done') {
-        if (piEl) { piEl.textContent = '[' + (step.pi || state.pi).join(', ') + ']'; }
-        if (betaEl) { betaEl.textContent = (step.beta != null ? step.beta : state.beta).toFixed(3); }
-        if (levelEl) { levelEl.textContent = '\u2014'; }
+      if (piEl) { piEl.textContent = '[' + (step.pi || state.pi).join(', ') + ']'; }
+      if (betaEl) { betaEl.textContent = (step.beta != null ? step.beta : state.beta).toFixed(3); }
+
+      if (step.type === 'init') {
+        if (levelEl) { levelEl.textContent = String(step.delta); }
+        if (betaIEl) { betaIEl.textContent = '\u2014'; }
+        if (centerEl) { centerEl.textContent = '\u2014'; }
+      } else if (step.type === 'done') {
+        if (levelEl) { levelEl.textContent = 'done'; }
         if (betaIEl) { betaIEl.textContent = '\u2014'; }
         if (centerEl) { centerEl.textContent = '\u2014'; }
       } else {
-        if (piEl) { piEl.textContent = '[' + state.pi.join(', ') + ']'; }
-        if (betaEl) { betaEl.textContent = state.beta.toFixed(3); }
-        if (levelEl) { levelEl.textContent = step.i != null ? String(step.i) : '\u2014'; }
+        if (levelEl) { levelEl.textContent = String(step.i); }
         if (betaIEl) { betaIEl.textContent = step.beta_i != null ? step.beta_i.toFixed(3) : '\u2014'; }
-        if (centerEl) { centerEl.textContent = step.center != null ? step.center + '  (l = ' + step.l + ')' : '\u2014'; }
+        if (centerEl) { centerEl.textContent = step.center != null ? step.center + ' (l=' + step.l + ')' : '\u2014'; }
       }
 
-      var activeLevel = step.type === 'assign' ? step.i : null;
-      var activeCluster = step.type === 'assign' ? step.cluster : null;
-      var activeParent = (step.type === 'consider' || step.type === 'assign') ? step.S : null;
-      renderPartitionPanel(levels, activeLevel, activeCluster, activeParent);
+      renderPartitionPanel(step);
 
       piOrderG.selectAll('*').remove();
       state.pi.forEach(function (v, idx) {
         var p = positions[v];
+        var isActive = step.type === 'assign' && step.center === v;
         piOrderG.append('text')
           .attr('x', p.x).attr('y', p.y + 28)
           .attr('text-anchor', 'middle')
-          .attr('fill', '#bbb')
+          .attr('fill', isActive ? '#045a8d' : '#bbb')
           .attr('font-size', '10px')
+          .attr('font-weight', isActive ? '700' : '400')
           .attr('font-family', 'Courier New, monospace')
           .text('\u03C0(' + (idx + 1) + ')=' + v);
       });
 
       highlightG.selectAll('*').remove();
-      if (step.center && step.beta_i != null && (step.type === 'consider' || step.type === 'assign')) {
+      if (step.type === 'assign' && step.center && step.beta_i != null) {
         V.forEach(function (u) {
           if (dist[u][step.center] <= step.beta_i) {
             highlightG.append('line')
@@ -314,40 +438,43 @@
               .attr('y1', positions[step.center].y)
               .attr('x2', positions[u].x)
               .attr('y2', positions[u].y)
-              .attr('stroke', u === step.center ? '#045a8d' : '#2b8cbe')
-              .attr('stroke-width', u === step.center ? 0 : 1.5)
+              .attr('stroke', u === step.center ? 'none' : '#2b8cbe')
+              .attr('stroke-width', 1.5)
               .attr('stroke-dasharray', '4,3')
-              .attr('opacity', 0.7);
+              .attr('opacity', step.cluster && step.cluster.indexOf(u) >= 0 ? 0.9 : 0.35);
           }
         });
       }
 
+      var displayPartition = colorPartition(step);
+      if (step.type === 'assign') {
+        displayPartition = step.partial || displayPartition;
+      }
+
       nodes.select('circle').transition().duration(200)
         .attr('fill', function (d) {
-          if (step.type === 'consider' || step.type === 'assign') {
+          if (step.type === 'assign') {
             if (d.id === step.center) { return '#2b8cbe'; }
-            if (step.candidates && step.candidates.indexOf(d.id) >= 0) { return clusterColors[d.id] + '66'; }
-            if (step.assigned && step.assigned.indexOf(d.id) >= 0) { return '#f3f3f3'; }
+            if (step.cluster && step.cluster.indexOf(d.id) >= 0) {
+              return clusterColorForVertex(d.id, step.partial || [step.cluster]) + '88';
+            }
+            if (step.assigned && step.assigned.indexOf(d.id) >= 0) { return '#f0f0f0'; }
             if (step.S && step.S.indexOf(d.id) >= 0) { return '#fff8e8'; }
           }
-          if (step.type === 'level_end' || step.type === 'done') {
-            var lv = step.i != null ? step.i : 0;
-            var part = step.partition || (levels[lv] || []);
-            for (var c = 0; c < part.length; c++) {
-              if (part[c].indexOf(d.id) >= 0) { return clusterColors[part[c][0]] + '44'; }
-            }
+          if (displayPartition) {
+            return clusterColorForVertex(d.id, displayPartition) + '55';
           }
           return '#fff';
         })
         .attr('stroke', function (d) {
           if (d.id === step.center) { return '#045a8d'; }
-          if (step.candidates && step.candidates.indexOf(d.id) >= 0) { return clusterColors[d.id]; }
-          if (step.S && step.S.indexOf(d.id) >= 0 && (step.type === 'consider' || step.type === 'assign')) { return '#d4a017'; }
+          if (step.cluster && step.cluster.indexOf(d.id) >= 0) { return clusterColorForVertex(d.id, [step.cluster]); }
+          if (displayPartition) { return clusterColorForVertex(d.id, displayPartition); }
           return '#bbb';
         })
         .attr('stroke-width', function (d) {
           if (d.id === step.center) { return 3; }
-          if (step.candidates && step.candidates.indexOf(d.id) >= 0) { return 2.5; }
+          if (step.cluster && step.cluster.indexOf(d.id) >= 0) { return 2.5; }
           return 2;
         })
         .attr('r', function (d) { return d.id === step.center ? 20 : 16; });
@@ -358,13 +485,13 @@
       renderStep(state.steps[state.index], state.index);
     }
 
-    function randomize() {
+    function loadRun(pi, beta) {
       if (state.playTimer) {
         clearInterval(state.playTimer);
         state.playTimer = null;
       }
-      state.pi = shuffle(V);
-      state.beta = 1 + Math.random();
+      state.pi = pi.slice();
+      state.beta = beta;
       state.steps = buildSteps(state.pi, state.beta);
       state.levels = state.steps[0].levels;
       goTo(0);
@@ -372,12 +499,22 @@
       if (playBtn) { playBtn.textContent = '\u25B6 Play'; }
     }
 
+    function randomize() {
+      loadRun(shuffle(V), 1 + Math.random());
+    }
+
     var randomizeBtn = document.getElementById('algo-randomize');
+    var exampleBtn = document.getElementById('algo-example');
     var prevBtn = document.getElementById('algo-prev');
     var nextBtn = document.getElementById('algo-next');
     var playBtn = document.getElementById('algo-play');
 
     if (randomizeBtn) { randomizeBtn.addEventListener('click', randomize); }
+    if (exampleBtn) {
+      exampleBtn.addEventListener('click', function () {
+        loadRun(['a', 'b', 'c', 'd', 'e'], 1.5);
+      });
+    }
     if (prevBtn) { prevBtn.addEventListener('click', function () { goTo(state.index - 1); }); }
     if (nextBtn) { nextBtn.addEventListener('click', function () { goTo(state.index + 1); }); }
     if (playBtn) {
@@ -397,11 +534,11 @@
             return;
           }
           goTo(state.index + 1);
-        }, 900);
+        }, 1100);
       });
     }
 
-    randomize();
+    loadRun(['a', 'b', 'c', 'd', 'e'], 1.5);
   }
 
   if (document.readyState === 'loading') {
