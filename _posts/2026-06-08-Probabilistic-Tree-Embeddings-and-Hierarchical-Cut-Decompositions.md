@@ -266,9 +266,9 @@ Each level coarsens the metric, while preserving local structure at smaller scal
 
 <div class="viz-card">
   <div class="viz-controls">
-    <button class="level-btn active" data-level="2">D&#x2082; (radius 4)</button>
-    <button class="level-btn" data-level="1">D&#x2081; (radius 2)</button>
-    <button class="level-btn" data-level="0">D&#x2080; (radius 1)</button>
+    <button class="level-btn active" data-level="2">D₂ (radius 4)</button>
+    <button class="level-btn" data-level="1">D₁ (radius 2)</button>
+    <button class="level-btn" data-level="0">D₀ (radius 1)</button>
     <span class="viz-info" id="partition-label">Partition: {a,b,c,d,e}</span>
   </div>
   <div id="d3-viz" style="width: 100%; height: 440px;"></div>
@@ -281,10 +281,10 @@ Each level coarsens the metric, while preserving local structure at smaller scal
 
 <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
 <script>
-(function() {
+document.addEventListener('DOMContentLoaded', function() {
   'use strict';
   var container = document.getElementById('d3-viz');
-  if (!container) { console.warn('d3-viz container not found'); return; }
+  if (!container) return;
 
   var totalWidth = 820;
   var totalHeight = 440;
@@ -319,9 +319,6 @@ Each level coarsens the metric, while preserving local structure at smaller scal
   levelY[0] = innerH - 20;
   levelY[1] = innerH * 0.55;
   levelY[2] = 30;
-
-  // Check d3 loaded
-  if (typeof d3 === 'undefined') { console.error('d3 not loaded'); return; }
 
   var svg = d3.select('#d3-viz')
     .append('svg')
@@ -364,12 +361,12 @@ Each level coarsens the metric, while preserving local structure at smaller scal
     .attr('y', (levelY[2] + levelY[1]) / 2 + 3)
     .attr('fill', '#aaa').attr('font-size', '10px')
     .attr('font-family', 'Courier New, monospace')
-    .text('2\u00B2 = 4');
+    .text('2² = 4');
   g.append('text').attr('x', innerW * 0.15)
     .attr('y', (levelY[1] + levelY[0]) / 2 + 3)
     .attr('fill', '#aaa').attr('font-size', '10px')
     .attr('font-family', 'Courier New, monospace')
-    .text('2\u00B9 = 2');
+    .text('2¹ = 2');
 
   // Edges
   var link = g.append('g').selectAll('path')
@@ -487,7 +484,7 @@ Each level coarsens the metric, while preserving local structure at smaller scal
   });
 
   updateViz(2);
-})();
+});
 </script>
 
 ## Laminar Families and the Induced Tree
@@ -534,17 +531,17 @@ $$
 <div class="algo-viz-card" id="partition-algo-viz">
   <div class="algo-controls">
     <button class="algo-btn primary" id="algo-randomize">Randomize &amp; Reset</button>
-    <button class="algo-btn" id="algo-prev">&#9664; Step</button>
-    <button class="algo-btn" id="algo-next">Step &#9654;</button>
-    <button class="algo-btn" id="algo-play">&#9654; Play</button>
+    <button class="algo-btn" id="algo-prev">◀ Step</button>
+    <button class="algo-btn" id="algo-next">Step ▶</button>
+    <button class="algo-btn" id="algo-play">▶ Play</button>
     <span class="algo-step-counter" id="algo-step-counter">Step 0 / 0</span>
   </div>
   <div class="algo-meta">
-    <span><b>&#960;:</b> <span id="algo-pi">—</span></span>
-    <span><b>&#946;:</b> <span id="algo-beta">—</span></span>
+    <span><b>π:</b> <span id="algo-pi">—</span></span>
+    <span><b>β:</b> <span id="algo-beta">—</span></span>
     <span><b>level i:</b> <span id="algo-level">—</span></span>
-    <span><b>&#946;<sub>i</sub>:</b> <span id="algo-beta-i">—</span></span>
-    <span><b>center &#960;(l):</b> <span id="algo-center">—</span></span>
+    <span><b>β<sub>i</sub>:</b> <span id="algo-beta-i">—</span></span>
+    <span><b>center π(l):</b> <span id="algo-center">—</span></span>
   </div>
   <div class="algo-status" id="algo-status">Click <em>Randomize &amp; Reset</em> to draw a new permutation and scaling factor, then step through the partition.</div>
   <div class="algo-layout">
@@ -555,14 +552,14 @@ $$
     </div>
   </div>
   <div style="margin-top: 10px; font-size: 12px; color: #aaa; text-align: center; border-top: 1px solid #eee; padding-top: 8px;">
-    The metric uses the same five-point example: {a,b} close, {c,d} close, e far. Highlighted vertices lie within distance &#946;<sub>i</sub> of the current center; newly formed clusters appear on the right.
+    The metric uses the same five-point example: {a,b} close, {c,d} close, e far. Highlighted vertices lie within distance β<sub>i</sub> of the current center; newly formed clusters appear on the right.
   </div>
 </div>
 
 <script>
-(function() {
+document.addEventListener('DOMContentLoaded', function() {
   'use strict';
-  if (typeof d3 === 'undefined') { return; }
+  if (typeof d3 === 'undefined') return;
 
   var V = ['a', 'b', 'c', 'd', 'e'];
   var positions = {
@@ -673,7 +670,7 @@ $$
       beta: beta,
       delta: delta,
       levels: JSON.parse(JSON.stringify(levels)),
-      message: 'Choose permutation \u03C0 = [' + pi.join(', ') + '] and \u03B2 = ' + beta.toFixed(3) + ' \u2208 [1,2]. Set D_' + delta + ' = {V}.'
+      message: 'Choose permutation π = [' + pi.join(', ') + '] and β = ' + beta.toFixed(3) + ' ∈ [1,2]. Set D_' + delta + ' = {V}.'
     });
 
     var i = delta - 1;
@@ -691,7 +688,7 @@ $$
         beta_i: beta_i,
         parent: current.map(function(S) { return S.slice(); }),
         levels: JSON.parse(JSON.stringify(levels)),
-        message: 'Level i = ' + i + ': set \u03B2_i = 2^{' + (i - 1) + '}\u00B7\u03B2 = ' + beta_i.toFixed(3) + '. Refine D_' + (i + 1) + ' into D_' + i + '.'
+        message: 'Level i = ' + i + ': set β_i = 2^{' + (i - 1) + '}·β = ' + beta_i.toFixed(3) + '. Refine D_' + (i + 1) + ' into D_' + i + '.'
       });
 
       for (var l = 0; l < V.length; l++) {
@@ -712,8 +709,8 @@ $$
             assigned: V.filter(function(u) { return assigned[u]; }),
             clusters: clusters.map(function(c) { return c.slice(); }),
             message: candidates.length
-              ? 'Center \u03C0(' + (l + 1) + ') = ' + center + ' claims unassigned vertices in ' + JSON.stringify(S) + ' with d(\u00B7,' + center + ') \u2264 ' + beta_i.toFixed(3) + ': ' + JSON.stringify(candidates) + '.'
-              : 'Center \u03C0(' + (l + 1) + ') = ' + center + ': no new vertices claimed from ' + JSON.stringify(S) + '.'
+              ? 'Center π(' + (l + 1) + ') = ' + center + ' claims unassigned vertices in ' + JSON.stringify(S) + ' with d(·,' + center + ') ≤ ' + beta_i.toFixed(3) + ': ' + JSON.stringify(candidates) + '.'
+              : 'Center π(' + (l + 1) + ') = ' + center + ': no new vertices claimed from ' + JSON.stringify(S) + '.'
           });
           if (candidates.length > 0) {
             clusters.push(candidates.slice());
@@ -734,6 +731,23 @@ $$
             });
           }
         }
+      }
+
+      // Add any still unassigned vertices as singleton clusters
+      V.forEach(function(u) {
+        if (!assigned[u]) {
+          clusters.push([u]);
+          assigned[u] = true;
+        }
+      });
+      if (clusters.some(function(c) { return c.length === 1; })) {
+        steps.push({
+          type: 'singletons',
+          i: i,
+          clusters: clusters.map(function(c) { return c.slice(); }),
+          levels: JSON.parse(JSON.stringify(Object.assign({}, levels, {[i]: clusters.map(function(c) { return c.slice(); })}))),
+          message: 'Remaining vertices form singleton clusters.'
+        });
       }
 
       levels[i] = clusters.map(function(c) { return c.slice(); });
@@ -828,7 +842,7 @@ $$
         .attr('x', p.x).attr('y', p.y + 30)
         .attr('text-anchor', 'middle').attr('fill', '#bbb')
         .attr('font-size', '10px').attr('font-family', 'Courier New, monospace')
-        .text('\u03C0(' + (idx + 1) + ')');
+        .text('π(' + (idx + 1) + ')');
     });
 
     radiusG.selectAll('*').remove();
@@ -851,7 +865,7 @@ $$
           if (step.candidates && step.candidates.indexOf(d.id) >= 0) return clusterColors(d.id) + '55';
           if (step.assigned && step.assigned.indexOf(d.id) >= 0) return '#f0f0f0';
         }
-        if (step.type === 'level_end' || step.type === 'done') {
+        if (step.type === 'level_end' || step.type === 'done' || step.type === 'singletons') {
           var lv = step.i != null ? step.i : 0;
           var part = step.partition || (levels[lv] || []);
           for (var c = 0; c < part.length; c++) {
@@ -892,7 +906,7 @@ $$
     state.steps = built.steps;
     state.levels = built.levels;
     goTo(0);
-    document.getElementById('algo-play').textContent = '\u25B6 Play';
+    document.getElementById('algo-play').textContent = '▶ Play';
   }
 
   document.getElementById('algo-randomize').addEventListener('click', randomize);
@@ -902,16 +916,16 @@ $$
     if (state.playTimer) {
       clearInterval(state.playTimer);
       state.playTimer = null;
-      this.textContent = '\u25B6 Play';
+      this.textContent = '▶ Play';
       return;
     }
     var btn = this;
-    btn.textContent = '\u275A\u275A Pause';
+    btn.textContent = '⏸ Pause';
     state.playTimer = setInterval(function() {
       if (state.index >= state.steps.length - 1) {
         clearInterval(state.playTimer);
         state.playTimer = null;
-        btn.textContent = '\u25B6 Play';
+        btn.textContent = '▶ Play';
         return;
       }
       goTo(state.index + 1);
@@ -919,7 +933,7 @@ $$
   });
 
   randomize();
-})();
+});
 </script>
 
 What are we doing? Notice that in each cluster in the process, we have a set of refinements. Now what we are going to do is set the new distance, and we want to cluster the vertices close to each other and refine it further. For that we should really choose a center to distinguish distances from, and we do that by randomizing the vertices available and choosing the first vertex and setting it as a means to further refine the cluster. For example, all the vertices which have distance less than $\beta_i$ to a $\pi(l)$ will be in the same cluster.
