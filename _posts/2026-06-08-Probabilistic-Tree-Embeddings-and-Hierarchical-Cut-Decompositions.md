@@ -151,7 +151,7 @@ Thus,
 
 $$\Pr[(u,v)\ \text{is at level } i] = 0 \quad \text{for all } i < j^*.$$
 
-For $i \ge j^*$, we bound the probability that $(u,v)$ is at level $i$. From conditions (a) and (b), for any $i \ge j^*$,
+For $$i \ge j^*$$, we bound the probability that $$(u,v)$$ is at level $$i$$. From conditions (a) and (b), for any $$i \ge j^*$$,
 
 $$\begin{align}
 \Pr[(u,v)\ \text{is at level } i] &= \Pr[D_i \text{ separates } (u,v)] \\
@@ -159,9 +159,13 @@ $$\begin{align}
 &\le \Pr[D_i \text{ separates } (u,v)].
 \end{align}$$
 
-For any $j^* \le j \le \delta$, let $K_j^u$ be the set of vertices in $V$ closer than $2^j$ to vertex $u$, and let $k_j^u = |K_j^u|$. Similarly define $K_j^v$ and $k_j^v$. For $j < j^*$, we define $k_j^u = 0$.
+For any $$j^* \le j \le \delta$$,
+ let $$K_j^u$$ be the set of vertices in $$V$$ closer than $$2^j$$ to vertex $$u$$,
+  and let $$k_j^u = |K_j^u|$$. Similarly define $$K_j^v$$ and $$k_j^v$$. For $$j < j^*$$, we define $$k_j^u = 0$$.
 
-We say that a center $w$ *cuts $u$ out of $(u,v)$ at level $i$* if $w$ cuts $(u,v)$ at level $i$ and $u$ is assigned to $w$ (while $v$ is not assigned to $w$) at this level.
+We say that a center $$w$$ *cuts $$u$$ out of $$(u,v)$$ at level $$i$$* 
+if $$w$$ cuts $$(u,v)$$ at level $$i$$ and $$u$$
+ is assigned to $$w$$ (while $$v$$ is not assigned to $$w$$) at this level.
 
 Let $w_1, w_2, \dots, w_{k_i^u}$ be the centers ordered by increasing distance from $u$ at level $i$. For a center $w_s$ to cut $(u,v)$ in a way that only $u$ is assigned to $w_s$, the following conditions must hold:
 
