@@ -11,14 +11,6 @@
     e: { a: 5, b: 5, c: 5, d: 5, e: 0 }
   };
 
-  var positions = {
-    a: { x: 55, y: 210 },
-    b: { x: 125, y: 210 },
-    c: { x: 285, y: 210 },
-    d: { x: 355, y: 210 },
-    e: { x: 205, y: 55 }
-  };
-
   var clusterColors = {
     a: '#e41a1c', b: '#f28e2b', c: '#377eb8', d: '#4daf4a', e: '#984ea3'
   };
@@ -27,9 +19,7 @@
     var a = arr.slice();
     for (var k = a.length - 1; k > 0; k--) {
       var j = Math.floor(Math.random() * (k + 1));
-      var tmp = a[k];
-      a[k] = a[j];
-      a[j] = tmp;
+      var t = a[k]; a[k] = a[j]; a[j] = t;
     }
     return a;
   }
@@ -58,66 +48,12 @@
     return cluster.slice().sort().join(',');
   }
 
-  function findParentCluster(vertex, partition) {
-    for (var i = 0; i < partition.length; i++) {
-      if (partition[i].indexOf(vertex) >= 0) {
-        return partition[i];
-      }
-    }
-    return null;
-  }
-
   function partitionRefines(fine, coarse) {
     return fine.every(function (fCluster) {
       return coarse.some(function (cCluster) {
         return fCluster.every(function (v) { return cCluster.indexOf(v) >= 0; });
       });
     });
-  }
-
-  function runPartition(pi, beta) {
-    var delta = computeDelta();
-    var levels = {};
-    levels[delta] = [V.slice()];
-
-    var i = delta - 1;
-    var current = levels[delta].map(function (c) { return c.slice(); });
-
-    while (i >= 0 && current.some(function (S) { return S.length > 1; })) {
-      var beta_i = Math.pow(2, i - 1) * beta;
-      var assigned = {};
-      V.forEach(function (v) { assigned[v] = false; });
-      var clusters = [];
-
-      for (var l = 0; l < V.length; l++) {
-        var center = pi[l];
-        for (var s = 0; s < current.length; s++) {
-          var S = current[s];
-          var candidates = S.filter(function (u) {
-            return !assigned[u] && dist[u][center] <= beta_i;
-          });
-          if (candidates.length > 0) {
-            clusters.push(candidates.slice());
-            candidates.forEach(function (u) { assigned[u] = true; });
-          }
-        }
-      }
-
-      levels[i] = clusters.map(function (c) { return c.slice(); });
-      current = levels[i];
-      i--;
-    }
-
-    if (!levels[0]) {
-      var finest = levels[1] || levels[delta];
-      if (finest && finest.every(function (c) { return c.length === 1; })) {
-        levels[0] = finest.map(function (c) { return c.slice(); });
-      } else {
-        levels[0] = V.map(function (v) { return [v]; });
-      }
-    }
-
-    return { levels: levels, delta: delta };
   }
 
   function buildSteps(pi, beta) {
@@ -132,8 +68,8 @@
       beta: beta,
       delta: delta,
       levels: cloneLevels(levels),
-      highlightLevel: delta,
-      message: 'Draw \u03C0 = [' + pi.join(', ') + '] and \u03B2 = ' + beta.toFixed(3) + ' \u2208 [1,2]. Start with D_' + delta + ' = {V}.'
+      viewLevel: delta,
+      message: 'Choose \u03C0 = [' + pi.join(', ') + '] and \u03B2 = ' + beta.toFixed(3) + ' \u2208 [1,2]. Set D_' + delta + ' = {V}.'
     });
 
     var i = delta - 1;
@@ -144,7 +80,6 @@
       var assigned = {};
       V.forEach(function (v) { assigned[v] = false; });
       var clusters = [];
-      var partialLevels = cloneLevels(levels);
 
       steps.push({
         type: 'level_start',
@@ -153,46 +88,71 @@
         parent: current.map(function (S) { return S.slice(); }),
         levels: cloneLevels(levels),
         partial: [],
-        highlightLevel: i + 1,
-        message: 'Refine D_' + (i + 1) + ' into D_' + i + ' using \u03B2_i = 2^{' + (i - 1) + '}\u00B7\u03B2 = ' + beta_i.toFixed(3) + '.'
+        viewLevel: i + 1,
+        message: 'Level i = ' + i + ': \u03B2_i = 2^{' + (i - 1) + '}\u00B7\u03B2 = ' + beta_i.toFixed(3) + '. Refine each cluster of D_' + (i + 1) + ' into D_' + i + '.'
       });
 
       for (var l = 0; l < V.length; l++) {
         var center = pi[l];
         for (var s = 0; s < current.length; s++) {
           var S = current[s];
-          var candidates = S.filter(function (u) {
-            return !assigned[u] && dist[u][center] <= beta_i;
+          var unassignedInS = S.filter(function (u) { return !assigned[u]; });
+          if (unassignedInS.length === 0) {
+            continue;
+          }
+
+          var candidates = unassignedInS.filter(function (u) {
+            return dist[u][center] <= beta_i;
+          });
+
+          var rejected = unassignedInS.filter(function (u) {
+            return dist[u][center] > beta_i;
           });
 
           if (candidates.length === 0) {
+            steps.push({
+              type: 'no_claim',
+              i: i,
+              l: l + 1,
+              center: center,
+              S: S.slice(),
+              cluster: [],
+              rejected: rejected,
+              beta_i: beta_i,
+              assignedBefore: V.filter(function (u) { return assigned[u]; }),
+              partial: clusters.map(function (c) { return c.slice(); }),
+              levels: cloneLevels(levels),
+              viewLevel: i,
+              message: 'l = ' + (l + 1) + ', center \u03C0(' + (l + 1) + ') = ' + center + ', S = ' + fmtSet(S) + ': no unassigned u with d(u,' + center + ') \u2264 ' + beta_i.toFixed(3) + '.'
+            });
             continue;
           }
 
           clusters.push(candidates.slice());
           candidates.forEach(function (u) { assigned[u] = true; });
-          partialLevels[i] = clusters.map(function (c) { return c.slice(); });
 
           steps.push({
             type: 'assign',
             i: i,
             l: l + 1,
             center: center,
-            cluster: candidates.slice(),
             S: S.slice(),
+            cluster: candidates.slice(),
+            rejected: rejected,
             beta_i: beta_i,
-            assigned: V.filter(function (u) { return assigned[u]; }),
-            levels: cloneLevels(levels),
+            assignedBefore: V.filter(function (u) { return assigned[u]; }).filter(function (u) {
+              return candidates.indexOf(u) < 0;
+            }),
             partial: clusters.map(function (c) { return c.slice(); }),
-            highlightLevel: i,
-            message: 'Center \u03C0(' + (l + 1) + ') = ' + center + ' settles ' + fmtSet(candidates) + ' from parent cluster ' + fmtSet(S) + ' (all unassigned u with d(u,' + center + ') \u2264 ' + beta_i.toFixed(3) + ').'
+            levels: cloneLevels(levels),
+            viewLevel: i,
+            message: 'l = ' + (l + 1) + ', center \u03C0(' + (l + 1) + ') = ' + center + ', cluster S = ' + fmtSet(S) + ': create ' + fmtSet(candidates) + ' where d(u,' + center + ') \u2264 ' + beta_i.toFixed(3) + '.'
           });
         }
       }
 
       levels[i] = clusters.map(function (c) { return c.slice(); });
       current = levels[i];
-      partialLevels = cloneLevels(levels);
 
       steps.push({
         type: 'level_end',
@@ -200,52 +160,32 @@
         beta_i: beta_i,
         partition: clusters.map(function (c) { return c.slice(); }),
         levels: cloneLevels(levels),
-        partial: [],
-        highlightLevel: i,
-        message: 'Finished D_' + i + ' = ' + clusters.map(fmtSet).join('  ') + '.'
+        partial: clusters.map(function (c) { return c.slice(); }),
+        viewLevel: i,
+        message: 'D_' + i + ' = ' + clusters.map(fmtSet).join('  ') + '.'
       });
       i--;
     }
 
-    var finalLevels = runPartition(pi, beta).levels;
-    var levelKeys = Object.keys(finalLevels).map(Number).sort(function (a, b) { return b - a; });
-    var refineOk = true;
-    for (var k = 0; k < levelKeys.length - 1; k++) {
-      var coarse = levelKeys[k];
-      var fine = levelKeys[k + 1];
-      if (!partitionRefines(finalLevels[fine], finalLevels[coarse])) {
-        refineOk = false;
-      }
+    if (!levels[0]) {
+      levels[0] = V.map(function (v) { return [v]; });
     }
 
-    var summary = levelKeys.map(function (lv) {
-      return 'D_' + lv + ' = ' + finalLevels[lv].map(fmtSet).join('  ');
-    }).join(' \u227A ');
-
-    var showcase = 1;
-    if (!finalLevels[1] || finalLevels[1].every(function (c) { return c.length === 1; })) {
-      showcase = 0;
-    }
+    var keys = Object.keys(levels).map(Number).sort(function (a, b) { return b - a; });
+    var summary = keys.map(function (lv) {
+      return 'D_' + lv + ' = ' + levels[lv].map(fmtSet).join('  ');
+    }).join('  \u227A  ');
 
     steps.push({
       type: 'done',
       pi: pi.slice(),
       beta: beta,
-      levels: cloneLevels(finalLevels),
-      highlightLevel: showcase,
-      refineOk: refineOk,
-      message: 'Done. ' + summary + (refineOk ? ' (each level refines the one above).' : '')
+      levels: cloneLevels(levels),
+      viewLevel: keys.indexOf(1) >= 0 ? 1 : 0,
+      message: 'Hierarchical cut decomposition: ' + summary + '.'
     });
 
     return steps;
-  }
-
-  function clusterColorForVertex(vertex, partition) {
-    var cluster = findParentCluster(vertex, partition);
-    if (!cluster) {
-      return '#fff';
-    }
-    return clusterColors[cluster[0]];
   }
 
   function initPartitionAlgoViz() {
@@ -260,130 +200,310 @@
     }
     canvas.setAttribute('data-initialized', 'true');
 
-    var width = 512;
-    var height = 360;
-    var margin = { top: 20, right: 16, bottom: 16, left: 16 };
-    var innerW = width - margin.left - margin.right;
-
+    var W = 520;
+    var H = 380;
     var svg = d3.select(canvas).append('svg')
-      .attr('viewBox', '0 0 ' + width + ' ' + height)
+      .attr('viewBox', '0 0 ' + W + ' ' + H)
       .attr('preserveAspectRatio', 'xMidYMid meet')
-      .style('width', '100%')
-      .style('height', '100%');
+      .style('width', '100%').style('height', '100%');
 
-    var g = svg.append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
-
-    g.append('text')
-      .attr('x', innerW / 2).attr('y', -4)
-      .attr('text-anchor', 'middle')
-      .attr('fill', '#999')
-      .attr('font-size', '11px')
-      .attr('font-family', 'Courier New, monospace')
-      .text('metric space (edge labels are d(\u00B7,\u00B7))');
-
-    var links = [];
-    for (var i = 0; i < V.length; i++) {
-      for (var j = i + 1; j < V.length; j++) {
-        links.push({ source: V[i], target: V[j], d: dist[V[i]][V[j]] });
-      }
-    }
-
-    g.append('g').selectAll('line')
-      .data(links).enter().append('line')
-      .attr('x1', function (d) { return positions[d.source].x; })
-      .attr('y1', function (d) { return positions[d.source].y; })
-      .attr('x2', function (d) { return positions[d.target].x; })
-      .attr('y2', function (d) { return positions[d.target].y; })
-      .attr('stroke', '#e0e0e0')
-      .attr('stroke-width', 1);
-
-    g.append('g').selectAll('text.edge-label')
-      .data(links).enter().append('text')
-      .attr('x', function (d) { return (positions[d.source].x + positions[d.target].x) / 2; })
-      .attr('y', function (d) { return (positions[d.source].y + positions[d.target].y) / 2 - 5; })
-      .attr('text-anchor', 'middle')
-      .attr('fill', '#ccc')
-      .attr('font-size', '9px')
-      .attr('font-family', 'Courier New, monospace')
-      .text(function (d) { return d.d; });
-
-    var highlightG = g.append('g').attr('class', 'highlights');
-
-    var nodes = g.append('g').selectAll('g.node')
-      .data(V.map(function (id) { return { id: id, x: positions[id].x, y: positions[id].y }; }))
-      .enter().append('g')
-      .attr('class', 'node')
-      .attr('transform', function (d) { return 'translate(' + d.x + ',' + d.y + ')'; });
-
-    nodes.append('circle')
-      .attr('r', 16)
-      .attr('fill', '#fff')
-      .attr('stroke', '#bbb')
-      .attr('stroke-width', 2);
-
-    nodes.append('text')
-      .attr('text-anchor', 'middle')
-      .attr('dy', '0.35em')
-      .attr('font-size', '14px')
-      .attr('font-weight', '700')
-      .attr('font-family', 'Courier New, monospace')
-      .text(function (d) { return d.id; });
-
-    var piOrderG = g.append('g').attr('class', 'pi-order');
-
-    var state = { steps: [], index: 0, levels: {}, pi: [], beta: 1, playTimer: null };
+    var mainG = svg.append('g').attr('transform', 'translate(16,12)');
+    var state = { steps: [], index: 0, pi: [], beta: 1, playTimer: null };
 
     function renderPartitionPanel(step) {
       var el = document.getElementById('algo-partitions');
       if (!el) { return; }
 
-      var levels = step.levels || state.levels;
+      var levels = step.levels;
       var keys = Object.keys(levels).map(Number).sort(function (a, b) { return b - a; });
       var html = '';
-      var highlightLevel = step.highlightLevel;
 
       keys.forEach(function (lv) {
-        var isCurrent = step.type === 'level_start' && lv === step.i + 1;
-        var isBuilding = (step.type === 'assign' || step.type === 'level_end') && lv === step.i;
-        var isDoneFocus = step.type === 'done' && lv === step.highlightLevel;
-        var titleExtra = isCurrent ? ' \u2190 refining' : (isBuilding ? ' \u2190 building' : (isDoneFocus ? ' \u2190 highlight' : ''));
+        var building = (step.type === 'assign' || step.type === 'no_claim' || step.type === 'level_start') && lv === step.i;
+        var parentLv = step.type === 'level_start' || step.type === 'assign' || step.type === 'no_claim' ? step.i + 1 : null;
+        var title = 'D<sub>' + lv + '</sub>';
+        if (lv === parentLv && (step.type === 'level_start' || step.type === 'assign')) {
+          title += ' <span style="color:#d4a017">(parent)</span>';
+        }
+        if (building) {
+          title += ' <span style="color:#2b8cbe">(building)</span>';
+        }
+        html += '<div class="algo-level-block"><div class="level-title">' + title + '</div>';
 
-        html += '<div class="algo-level-block"><div class="level-title">D<sub>' + lv + '</sub>' + titleExtra + '</div>';
-
-        if (isBuilding && step.partial && step.partial.length > 0 && step.type === 'assign') {
+        if (building && step.partial && step.partial.length > 0) {
           step.partial.forEach(function (cluster) {
-            var isActive = step.cluster && clusterKey(cluster) === clusterKey(step.cluster);
-            var color = clusterColors[cluster[0]];
-            html += '<span class="algo-cluster' + (isActive ? ' active' : '') + '" style="border-color:' + color + ';background:' + color + '22">' + fmtSet(cluster) + '</span>';
+            var active = step.type === 'assign' && step.cluster && step.cluster.length && clusterKey(cluster) === clusterKey(step.cluster);
+            var c = clusterColors[cluster[0]];
+            html += '<span class="algo-cluster' + (active ? ' active' : '') + '" style="border-color:' + c + ';background:' + c + '22">' + fmtSet(cluster) + '</span>';
           });
+        } else if (building && step.type === 'level_start') {
+          html += '<span style="color:#aaa">empty \u2014 scan centers in \u03C0 order</span>';
         } else {
           levels[lv].forEach(function (cluster) {
-            var isActive = step.type === 'assign' && step.cluster && clusterKey(cluster) === clusterKey(step.cluster);
-            var isParent = (step.type === 'assign' || step.type === 'level_start') && step.parent && step.parent.some(function (p) {
-              return clusterKey(p) === clusterKey(cluster);
-            });
-            var color = clusterColors[cluster[0]];
-            html += '<span class="algo-cluster' + (isActive ? ' active' : '') + (isParent ? ' parent' : '') + (isDoneFocus ? ' done-focus' : '') + '" style="border-color:' + color + ';background:' + color + '22">' + fmtSet(cluster) + '</span>';
+            var c = clusterColors[cluster[0]];
+            html += '<span class="algo-cluster" style="border-color:' + c + ';background:' + c + '22">' + fmtSet(cluster) + '</span>';
           });
         }
-
         html += '</div>';
       });
-
-      el.innerHTML = html || '\u2014';
+      el.innerHTML = html;
     }
 
-    function colorPartition(step) {
-      var levels = step.levels || state.levels;
-      var lv = step.highlightLevel;
-      if (lv == null || !levels[lv]) {
-        return null;
+    function drawOverview(step, partition) {
+      var y0 = 20;
+      mainG.append('text')
+        .attr('x', 0).attr('y', y0)
+        .attr('fill', '#666').attr('font-size', '12px')
+        .attr('font-family', 'Courier New, monospace')
+        .text(step.type === 'init' ? 'Starting partition D_' + step.delta + ' = {V}' :
+          step.type === 'level_start' ? 'Parent partition D_' + (step.i + 1) + ' (to refine at level i = ' + step.i + ')' :
+          step.type === 'level_end' ? 'Completed D_' + step.i :
+          step.type === 'done' ? 'Final hierarchical decomposition' : '');
+
+      var groups = partition.map(function (cluster, gi) {
+        return { id: gi, cluster: cluster, color: clusterColors[cluster[0]] };
+      });
+
+      var gx = mainG.append('g').attr('transform', 'translate(0,50)');
+      var xOff = 0;
+      groups.forEach(function (g) {
+        var n = g.cluster.length;
+        var boxW = Math.max(70, n * 44 + 20);
+        var box = gx.append('g').attr('transform', 'translate(' + xOff + ',0)');
+
+        box.append('rect')
+          .attr('width', boxW).attr('height', 72)
+          .attr('rx', 8)
+          .attr('fill', g.color + '18')
+          .attr('stroke', g.color)
+          .attr('stroke-width', 2);
+
+        box.append('text')
+          .attr('x', boxW / 2).attr('y', 14)
+          .attr('text-anchor', 'middle')
+          .attr('fill', '#666').attr('font-size', '10px')
+          .attr('font-family', 'Courier New, monospace')
+          .text(fmtSet(g.cluster));
+
+        g.cluster.forEach(function (v, vi) {
+          var cx = 20 + vi * 44 + (boxW - n * 44) / 2;
+          box.append('circle')
+            .attr('cx', cx).attr('cy', 44)
+            .attr('r', 16)
+            .attr('fill', '#fff')
+            .attr('stroke', g.color)
+            .attr('stroke-width', 2.5);
+          box.append('text')
+            .attr('x', cx).attr('y', 48)
+            .attr('text-anchor', 'middle')
+            .attr('font-size', '14px').attr('font-weight', '700')
+            .attr('font-family', 'Courier New, monospace')
+            .text(v);
+        });
+        xOff += boxW + 16;
+      });
+    }
+
+    function drawCutView(step) {
+      var center = step.center;
+      var S = step.S;
+      var beta_i = step.beta_i;
+      var y0 = 16;
+
+      mainG.append('text')
+        .attr('x', 0).attr('y', y0)
+        .attr('fill', '#045a8d').attr('font-size', '12px').attr('font-weight', '700')
+        .attr('font-family', 'Courier New, monospace')
+        .text('Cut S = ' + fmtSet(S) + '  with center w = \u03C0(' + step.l + ') = ' + center + ',  radius \u03B2_i = ' + beta_i.toFixed(3));
+
+      mainG.append('text')
+        .attr('x', 0).attr('y', y0 + 16)
+        .attr('fill', '#888').attr('font-size', '11px')
+        .attr('font-family', 'Courier New, monospace')
+        .text('Claim unassigned u \u2208 S with d(u,w) \u2264 \u03B2_i (metric distance, not Euclidean in the plane).');
+
+      var axisY = 100;
+      var axisX0 = 50;
+      var axisW = 420;
+      var maxX = Math.max(beta_i, 1);
+      S.forEach(function (u) { maxX = Math.max(maxX, dist[u][center]); });
+      maxX = Math.ceil(maxX) + 0.5;
+      var scale = axisW / maxX;
+
+      var ax = mainG.append('g').attr('transform', 'translate(' + axisX0 + ',' + axisY + ')');
+
+      ax.append('line')
+        .attr('x1', 0).attr('x2', axisW)
+        .attr('y1', 0).attr('y2', 0)
+        .attr('stroke', '#ccc').attr('stroke-width', 1.5);
+
+      ax.append('text')
+        .attr('x', -8).attr('y', 4)
+        .attr('text-anchor', 'end')
+        .attr('fill', '#045a8d').attr('font-size', '11px')
+        .attr('font-family', 'Courier New, monospace')
+        .text('w');
+
+      var betaX = beta_i * scale;
+      ax.append('line')
+        .attr('x1', betaX).attr('x2', betaX)
+        .attr('y1', -12).attr('y2', 48)
+        .attr('stroke', '#e41a1c').attr('stroke-width', 2)
+        .attr('stroke-dasharray', '5,4');
+      ax.append('text')
+        .attr('x', betaX).attr('y', -16)
+        .attr('text-anchor', 'middle')
+        .attr('fill', '#e41a1c').attr('font-size', '10px')
+        .attr('font-family', 'Courier New, monospace')
+        .text('\u03B2_i = ' + beta_i.toFixed(3));
+
+      var shaded = ax.append('rect')
+        .attr('x', 0).attr('y', -8)
+        .attr('width', betaX).attr('height', 40)
+        .attr('fill', 'rgba(43,140,190,0.1)');
+
+      var points = S.map(function (u) {
+        var d = dist[u][center];
+        var claimed = step.type === 'assign' && step.cluster.indexOf(u) >= 0;
+        var already = step.assignedBefore && step.assignedBefore.indexOf(u) >= 0;
+        var inBall = d <= beta_i;
+        return { id: u, d: d, x: d * scale, claimed: claimed, already: already, inBall: inBall };
+      }).sort(function (a, b) { return a.d - b.d; });
+
+      points.forEach(function (p) {
+        var g = ax.append('g').attr('transform', 'translate(' + p.x + ',18)');
+        var fill = p.claimed ? clusterColors[p.id] :
+          p.already ? '#e8e8e8' :
+          p.inBall ? '#fff' : '#fff';
+        var stroke = p.claimed ? clusterColors[p.id] :
+          p.already ? '#bbb' :
+          p.inBall ? '#2b8cbe' : '#d4a017';
+        var sw = p.claimed ? 3 : 2;
+
+        g.append('circle')
+          .attr('r', 14)
+          .attr('fill', fill)
+          .attr('stroke', stroke)
+          .attr('stroke-width', sw)
+          .attr('stroke-dasharray', p.claimed || p.already ? null : (p.inBall ? null : '3,2'));
+
+        g.append('text')
+          .attr('y', 4)
+          .attr('text-anchor', 'middle')
+          .attr('font-size', '13px').attr('font-weight', '700')
+          .attr('font-family', 'Courier New, monospace')
+          .attr('fill', p.claimed ? '#fff' : '#333')
+          .text(p.id);
+
+        g.append('text')
+          .attr('y', 34)
+          .attr('text-anchor', 'middle')
+          .attr('font-size', '10px')
+          .attr('font-family', 'Courier New, monospace')
+          .attr('fill', '#666')
+          .text('d=' + p.d.toFixed(2));
+
+        if (p.claimed) {
+          g.append('text')
+            .attr('y', -20)
+            .attr('text-anchor', 'middle')
+            .attr('font-size', '9px')
+            .attr('fill', '#2b8cbe')
+            .attr('font-family', 'Courier New, monospace')
+            .text('claimed');
+        } else if (!p.already && !p.inBall) {
+          g.append('text')
+            .attr('y', -20)
+            .attr('text-anchor', 'middle')
+            .attr('font-size', '9px')
+            .attr('fill', '#d4a017')
+            .attr('font-family', 'Courier New, monospace')
+            .text('d > \u03B2_i');
+        } else if (p.already) {
+          g.append('text')
+            .attr('y', -20)
+            .attr('text-anchor', 'middle')
+            .attr('font-size', '9px')
+            .attr('fill', '#aaa')
+            .attr('font-family', 'Courier New, monospace')
+            .text('assigned');
+        }
+      });
+
+      if (step.type === 'assign') {
+        mainG.append('text')
+          .attr('x', axisX0).attr('y', axisY + 70)
+          .attr('fill', '#2b8cbe').attr('font-size', '11px')
+          .attr('font-family', 'Courier New, monospace')
+          .text('\u2192 New cluster: ' + fmtSet(step.cluster));
+      } else {
+        mainG.append('text')
+          .attr('x', axisX0).attr('y', axisY + 70)
+          .attr('fill', '#d4a017').attr('font-size', '11px')
+          .attr('font-family', 'Courier New, monospace')
+          .text('\u2192 No cluster created (all unassigned vertices in S have d(u,w) > \u03B2_i).');
+      }
+
+      if (step.rejected && step.rejected.length > 0) {
+        mainG.append('text')
+          .attr('x', axisX0).attr('y', axisY + 86)
+          .attr('fill', '#d4a017').attr('font-size', '11px')
+          .attr('font-family', 'Courier New, monospace')
+          .text('Still unassigned in S (wait for later centers): ' + step.rejected.map(function (u) {
+            return u + ' (d=' + dist[u][center].toFixed(2) + ')';
+          }).join(', '));
+      }
+    }
+
+    function drawPiStrip(step) {
+      var pi = step.pi || state.pi;
+      var y = 330;
+      mainG.append('text')
+        .attr('x', 0).attr('y', y)
+        .attr('fill', '#999').attr('font-size', '10px')
+        .attr('font-family', 'Courier New, monospace')
+        .text('Permutation \u03C0 (centers tried in this order):');
+
+      var strip = mainG.append('g').attr('transform', 'translate(0,' + (y + 10) + ')');
+      var x = 0;
+      pi.forEach(function (v, idx) {
+        var active = (step.type === 'assign' || step.type === 'no_claim') && step.l === idx + 1;
+        var done = (step.type === 'assign' || step.type === 'no_claim') && step.l > idx + 1;
+        strip.append('rect')
+          .attr('x', x).attr('y', 0)
+          .attr('width', 52).attr('height', 28)
+          .attr('rx', 4)
+          .attr('fill', active ? '#2b8cbe' : done ? '#e8f4f8' : '#f5f5f5')
+          .attr('stroke', active ? '#045a8d' : '#ddd')
+          .attr('stroke-width', active ? 2 : 1);
+        strip.append('text')
+          .attr('x', x + 26).attr('y', 18)
+          .attr('text-anchor', 'middle')
+          .attr('font-size', '10px')
+          .attr('font-family', 'Courier New, monospace')
+          .attr('fill', active ? '#fff' : '#444')
+          .text('\u03C0(' + (idx + 1) + ')=' + v);
+        x += 58;
+      });
+    }
+
+    function partitionAt(step) {
+      var levels = step.levels;
+      var lv = step.viewLevel;
+      if (step.type === 'level_start') {
+        return step.parent;
+      }
+      if (step.type === 'assign') {
+        return step.partial;
+      }
+      if (step.type === 'level_end' || step.type === 'done') {
+        return levels[lv] || levels[step.i];
       }
       return levels[lv];
     }
 
     function renderStep(step, index) {
-      state.levels = step.levels || state.levels;
+      mainG.selectAll('*').remove();
 
       var status = document.getElementById('algo-status');
       var counter = document.getElementById('algo-step-counter');
@@ -399,85 +519,26 @@
       if (piEl) { piEl.textContent = '[' + (step.pi || state.pi).join(', ') + ']'; }
       if (betaEl) { betaEl.textContent = (step.beta != null ? step.beta : state.beta).toFixed(3); }
 
-      if (step.type === 'init') {
-        if (levelEl) { levelEl.textContent = String(step.delta); }
-        if (betaIEl) { betaIEl.textContent = '\u2014'; }
-        if (centerEl) { centerEl.textContent = '\u2014'; }
-      } else if (step.type === 'done') {
-        if (levelEl) { levelEl.textContent = 'done'; }
+      if (step.type === 'init' || step.type === 'done') {
+        if (levelEl) { levelEl.textContent = step.type === 'init' ? String(step.delta) : 'done'; }
         if (betaIEl) { betaIEl.textContent = '\u2014'; }
         if (centerEl) { centerEl.textContent = '\u2014'; }
       } else {
         if (levelEl) { levelEl.textContent = String(step.i); }
         if (betaIEl) { betaIEl.textContent = step.beta_i != null ? step.beta_i.toFixed(3) : '\u2014'; }
-        if (centerEl) { centerEl.textContent = step.center != null ? step.center + ' (l=' + step.l + ')' : '\u2014'; }
+        if (centerEl) {
+          centerEl.textContent = step.center != null ? step.center + ' (l=' + step.l + ')' : '\u2014';
+        }
       }
 
       renderPartitionPanel(step);
+      drawPiStrip(step);
 
-      piOrderG.selectAll('*').remove();
-      state.pi.forEach(function (v, idx) {
-        var p = positions[v];
-        var isActive = step.type === 'assign' && step.center === v;
-        piOrderG.append('text')
-          .attr('x', p.x).attr('y', p.y + 28)
-          .attr('text-anchor', 'middle')
-          .attr('fill', isActive ? '#045a8d' : '#bbb')
-          .attr('font-size', '10px')
-          .attr('font-weight', isActive ? '700' : '400')
-          .attr('font-family', 'Courier New, monospace')
-          .text('\u03C0(' + (idx + 1) + ')=' + v);
-      });
-
-      highlightG.selectAll('*').remove();
-      if (step.type === 'assign' && step.center && step.beta_i != null) {
-        V.forEach(function (u) {
-          if (dist[u][step.center] <= step.beta_i) {
-            highlightG.append('line')
-              .attr('x1', positions[step.center].x)
-              .attr('y1', positions[step.center].y)
-              .attr('x2', positions[u].x)
-              .attr('y2', positions[u].y)
-              .attr('stroke', u === step.center ? 'none' : '#2b8cbe')
-              .attr('stroke-width', 1.5)
-              .attr('stroke-dasharray', '4,3')
-              .attr('opacity', step.cluster && step.cluster.indexOf(u) >= 0 ? 0.9 : 0.35);
-          }
-        });
+      if (step.type === 'assign' || step.type === 'no_claim') {
+        drawCutView(step);
+      } else {
+        drawOverview(step, partitionAt(step));
       }
-
-      var displayPartition = colorPartition(step);
-      if (step.type === 'assign') {
-        displayPartition = step.partial || displayPartition;
-      }
-
-      nodes.select('circle').transition().duration(200)
-        .attr('fill', function (d) {
-          if (step.type === 'assign') {
-            if (d.id === step.center) { return '#2b8cbe'; }
-            if (step.cluster && step.cluster.indexOf(d.id) >= 0) {
-              return clusterColorForVertex(d.id, step.partial || [step.cluster]) + '88';
-            }
-            if (step.assigned && step.assigned.indexOf(d.id) >= 0) { return '#f0f0f0'; }
-            if (step.S && step.S.indexOf(d.id) >= 0) { return '#fff8e8'; }
-          }
-          if (displayPartition) {
-            return clusterColorForVertex(d.id, displayPartition) + '55';
-          }
-          return '#fff';
-        })
-        .attr('stroke', function (d) {
-          if (d.id === step.center) { return '#045a8d'; }
-          if (step.cluster && step.cluster.indexOf(d.id) >= 0) { return clusterColorForVertex(d.id, [step.cluster]); }
-          if (displayPartition) { return clusterColorForVertex(d.id, displayPartition); }
-          return '#bbb';
-        })
-        .attr('stroke-width', function (d) {
-          if (d.id === step.center) { return 3; }
-          if (step.cluster && step.cluster.indexOf(d.id) >= 0) { return 2.5; }
-          return 2;
-        })
-        .attr('r', function (d) { return d.id === step.center ? 20 : 16; });
     }
 
     function goTo(index) {
@@ -486,57 +547,42 @@
     }
 
     function loadRun(pi, beta) {
-      if (state.playTimer) {
-        clearInterval(state.playTimer);
-        state.playTimer = null;
-      }
+      if (state.playTimer) { clearInterval(state.playTimer); state.playTimer = null; }
       state.pi = pi.slice();
       state.beta = beta;
       state.steps = buildSteps(state.pi, state.beta);
-      state.levels = state.steps[0].levels;
       goTo(0);
       var playBtn = document.getElementById('algo-play');
       if (playBtn) { playBtn.textContent = '\u25B6 Play'; }
     }
 
-    function randomize() {
+    document.getElementById('algo-example').addEventListener('click', function () {
+      loadRun(['a', 'b', 'c', 'd', 'e'], 1.5);
+    });
+    document.getElementById('algo-randomize').addEventListener('click', function () {
       loadRun(shuffle(V), 1 + Math.random());
-    }
-
-    var randomizeBtn = document.getElementById('algo-randomize');
-    var exampleBtn = document.getElementById('algo-example');
-    var prevBtn = document.getElementById('algo-prev');
-    var nextBtn = document.getElementById('algo-next');
-    var playBtn = document.getElementById('algo-play');
-
-    if (randomizeBtn) { randomizeBtn.addEventListener('click', randomize); }
-    if (exampleBtn) {
-      exampleBtn.addEventListener('click', function () {
-        loadRun(['a', 'b', 'c', 'd', 'e'], 1.5);
-      });
-    }
-    if (prevBtn) { prevBtn.addEventListener('click', function () { goTo(state.index - 1); }); }
-    if (nextBtn) { nextBtn.addEventListener('click', function () { goTo(state.index + 1); }); }
-    if (playBtn) {
-      playBtn.addEventListener('click', function () {
-        if (state.playTimer) {
+    });
+    document.getElementById('algo-prev').addEventListener('click', function () { goTo(state.index - 1); });
+    document.getElementById('algo-next').addEventListener('click', function () { goTo(state.index + 1); });
+    document.getElementById('algo-play').addEventListener('click', function () {
+      var btn = this;
+      if (state.playTimer) {
+        clearInterval(state.playTimer);
+        state.playTimer = null;
+        btn.textContent = '\u25B6 Play';
+        return;
+      }
+      btn.textContent = '\u275A\u275A Pause';
+      state.playTimer = setInterval(function () {
+        if (state.index >= state.steps.length - 1) {
           clearInterval(state.playTimer);
           state.playTimer = null;
-          playBtn.textContent = '\u25B6 Play';
+          btn.textContent = '\u25B6 Play';
           return;
         }
-        playBtn.textContent = '\u275A\u275A Pause';
-        state.playTimer = setInterval(function () {
-          if (state.index >= state.steps.length - 1) {
-            clearInterval(state.playTimer);
-            state.playTimer = null;
-            playBtn.textContent = '\u25B6 Play';
-            return;
-          }
-          goTo(state.index + 1);
-        }, 1100);
-      });
-    }
+        goTo(state.index + 1);
+      }, 1400);
+    });
 
     loadRun(['a', 'b', 'c', 'd', 'e'], 1.5);
   }
