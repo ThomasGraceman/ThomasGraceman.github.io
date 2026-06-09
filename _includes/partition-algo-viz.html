@@ -1,0 +1,143 @@
+{% include base_path %}
+<style>
+  .algo-viz-card {
+    background: #fafafa;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    margin: 30px 0;
+  }
+  .algo-controls {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 14px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .algo-btn {
+    padding: 7px 16px;
+    border: 2px solid #d0d0d0;
+    background: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-family: 'Courier New', monospace;
+    transition: all 0.2s ease;
+  }
+  .algo-btn:hover { background: #f0f4f8; border-color: #bbb; }
+  .algo-btn.primary {
+    border-color: #2b8cbe;
+    background: #e8f4fd;
+    color: #045a8d;
+    font-weight: 700;
+  }
+  .algo-status {
+    flex: 1 1 260px;
+    font-size: 13px;
+    color: #444;
+    background: #f0f0f0;
+    padding: 8px 14px;
+    border-radius: 5px;
+    font-family: 'Courier New', monospace;
+    line-height: 1.5;
+    min-height: 42px;
+  }
+  .algo-meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px;
+    margin-bottom: 14px;
+    font-size: 12px;
+    font-family: 'Courier New', monospace;
+    color: #555;
+  }
+  .algo-meta span {
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    border-radius: 5px;
+    padding: 6px 10px;
+  }
+  .algo-meta b { color: #045a8d; }
+  .algo-layout {
+    display: grid;
+    grid-template-columns: 1fr 240px;
+    gap: 16px;
+  }
+  @media (max-width: 720px) {
+    .algo-layout { grid-template-columns: 1fr; }
+  }
+  .algo-partition-panel {
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 12px;
+    font-family: 'Courier New', monospace;
+    max-height: 420px;
+    overflow-y: auto;
+  }
+  .algo-partition-panel h4 {
+    margin: 0 0 10px 0;
+    font-size: 13px;
+    color: #045a8d;
+  }
+  .algo-level-block { margin-bottom: 12px; }
+  .algo-level-block .level-title {
+    font-weight: 700;
+    color: #666;
+    margin-bottom: 4px;
+  }
+  .algo-cluster {
+    display: inline-block;
+    margin: 2px 4px 2px 0;
+    padding: 3px 8px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    background: #f9f9f9;
+  }
+  .algo-cluster.active {
+    border-color: #2b8cbe;
+    box-shadow: 0 0 0 2px rgba(43,140,190,0.15);
+    font-weight: 700;
+  }
+  .algo-cluster.parent {
+    border-style: dashed;
+    border-color: #d4a017;
+  }
+  .algo-step-counter {
+    font-size: 12px;
+    color: #888;
+    margin-left: auto;
+  }
+</style>
+
+<div class="algo-viz-card" id="partition-algo-viz">
+  <div class="algo-controls">
+    <button type="button" class="algo-btn primary" id="algo-randomize">Randomize &amp; Reset</button>
+    <button type="button" class="algo-btn" id="algo-prev">&#9664; Step</button>
+    <button type="button" class="algo-btn" id="algo-next">Step &#9654;</button>
+    <button type="button" class="algo-btn" id="algo-play">&#9654; Play</button>
+    <span class="algo-step-counter" id="algo-step-counter">Step 0 / 0</span>
+  </div>
+  <div class="algo-meta">
+    <span><b>&#960;:</b> <span id="algo-pi">&#8212;</span></span>
+    <span><b>&#946;:</b> <span id="algo-beta">&#8212;</span></span>
+    <span><b>level i:</b> <span id="algo-level">&#8212;</span></span>
+    <span><b>&#946;<sub>i</sub>:</b> <span id="algo-beta-i">&#8212;</span></span>
+    <span><b>center &#960;(l):</b> <span id="algo-center">&#8212;</span></span>
+  </div>
+  <div class="algo-status" id="algo-status">Click <em>Randomize &amp; Reset</em> to draw a new permutation and scaling factor, then step through the partition.</div>
+  <div class="algo-layout">
+    <div id="algo-canvas" style="width: 100%; height: 360px;"></div>
+    <div class="algo-partition-panel" id="algo-partition-panel">
+      <h4>Partitions</h4>
+      <div id="algo-partitions">&#8212;</div>
+    </div>
+  </div>
+  <div style="margin-top: 10px; font-size: 12px; color: #aaa; text-align: center; border-top: 1px solid #eee; padding-top: 8px;">
+    Dashed spokes connect the current center to vertices with metric distance &#8804; &#946;<sub>i</sub>. The gold outline marks the parent cluster S being refined.
+  </div>
+</div>
+
+<script src="{{ base_path }}/assets/js/partition-algo-viz.js"></script>

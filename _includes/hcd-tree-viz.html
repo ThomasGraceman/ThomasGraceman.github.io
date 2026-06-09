@@ -1,0 +1,78 @@
+{% include base_path %}
+<style>
+  .viz-card {
+    background: #fafafa;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 20px 20px 10px 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    margin: 30px 0;
+  }
+  .viz-controls {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .hcd-level-btn {
+    padding: 7px 18px;
+    border: 2px solid #d0d0d0;
+    background: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-family: 'Courier New', monospace;
+    transition: all 0.2s ease;
+    letter-spacing: 0.3px;
+  }
+  .hcd-level-btn:hover { background: #f0f4f8; border-color: #bbb; }
+  .hcd-level-btn.active {
+    border-color: #2b8cbe;
+    background: #e8f4fd;
+    color: #045a8d;
+    font-weight: 700;
+    box-shadow: 0 1px 3px rgba(43,140,190,0.2);
+  }
+  .viz-info {
+    margin-left: auto;
+    font-size: 13px;
+    color: #555;
+    background: #f0f0f0;
+    padding: 6px 14px;
+    border-radius: 5px;
+    font-family: 'Courier New', monospace;
+  }
+  .viz-tooltip {
+    position: fixed;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 12px;
+    font-family: 'Courier New', monospace;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    pointer-events: none;
+    opacity: 0;
+    z-index: 1000;
+    transition: opacity 0.15s ease;
+  }
+</style>
+
+<div class="viz-card">
+  <div class="viz-controls">
+    <button type="button" class="hcd-level-btn active" data-level="2">D&#x2082; (radius 4)</button>
+    <button type="button" class="hcd-level-btn" data-level="1">D&#x2081; (radius 2)</button>
+    <button type="button" class="hcd-level-btn" data-level="0">D&#x2080; (radius 1)</button>
+    <span class="viz-info" id="partition-label">Partition: {a,b,c,d,e}</span>
+  </div>
+  <div id="d3-viz" style="width: 100%; height: 400px;"></div>
+  <div style="margin-top: 10px; font-size: 12px; color: #aaa; text-align: center; border-top: 1px solid #eee; padding-top: 8px;">
+    Click a level button to highlight the partition. Edge lengths are 2<sup>i</sup> between D<sub>i</sub> and its children.
+  </div>
+</div>
+
+<div class="viz-tooltip" id="viz-tooltip"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+<script src="{{ base_path }}/assets/js/hcd-tree-viz.js"></script>
