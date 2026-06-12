@@ -169,7 +169,7 @@ $$
 \end{array}
 $$
 
-Used carefully, this theory is one route toward sparsification. As in [Lee's course notes](https://homes.cs.washington.edu/~jrl/teaching/cse599au23) (*Sparsification, sampling, and optimization*, Autumn 2023), we start from a concrete $\ell_2$ setting and build outward, that is what the next sections do.
+Used carefully, this theory is one route toward sparsification. As in [Lee's course notes](https://homes.cs.washington.edu/~jrl/teaching/cse599au23) (*Sparsification, sampling, and optimization*, Autumn 2023), we start from a concrete $\ell_2$ setting and build outward, that is what the next sections do. For a slower treatment of leverage scores, Lewis weights, and the connection to statistical whitening, see [Chapter 2](/posts/lewis-weights-leverage-scores-whitening-chapter-2/).
 
 ---
 
