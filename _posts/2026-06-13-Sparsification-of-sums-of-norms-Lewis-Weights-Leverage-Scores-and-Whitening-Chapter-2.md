@@ -131,7 +131,7 @@ The main theorem we want to prove is the following  but we consider the case $p 
 
 ## The Key Intuitions from Talagrand
 
-From the literature — especially Talagrand's papers  we get two central intuitions:
+From the literature especially Talagrand's papers  we get two central intuitions:
 
 1. **Matrix concentration bound:** uniform sampling works (for all $p$) when all leverage scores are close, i.e., $O(d/n)$.
 
@@ -155,9 +155,9 @@ $$B = W^{1/2 - 1/p} A.$$
 
 ## Defining Lewis Weights
 
-Intuitively, we want the split rows $w_i^{-1/p} a_i$ to be normalized in a consistent way. Lewis's change of density formalizes this: each normalized row should have leverage score $1$ under a $W$-weighted $\ell_2$ geometry, or equivalently, the $i$th row of $B$ should have leverage score $w_i$.
+Intuitively, we want the split rows $w_i^{-1/p} a_i$ to be normalized in a consistent way. Lewis's change of density formalizes this: each normalized row should have leverage score $1$ which makes the matrix isotropic under the geometry induced by the weighted covariance.
 
-This is a circular definition — $w_i$ depends on the leverage scores of $B$, while $B$ itself depends on $w_i$  but it turns out to have a unique solution. The Gram matrix of $B$ is $A^\top W^{1 - 2/p} A$.
+This is a circular definition $w_i$ depends on the leverage scores of $B$, while $B$ itself depends on $w_i$  but it turns out to have a unique solution. The Gram matrix of $B$ is $A^\top W^{1 - 2/p} A$.
 
 > **Definition (Lewis Weights).** For a matrix $A$ and $p \ge 1$, the $\ell_p$ Lewis weights $w$ are the unique vector satisfying, for each $i$,
 >
