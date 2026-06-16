@@ -6,9 +6,6 @@ redirect_from:
   - /Lewis-Weights-Leverage-Scores-and-Whitening-Chapter-2/
 ---
 
-# Sparsification of Sums of Norms
-## Lewis Weights, Leverage Scores, and Whitening · Chapter 2
-
 This is the second chapter in my series on [Sparsifying Sums of Norms](https://homes.cs.washington.edu/~jrl/papers/pdf/norm-sparsify.pdf). [Chapter 1](/posts/sparsification-sums-of-norms-chapter-1/) set up the general problem and briefly mentioned Lewis weights. In the second post of this series on sparsification of the norm, I want to turn to the $\ell_p$ row sampling paper. I'll be spending a few posts on this one, because I think it is genuinely revealing on the subject  it is worth pondering carefully and going through in some detail. The paper relies heavily on the works of Milman and Talagrand(for example), so I may cover those seminal papers too at some point. At a high level, this paper is a vast generalization of the Johnson–Lindenstrauss lemma, with a few extremely technical steps, but the overall theme is clear and elegant. I especially like how they used Talagrand's result and intuition, and the way they brought in Lewis weights to pull everything together.
 
 
