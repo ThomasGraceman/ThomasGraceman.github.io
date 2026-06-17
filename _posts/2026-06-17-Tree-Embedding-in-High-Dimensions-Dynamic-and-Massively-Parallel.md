@@ -10,115 +10,115 @@ redirect_from:
 
 Let $(V,\mathrm{dist})$ be a metric space. Define
 
-\[
+$$
 B(x,r)
 :=
 \{\, y\in V : \mathrm{dist}(x,y)\le r \,\},
 \qquad x\in V,\; r\ge 0.
-\]
+$$
 
 For a subset $P\subseteq V$, define
 
-\[
+$$
 B_P(x,r)
 :=
 B(x,r)\cap P.
-\]
+$$
 
 Let
 
-\[
+$$
 \pi:P\to [0,1]
-\]
+$$
 
 be a random map, and let
 
-\[
+$$
 r\sim \mathrm{Unif}\!\left[\frac{w}{4},\frac{w}{2}\right].
-\]
+$$
 
 For each $p\in P$, define
 
-\[
+$$
 \ell_p
 :=
 \operatorname*{arg\,min}
 \left\{
 \pi(q): q\in B_P(p,r)
 \right\}.
-\]
+$$
 
 Let
 
-\[
+$$
 w_i := 2^{\,m-i}.
-\]
+$$
 
 A $\tau$-bounded decomposition ($\tau$-BD) is a partition of $V$ such that every part has diameter at most $\tau$.
 
 Let
 
-\[
+$$
 \phi:V\to U
-\]
+$$
 
 be a hash function. For $x\in V$, define its bucket
 
-\[
+$$
 \operatorname{buk}(x)
 :=
 \phi^{-1}(\phi(x)).
-\]
+$$
 
 Define
 
-\[
+$$
 \operatorname{buk}^P(x)
 :=
 \operatorname{buk}(x)\cap P,
-\]
+$$
 
 and for any set $S\subseteq V$,
 
-\[
+$$
 \operatorname{buk}^{P}(x)
 := \operatorname{buk}(x)\cap P,
-\]
+$$
 
 and for any set \(S\subseteq V\),
 
 Define the bucketed neighborhood
 
-\[
+$$
 \operatorname{buks}^{P}(S)
 := \bigcup_{x\in S}\operatorname{buk}^{P}(x).
-\]
+$$
 
 Finally, define
 
-\[
+$$
 \ell_p
 :=
 \pi_{\min}\!\bigl(\widetilde{B}_P(p,r)\bigr),
-\]
+$$
 
 where
 
-\[
+$$
 \pi_{\min}(S)
 :=
 \operatorname*{arg\,min}_{x\in S}\pi(x).
-\]
+$$
 
 ### Assumptions and Parameters
 For the sake of presentation, we assume, without loss of generality, that the dataset $P\subseteq V$ has the smallest inter-point distance greater than $1$, and that its diameter, denoted by $\Delta := \operatorname{diam}(P)$, satisfies
-\[
+$$
 \Delta = 2^{m-1}
-\]
+$$
 for some $m\in\mathbb{N}$. For every integer $i$, let
-\[
+$$
 w_i := 2^{m-i}.
-\]
+$$
 
 Well recently I have come across a really cool paper, which is called *Tree Embedding in High Dimensions: Dynamic and Massively Parallel*, basically it really is a nice and cool utilization of geometric hashing which in turn is itself a sparse partition of the space and metric space at hand. Basically how the algorithm at the basic level works is the same as its predecessors like the CKR process, put a randomization forward, break down the metric space in a recursive manner, and the structure and analysis help you to get an ultrametric with distortion of $O(\log n)$, but the novelty of their paper lies in the fact that they in fact propose a cool dynamic algorithm, and they work in a more general setting, and their novel usage of the dynamic paradigm, which also works extremely well in the MPC agenda, where it is a streaming model of computation.
 
