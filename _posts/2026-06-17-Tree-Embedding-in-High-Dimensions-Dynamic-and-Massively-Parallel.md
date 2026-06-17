@@ -340,14 +340,15 @@ In words, this definition formalizes a geometric hashing scheme in which small-d
 Without the notion of consistent hashing, it would not be possible to implement the algorithm in an MPC model, where computation may be performed in a streaming fashion as mentioned and implemented in the original papers.
 
 > **Theorem 4.2.**
-> Assume there exists a $$(\Gamma,\Lambda)$$-hash function $\phi : \mathbb{R}^d \to \mathbb{R}^d$ with diameter bound $\tau$, such that for $p \in \mathbb{R}^d$, the hash value $\phi(p)$ and the set of hash values $\phi(B(p,\tau/\Gamma))$ can be evaluated in $O(\mathrm{poly}(d))$ time and $$O(|\phi(B(p,\tau/\Gamma))|\cdot \mathrm{poly}(d))$$ time, respectively.
+> Assume there exists a $(\Gamma,\Lambda)$-hash function $\phi : \mathbb{R}^d \to \mathbb{R}^d$ with diameter bound $\tau$, such that for $p \in \mathbb{R}^d$, the hash value $\phi(p)$ and the set of hash values $\phi(B(p,\tau/\Gamma))$ can be evaluated in $O(\mathrm{poly}(d))$ time and $O(|\phi(B(p,\tau/\Gamma))|\cdot \mathrm{poly}(d))$ time, respectively.
 >
-> Then there exists a dynamic algorithm which, for a dynamic set of points $$P \subseteq \mathbb{R}^d$$ with $$|P|\le n$$ undergoing point insertions and deletions, maintains a tree embedding of $$P$$ with $$O(\Gamma \log \Gamma \log n)$$ distortion and $$\tilde{O}(d+\Lambda)$$ expected amortized update time.
+> Then there exists a dynamic algorithm which, for a dynamic set of points $P \subseteq \mathbb{R}^d$ with $|P|\le n$ undergoing point insertions and deletions, maintains a tree embedding of $P$ with $O(\Gamma \log \Gamma \log n)$ distortion and $\tilde{O}(d+\Lambda)$ expected amortized update time.
 >
 > The underlying tree embedding is rebuilt by the algorithm after every $n$ updates. An update to the point set $P$ results in $\tilde{O}(1)$ expected updates to the tree embedding of the following types:
 >
 > - **Type 1:** A leaf of the embedding becomes inactive, in the sense that no point in $P$ corresponds to it.
 > - **Type 2:** A new leaf and a path connecting the leaf to an existing node in the tree embedding are inserted into the embedding.
+
 
 **Algorithm 2:** Insertion-procedure$(p)$
 
