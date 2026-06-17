@@ -86,9 +86,9 @@ It is a standard fact that the distance between points $p,q$ in the tree $T$ is 
 > 2. Let $\pi$ be a uniform random map from $P$ to $[0,1]$
 > 3. **For** $i \leftarrow 1$ to $m$:
 >    - $r_i \leftarrow \frac{\beta}{\Gamma} \cdot w_i$
->    - **For** each $p \in P$:
->      - $\ell^{(i)}_p \leftarrow \pi_{\min}\!\big(\widetilde{B}^{P}_i(p,r_i)\big)$
-> 4. **Return** $\{\ell^{(i)}_p\}_{i\in[m],\,p\in P}$
+>    - **For** each $$p \in P$$:
+>      - $$\ell^{(i)}_p \leftarrow \pi_{\min}\!\big(\widetilde{B}^{P}_i(p,r_i)\big)$$
+> 4. **Return** $$\{\ell^{(i)}_p\}_{i\in[m],\,p\in P}$$
 
 > **Definition (Tree level).**
 > For $p,q\in P$, define
@@ -342,7 +342,9 @@ Without the notion of consistent hashing, it would not be possible to implement 
 > **Theorem 4.2.**
 > Assume there exists a $(\Gamma,\Lambda)$-hash function $\phi : \mathbb{R}^d \to \mathbb{R}^d$ with diameter bound $\tau$, such that for $p \in \mathbb{R}^d$, the hash value $\phi(p)$ and the set of hash values $\phi(B(p,\tau/\Gamma))$ can be evaluated in $O(\mathrm{poly}(d))$ time and $O(|\phi(B(p,\tau/\Gamma))|\cdot \mathrm{poly}(d))$ time, respectively.
 >
-> Then there exists a dynamic algorithm which, for a dynamic set of points $P \subseteq \mathbb{R}^d$ with $|P|\le n$ undergoing point insertions and deletions, maintains a tree embedding of $P$ with $O(\Gamma \log \Gamma \log n)$ distortion and $\tilde{O}(d+\Lambda)$ expected amortized update time.
+> Then there exists a dynamic algorithm which, for a dynamic set of points 
+> $P \subseteq \mathbb{R}^d$ with $|P|\le n$ undergoing point insertions and deletions, maintains a tree embedding of $P$ with
+> $O(\Gamma \log \Gamma \log n)$ distortion and $\tilde{O}(d+\Lambda)$ expected amortized update time.
 >
 > The underlying tree embedding is rebuilt by the algorithm after every $n$ updates. An update to the point set $P$ results in $\tilde{O}(1)$ expected updates to the tree embedding of the following types:
 >
