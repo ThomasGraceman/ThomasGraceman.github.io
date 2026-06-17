@@ -202,11 +202,13 @@ But the neighborhood definition which the authors defined was so hard to work wi
 
 Their solution was to come up with the **representative set**, which is a way to keep the geometric structure nice and steady  ball-like even  while at the same time maintaining crucial information necessary for the analysis of the algorithm, there have been another problem in finding the upperbounds for probabilities which they solved by defining axuliry events, these two key observations are rather interesting.
 
+I will try to explain these concepts.
+
 ---
 
 ### Representative Sets
 
-Our proof strategy is to utilize the structure of $\widetilde{B}^{P}_i(\cdot,\cdot)$, and argue that a carefully chosen set of representatives of $\widetilde{B}^{P}_i(p,r)$ has similar geometric properties kind of like a standard ball.
+Their proof strategy is to utilize the structure of $\widetilde{B}^{P}_i(\cdot,\cdot)$, and argue that a carefully chosen set of representatives of $\widetilde{B}^{P}_i(p,r)$ has similar geometric properties kind of like a standard ball.
 
 > **Definition (Representative sets).**
 > A collection of sets $\operatorname{rep}_i(p,r) \subseteq V$ (which may not necessarily be a subset of $P$), defined for every $p\in P$, $i\in[m]$, and $r\ge 0$, is called a **family of representative sets** if for every $i\in[m]$, $p\in P$, and $r\ge 0$, the following properties hold:
