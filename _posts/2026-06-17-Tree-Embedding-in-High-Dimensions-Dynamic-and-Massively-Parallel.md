@@ -198,6 +198,7 @@ However, we now turn to Lemma 3.3, which is used for the distortion result.
 The dynamics of the proof of this lemma are really interesting and revealing, so I will dedicate a separate post to it  I find it the most sophisticated part of the paper.
 
 This lemma is particularly revealing and intuitive in parts, as it captures how the separation probability depends on the local growth of the bucketed neighborhood structure.
+But the neighborhood definition which the authors defined was so hard to work with in analysis so they came up with a rather nice object to solve the problem.
 
 Their solution was to come up with the **representative set**, which is a way to keep the geometric structure nice and steady  ball-like even  while at the same time maintaining crucial information necessary for the analysis of the algorithm.
 
