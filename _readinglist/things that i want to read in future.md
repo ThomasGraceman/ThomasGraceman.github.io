@@ -11,3 +11,6 @@ Additive Approximation Schemes for Low-Dimensional Embeddings
 Metric Embeddings Beyond Bi-Lipschitz Distortion via Sherali-Adams
 
 Cover times, blanket times, and majorizing measures
+
+Streaming Facility Location in High Dimension via Geometric Hashing
+
