@@ -124,6 +124,8 @@ $$
 p' := \pi^{-1}\!\left(\ell^{(i)}_p\right).
 $$
 
+<img src="/images/treemetric.png" alt="Banach book" style="max-width: 200px; height: auto;">
+
 Then we also have $p'=\pi^{-1}\!\left(\ell^{(i)}_q\right)$, because this follows directly from the definition. In other words, $p$ and $q$ are placed in the same bucket at the upper levels; namely, the hash functions classify them identically.
 
 Therefore,
