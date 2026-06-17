@@ -363,7 +363,7 @@ Without the notion of consistent hashing, it would not be possible to implement 
 >    - *(Updating labels $\ell^{(i)}_q$ for $q \in P$)*
 >    - **If** $\pi(p) = \pi_{\min}(\phi_i^{-1}(\phi_i(p)))$:
 >      - **For** all $x \in X_i$ and all $p' \in \phi_i^{-1}(x)\cap P$:
->        - **If** $$\pi(x) < \ell^{(i)}_{p'}$: update $\ell^{(i)}_{p'} \leftarrow \pi(x)$$
+>        - **If** $$\pi(x) < \ell^{(i)}_{p'}$$: update $$\ell^{(i)}_{p'} \leftarrow \pi(x)$$
 
 So based on the theorems of consistent hashing we can provide the preferred amortized upper bound on the insertion.
 
