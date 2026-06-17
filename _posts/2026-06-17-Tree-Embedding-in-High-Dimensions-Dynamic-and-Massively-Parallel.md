@@ -70,15 +70,7 @@ $$
 \phi^{-1}(\phi(x)).
 $$
 
-Define
-
-$$
-\operatorname{buk}^P(x)
-:=
-\operatorname{buk}(x)\cap P,
-$$
-
-and for any set $S\subseteq V$,
+and for any set $$S\subseteq V$$,
 
 $$
 \operatorname{buk}^{P}(x)
