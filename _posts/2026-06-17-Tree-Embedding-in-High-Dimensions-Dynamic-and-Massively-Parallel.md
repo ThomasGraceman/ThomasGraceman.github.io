@@ -126,6 +126,11 @@ $$
 
 <img src="/images/treemetric.png" alt="Banach book" style="max-width: 400px; height: auto;">
 
+the image belongs to CSC2414 - Metric Embeddings 
+Lecture 3: Embedding to Random Trees
+Notes taken by Nilesh Bansal and Ilya Sutskever
+Revised by Hamed Hatami.
+
 Then we also have $p'=\pi^{-1}\!\left(\ell^{(i)}_q\right)$, because this follows directly from the definition. In other words, $p$ and $q$ are placed in the same bucket at the upper levels; namely, the hash functions classify them identically.
 
 Therefore,
