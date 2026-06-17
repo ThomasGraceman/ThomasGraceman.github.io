@@ -200,7 +200,7 @@ The dynamics of the proof of this lemma are really interesting and revealing, so
 This lemma is particularly revealing and intuitive in parts, as it captures how the separation probability depends on the local growth of the bucketed neighborhood structure.
 But the neighborhood definition which the authors defined was so hard to work with in analysis so they came up with a rather nice object to solve the problem.
 
-Their solution was to come up with the **representative set**, which is a way to keep the geometric structure nice and steady  ball-like even  while at the same time maintaining crucial information necessary for the analysis of the algorithm.
+Their solution was to come up with the **representative set**, which is a way to keep the geometric structure nice and steady  ball-like even  while at the same time maintaining crucial information necessary for the analysis of the algorithm, there have been another problem in finding the upperbounds for probabilities which they solved by defining axuliry events, these two key observations are rather interesting.
 
 ---
 
