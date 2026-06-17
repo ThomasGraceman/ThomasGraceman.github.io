@@ -58,7 +58,7 @@ $$
 
 ### Assumptions and Parameters
 
-For the sake of presentation, we assume, without loss of generality, that the dataset $P\subseteq V$ has the smallest inter-point distance greater than $1$, and that its diameter $\Delta := \operatorname{diam}(P)$ satisfies
+For the sake of presentation( as in the paper ), we assume, without loss of generality, that the dataset $P\subseteq V$ has the smallest inter-point distance greater than $1$, and that its diameter $\Delta := \operatorname{diam}(P)$ satisfies
 
 $$
 \Delta = 2^{m-1}
