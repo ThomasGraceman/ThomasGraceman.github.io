@@ -6,6 +6,8 @@ redirect_from:
   - /Tree-Embedding-in-High-Dimensions-Dynamic-and-Massively-Parallel/
 ---
 
+# Tree Embedding in High Dimensions: Dynamic and Massively Parallel
+
 Let $(V,\mathrm{dist})$ be a metric space. Define
 
 \[
@@ -79,6 +81,15 @@ Define
 and for any set $S\subseteq V$,
 
 \[
+\operatorname{buk}^{P}(x)
+:= \operatorname{buk}(x)\cap P,
+\]
+
+and for any set \(S\subseteq V\),
+
+Define the bucketed neighborhood
+
+\[
 \operatorname{buks}^{P}(S)
 := \bigcup_{x\in S}\operatorname{buk}^{P}(x).
 \]
@@ -99,7 +110,7 @@ where
 \operatorname*{arg\,min}_{x\in S}\pi(x).
 \]
 
-\paragraph{Assumptions and Parameters.}
+### Assumptions and Parameters
 For the sake of presentation, we assume, without loss of generality, that the dataset $P\subseteq V$ has the smallest inter-point distance greater than $1$, and that its diameter, denoted by $\Delta := \operatorname{diam}(P)$, satisfies
 \[
 \Delta = 2^{m-1}
@@ -109,41 +120,38 @@ for some $m\in\mathbb{N}$. For every integer $i$, let
 w_i := 2^{m-i}.
 \]
 
-well recently i have come across a really cool paper, which is called tree Embedding in High Dimensions:
-Dynamic and Massively Parallel, basically it really is a nice and cool utilization of geometric hashing which in turns is it self a spars partition of the space and metric space at hand, basically how the algorithm at the basic level works is the same as its precedessors like CKR process, put a randomization forward, break down the metric space in a recursive mannar, and the structure and analysis helps you to get a ultra metric with distrotion of O(log(n)), but the novelity of their paper lies in the fact that they in fact propose a cool dynamic algorithm, and they work in a more general setting, and their novel useage of the dynamic paradiagm, which also works extremely well in MPC agenda, where its a streaming model of computation.
+Well recently I have come across a really cool paper, which is called *Tree Embedding in High Dimensions: Dynamic and Massively Parallel*, basically it really is a nice and cool utilization of geometric hashing which in turn is itself a sparse partition of the space and metric space at hand. Basically how the algorithm at the basic level works is the same as its predecessors like the CKR process, put a randomization forward, break down the metric space in a recursive manner, and the structure and analysis help you to get an ultrametric with distortion of $O(\log n)$, but the novelty of their paper lies in the fact that they in fact propose a cool dynamic algorithm, and they work in a more general setting, and their novel usage of the dynamic paradigm, which also works extremely well in the MPC agenda, where it is a streaming model of computation.
 
-So the intution is really there, find good neighborhood of points, put a random priority map, to decompose the lables in the approporaite buckets according to distance and such at each level, but it takes a bit more sophisticated approcah which i am going to explain, instead of a top down recursive appraoch, which is a rather greedy paradigm of algorithm, which in this settings may force you to exert more computational power, we build it independantly at each level. this may help us in the design of the dynamic algorithm.
+So the intuition is really there, find a good neighborhood of points, put a random priority map, to decompose the labels in the appropriate buckets according to distance and such at each level, but it takes a bit more sophisticated approach which I am going to explain. Instead of a top-down recursive approach, which is a rather greedy paradigm of algorithm, which in this setting may force you to exert more computational power, we build it independently at each level. This may help us in the design of the dynamic algorithm.
 
-so, the base intuition is there, but i may start with some techniqual analysis like the authors did or i may just out right explain the algorithm, but explaining the analysis is more revealing so we start with that.
+So, the base intuition is there, but I may start with some technical analysis like the authors did or I may just outright explain the algorithm. Explaining the analysis is more revealing so we start with that.
 
----
+It is a standard fact that the distance between points $p,q$ in the tree $T$ is determined by their LCA (least common ancestor) in the tree. The following notation defines the level of the LCA (minus $1$) with respect to the labels $\ell$.
 
-It is a standard fact that the distance between points
-$p,q$ in the tree $T$ is determined by their LCA (least common ancestor) in the tree.
-The following notation defines the level of the LCA (minus $1$) with respect to the labels $\ell$.
+\begin{algorithm}[t]
+\caption{Tree embedding on input $P \subseteq V$ with access to metric hashes $\{\phi_i\}_{i\in[m]}$}
+\begin{algorithmic}[1]
+\State \textbf{/*} $\phi_i$ is a metric hashing with diameter bound $\tau_i := w_i/2$ \textbf{/*}
+\State Sample $\beta \in \left[\tfrac{1}{4}, \tfrac{1}{2}\right]$ uniformly at random
+\State Let $\pi$ be a uniform random map from $P$ to $[0,1]$
+\For{$i \leftarrow 1$ to $m$}
+    \State $r_i \leftarrow \frac{\beta}{\Gamma} \cdot w_i$
+    \For{each $p \in P$}
+        \State $\ell^{(i)}_p \leftarrow \pi_{\min}\!\big(\widetilde{B}^{P}_i(p,r_i)\big)$
+    \EndFor
+\EndFor
+\State \Return $\{\ell^{(i)}_p\}_{i\in[m],\,p\in P}$
+\end{algorithmic}
+\end{algorithm}
 
-**Algorithm 1.** Tree embedding on input $P \subseteq V$ with access to metric hashes $\{\phi_i\}_{i\in[m]}$
-
-```
-/* ϕ_i is a metric hashing with diameter bound τ_i := w_i/2 */
-1: Sample β ∈ [1/4, 1/2] uniformly at random
-2: Let π be a uniform random map from P to [0,1]
-3: for i ← 1 to m do
-4:     r_i ← (β/Γ) · w_i
-5:     for each p ∈ P do
-6:         ℓ_p^{(i)} ← π_min(̃B_i^P(p, r_i))
-7:     end for
-8: end for
-9: return {ℓ_p^{(i)}}_{i∈[m], p∈P}
-```
-
-**Definition (Tree level).**
+\begin{definition}[Tree level]
 For $p,q\in P$, define
 \[
 \operatorname{lv}(p,q)
 :=
 \min\left\{\, i\in [m] : \ell^{(i)}_{p}\neq \ell^{(i)}_{q} \,\right\}.
 \]
+\end{definition}
 
 Since the embedding tree is a $2$-HST, it is immediate that
 
@@ -200,7 +208,8 @@ Hence, by the definition of $B_i^P$, we can see that
 and similarly,
 \[
 \phi_i(p')\in \phi_i\bigl(B(q,r_i)\bigr).
-\] so the claim is proved.
+\] 
+so the claim is proved. 
 
 We use this fact to obtain an upper bound on $\operatorname{dist}(p,q)$.
 
@@ -248,11 +257,9 @@ O(\Gamma\log\Gamma)\cdot \log n \cdot \operatorname{dist}(p,q)
 \]
 is interesting in its own right, but it is too technical for a general reader. Nevertheless, it can be studied to prove similar results and is quite helpful in those settings. Therefore, I omit it from this post and may discuss it in a future post.
 
----
+However, we now turn to Lemma 3.3, which states the following, which is used for the distortion result. 
 
-However, we now turn to Lemma 3.3, which states the following, which is used for the distortion result.
-
-**Lemma 3.3.**
+\begin{lemma}[Lemma 3.3]
 For every $p,q\in P$, $i\in[m]$, and $0 \le r' \le \tfrac{1}{2} r^{\max}_i$ such that
 \[
 B(p,r') \subseteq B\!\left(q,\tfrac{1}{2} r^{\max}_i\right),
@@ -267,33 +274,34 @@ H_{|\widetilde{B}^{P}_i(p,r^{\max}_i)|}
 -
 H_{|\widetilde{B}^{P}_i(p,r')|}
 \right).
-\]
+\end{lemma}
 
-the dynamics of the proof of this lemma is really intereesting and reavelling, so i will dedicate a separete post this lemma, which i find the most sophisticated part of the paper.
+The dynamics of the proof of this lemma is really interesting and revealing, so I will dedicate a separate post to this lemma, which I find the most sophisticated part of the paper.
 
-but i will mention some concepts realted to the proof.
+But I will mention some concepts related to the proof. 
 
 This lemma is particularly revealing and intuitive in parts, as it captures how the separation probability depends on the local growth of the bucketed neighborhood structure.
 
-their solution was to come up with thre represntitive set, which is kind of a way to keep the geometric structure nice and steady, ball like even while at the same time maintaning crucial informaiton necessary for the analysis of the algotihm.
+Their solution was to come up with the representative set, which is kind of a way to keep the geometric structure nice and steady, ball-like even, while at the same time maintaining crucial information necessary for the analysis of the algorithm. 
 
-**Representative Sets.**
+### Representative Sets
 Our proof strategy is to utilize the structure of $\widetilde{B}^{P}_i(\cdot,\cdot)$, and argue that a carefully chosen set of representatives of $\widetilde{B}^{P}_i(p,r)$ has similar geometric properties to a standard ball.
 
-**Definition (Representative sets).**
+\begin{definition}[Representative sets]
 A collection of sets $\operatorname{rep}_i(p,r) \subseteq V$ (which may not necessarily be a subset of $P$), defined for every $p\in P$, $i\in[m]$, and $r\ge 0$, is called a family of representative sets if for every $i\in[m]$, $p\in P$, and $r\ge 0$, the following properties hold:
 
-1. **(distinct)** For all $x \neq y \in \operatorname{rep}_i(p,r)$,
+\begin{enumerate}
+\item \textbf{(distinct)} For all $x \neq y \in \operatorname{rep}_i(p,r)$,
 \[
 \operatorname{buks}_i(x) \cap \operatorname{buks}_i(y) = \emptyset.
 \]
 
-2. **(monotone)** For all $r' \in (0,r)$,
+\item \textbf{(monotone)} For all $r' \in (0,r)$,
 \[
 \operatorname{rep}_i(p,r') \subseteq \operatorname{rep}_i(p,r).
 \]
 
-3. **(ball-preserving)**
+\item \textbf{(ball-preserving)} 
 \[
 \operatorname{rep}_i(p,r) \subseteq B(p,r)\cap \operatorname{buks}_i(P),
 \]
@@ -303,17 +311,20 @@ and
 =
 \operatorname{buks}^{P}_i\!\big(B(p,r)\big).
 \]
+\end{enumerate}
+\end{definition}
 
 Property 1 is useful for several results in the upcoming analysis. Properties 2 and 3 ensure that the representative sets behave similarly to metric balls, so that no essential information is lost in the abstraction.
 
-**Lemma.**
+\begin{lemma}
 There exists a family
 \[
 \{\operatorname{rep}_i(p,r) : i\in[m],\, p\in P,\, r\ge 0\}
 \]
 that satisfies Definition 3.6.
+\end{lemma}
 
-**Proof.**
+\begin{proof}
 We introduce the following notation to define $\operatorname{rep}$.
 
 For each $i\in[m]$, $p\in P$, and $x\in V$, define
@@ -344,7 +355,7 @@ Note that for any $x,y\in S$, if $\phi_i(x)=\phi_i(y)$, then
 \]
 so $\operatorname{NNbuks}_i(p,S)$ contains at most one point from each bucket.
 
-**Definition (Key representative).**
+\begin{definition}[Key representative]
 For each $i\in[m]$, $p\in P$, and $r>0$, define $\operatorname{rep}^{*}_i(p,r)$ as the minimum point in $\operatorname{rep}_i(p,r)$ with respect to $\pi$, i.e.,
 \[
 \operatorname{rep}^{*}_i(p,r)
@@ -356,6 +367,7 @@ For each $i\in[m]$, $p\in P$, and $r>0$, define $\operatorname{rep}^{*}_i(p,r)$ 
 \]
 
 Note that $\operatorname{rep}^{*}_i(p,r)$ is unique, since all values of $\pi$ are distinct with probability $1$.
+\end{definition}
 
 Moreover, this key representative precisely realizes the minimizer of the $\pi$-value within $\operatorname{rep}_i(p,r)$:
 \[
@@ -410,7 +422,7 @@ Therefore,
 \tag{14}
 \]
 
-**Analyzing the probability via an auxiliary event.**
+#### Analyzing the probability via an auxiliary event
 One difficulty in analyzing
 $\Pr[\operatorname{rep}^{*}_i(p,r_i) \notin B(q,r_i)]$
 is that it depends on two sources of randomness: the hash function $\pi$ and the random radius $r_i$.
@@ -419,7 +431,7 @@ To separate these sources, we define an auxiliary event $E$, whose randomness de
 This event is defined with respect to $i\in[m]$, $p\in P$, and $x\in V$. It captures whether $x$
 achieves the minimum $\pi$-value in $\widetilde{B}^{P}_i(p,r)$, where $r=\operatorname{dist}(p,x)$.
 
-**Definition (Auxiliary event).**
+\begin{definition}[Auxiliary event]
 For every $i\in[m]$, $p\in P$, and $x\in V$, define the event (with respect to the randomness of $\pi$)
 \[
 E^{(i)}_p(x)
@@ -432,28 +444,31 @@ E^{(i)}_p(x)
 \tag{15}
 \]
 where $r = \operatorname{dist}(p,x)$.
+\end{definition}
 
----
+Now we turn to the most interesting part of the paper.
 
-now we turn to the most interesrting part of the paper,
+\begin{definition}[{\cite{CJK+22,FJL+25}}]
+A (randomized) hash function $\phi : \mathbb{R}^d \to \mathbb{R}^d$ is called a $\Gamma$-gap $\Lambda$-consistent hash with diameter bound $\tau>0$, or simply a $(\Gamma,\Lambda)$-hash function, if it satisfies:
 
-**Definition.** A (randomized) hash function $\phi : \mathbb{R}^d \to \mathbb{R}^d$ is called a $\Gamma$-gap $\Lambda$-consistent hash with diameter bound $\tau>0$, or simply a $(\Gamma,\Lambda)$-hash function, if it satisfies:
-
-1. **(Diameter)** For every image $z \in \phi(\mathbb{R}^d)$,
+\begin{enumerate}
+\item \textbf{(Diameter)} For every image $z \in \phi(\mathbb{R}^d)$,
 \[
 \operatorname{diam}(\phi^{-1}(z)) \le \tau.
 \]
 
-2. **(Consistency)** For every $S \subseteq \mathbb{R}^d$ with $\operatorname{diam}(S) \le \tau/\Gamma$,
+\item \textbf{(Consistency)} For every $S \subseteq \mathbb{R}^d$ with $\operatorname{diam}(S) \le \tau/\Gamma$,
 \[
 \mathbb{E}\big[|\phi(S)|\big] \le \Lambda.
 \]
+\end{enumerate}
+\end{definition}
 
 In words, this definition formalizes a geometric hashing scheme in which small-diameter sets are expected to remain concentrated under the hash, while each bucket itself has bounded diameter.
 
-Without the notion of consistent hashing, it would not be possible to implement the algorithm in an MPC model, where computation may be performed in a streaming fashion like in mentioned and implemented in the ogiginal papers.
+Without the notion of consistent hashing, it would not be possible to implement the algorithm in an MPC model, where computation may be performed in a streaming fashion like in mentioned and implemented in the original papers.
 
-**Theorem 4.2.**
+\begin{theorem}[Theorem 4.2]
 Assume there exists a $(\Gamma,\Lambda)$-hash function
 \[
 \phi : \mathbb{R}^d \to \mathbb{R}^d
@@ -470,34 +485,38 @@ $\tilde{O}(d+\Lambda)$ expected amortized update time.
 The underlying tree embedding is rebuilt by the algorithm after every $n$ updates.
 An update to the point set $P$ results in $\tilde{O}(1)$ expected updates to the tree embedding
 of the following types:
-- **Type 1:** A leaf of the embedding becomes inactive, in the sense that no point in $P$
+\begin{itemize}
+\item \textbf{Type 1:} A leaf of the embedding becomes inactive, in the sense that no point in $P$
 corresponds to it.
-- **Type 2:** A new leaf and a path connecting the leaf to an existing node in the tree
+\item \textbf{Type 2:} A new leaf and a path connecting the leaf to an existing node in the tree
 embedding are inserted into the embedding.
+\end{itemize}
+\end{theorem}
 
-**Algorithm 2.** Insertion-procedure$(p)$
+\begin{algorithm}[t]
+\caption{Insertion-procedure$(p)$}
+\begin{algorithmic}[1]
+\State \textbf{/*} $\phi_i$ is a metric hashing with diameter bound $\tau_i := w_i/2$ \textbf{/*}
+\State Draw $\pi(p)$ and compute $\phi_i(p)$ for all $i \in [m]$
+\For{$i \leftarrow 1$ to $m$}
+    \State Compute hash values $X_i \leftarrow \{\phi_i(x) \mid x \in B(p,r_i)\}$
+    \State \textbf{/* Computing label } $\ell^{(i)}_p = \pi_{\min}(\widetilde{B}^{P}_i(p,r_i))$ \textbf{/*}
+    \State Update $\phi_i^{-1}(x)$ and $\pi_{\min}(\phi_i^{-1}(x)\cap P)$ for all $x \in X_i$
+    \State $\ell^{(i)}_p \leftarrow \pi_{\min}\!\left(\bigcup_{x\in X_i} \widetilde{B}^{P}_i(p,r_i)\right)$
+    \State \textbf{/* Updating labels } $\ell^{(i)}_q$ for $q \in P$ \textbf{/*}
+    \If{$\pi(p) = \pi_{\min}(\phi_i^{-1}(\phi_i(p)))$}
+        \For{all $x \in X_i$ and all $p' \in \phi_i^{-1}(x)\cap P$}
+            \If{$\pi(x) < \ell^{(i)}_{p'}$}
+                \State Update $\ell^{(i)}_{p'} \leftarrow \pi(x)$
+            \EndIf
+        \EndFor
+    \EndIf
+\EndFor
+\end{algorithmic}
+\end{algorithm}
 
-```
-/* ϕ_i is a metric hashing with diameter bound τ_i := w_i/2 */
-1: Draw π(p) and compute ϕ_i(p) for all i ∈ [m]
-2: for i ← 1 to m do
-3:     Compute hash values X_i ← {ϕ_i(x) | x ∈ B(p,r_i)}
-       /* Computing label ℓ_p^{(i)} = π_min(̃B_i^P(p, r_i)) */
-4:     Update ϕ_i^{-1}(x) and π_min(ϕ_i^{-1}(x)∩P) for all x ∈ X_i
-5:     ℓ_p^{(i)} ← π_min(∪_{x∈X_i} ̃B_i^P(p, r_i))
-       /* Updating labels ℓ_q^{(i)} for q ∈ P */
-6:     if π(p) = π_min(ϕ_i^{-1}(ϕ_i(p))) then
-7:         for all x ∈ X_i and all p' ∈ ϕ_i^{-1}(x)∩P do
-8:             if π(x) < ℓ_{p'}^{(i)} then
-9:                 Update ℓ_{p'}^{(i)} ← π(x)
-10:            end if
-11:        end for
-12:     end if
-13: end for
-```
+So based on the theorems of consistent hashing we can provide the preferred amortized upper bound on the insertion. 
 
-so based on the theorems of consistent hashing we can provide the prefered amortized upperboun on the insertion.
+But how does the dynamic algorithm work? 
 
-but how does dynamic algorithm works?
-
-it bascially, follows the intuiotn of the previous algorithm in the first half, by finding the path and lables of the inserted point, and the second half updates the path for other nodes in the P, by altering the lables which needs to change.
+It basically follows the intuition of the previous algorithm in the first half, by finding the path and labels of the inserted point, and the second half updates the path for other nodes in $P$, by altering the labels which need to change.
