@@ -18,6 +18,11 @@ url                      : https://thomasgraceman.github.io # The base hostname 
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "thomasgraceman/thomasgraceman.github.io"
 
+# Corner notice for recently published blog posts
+new_post_notice:
+  enabled: true
+  max_days: 14
+
 # Site Author - The following control what appear as part of the author content on the side bar.
 #               If a field is blank the icon and link will not appear, otherwise it will be shown.
 #               Additional customization can be done by editing /_includes/author-profile.html

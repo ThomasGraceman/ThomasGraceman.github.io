@@ -1,0 +1,25 @@
+{% include base_path %}
+{% if site.new_post_notice.enabled != false %}
+  {% assign latest = site.posts | first %}
+  {% if latest and page.url != latest.url %}
+    {% assign post_ts = latest.date | date: '%s' %}
+    {% assign now_ts = site.time | date: '%s' %}
+    {% assign age_days = now_ts | minus: post_ts | divided_by: 86400 %}
+    {% assign max_age = site.new_post_notice.max_days | default: 14 %}
+
+    {% if age_days <= max_age %}
+      <div id="new-post-notice"
+           class="new-post-notice"
+           role="status"
+           aria-live="polite"
+           data-post-id="{{ latest.url | slugify }}"
+           hidden>
+        <button type="button" class="new-post-notice__close" aria-label="Dismiss notice">&times;</button>
+        <p class="new-post-notice__label">New post</p>
+        <a class="new-post-notice__link" href="{{ base_path }}{{ latest.url }}">
+          {{ latest.title | escape }}
+        </a>
+      </div>
+    {% endif %}
+  {% endif %}
+{% endif %}
