@@ -1,6 +1,7 @@
 ---
 layout: archive
 title: "CV"
+description: "Curriculum vitae of Taha Hoseinpour — theoretical computer science graduate student at Sharif University of Technology."
 permalink: /cv/
 author_profile: true
 redirect_from:
