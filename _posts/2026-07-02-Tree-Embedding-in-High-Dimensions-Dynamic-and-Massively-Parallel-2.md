@@ -47,7 +47,9 @@ Assume there exists a $$(\Gamma,\Lambda)$$-hash $$\phi : \mathbb{R}^d \to \mathb
  the hash value $$\phi(p)$$ and the set of hash values $$\phi(B(p,\tau/\Gamma))$$ can be evaluated in $$O(\mathrm{poly}(d))$$ 
  and $$O(|\phi(B(p,\tau/\Gamma))|\cdot \mathrm{poly}(d))$$ time, respectively.
 
-Then there exists a dynamic algorithm which, for a dynamic set of points $$P \subseteq \mathbb{R}^d$$ with $$|P|\le n$$ undergoing point insertions and deletions, maintains a tree embedding of $P$ with $$O(\Gamma \log \Gamma \log n)$$ distortion in $$\widetilde{O}(d+\Lambda)$$ expected amortized update time.
+Then there exists a dynamic algorithm which, for a dynamic set of points $$P \subseteq \mathbb{R}^d$$ with $$|P|\le n$$ undergoing point insertions and deletions,
+ maintains a tree embedding of $$P$$ with $$O(\Gamma \log \Gamma \log n)$$ distortion in 
+ $$\widetilde{O}(d+\Lambda)$$ expected amortized update time.
 
 The underlying tree embedding is rebuilt by the algorithm after every $n$ updates. An update to the input points $P$ results in $$\widetilde{O}(1)$$ expected updates to the tree embedding of the following types:
 
