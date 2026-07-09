@@ -2,9 +2,14 @@
 title: "Sparsification of Sums of Norms: A General Overview — Chapter 1"
 date: 2026-06-02
 permalink: /posts/sparsification-sums-of-norms-chapter-1/
+description: "Chapter 1 overview of sparsifying sums of norms — the problem, motivation, and key techniques from James Lee's line of work."
 redirect_from:
   - /Sparsification_of_sums_of_norms_a_general_overview_chapter_1/
   - /Sparsification-of-sums-of-norms-a-general-overview-chapter-1/
+tags:
+  - sparsification
+  - metric embeddings
+  - norms
 ---
 
 # Sparsification of Sums of Norms

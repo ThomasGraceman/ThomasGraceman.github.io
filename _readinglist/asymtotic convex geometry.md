@@ -1,6 +1,6 @@
 ---
 title: 'Asymptotic Convex Geometry'
-excerpt: "<br/><img src='/images/asymptotic_book.png' style='max-width: 200px; height: auto;'>"
+excerpt: "<br/><img src='/images/asymptotic_book.png' alt='Asymptotic Convex Geometry lecture notes cover' style='max-width: 200px; height: auto;'>"
 collection: lecturenote
 bookurl: "https://sites.math.washington.edu/~rothvoss/archive/lecturenotes/AsymptoticConvexGeometry.pdf"
 ---

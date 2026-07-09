@@ -1,3 +1,16 @@
+---
+title: "Bukh's Problem on Coloring Random Subgraphs"
+date: 2025-08-13
+permalink: /posts/bukhs-problem/
+description: "Notes on Shinkar's paper on coloring random subgraphs and its connection to Bukh's conjecture on the chromatic number of G_{1/2}."
+redirect_from:
+  - /Bukh's-problem/
+  - /bukhs-problem/
+tags:
+  - graph theory
+  - combinatorics
+  - random graphs
+---
 
 So, assume that we have a graph $G = (V, E)$. By $G_p$ for some $p \in (0,1)$ we mean a subgraph such that the probability of each edge appearing in that subgraph is independent with probability $p$. 
 

@@ -1,3 +1,17 @@
+---
+title: "An Introduction to Generic Chaining"
+date: 2025-10-17
+permalink: /posts/introduction-generic-chaining/
+description: "Introduction to stochastic processes, sub-Gaussian inequalities, and generic chaining techniques used in metric embedding theory."
+redirect_from:
+  - /An-introduction-to-generic-chaining/
+tags:
+  - generic chaining
+  - stochastic processes
+  - probability
+  - metric embeddings
+---
+
 # Stochastic Processes and Generic Chaining
 
 So, let us talk a little bit about stochastic processes and generic chaining, which I got introduced to after reading a paper written by James Lee.

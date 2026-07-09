@@ -2,8 +2,14 @@
 title: "Sparsification of Sums of Norms: Symmetrization, Generic Chaining, and Concentration — Chapter 3"
 date: 2026-06-28
 permalink: /posts/sparsification-sums-of-norms-symmetrization-generic-chaining-chapter-3/
+description: "Chapter 3 covering symmetrization, generic chaining, and concentration inequalities in the sparsification of sums of norms."
 redirect_from:
   - /Sparsification-of-sums-of-norms-symmetrization-generic-chaining-and-concentration-Chapter-3/
+tags:
+  - sparsification
+  - generic chaining
+  - concentration inequalities
+  - norms
 ---
 
 # Sparsification of Sums of Norms

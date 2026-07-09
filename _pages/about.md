@@ -1,6 +1,7 @@
 ---
 permalink: /
 title: "About me"
+seo_title: "Taha Hoseinpour — Theoretical Computer Science Research Blog"
 description: "Taha Hoseinpour — master's student in theoretical computer science at Sharif University. Research on metric embeddings, sparsification, and approximation algorithms."
 author_profile: true
 redirect_from: 

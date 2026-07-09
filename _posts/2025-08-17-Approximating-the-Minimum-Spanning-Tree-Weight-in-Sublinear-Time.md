@@ -1,3 +1,16 @@
+---
+title: "Approximating the Minimum Spanning Tree Weight in Sublinear Time"
+date: 2025-08-17
+permalink: /posts/approximating-mst-weight-sublinear-time/
+description: "Study notes on Chazelle, Rubinfeld, and Trevisan's classic sublinear algorithm for approximating minimum spanning tree weight in graphs."
+redirect_from:
+  - /Approximating-the-Minimum-Spanning-Tree-Weight-in-Sublinear-Time/
+tags:
+  - sublinear algorithms
+  - approximation algorithms
+  - graph algorithms
+---
+
 # Approximating the Minimum Spanning Tree Weight in Sublinear Time
 
 Such a good [paper](https://people.csail.mit.edu/ronitt/papers/mst.pdf), although the writing was a bit terse and working out the details was hell painful :D.

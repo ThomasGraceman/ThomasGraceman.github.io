@@ -2,8 +2,14 @@
 title: "Tree Embedding in High Dimensions: Dynamic and Massively Parallel"
 date: 2026-06-17
 permalink: /posts/tree-embedding-high-dimensions-dynamic-mpc/
+description: "Study notes on Goranci et al.'s SODA 2026 paper on dynamic and massively parallel tree embeddings in high-dimensional Euclidean spaces."
 redirect_from:
   - /Tree-Embedding-in-High-Dimensions-Dynamic-and-Massively-Parallel/
+tags:
+  - metric embeddings
+  - tree embeddings
+  - high-dimensional algorithms
+  - parallel algorithms
 ---
 
 # Tree Embedding in High Dimensions: Dynamic and Massively Parallel
@@ -124,7 +130,7 @@ $$
 p' := \pi^{-1}\!\left(\ell^{(i)}_p\right).
 $$
 
-<img src="/images/treemetric.png" alt="Banach book" style="max-width: 400px; height: auto;">
+<img src="/images/treemetric.png" alt="Tree metric embedding illustration" style="max-width: 400px; height: auto;">
 
 the image belongs to CSC2414 - Metric Embeddings 
 Lecture 3: Embedding to Random Trees

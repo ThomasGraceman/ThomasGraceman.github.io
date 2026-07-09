@@ -2,8 +2,13 @@
 title: "Probabilistic Tree Embeddings and Hierarchical Cut Decompositions"
 date: 2026-06-08
 permalink: /posts/tree-embeddings-hierarchical-cut-decompositions/
+description: "Study notes on probabilistic metric approximation, Bartal partitions, and CKR hierarchical cut decompositions for tree embeddings."
 redirect_from:
   - /Probabilistic-Tree-Embeddings/
+tags:
+  - metric embeddings
+  - tree embeddings
+  - approximation algorithms
 ---
 
 As part of my effort to understand the broader literature surrounding the areas I hope to work on in the future, I am studying both foundational papers and contemporary developments. Alongside my primary focus on the work of James R. Lee, I plan to read a number of folklore and classical papers that have shaped the modern theory of metric embeddings.

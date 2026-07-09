@@ -1,3 +1,16 @@
+---
+title: "Separations in Proof Complexity and TFNP — Part 1"
+date: 2025-12-20
+permalink: /posts/separations-proof-complexity-tfnp-part-1/
+description: "Part 1 review of Göös's paper on separations between Resolution and Sherali-Adams proof systems and their implications for TFNP."
+redirect_from:
+  - /Separations-in-Proof-Complexity-and-TFNP-part-1_(pended)/
+tags:
+  - proof complexity
+  - TFNP
+  - communication complexity
+---
+
 # Separations in Proof Complexity and TFNP - part 1
 
 So here we are reviewing a paper by Mika Göös. The main subject of study of this paper is finding distinction and separation between different proof systems, namely Resolution proofs and Sherali–Adams (SA) proofs (algebraic type proof systems), and its effect on TFNP problems, total search problems that are NP but we know that a solution for them exists and that we can verify the solution in an efficient manner. i try to cover in the papers manner in parts because it is a long paper, and a bit dense to read too, so hopefully whenever i find enough time again i will come back into it to cover more. Namely, the computational model works as follows: suppose that we have a black box, an oracle that we can make $q$ queries to, and it gives an answer back based on the query instantly. If we had a deterministic algorithm that based on input could verify us the answer, for let's say in $\text{poly}(\log(n))$, then we can basically simulate this algorithm based on a decision tree with depth $\text{poly}(\log(n))$ where leaves are different portions of input that we requested access to.
