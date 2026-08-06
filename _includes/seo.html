@@ -30,6 +30,21 @@
 <meta name="description" content="{{ seo_description }}">
 {% endif %}
 
+{% assign seo_author_name = site.social.name | default: site.name | default: site.author.name %}
+{% if seo_author_name %}
+<meta name="author" content="{{ seo_author_name }}">
+{% endif %}
+
+<!-- Academic SEO: Google Scholar citation meta tags -->
+{% if page.date and page.title %}
+  <meta name="citation_title" content="{{ page.title | strip_html | strip_newlines | escape_once }}">
+  <meta name="citation_author" content="{{ seo_author_name }}">
+  <meta name="citation_publication_date" content="{{ page.date | date: "%Y/%m/%d" }}">
+  {% if site.author.employer %}<meta name="citation_author_institution" content="{{ site.author.employer }}">{% endif %}
+  {% if page.paper %}<meta name="citation_pdf_url" content="{{ page.paper }}">{% endif %}
+  <meta name="citation_public_url" content="{{ canonical_url }}">
+{% endif %}
+
 {% assign seo_author = page.author | default: page.author[0] | default: site.author %}
 {% if seo_author %}
   {% if seo_author.twitter %}
@@ -86,6 +101,8 @@
 
 {% if page.sitemap == false %}
   <meta name="robots" content="noindex, follow">
+{% else %}
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 {% endif %}
 
 {% if site.twitter.username %}
@@ -162,8 +179,22 @@
   <meta property="og:image:alt" content="{{ seo_image_alt }}">
 {% endif %}
 
-{% if page.tags or page.categories %}
-  {% capture seo_keywords %}{% if page.tags %}{{ page.tags | join: ", " }}{% endif %}{% if page.tags and page.categories %}, {% endif %}{% if page.categories %}{{ page.categories | join: ", " }}{% endif %}{% endcapture %}
+{% if page.date %}
+  {% if seo_author_name %}
+  <meta property="article:author" content="{{ seo_author_name }}">
+  {% endif %}
+  {% if page.categories and page.categories.size > 0 %}
+  <meta property="article:section" content="{{ page.categories | join: ", " }}">
+  {% endif %}
+  {% if page.tags and page.tags.size > 0 %}
+  <meta property="article:tag" content="{{ page.tags | join: ", " }}">
+  {% endif %}
+{% endif %}
+
+{% assign seo_has_tags = page.tags.size %}
+{% assign seo_has_cats = page.categories.size %}
+{% if seo_has_tags > 0 or seo_has_cats > 0 %}
+  {% capture seo_keywords %}{% if seo_has_tags > 0 %}{{ page.tags | join: ", " }}{% endif %}{% if seo_has_tags > 0 and seo_has_cats > 0 %}, {% endif %}{% if seo_has_cats > 0 %}{{ page.categories | join: ", " }}{% endif %}{% endcapture %}
   <meta name="keywords" content="{{ seo_keywords | strip }}">
 {% endif %}
 <!-- end Open Graph protocol -->
@@ -185,14 +216,46 @@
   {
     "@context": "https://schema.org",
     "@type": {{ site.social.type | default: "Person" | jsonify }},
+    "@id": {% if site.social.type == "Organization" %}{{ seo_url | jsonify }}{% else %}{{ seo_url | append: "#person" | jsonify }}{% endif %},
     "name": {{ site.social.name | default: site.name | jsonify }},
     "url": {{ seo_url | jsonify }},
-    "sameAs": {{ site.social.links | jsonify }}
+    "description": {{ site.description | jsonify }}
+    {% if site.author.job_title %},
+    "jobTitle": {{ site.author.job_title | jsonify }}
+    {% endif %}
     {% if site.author.employer %},
+    "worksFor": {
+      "@type": "Organization",
+      "name": {{ site.author.employer | jsonify }}
+    },
     "affiliation": {
       "@type": "Organization",
       "name": {{ site.author.employer | jsonify }}
     }
+    {% endif %}
+    {% if site.author.location %},
+    "homeLocation": {
+      "@type": "Place",
+      "name": {{ site.author.location | jsonify }}
+    }
+    {% endif %}
+    {% if site.author.alumni %},
+    "alumniOf": [
+      {% for inst in site.author.alumni %}{
+        "@type": "CollegeOrUniversity",
+        "name": {{ inst | jsonify }}
+      }{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    ]
+    {% endif %}
+    {% if site.author.avatar and seo_url %},
+    "image": {{ seo_url | append: "/images/" | append: site.author.avatar | jsonify }}
+    {% endif %}
+    {% if site.author.email %},
+    "email": {{ site.author.email | jsonify }}
+    {% endif %}
+    {% if site.social.links %},
+    "sameAs": {{ site.social.links | jsonify }}
     {% endif %}
   }
 </script>
@@ -203,18 +266,27 @@
   {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": {{ canonical_url | jsonify }}
+    },
     "headline": {{ page.title | markdownify | strip_html | strip_newlines | jsonify }},
     "description": {{ seo_description | jsonify }},
     "url": {{ canonical_url | jsonify }},
+    "inLanguage": {{ site.locale | default: "en-US" | jsonify }},
+    {% if page.date %}
     "datePublished": {{ page.date | date_to_xmlschema | jsonify }},
-    {% if page.last_modified_at %}
-    "dateModified": {{ page.last_modified_at | date_to_xmlschema | jsonify }},
-    {% else %}
+    {% endif %}
+    {% if page.date %}
     "dateModified": {{ page.date | date_to_xmlschema | jsonify }},
+    {% endif %}
+    {% if page.tags %}
+    "keywords": {{ page.tags | compact | jsonify }},
     {% endif %}
     "author": {
       "@type": "Person",
-      "name": {{ site.author.name | default: site.name | jsonify }}
+      "@id": {{ seo_url | append: "#person" | jsonify }},
+      "name": {{ seo_author_name | jsonify }}
     },
     "publisher": {
       "@type": "Organization",
@@ -222,12 +294,35 @@
       "url": {{ seo_url | jsonify }},
       "logo": {
         "@type": "ImageObject",
-        "url": {{ seo_url | append: "/images/" | append: site.author.avatar | jsonify }}
+        "url": {{ seo_url | append: "/images/" | append: site.logo | default: site.author.avatar | jsonify }}
       }
     }
     {% if seo_image %},
     "image": {{ seo_image | jsonify }}
     {% endif %}
+  }
+</script>
+{% endif %}
+
+{% if seo_url and page.url != "/" and page.url != "/index.html" and page.title %}
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": {{ site.name | default: site.title | jsonify }},
+        "item": {{ seo_url | jsonify }}
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": {{ page.title | markdownify | strip_html | strip_newlines | jsonify }},
+        "item": {{ canonical_url | jsonify }}
+      }
+    ]
   }
 </script>
 {% endif %}

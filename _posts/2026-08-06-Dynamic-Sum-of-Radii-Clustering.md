@@ -161,7 +161,7 @@ The algorithm will maintain two dynamic data structures:
    a. its cost $c_v = f_j + 7 \cdot 5^r$,
    b. the number $n_v$ of currently existing clients that belong to $A(j, r)$ but not to any descendant area,
    c. the value $x_v$, which is the minimum cost needed to cover all clients belonging to $A(j, r)$ using only areas $A(j', r')$ for $\langle j', r' \rangle \in \Pi$, and
-   d. the value $y_v = \sum_{\text{$u$ child of $v$}} x_u$.
+   d. the value $y_v = \sum_{u \text{ child of } v} x_u$.
 
 When a client $p$ is inserted, we first find $\langle j, r \rangle$ in $T_A$, such that $p \in A(j, r)$ and $r$ is minimum, in a way to be described shortly; we increment $n_v$, and then we traverse the path from $\langle j, r \rangle$ up to the root of $T_A$, similarly updating $x_v$ and $y_{\text{parent}(v)}$.
 

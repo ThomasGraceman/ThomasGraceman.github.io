@@ -11,3 +11,6 @@ end
 
 gem 'github-pages'
 gem 'connection_pool', '2.5.0'
+
+# Windows timezone data (required for local builds on Windows)
+gem 'tzinfo-data', '~> 1.2024'

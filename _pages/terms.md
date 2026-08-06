@@ -1,6 +1,7 @@
 ---
 permalink: /terms/
 title: "Terms and Privacy Policy"
+description: "Privacy policy for the research blog of Taha Hoseinpour."
 modified: 2016-06-06
 ---
 

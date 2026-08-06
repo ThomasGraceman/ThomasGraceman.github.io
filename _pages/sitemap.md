@@ -1,6 +1,7 @@
 ---
 layout: archive
 title: "Sitemap"
+description: "Site map of all pages, blog posts, and resources on the theoretical computer science research blog of Taha Hoseinpour."
 permalink: /sitemap/
 author_profile: true
 ---

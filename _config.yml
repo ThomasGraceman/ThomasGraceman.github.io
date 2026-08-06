@@ -11,9 +11,9 @@ locale                   : "en-US"
 site_theme               : "default" # The available themes options are "default", "air", "sunrise", "mint", "dirt" and "contrast"
 title                    : "A steeper descent"
 title_separator          : "-"
-name                     : &name "Taha Hoseinpour"
+name             : &name "Taha Hoseinpour"
 description              : &description "Research blog on theoretical computer science — metric embeddings, sparsification, generic chaining, and approximation algorithms. Notes on papers and books by Taha Hoseinpour."
-url                      : https://thomasgraceman.github.io # The base hostname & protocol for your site e.g. "https://[your GitHub username].github.io",
+url            : https://thomasgraceman.github.io # The base hostname & protocol for your site e.g. "https://[your GitHub username].github.io",
                                                            # or if you already have some other page hosted on Github then use "https://[your GitHub username].github.io/[Your Repo Name]"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "thomasgraceman/thomasgraceman.github.io"
@@ -34,6 +34,10 @@ author:
   bio              : "Hi, I am Taha."
   location         : "Iran"
   employer         : "Sharif University of Technology"
+  job_title        : "Graduate Student in Theoretical Computer Science"
+  alumni:
+    - "Sharif University of Technology"
+    - "Iran University of Science and Technology"
   uri              : # URL
   email            : "tahahoseinpourasli@gmail.com" 
 
@@ -73,7 +77,8 @@ publication_category:
     title: 'Conference Papers'
 
 # Site Settings
-teaser                   : "treemetric.png" # fallback social preview image in /images/
+teaser                   : "profile.png" # fallback social preview image in /images/
+logo                     : "profile.png"    # brand logo in /images/ used by structured data
 breadcrumbs              : true
 words_per_minute         : 160
 future                   : true
@@ -124,7 +129,7 @@ facebook:
   username               :
   app_id                 :
   publisher              :
-og_image                 : "treemetric.png"
+og_image                 : "profile.png"
 og_description           : *description
 # For specifying social profiles
 # - https://developers.google.com/structured-data/customize/social-profiles

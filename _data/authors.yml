@@ -1,18 +1,9 @@
 # Authors
 
-Name Name:
-  name        : "Name Name"
-  uri         : "https://name.com"
-  email       : "name@name.com"
-  bio         : "This is the first name."
-  avatar      : "bio-photo-2.jpg"
-  twitter     : "name"
-  google_plus : "Name"
-
-Name2 Name2:
-  name        : "Name2 Name2"
-  email       : "name2@name2.com"
-  bio         : "I ordered what?"
-  avatar      : "bio-photo.jpg"
-  twitter     : "name2"
-  google_plus : "Name"
+Taha Hoseinpour:
+  name        : "Taha Hoseinpour"
+  uri         : "https://thomasgraceman.github.io"
+  email       : "tahahoseinpourasli@gmail.com"
+  bio         : "Graduate student in theoretical computer science at Sharif University of Technology. Research on metric embeddings, sparsification, and approximation algorithms."
+  avatar      : "profile.png"
+  twitter     : "thomas_ger"
