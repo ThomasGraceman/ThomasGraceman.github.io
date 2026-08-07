@@ -2,6 +2,8 @@
 title: "Probabilistic Tree Embeddings and Hierarchical Cut Decompositions"
 date: 2026-06-08
 permalink: /posts/tree-embeddings-hierarchical-cut-decompositions/
+header:
+  teaser: "teaser-tree-emb.svg"
 description: "Study notes on probabilistic metric approximation, Bartal partitions, and CKR hierarchical cut decompositions for tree embeddings."
 redirect_from:
   - /Probabilistic-Tree-Embeddings/

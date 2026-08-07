@@ -2,6 +2,8 @@
 title: "Dynamic Sum-of-Radii Clustering"
 date: 2026-08-06
 permalink: /posts/dynamic-sum-of-radii-clustering/
+header:
+  teaser: "teaser-clustering.svg"
 description: "Study notes on a dynamic algorithm for the sum-of-radii clustering problem in doubling metrics, built on the navigating-nets scheme."
 tags:
   - clustering

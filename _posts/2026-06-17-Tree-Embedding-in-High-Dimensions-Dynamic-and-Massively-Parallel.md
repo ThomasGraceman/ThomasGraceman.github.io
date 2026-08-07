@@ -2,6 +2,8 @@
 title: "Tree Embedding in High Dimensions: Dynamic and Massively Parallel"
 date: 2026-06-17
 permalink: /posts/tree-embedding-high-dimensions-dynamic-mpc/
+header:
+  teaser: "teaser-tree-highdim.svg"
 description: "Study notes on Goranci et al.'s SODA 2026 paper on dynamic and massively parallel tree embeddings in high-dimensional Euclidean spaces."
 redirect_from:
   - /Tree-Embedding-in-High-Dimensions-Dynamic-and-Massively-Parallel/

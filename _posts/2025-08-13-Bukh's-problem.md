@@ -2,6 +2,8 @@
 title: "Bukh's Problem on Coloring Random Subgraphs"
 date: 2025-08-13
 permalink: /posts/bukhs-problem/
+header:
+  teaser: "teaser-bukh.svg"
 description: "Notes on Shinkar's paper on coloring random subgraphs and its connection to Bukh's conjecture on the chromatic number of G_{1/2}."
 redirect_from:
   - /Bukh's-problem/

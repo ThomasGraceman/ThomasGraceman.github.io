@@ -2,6 +2,8 @@
 title: "Measure Theory, Sobolev Spaces, and Fourier Analysis — Part 1"
 date: 2025-09-10
 permalink: /posts/measure-theory-sobolev-fourier-analysis-part-1/
+header:
+  teaser: "teaser-measure.svg"
 description: "Part 1 of a series on measure theory, functional analysis, Sobolev spaces, and Fourier analysis with applications to quantum machine learning."
 redirect_from:
   - /Measure-theory-agenda-and-introductry-greatest-hits,-sobolve-space-and-fourier-analysis-part-1/

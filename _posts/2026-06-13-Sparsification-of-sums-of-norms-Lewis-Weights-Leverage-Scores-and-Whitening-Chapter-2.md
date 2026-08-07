@@ -2,6 +2,8 @@
 title: "Lewis Weights, Leverage Scores, and Whitening — Chapter 2"
 date: 2026-06-13
 permalink: /posts/lewis-weights-leverage-scores-whitening-chapter-2/
+header:
+  teaser: "teaser-lewis.svg"
 description: "Chapter 2 on Lewis weights, leverage scores, and whitening in the sparsification of sums of norms series."
 redirect_from:
   - /Lewis-Weights-Leverage-Scores-and-Whitening-Chapter-2/

@@ -2,6 +2,8 @@
 title: "Separations in Proof Complexity and TFNP — Part 1"
 date: 2025-12-20
 permalink: /posts/separations-proof-complexity-tfnp-part-1/
+header:
+  teaser: "teaser-proof.svg"
 description: "Part 1 review of Göös's paper on separations between Resolution and Sherali-Adams proof systems and their implications for TFNP."
 redirect_from:
   - /Separations-in-Proof-Complexity-and-TFNP-part-1_(pended)/

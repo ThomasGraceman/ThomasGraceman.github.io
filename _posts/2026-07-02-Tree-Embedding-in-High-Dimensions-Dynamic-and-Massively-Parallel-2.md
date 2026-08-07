@@ -2,6 +2,8 @@
 title: "Tree Embedding in High Dimensions: Dynamic and Massively Parallel, and Streaming Facility Location in High Dimension via Geometric Hashing -- 2"
 date: 2026-07-02
 permalink: /posts/tree-embedding-high-dimensions-streaming-facility-location-geometric-hashing-2/
+header:
+  teaser: "teaser-facility.svg"
 description: "Follow-up notes on tree embeddings in high dimensions and streaming facility location via geometric hashing."
 redirect_from:
   - /Tree-Embedding-in-High-Dimensions-Streaming-Facility-Location-Geometric-Hashing/
