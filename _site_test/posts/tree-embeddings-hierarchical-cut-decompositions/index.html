@@ -1,0 +1,1368 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+
+<meta charset="utf-8">
+
+
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Probabilistic Tree Embeddings and Hierarchical Cut Decompositions - A steeper descent</title>
+
+
+
+
+<meta name="description" content="Study notes on probabilistic metric approximation, Bartal partitions, and CKR hierarchical cut decompositions for tree embeddings.">
+
+
+
+
+<meta name="author" content="Taha Hoseinpour">
+
+
+<!-- Academic SEO: Google Scholar citation meta tags -->
+
+  <meta name="citation_title" content="Probabilistic Tree Embeddings and Hierarchical Cut Decompositions">
+  <meta name="citation_author" content="Taha Hoseinpour">
+  <meta name="citation_publication_date" content="2026/06/08">
+  <meta name="citation_author_institution" content="Sharif University of Technology">
+  
+  <meta name="citation_public_url" content="https://thomasgraceman.github.io/posts/tree-embeddings-hierarchical-cut-decompositions/">
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2026-06-08T00:00:00+00:00">
+
+
+
+
+  <link rel="canonical" href="https://thomasgraceman.github.io/posts/tree-embeddings-hierarchical-cut-decompositions/">
+
+
+
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+
+
+
+  <meta name="twitter:site" content="@thomas_ger">
+  <meta name="twitter:title" content="Probabilistic Tree Embeddings and Hierarchical Cut Decompositions">
+  
+  <meta name="twitter:description" content="Study notes on probabilistic metric approximation, Bartal partitions, and CKR hierarchical cut decompositions for tree embeddings.">
+  
+  <meta name="twitter:url" content="https://thomasgraceman.github.io/posts/tree-embeddings-hierarchical-cut-decompositions/">
+
+  
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://thomasgraceman.github.io/images/profile.png">
+    <meta name="twitter:image:alt" content="Probabilistic Tree Embeddings and Hierarchical Cut Decompositions">
+  
+
+  
+    <meta name="twitter:creator" content="@thomas_ger">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+
+  <meta name="google-site-verification" content="AZLgMz3hX8xkaa4pei-D3hJXOhMy1S3SWM0x66QI0zk" />
+
+
+
+
+<!-- end SEO -->
+
+<!-- Open Graph protocol data (https://ogp.me/), used by social media -->
+<meta property="og:locale" content="en-US">
+<meta property="og:site_name" content="A steeper descent">
+<meta property="og:title" content="Probabilistic Tree Embeddings and Hierarchical Cut Decompositions">
+
+  <meta property="og:type" content="article">
+
+
+  <meta property="og:description" content="Study notes on probabilistic metric approximation, Bartal partitions, and CKR hierarchical cut decompositions for tree embeddings.">
+
+
+  <meta property="og:url" content="https://thomasgraceman.github.io/posts/tree-embeddings-hierarchical-cut-decompositions/">
+
+
+  <meta property="og:image" content="https://thomasgraceman.github.io/images/profile.png">
+  <meta property="og:image:alt" content="Probabilistic Tree Embeddings and Hierarchical Cut Decompositions">
+
+
+
+  
+  <meta property="article:author" content="Taha Hoseinpour">
+  
+  
+  
+  <meta property="article:tag" content="metric embeddings, tree embeddings, approximation algorithms">
+  
+
+
+
+
+
+  
+  <meta name="keywords" content="metric embeddings, tree embeddings, approximation algorithms">
+
+<!-- end Open Graph protocol -->
+
+<!-- Structured data (https://schema.org/) -->
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "A steeper descent",
+    "url": "https://thomasgraceman.github.io",
+    "description": "Research blog on theoretical computer science — metric embeddings, sparsification, generic chaining, and approximation algorithms. Notes on papers and books by Taha Hoseinpour.",
+    "inLanguage": "en-US"
+  }
+</script>
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": "https://thomasgraceman.github.io#person",
+    "name": "Taha Hoseinpour",
+    "url": "https://thomasgraceman.github.io",
+    "description": "Research blog on theoretical computer science — metric embeddings, sparsification, generic chaining, and approximation algorithms. Notes on papers and books by Taha Hoseinpour."
+    ,
+    "jobTitle": "Graduate Student in Theoretical Computer Science"
+    
+    ,
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Sharif University of Technology"
+    },
+    "affiliation": {
+      "@type": "Organization",
+      "name": "Sharif University of Technology"
+    }
+    
+    ,
+    "homeLocation": {
+      "@type": "Place",
+      "name": "Iran"
+    }
+    
+    ,
+    "alumniOf": [
+      {
+        "@type": "CollegeOrUniversity",
+        "name": "Sharif University of Technology"
+      },
+      {
+        "@type": "CollegeOrUniversity",
+        "name": "Iran University of Science and Technology"
+      }
+      
+    ]
+    
+    ,
+    "image": "https://thomasgraceman.github.io/images/profile.png"
+    
+    ,
+    "email": "tahahoseinpourasli@gmail.com"
+    
+    ,
+    "sameAs": ["https://github.com/thomasgraceman","https://twitter.com/thomas_ger"]
+    
+  }
+</script>
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://thomasgraceman.github.io/posts/tree-embeddings-hierarchical-cut-decompositions/"
+    },
+    "headline": "Probabilistic Tree Embeddings and Hierarchical Cut Decompositions",
+    "description": "Study notes on probabilistic metric approximation, Bartal partitions, and CKR hierarchical cut decompositions for tree embeddings.",
+    "url": "https://thomasgraceman.github.io/posts/tree-embeddings-hierarchical-cut-decompositions/",
+    "inLanguage": "en-US",
+    
+    "datePublished": "2026-06-08T00:00:00+00:00",
+    
+    
+    "dateModified": "2026-06-08T00:00:00+00:00",
+    
+    
+    "keywords": ["metric embeddings","tree embeddings","approximation algorithms"],
+    
+    "author": {
+      "@type": "Person",
+      "@id": "https://thomasgraceman.github.io#person",
+      "name": "Taha Hoseinpour"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "A steeper descent",
+      "url": "https://thomasgraceman.github.io",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://thomasgraceman.github.io/images/profile.png"
+      }
+    }
+    ,
+    "image": "https://thomasgraceman.github.io/images/profile.png"
+    
+  }
+</script>
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Taha Hoseinpour",
+        "item": "https://thomasgraceman.github.io"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Probabilistic Tree Embeddings and Hierarchical Cut Decompositions",
+        "item": "https://thomasgraceman.github.io/posts/tree-embeddings-hierarchical-cut-decompositions/"
+      }
+    ]
+  }
+</script>
+
+
+
+<link href="https://thomasgraceman.github.io/feed.xml" type="application/atom+xml" rel="alternate" title="A steeper descent Feed">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="https://thomasgraceman.github.io/assets/css/main.css">
+
+    
+
+<!-- start custom head snippets -->
+
+<!-- Support for Academicons -->
+<link rel="stylesheet" href="https://thomasgraceman.github.io/assets/css/academicons.css"/>
+
+<!-- New post corner notice -->
+<link rel="stylesheet" href="https://thomasgraceman.github.io/assets/css/new-post-notice.css"/>
+
+<!-- favicon from https://commons.wikimedia.org/wiki/File:OOjs_UI_icon_academic-progressive.svg -->
+<link rel="apple-touch-icon" sizes="180x180" href="https://thomasgraceman.github.io/images/apple-touch-icon-180x180.png"/>
+<link rel="icon" type="image/svg+xml" href="https://thomasgraceman.github.io/images/favicon.svg"/>
+<link rel="icon" type="image/png" href="https://thomasgraceman.github.io/images/favicon-32x32.png" sizes="32x32"/>
+<link rel="icon" type="image/png" href="https://thomasgraceman.github.io/images/favicon-192x192.png" sizes="192x192"/>
+<link rel="manifest" href="https://thomasgraceman.github.io/images/manifest.json"/>
+<link rel="icon" href="/images/favicon.ico"/>
+<meta name="theme-color" content="#ffffff"/>
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <button><span class="navicon"></span></button>
+        <ul class="visible-links">
+          <li class="masthead__menu-item masthead__menu-item--lg persist ">
+            <a href="https://thomasgraceman.github.io/">A steeper descent</a>
+          </li>
+          
+            
+            <li class="masthead__menu-item ">
+              <a href="https://thomasgraceman.github.io/readinglist/">Reading List</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item ">
+              <a href="https://thomasgraceman.github.io/year-archive/">Blog Posts</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item ">
+              <a href="https://thomasgraceman.github.io/cv/">CV</a>
+            </li>
+          
+          <li id="theme-toggle" class="masthead__menu-item persist tail">
+            <a role="button" aria-labelledby="theme-icon"><i id="theme-icon" class="fa-solid fa-sun" aria-hidden="true" title="toggle theme"></i></a>
+          </li>
+        </ul>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+
+
+
+
+  
+    
+
+
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="https://thomasgraceman.github.io/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="https://thomasgraceman.github.ioposts" itemprop="item"><span itemprop="name">Posts</span></a>
+          <meta itemprop="position" content="2" />
+        </li>
+        <span class="sep">/</span>
+      
+    
+      
+      
+        <li class="current">Probabilistic Tree Embeddings and Hierarchical Cut Decompositions</li>
+      
+    
+  </ol>
+</nav>
+  
+
+
+<div id="main" role="main">
+  
+
+
+  <div class="sidebar sticky">
+  
+
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  <div class="author__avatar">
+    
+    	<img src="https://thomasgraceman.github.io/images/profile.png" class="author__avatar" alt="Taha"  fetchpriority="high" />
+    
+  </div>
+
+  <div class="author__content">
+    <h3 class="author__name">Taha</h3>
+    
+    <p class="author__bio">Hi, I am Taha.</p>
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      <!-- Font Awesome icons / Biographic information  -->
+      
+        <li class="author__desktop"><i class="fas fa-fw fa-location-dot icon-pad-right" aria-hidden="true"></i>Iran</li>
+      
+      
+        <li class="author__desktop"><i class="fas fa-fw fa-building-columns icon-pad-right" aria-hidden="true"></i>Sharif University of Technology</li>
+      
+      
+      
+        <li><a href="mailto:tahahoseinpourasli@gmail.com"><i class="fas fa-fw fa-envelope icon-pad-right" aria-hidden="true"></i>Email</a></li>
+      
+
+      <!-- Font Awesome and Academicons icons / Academic websites -->
+      
+            
+      
+            
+      
+      
+                              
+      
+      
+      
+      
+      
+
+      <!-- Font Awesome icons / Repositories and software development -->
+      
+            
+            
+      
+        <li><a href="https://github.com/thomasgraceman"><i class="fab fa-fw fa-github icon-pad-right" aria-hidden="true"></i>GitHub</a></li>
+      
+            
+            
+
+      <!-- Font Awesome icons / Social media -->
+              
+      
+      
+            
+      
+                  
+                  
+      
+            
+            
+            
+      
+            
+                  
+            
+      
+            
+            
+      
+        <li><a href="https://twitter.com/thomas_ger"><i class="fab fa-fw fa-x-twitter icon-pad-right" aria-hidden="true"></i>X (formerly Twitter)</a></li>
+      
+              
+      
+                      
+      
+      
+            
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Probabilistic Tree Embeddings and Hierarchical Cut Decompositions">
+    <meta itemprop="description" content="As part of my effort to understand the broader literature surrounding the areas I hope to work on in the future, I am studying both foundational papers and contemporary developments. Alongside my primary focus on the work of James R. Lee, I plan to read a number of folklore and classical papers that have shaped the modern theory of metric embeddings.">
+    <meta itemprop="datePublished" content="June 08, 2026">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Probabilistic Tree Embeddings and Hierarchical Cut Decompositions
+</h1>
+          
+            <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  10 minute read
+	
+</p>
+          
+        
+        
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-06-08T00:00:00+00:00">June 08, 2026</time></p>
+            
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        <p>As part of my effort to understand the broader literature surrounding the areas I hope to work on in the future, I am studying both foundational papers and contemporary developments. Alongside my primary focus on the work of James R. Lee, I plan to read a number of folklore and classical papers that have shaped the modern theory of metric embeddings.</p>
+
+<p>One of the central themes I am exploring is tree embeddings as an algorithmic tool. A recurring paradigm in approximation algorithms is to replace a complicated metric space with a distribution over tree metrics. Since many optimization problems become significantly easier on trees, one can design an algorithm in the tree setting and then transfer the guarantee back to the original metric, often losing only a logarithmic factor in approximation quality.</p>
+
+<p>A canonical example of this philosophy is the probabilistic partition framework of Yuri Bartal and the subsequent CKR decomposition of Moses Charikar, Chandra Chekuri, and Anupam Gupta. These techniques form a cornerstone of modern metric embedding theory and have influenced approximation algorithms, online algorithms, routing, clustering, and network design.</p>
+
+<p>What makes this area particularly exciting is that even these classical constructions continue to inspire new advances. For example, the recent paper <em>Tree Embedding in High Dimensions: Dynamic and Massively Parallel</em> by Gramoz Goranci, Shaofeng H.-C. Jiang, Peter Kiss, Qihao Kong, Yi Qian, and Eva Szilagyi extends the tree-embedding paradigm to dynamic and massively parallel settings, obtaining efficient algorithms for high-dimensional Euclidean data and applications such as k-median and earth mover distance. The paper first appeared as an arXiv preprint in October 2025 and was later published at the 2026 ACM-SIAM Symposium on Discrete Algorithms (SODA 2026).</p>
+
+<hr />
+
+<h2 id="probabilistic-metric-approximation">Probabilistic Metric Approximation</h2>
+
+<p>We now consider the following idea: if we cannot construct an exact object, we instead build a collection of objects that approximate it, and place a probability distribution over them. By sampling from this distribution, we can reason about the expected quality of the constructed object over time.</p>
+
+<p>Let $\mathcal{S}$ be a family of metrics over $V$, and let $\mathcal{D}$ be a distribution over $\mathcal{S}$. We say that $(\mathcal{S}, \mathcal{D})$ $\alpha$-probabilistically approximates a metric $(V, d)$ if every metric in $\mathcal{S}$ dominates $d$, and for every pair of vertices $u, v \in V$, it holds that</p>
+
+\[\mathbb{E}_{d' \sim \mathcal{D}}[d'(u, v)] \le \alpha \cdot d(u, v).\]
+
+<h2 id="hierarchical-cut-decomposition">Hierarchical Cut Decomposition</h2>
+
+<p>Let $(V,d)$ be a finite metric space. For a parameter $r &gt; 0$, an $r$-cut decomposition is a partition of $V$ into clusters such that:</p>
+<ul>
+  <li>Each cluster is associated with a center vertex,</li>
+  <li>Every vertex in a cluster lies within distance at most $r$ from its center.</li>
+</ul>
+
+<p>Thus, every cluster has diameter at most $2r$.</p>
+
+<p>A <strong>hierarchical cut decomposition</strong> is a sequence of nested partitions:</p>
+
+\[D_0, D_1, \dots, D_\delta\]
+
+<p>such that:</p>
+<ul>
+  <li>$D_\delta = {V}$ (the trivial partition),</li>
+  <li>$D_i$ is a $2^i$-cut decomposition,</li>
+  <li>$D_i$ refines $D_{i+1}$ for all $i$ (i.e., every cluster in $D_i$ is contained in some cluster of $D_{i+1}$).</li>
+</ul>
+
+<p>At the finest level, $D_0$ consists of singleton clusters.</p>
+
+<h3 id="intuition">Intuition</h3>
+
+<p>This construction organizes the metric space in a top-down manner. At large scale, points are grouped into coarse clusters, and as the scale decreases, these clusters are recursively refined into smaller ones. This yields a multiscale representation of the metric that can be viewed as a tree-like structure.</p>
+
+<h3 id="example">Example</h3>
+
+<p>Consider a metric space $(V,d)$ where:</p>
+
+\[V = \{a,b,c,d,e\}\]
+
+<p>Suppose the distances are such that:</p>
+<ul>
+  <li>${a,b}$ are very close,</li>
+  <li>${c,d}$ are very close,</li>
+  <li>$e$ is far from all others.</li>
+</ul>
+
+<p>We construct a hierarchical cut decomposition:</p>
+
+<h4 id="level-d_0-radius-1">Level $D_0$ (radius $1$)</h4>
+<p>Each vertex is a singleton:</p>
+
+\[D_0 = \big\{ \{a\}, \{b\}, \{c\}, \{d\}, \{e\} \big\}\]
+
+<h4 id="level-d_1-radius-2">Level $D_1$ (radius $2$)</h4>
+<p>Close points are grouped:</p>
+
+\[D_1 = \big\{ \{a,b\}, \{c,d\}, \{e\} \big\}\]
+
+<h4 id="level-d_2-radius-4">Level $D_2$ (radius $4$)</h4>
+<p>Further merging:</p>
+
+\[D_2 = \big\{ \{a,b,c,d,e\} \big\}\]
+
+<p>Notice the refinement property:</p>
+
+\[D_0 \prec D_1 \prec D_2\]
+
+<p>Each level coarsens the metric, while preserving local structure at smaller scales.</p>
+
+<style>
+  .viz-card {
+    background: #fafafa;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 20px 20px 10px 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    margin: 30px 0;
+  }
+  .viz-controls {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .hcd-level-btn {
+    padding: 7px 18px;
+    border: 2px solid #d0d0d0;
+    background: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-family: 'Courier New', monospace;
+    transition: all 0.2s ease;
+    letter-spacing: 0.3px;
+  }
+  .hcd-level-btn:hover { background: #f0f4f8; border-color: #bbb; }
+  .hcd-level-btn.active {
+    border-color: #2b8cbe;
+    background: #e8f4fd;
+    color: #045a8d;
+    font-weight: 700;
+    box-shadow: 0 1px 3px rgba(43,140,190,0.2);
+  }
+  .viz-info {
+    margin-left: auto;
+    font-size: 13px;
+    color: #555;
+    background: #f0f0f0;
+    padding: 6px 14px;
+    border-radius: 5px;
+    font-family: 'Courier New', monospace;
+  }
+  .viz-tooltip {
+    position: fixed;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 12px;
+    font-family: 'Courier New', monospace;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    pointer-events: none;
+    opacity: 0;
+    z-index: 1000;
+    transition: opacity 0.15s ease;
+  }
+</style>
+
+<div class="viz-card">
+  <div class="viz-controls">
+    <button type="button" class="hcd-level-btn active" data-level="2">D&#x2082; (radius 4)</button>
+    <button type="button" class="hcd-level-btn" data-level="1">D&#x2081; (radius 2)</button>
+    <button type="button" class="hcd-level-btn" data-level="0">D&#x2080; (radius 1)</button>
+    <span class="viz-info" id="partition-label">Partition: {a,b,c,d,e}</span>
+  </div>
+  <div id="d3-viz" style="width: 100%; height: 400px;"></div>
+  <div style="margin-top: 10px; font-size: 12px; color: #aaa; text-align: center; border-top: 1px solid #eee; padding-top: 8px;">
+    Click a level button to highlight the partition. Edge lengths are 2<sup>i</sup> between D<sub>i</sub> and its children.
+  </div>
+</div>
+
+<div class="viz-tooltip" id="viz-tooltip"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+
+<script src="https://thomasgraceman.github.io/assets/js/hcd-tree-viz.js"></script>
+
+<h2 id="laminar-families-and-the-induced-tree">Laminar Families and the Induced Tree</h2>
+
+<p>What we have constructed is a <em>laminar family</em>, as mentioned in the paper. A hierarchical cut decomposition defines a laminar family.</p>
+
+<p>Recall that a family $F \subseteq 2^V$ is called <strong>laminar</strong> if for any $A, B \in F$, it holds that</p>
+
+\[A \subseteq B \quad \text{or} \quad B \subseteq A \quad \text{or} \quad A \cap B = \emptyset.\]
+
+<p>Such families are particularly convenient because they admit a natural tree representation: each set corresponds to a node, and inclusion defines the parent-child structure. Thus, laminar families form a relatively simple algebraic structure from which trees can be constructed directly.</p>
+
+<p>So we try to set the metric in a way that gives us a good distance: start from the root, it doubles, and the distance between two leaves is the distance to their least common ancestor in the tree.</p>
+
+<p>Each node in $D_i$ is connected to each of its children in the tree by an edge of length $2^i$, which is an upper bound on the radius of the corresponding cluster $S$. This induces a distance function $d_T(\cdot,\cdot)$ on $V$, where $d_T(u,v)$ is defined as the shortest-path distance between the leaves corresponding to ${u}$ and ${v}$ in $T$.</p>
+
+<p>Given this edge-length assignment, it is easy to see that</p>
+
+\[d_T(u,v) \ge d(u,v), \quad \forall\, u,v \in V.\]
+
+<h2 id="the-partition-algorithm">The Partition Algorithm</h2>
+
+<blockquote style="background: #f8f9fa; border-left: 4px solid #2b8cbe; padding: 16px 20px; margin: 20px 0; font-family: 'Courier New', monospace; font-size: 14px; border-radius: 4px;">
+<strong style="color: #045a8d; font-size: 15px;">Algorithm 1.</strong> <em>Partition(V, d)</em>
+<br /><br />
+1. Choose a random permutation $\pi$ of $V$, denoted $v_1, v_2, \dots, v_n$.<br />
+2. Choose $\beta$ uniformly at random from $[1,2]$.<br />
+3. Set $D_\delta \leftarrow \{V\}$ and $i \leftarrow \delta - 1$.<br />
+4. <strong>while</strong> $D_{i+1}$ contains at least one non-singleton cluster <strong>do</strong><br />
+&nbsp;&nbsp;&nbsp;&nbsp;$\,$ 5. $\beta_i \leftarrow 2^{i-1}\beta$<br />
+&nbsp;&nbsp;&nbsp;&nbsp;$\,$ 6. <strong>for</strong> $l = 1,2,\dots,n$ <strong>do</strong><br />
+&nbsp;&nbsp;&nbsp;&nbsp;$\,$ &nbsp;&nbsp;&nbsp;&nbsp;$\,$ 7. <strong>for each</strong> cluster $S \in D_{i+1}$ <strong>do</strong><br />
+&nbsp;&nbsp;&nbsp;&nbsp;$\,$ &nbsp;&nbsp;&nbsp;&nbsp;$\,$ &nbsp;&nbsp;&nbsp;&nbsp;$\,$ 8. Create a new cluster consisting of all unassigned vertices $u \in S$ such that $d(u,\pi(l)) \le \beta_i$.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;$\,$ &nbsp;&nbsp;&nbsp;&nbsp;$\,$ 9. <strong>end for</strong><br />
+&nbsp;&nbsp;&nbsp;&nbsp;$\,$ 10. <strong>end for</strong><br />
+&nbsp;&nbsp;&nbsp;&nbsp;$\,$ 11. $i \leftarrow i - 1$<br />
+12. <strong>end while</strong>
+</blockquote>
+
+<style>
+  .algo-viz-card {
+    background: #fafafa;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    margin: 30px 0;
+  }
+  .algo-controls {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 14px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .algo-btn {
+    padding: 7px 16px;
+    border: 2px solid #d0d0d0;
+    background: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-family: 'Courier New', monospace;
+    transition: all 0.2s ease;
+  }
+  .algo-btn:hover { background: #f0f4f8; border-color: #bbb; }
+  .algo-btn.primary {
+    border-color: #2b8cbe;
+    background: #e8f4fd;
+    color: #045a8d;
+    font-weight: 700;
+  }
+  .algo-status {
+    flex: 1 1 260px;
+    font-size: 13px;
+    color: #444;
+    background: #f0f0f0;
+    padding: 8px 14px;
+    border-radius: 5px;
+    font-family: 'Courier New', monospace;
+    line-height: 1.5;
+    min-height: 42px;
+  }
+  .algo-meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px;
+    margin-bottom: 14px;
+    font-size: 12px;
+    font-family: 'Courier New', monospace;
+    color: #555;
+  }
+  .algo-meta span {
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    border-radius: 5px;
+    padding: 6px 10px;
+  }
+  .algo-meta b { color: #045a8d; }
+  .algo-layout {
+    display: grid;
+    grid-template-columns: 1fr 240px;
+    gap: 16px;
+  }
+  @media (max-width: 720px) {
+    .algo-layout { grid-template-columns: 1fr; }
+  }
+  .algo-partition-panel {
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 12px;
+    font-family: 'Courier New', monospace;
+    max-height: 420px;
+    overflow-y: auto;
+  }
+  .algo-partition-panel h4 {
+    margin: 0 0 10px 0;
+    font-size: 13px;
+    color: #045a8d;
+  }
+  .algo-level-block { margin-bottom: 12px; }
+  .algo-level-block .level-title {
+    font-weight: 700;
+    color: #666;
+    margin-bottom: 4px;
+  }
+  .algo-cluster {
+    display: inline-block;
+    margin: 2px 4px 2px 0;
+    padding: 3px 8px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    background: #f9f9f9;
+  }
+  .algo-cluster.active {
+    border-color: #2b8cbe;
+    box-shadow: 0 0 0 2px rgba(43,140,190,0.15);
+    font-weight: 700;
+  }
+  .algo-cluster.parent {
+    border-style: dashed;
+    border-color: #d4a017;
+  }
+  .algo-cluster.done-focus {
+    font-weight: 700;
+    box-shadow: 0 0 0 2px rgba(43,140,190,0.2);
+  }
+  .algo-step-counter {
+    font-size: 12px;
+    color: #888;
+    margin-left: auto;
+  }
+</style>
+
+<div class="algo-viz-card" id="partition-algo-viz">
+  <div class="algo-controls">
+    <button type="button" class="algo-btn primary" id="algo-example">Example run</button>
+    <button type="button" class="algo-btn" id="algo-randomize">Randomize</button>
+    <button type="button" class="algo-btn" id="algo-prev">&#9664; Step</button>
+    <button type="button" class="algo-btn" id="algo-next">Step &#9654;</button>
+    <button type="button" class="algo-btn" id="algo-play">&#9654; Play</button>
+    <span class="algo-step-counter" id="algo-step-counter">Step 0 / 0</span>
+  </div>
+  <div class="algo-meta">
+    <span><b>&#960;:</b> <span id="algo-pi">&#8212;</span></span>
+    <span><b>&#946;:</b> <span id="algo-beta">&#8212;</span></span>
+    <span><b>level i:</b> <span id="algo-level">&#8212;</span></span>
+    <span><b>&#946;<sub>i</sub>:</b> <span id="algo-beta-i">&#8212;</span></span>
+    <span><b>center &#960;(l):</b> <span id="algo-center">&#8212;</span></span>
+  </div>
+  <div class="algo-status" id="algo-status">Use <em>Example run</em> for the canonical {a,b}, {c,d}, {e} decomposition, or <em>Randomize</em> for a new draw.</div>
+  <div class="algo-layout">
+    <div id="algo-canvas" style="width: 100%; height: 400px;"></div>
+    <div class="algo-partition-panel" id="algo-partition-panel">
+      <h4>Partitions</h4>
+      <div id="algo-partitions">&#8212;</div>
+    </div>
+  </div>
+  <div style="margin-top: 10px; font-size: 12px; color: #aaa; text-align: center; border-top: 1px solid #eee; padding-top: 8px;">
+    Each assign step shows an exact metric ball: vertices on a distance axis from center w, with cutoff &#946;<sub>i</sub>. Only unassigned u &#8712; S with d(u,w) &#8804; &#946;<sub>i</sub> are claimed.
+  </div>
+</div>
+
+<script src="https://thomasgraceman.github.io/assets/js/partition-algo-viz.js"></script>
+
+<p>What are we doing? Notice that in each cluster in the process, we have a set of refinements. Now what we are going to do is set the new distance, and we want to cluster the vertices close to each other and refine it further. For that we should really choose a center to distinguish distances from, and we do that by randomizing the vertices available and choosing the first vertex and setting it as a means to further refine the cluster. For example, all the vertices which have distance less than $\beta_i$ to a $\pi(l)$ will be in the same cluster.</p>
+
+<h2 id="analysis">Analysis</h2>
+
+<p>Now we should try to analyze it. The expected value of $d_T(u,v)$ is bounded by $O(\log n)\cdot d(u,v)$.</p>
+
+<p>We make no attempt to optimize constants in this analysis. From the discussion above, it follows that</p>
+
+\[\mathbb{E}[d_T(u,v)] \le \sum_{i=0}^{\delta} \Pr[(u,v)\ \text{is at level } i]\cdot 2^{i+2}. \qquad (1)\]
+
+<p>Note that if $(u,v)$ is at level $i$, then</p>
+
+\[d_T(u,v) = 2\sum_{j=0}^{i} 2^j \le 2^{i+2}.\]
+
+<p>If vertices $u$ and $v$ are in separate clusters in $D_i$, we say that $D_i$ <em>separates</em> $(u,v)$. Note that $(u,v)$ is at level $i$ if:</p>
+
+<ul>
+  <li>(a) $D_i$ separates $(u,v)$,</li>
+  <li>(b) $D_j$ does not separate $(u,v)$ for any $j &gt; i$.</li>
+</ul>
+
+<p>Clearly, if $d(u,v) &gt; 2^{i+2}$, then $u$ and $v$ cannot lie in the same cluster in $D_{i+1}$, i.e., $D_{i+1}$ separates $(u,v)$. From condition (b), it follows that $(u,v)$ cannot be at level $i$.</p>
+
+<p>Let $j^*$ be the smallest index $i$ such that</p>
+
+\[d(u,v) \le 2^{i+2}.\]
+
+<p>Thus,</p>
+
+\[\Pr[(u,v)\ \text{is at level } i] = 0 \quad \text{for all } i &lt; j^*.\]
+
+<p>For \(i \ge j^*\), we bound the probability that \((u,v)\) is at level \(i\). From conditions (a) and (b), for any \(i \ge j^*\),</p>
+
+\[\begin{align}
+\Pr[(u,v)\ \text{is at level } i] &amp;= \Pr[D_i \text{ separates } (u,v)] \\
+&amp;\quad \cdot \Pr\big[\exists j &gt; i : D_j \text{ separates } (u,v)\mid D_i \text{ separates } (u,v)\big] \\
+&amp;\le \Pr[D_i \text{ separates } (u,v)].
+\end{align}\]
+
+<p>For any \(j^* \le j \le \delta\),
+ let \(K_j^u\) be the set of vertices in \(V\) closer than \(2^j\) to vertex \(u\),
+  and let \(k_j^u = |K_j^u|\). Similarly define \(K_j^v\) and \(k_j^v\). For \(j &lt; j^*\), we define \(k_j^u = 0\).</p>
+
+<p>We say that a center \(w\) <em>cuts \(u\) out of \((u,v)\) at level \(i\)</em> 
+if \(w\) cuts \((u,v)\) at level \(i\) and \(u\)
+ is assigned to \(w\) (while \(v\) is not assigned to \(w\)) at this level.</p>
+
+<p>Let $w_1, w_2, \dots, w_{k_i^u}$ be the centers ordered by increasing distance from $u$ at level $i$. For a center $w_s$ to cut $(u,v)$ in a way that only $u$ is assigned to $w_s$, the following conditions must hold:</p>
+
+<ul>
+  <li>(a) $d(u,w_s) \le \beta_i$,</li>
+  <li>(b) $d(v,w_s) &gt; \beta_i$,</li>
+  <li>(c) $w_s$ is the first center that settles $u$ at this level.</li>
+</ul>
+
+<p>Thus $\beta_i$ must lie in the interval $[d(u,w_s), d(v,w_s)]$. By the triangle inequality,</p>
+
+\[d(v,w_s) \le d(v,u) + d(u,w_s),\]
+
+<p>and hence the interval $[d(u,w_s), d(v,w_s)]$ has length at most $d(u,v)$.</p>
+
+<p>Since $\beta_i$ is chosen uniformly in $[2^{i-1},2^i]$ (by construction), the probability that $\beta_i$ falls into this “bad” interval is at most</p>
+
+\[\frac{d(u,v)}{2^{i-1}}.\]
+
+<p>It follows that the probability that $D_i$ separates $(u,v)$ is bounded by</p>
+
+\[\begin{align}
+\Pr[D_i \text{ separates } (u,v)] &amp;\le \sum_{s=1}^{k_i^u} \frac{d(u,v)}{2^{i-1}} \cdot \frac{1}{s} + \sum_{s=1}^{k_i^v} \frac{d(u,v)}{2^{i-1}} \cdot \frac{1}{s} \\
+&amp;\le \frac{d(u,v)}{2^{i-1}} \left(\ln k_i^u + \ln k_i^v\right).
+\end{align}\]
+
+<p>Thus each level $i$ contributes at most $O(\log n)$ to the expected value of $d_T(u,v)$ (see Equation (1)), and hence the expected distance is bounded by</p>
+
+\[\mathbb{E}[d_T(u,v)] \le O(\log n \log \Delta)\, d(u,v).\]
+
+
+        
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="https://thomasgraceman.github.io/tags/#approximation-algorithms" class="page__taxonomy-item" rel="tag">approximation algorithms</a><span class="sep">, </span>
+    
+      
+      
+      <a href="https://thomasgraceman.github.io/tags/#metric-embeddings" class="page__taxonomy-item" rel="tag">metric embeddings</a><span class="sep">, </span>
+    
+      
+      
+      <a href="https://thomasgraceman.github.io/tags/#tree-embeddings" class="page__taxonomy-item" rel="tag">tree embeddings</a>
+    
+    </span>
+  </p>
+
+
+
+
+      </footer>
+
+      
+
+<section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://bsky.app/intent/compose?text=https://thomasgraceman.github.io/posts/tree-embeddings-hierarchical-cut-decompositions/" class="btn btn--bluesky" title="Share on Bluesky"><i class="fab fa-bluesky" aria-hidden="true"></i><span> Bluesky</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https://thomasgraceman.github.io/posts/tree-embeddings-hierarchical-cut-decompositions/" class="btn btn--facebook" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://thomasgraceman.github.io/posts/tree-embeddings-hierarchical-cut-decompositions/" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+
+  <a href="https://www.addtoany.com/add_to/mastodon?linkurl=https%3A%2F%2Fthomasgraceman.github.io%2Fposts%2Ftree-embeddings-hierarchical-cut-decompositions%2F" class="btn btn--mastodon" title="Share on Mastodon"><i class="fab fa-mastodon" aria-hidden="true"></i><span> Mastodon</span></a>
+
+  <a href="https://x.com/intent/post?text=https://thomasgraceman.github.io/posts/tree-embeddings-hierarchical-cut-decompositions/" class="btn btn--x" title="Share on X"><i class="fab fa-x-twitter" aria-hidden="true"></i><span> X (formerly Twitter)</span></a>
+</section>
+
+
+      
+
+
+  <nav class="pagination">
+    
+      <a href="https://thomasgraceman.github.io/posts/sparsification-sums-of-norms-chapter-1/" class="pagination--pager" title="Sparsification of Sums of Norms: A General Overview — Chapter 1
+">Previous</a>
+    
+    
+      <a href="https://thomasgraceman.github.io/posts/lewis-weights-leverage-scores-whitening-chapter-2/" class="pagination--pager" title="Lewis Weights, Leverage Scores, and Whitening — Chapter 2
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      
+        <h4 class="page__related-title">You May Also Enjoy</h4>
+      
+      <div class="grid__wrapper">
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "https://thomasgraceman.github.io/images/profile.png"
+          
+          alt="Dynamic Sum-of-Radii Clustering
+">
+      </div>
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="https://thomasgraceman.github.io/posts/dynamic-sum-of-radii-clustering/" rel="permalink">Dynamic Sum-of-Radii Clustering
+</a>
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  10 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-08-06T00:00:00+00:00">August 06, 2026</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><p>So in this second post, following the <a href="/posts/dynamic-approximate-nns/">previous data structure</a>, I am going to review some algorithms that were devised using the scheme of nearest neighbor search.</p>
+
+</p>
+    
+    
+    
+
+  </article>
+</div>
+
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "https://thomasgraceman.github.io/images/profile.png"
+          
+          alt="Dynamic Approximate Nearest-Neighbor Search in Doubling Metrics
+">
+      </div>
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="https://thomasgraceman.github.io/posts/dynamic-approximate-nns/" rel="permalink">Dynamic Approximate Nearest-Neighbor Search in Doubling Metrics
+</a>
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  14 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-08-06T00:00:00+00:00">August 06, 2026</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><p>Well, in this blog post we are going to review several papers and understand the techniques that are utilized in order to tackle several problems related to areas such as nearest neighbor problems, the facility location problem, and so on.</p>
+
+</p>
+    
+    
+    
+
+  </article>
+</div>
+
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "https://thomasgraceman.github.io/images/profile.png"
+          
+          alt="Tree Embedding in High Dimensions: Dynamic and Massively Parallel, and Streaming Facility Location in High Dimension via Geometric Hashing – 2
+">
+      </div>
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="https://thomasgraceman.github.io/posts/tree-embedding-high-dimensions-streaming-facility-location-geometric-hashing-2/" rel="permalink">Tree Embedding in High Dimensions: Dynamic and Massively Parallel, and Streaming Facility Location in High Dimension via Geometric Hashing – 2
+</a>
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  3 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-07-02T00:00:00+00:00">July 02, 2026</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><h1 id="tree-embedding-in-high-dimensions">Tree Embedding in High Dimensions</h1>
+<h2 id="dynamic-and-massively-parallel-and-streaming-facility-location-via-geometric-hashing">Dynamic and Massively Parallel, and Streaming Facility Location via Geometric Hashing</h2>
+
+</p>
+    
+    
+    
+
+  </article>
+</div>
+
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "https://thomasgraceman.github.io/images/profile.png"
+          
+          alt="Sparsification of Sums of Norms: Symmetrization, Generic Chaining, and Concentration — Chapter 3
+">
+      </div>
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="https://thomasgraceman.github.io/posts/sparsification-sums-of-norms-symmetrization-generic-chaining-chapter-3/" rel="permalink">Sparsification of Sums of Norms: Symmetrization, Generic Chaining, and Concentration — Chapter 3
+</a>
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  8 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-06-28T00:00:00+00:00">June 28, 2026</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><h1 id="sparsification-of-sums-of-norms">Sparsification of Sums of Norms</h1>
+<h2 id="symmetrization-generic-chaining-and-concentration--chapter-3">Symmetrization, Generic Chaining, and Concentration · Chapter 3</h2>
+
+</p>
+    
+    
+    
+
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- Support for MatJax -->
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true
+    }
+  };
+</script>
+<script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script"></script>
+
+<!-- Support for Mermaid -->
+<script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({startOnLoad:true, theme:'default'});
+    await mermaid.run({querySelector:'code.language-mermaid'});
+</script>
+
+<!-- New post corner notice -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var notice = document.getElementById('new-post-notice');
+  if (!notice) return;
+
+  var postId = notice.dataset.postId;
+  var key = 'dismissed-post-' + postId;
+
+  if (localStorage.getItem(key) === '1') return;
+
+  notice.hidden = false;
+
+  notice.querySelector('.new-post-notice__close').addEventListener('click', function () {
+    localStorage.setItem(key, '1');
+    notice.remove();
+  });
+});
+</script>
+
+<!-- end custom footer snippets -->
+
+        
+
+
+<div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+    
+      <li><a href="https://github.com/thomasgraceman"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="https://thomasgraceman.github.io/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+
+<div class="page__footer-copyright">
+  &copy; 2026 Taha Hoseinpour, Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://github.com/academicpages/academicpages.github.io">AcademicPages</a>, a fork of <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.<br />
+  Site last updated 2026-08-06, <a href="/sitemap/" style="text-transform: uppercase;">Sitemap</a>
+</div>
+
+      </footer>
+    </div>
+
+    
+
+  
+  
+    
+    
+    
+    
+
+    
+      <div id="new-post-notice"
+           class="new-post-notice"
+           role="status"
+           aria-live="polite"
+           data-post-id="posts-dynamic-sum-of-radii-clustering"
+           hidden>
+        <button type="button" class="new-post-notice__close" aria-label="Dismiss notice">&times;</button>
+        <p class="new-post-notice__label">New post</p>
+        <a class="new-post-notice__link" href="https://thomasgraceman.github.io/posts/dynamic-sum-of-radii-clustering/">
+          Dynamic Sum-of-Radii Clustering
+        </a>
+      </div>
+    
+  
+
+
+    <script type="module" src="https://thomasgraceman.github.io/assets/js/main.min.js"></script>
+
+
+
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MGD7PS6X0W"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-MGD7PS6X0W');
+</script>
+
+
+
+
+
+
+
+
+  </body>
+</html>
+

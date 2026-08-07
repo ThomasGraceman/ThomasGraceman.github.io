@@ -1,0 +1,1545 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+
+<meta charset="utf-8">
+
+
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Dynamic Approximate Nearest-Neighbor Search in Doubling Metrics - A steeper descent</title>
+
+
+
+
+<meta name="description" content="Study notes on a dynamic data structure for approximate nearest-neighbor search in doubling metrics.">
+
+
+
+
+<meta name="author" content="Taha Hoseinpour">
+
+
+<!-- Academic SEO: Google Scholar citation meta tags -->
+
+  <meta name="citation_title" content="Dynamic Approximate Nearest-Neighbor Search in Doubling Metrics">
+  <meta name="citation_author" content="Taha Hoseinpour">
+  <meta name="citation_publication_date" content="2026/08/06">
+  <meta name="citation_author_institution" content="Sharif University of Technology">
+  
+  <meta name="citation_public_url" content="https://thomasgraceman.github.io/posts/dynamic-approximate-nns/">
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2026-08-06T00:00:00+00:00">
+
+
+
+
+  <link rel="canonical" href="https://thomasgraceman.github.io/posts/dynamic-approximate-nns/">
+
+
+
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+
+
+
+  <meta name="twitter:site" content="@thomas_ger">
+  <meta name="twitter:title" content="Dynamic Approximate Nearest-Neighbor Search in Doubling Metrics">
+  
+  <meta name="twitter:description" content="Study notes on a dynamic data structure for approximate nearest-neighbor search in doubling metrics.">
+  
+  <meta name="twitter:url" content="https://thomasgraceman.github.io/posts/dynamic-approximate-nns/">
+
+  
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://thomasgraceman.github.io/images/profile.png">
+    <meta name="twitter:image:alt" content="Dynamic Approximate Nearest-Neighbor Search in Doubling Metrics">
+  
+
+  
+    <meta name="twitter:creator" content="@thomas_ger">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+
+  <meta name="google-site-verification" content="AZLgMz3hX8xkaa4pei-D3hJXOhMy1S3SWM0x66QI0zk" />
+
+
+
+
+<!-- end SEO -->
+
+<!-- Open Graph protocol data (https://ogp.me/), used by social media -->
+<meta property="og:locale" content="en-US">
+<meta property="og:site_name" content="A steeper descent">
+<meta property="og:title" content="Dynamic Approximate Nearest-Neighbor Search in Doubling Metrics">
+
+  <meta property="og:type" content="article">
+
+
+  <meta property="og:description" content="Study notes on a dynamic data structure for approximate nearest-neighbor search in doubling metrics.">
+
+
+  <meta property="og:url" content="https://thomasgraceman.github.io/posts/dynamic-approximate-nns/">
+
+
+  <meta property="og:image" content="https://thomasgraceman.github.io/images/profile.png">
+  <meta property="og:image:alt" content="Dynamic Approximate Nearest-Neighbor Search in Doubling Metrics">
+
+
+
+  
+  <meta property="article:author" content="Taha Hoseinpour">
+  
+  
+  
+  <meta property="article:tag" content="nearest neighbor search, doubling dimension, data structures, metric spaces">
+  
+
+
+
+
+
+  
+  <meta name="keywords" content="nearest neighbor search, doubling dimension, data structures, metric spaces">
+
+<!-- end Open Graph protocol -->
+
+<!-- Structured data (https://schema.org/) -->
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "A steeper descent",
+    "url": "https://thomasgraceman.github.io",
+    "description": "Research blog on theoretical computer science — metric embeddings, sparsification, generic chaining, and approximation algorithms. Notes on papers and books by Taha Hoseinpour.",
+    "inLanguage": "en-US"
+  }
+</script>
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": "https://thomasgraceman.github.io#person",
+    "name": "Taha Hoseinpour",
+    "url": "https://thomasgraceman.github.io",
+    "description": "Research blog on theoretical computer science — metric embeddings, sparsification, generic chaining, and approximation algorithms. Notes on papers and books by Taha Hoseinpour."
+    ,
+    "jobTitle": "Graduate Student in Theoretical Computer Science"
+    
+    ,
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Sharif University of Technology"
+    },
+    "affiliation": {
+      "@type": "Organization",
+      "name": "Sharif University of Technology"
+    }
+    
+    ,
+    "homeLocation": {
+      "@type": "Place",
+      "name": "Iran"
+    }
+    
+    ,
+    "alumniOf": [
+      {
+        "@type": "CollegeOrUniversity",
+        "name": "Sharif University of Technology"
+      },
+      {
+        "@type": "CollegeOrUniversity",
+        "name": "Iran University of Science and Technology"
+      }
+      
+    ]
+    
+    ,
+    "image": "https://thomasgraceman.github.io/images/profile.png"
+    
+    ,
+    "email": "tahahoseinpourasli@gmail.com"
+    
+    ,
+    "sameAs": ["https://github.com/thomasgraceman","https://twitter.com/thomas_ger"]
+    
+  }
+</script>
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://thomasgraceman.github.io/posts/dynamic-approximate-nns/"
+    },
+    "headline": "Dynamic Approximate Nearest-Neighbor Search in Doubling Metrics",
+    "description": "Study notes on a dynamic data structure for approximate nearest-neighbor search in doubling metrics.",
+    "url": "https://thomasgraceman.github.io/posts/dynamic-approximate-nns/",
+    "inLanguage": "en-US",
+    
+    "datePublished": "2026-08-06T00:00:00+00:00",
+    
+    
+    "dateModified": "2026-08-06T00:00:00+00:00",
+    
+    
+    "keywords": ["nearest neighbor search","doubling dimension","data structures","metric spaces"],
+    
+    "author": {
+      "@type": "Person",
+      "@id": "https://thomasgraceman.github.io#person",
+      "name": "Taha Hoseinpour"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "A steeper descent",
+      "url": "https://thomasgraceman.github.io",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://thomasgraceman.github.io/images/profile.png"
+      }
+    }
+    ,
+    "image": "https://thomasgraceman.github.io/images/profile.png"
+    
+  }
+</script>
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Taha Hoseinpour",
+        "item": "https://thomasgraceman.github.io"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Dynamic Approximate Nearest-Neighbor Search in Doubling Metrics",
+        "item": "https://thomasgraceman.github.io/posts/dynamic-approximate-nns/"
+      }
+    ]
+  }
+</script>
+
+
+
+<link href="https://thomasgraceman.github.io/feed.xml" type="application/atom+xml" rel="alternate" title="A steeper descent Feed">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="https://thomasgraceman.github.io/assets/css/main.css">
+
+    
+
+<!-- start custom head snippets -->
+
+<!-- Support for Academicons -->
+<link rel="stylesheet" href="https://thomasgraceman.github.io/assets/css/academicons.css"/>
+
+<!-- New post corner notice -->
+<link rel="stylesheet" href="https://thomasgraceman.github.io/assets/css/new-post-notice.css"/>
+
+<!-- favicon from https://commons.wikimedia.org/wiki/File:OOjs_UI_icon_academic-progressive.svg -->
+<link rel="apple-touch-icon" sizes="180x180" href="https://thomasgraceman.github.io/images/apple-touch-icon-180x180.png"/>
+<link rel="icon" type="image/svg+xml" href="https://thomasgraceman.github.io/images/favicon.svg"/>
+<link rel="icon" type="image/png" href="https://thomasgraceman.github.io/images/favicon-32x32.png" sizes="32x32"/>
+<link rel="icon" type="image/png" href="https://thomasgraceman.github.io/images/favicon-192x192.png" sizes="192x192"/>
+<link rel="manifest" href="https://thomasgraceman.github.io/images/manifest.json"/>
+<link rel="icon" href="/images/favicon.ico"/>
+<meta name="theme-color" content="#ffffff"/>
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <button><span class="navicon"></span></button>
+        <ul class="visible-links">
+          <li class="masthead__menu-item masthead__menu-item--lg persist ">
+            <a href="https://thomasgraceman.github.io/">A steeper descent</a>
+          </li>
+          
+            
+            <li class="masthead__menu-item ">
+              <a href="https://thomasgraceman.github.io/readinglist/">Reading List</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item ">
+              <a href="https://thomasgraceman.github.io/year-archive/">Blog Posts</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item ">
+              <a href="https://thomasgraceman.github.io/cv/">CV</a>
+            </li>
+          
+          <li id="theme-toggle" class="masthead__menu-item persist tail">
+            <a role="button" aria-labelledby="theme-icon"><i id="theme-icon" class="fa-solid fa-sun" aria-hidden="true" title="toggle theme"></i></a>
+          </li>
+        </ul>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+
+
+
+
+  
+    
+
+
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="https://thomasgraceman.github.io/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="https://thomasgraceman.github.ioposts" itemprop="item"><span itemprop="name">Posts</span></a>
+          <meta itemprop="position" content="2" />
+        </li>
+        <span class="sep">/</span>
+      
+    
+      
+      
+        <li class="current">Dynamic Approximate Nearest-Neighbor Search in Doubling Metrics</li>
+      
+    
+  </ol>
+</nav>
+  
+
+
+<div id="main" role="main">
+  
+
+
+  <div class="sidebar sticky">
+  
+
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  <div class="author__avatar">
+    
+    	<img src="https://thomasgraceman.github.io/images/profile.png" class="author__avatar" alt="Taha"  fetchpriority="high" />
+    
+  </div>
+
+  <div class="author__content">
+    <h3 class="author__name">Taha</h3>
+    
+    <p class="author__bio">Hi, I am Taha.</p>
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      <!-- Font Awesome icons / Biographic information  -->
+      
+        <li class="author__desktop"><i class="fas fa-fw fa-location-dot icon-pad-right" aria-hidden="true"></i>Iran</li>
+      
+      
+        <li class="author__desktop"><i class="fas fa-fw fa-building-columns icon-pad-right" aria-hidden="true"></i>Sharif University of Technology</li>
+      
+      
+      
+        <li><a href="mailto:tahahoseinpourasli@gmail.com"><i class="fas fa-fw fa-envelope icon-pad-right" aria-hidden="true"></i>Email</a></li>
+      
+
+      <!-- Font Awesome and Academicons icons / Academic websites -->
+      
+            
+      
+            
+      
+      
+                              
+      
+      
+      
+      
+      
+
+      <!-- Font Awesome icons / Repositories and software development -->
+      
+            
+            
+      
+        <li><a href="https://github.com/thomasgraceman"><i class="fab fa-fw fa-github icon-pad-right" aria-hidden="true"></i>GitHub</a></li>
+      
+            
+            
+
+      <!-- Font Awesome icons / Social media -->
+              
+      
+      
+            
+      
+                  
+                  
+      
+            
+            
+            
+      
+            
+                  
+            
+      
+            
+            
+      
+        <li><a href="https://twitter.com/thomas_ger"><i class="fab fa-fw fa-x-twitter icon-pad-right" aria-hidden="true"></i>X (formerly Twitter)</a></li>
+      
+              
+      
+                      
+      
+      
+            
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Dynamic Approximate Nearest-Neighbor Search in Doubling Metrics">
+    <meta itemprop="description" content="Well, in this blog post we are going to review several papers and understand the techniques that are utilized in order to tackle several problems related to areas such as nearest neighbor problems, the facility location problem, and so on.">
+    <meta itemprop="datePublished" content="August 06, 2026">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Dynamic Approximate Nearest-Neighbor Search in Doubling Metrics
+</h1>
+          
+            <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  18 minute read
+	
+</p>
+          
+        
+        
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-08-06T00:00:00+00:00">August 06, 2026</time></p>
+            
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        <p>Well, in this blog post we are going to review several papers and understand the techniques that are utilized in order to tackle several problems related to areas such as nearest neighbor problems, the facility location problem, and so on.</p>
+
+<p>I am going to study and explain three papers which have led to a dynamic solution for the facility location problem.</p>
+
+<p>Ok, I think in the series of the several papers that I am going to review, the data structure designed by James Lee and his co-author is a revealing piece.</p>
+
+<p>Nearest-neighbor search (NNS) is the problem of preprocessing a set $S$ of $n$ points lying in a huge (possibly infinite) metric space $(M,d)$ so that, given a query $q \in M$, one can efficiently locate the nearest point to $q$ among the points in $S$.</p>
+
+<p>Let $q$ be the query and $a \in S$ the closest point to $q$ in $S$. Then a $(1+\varepsilon)$-NNS algorithm is one which, given $q$, returns some $s \in S$ such that</p>
+
+\[d(q,s) \leq (1+\varepsilon)\, d(q,a).\]
+
+<p>So while it is NP-hard to return the nearest neighbor, it is worthwhile to examine whether we can approximate the answer in an efficient manner. Lee and his co-author used a very interesting classic idea: move from coarse to fine approximation. In a sense, their data structure is analogous to the binary search algorithm, with an extra twist and turn. Moreover, they employ the idea of doubling dimension as a means to count the complexity of the algorithm that they propose.</p>
+
+<p>The doubling dimension of a metric space $(X,d)$, denoted in this post by $\dim(X)$, is the minimum value $\rho$ such that every set in $X$ can be covered by $2^{\rho}$ sets of half the diameter. (The diameter of a set $S \subseteq X$ is</p>
+
+\[\sup\{\,d(x,y) : x,y \in S\,\}.\]
+
+<p>)</p>
+
+<p>A metric space is called <em>doubling</em> if its doubling dimension is $O(1)$. This notion of dimension measures the “volume growth” of $X$.</p>
+
+<p>So, following the paper, we want to prove the following result:</p>
+
+<p><strong>Theorem.</strong> Let $(S,d)$ be a finite metric space with doubling dimension $\dim(S)$ and aspect ratio $\Delta=\Delta_S$, defined as</p>
+
+\[\Delta_S = \frac{\displaystyle\max_{x,y\in S} d(x,y)}{\displaystyle\min_{\substack{x,y\in S\\x\neq y}} d(x,y)}.\]
+
+<p>Then there exists a dynamic data structure for approximate nearest-neighbor search with the following properties:</p>
+
+<ol>
+  <li>The data structure uses $O(n)$ space if $S$ is doubling.</li>
+  <li>It answers $(1+\varepsilon)$-nearest-neighbor queries in</li>
+</ol>
+
+\[O(\log \Delta)+\left(\frac{1}{\varepsilon}\right)^{O(1)}\]
+
+<p>time.</p>
+<ol>
+  <li>It supports insertions and deletions in</li>
+</ol>
+
+\[O(\log \Delta\,\log\log \Delta)\]
+
+<p>time.</p>
+
+<p>Moreover, in most applications,</p>
+
+\[\Delta=\operatorname{poly}(|S|),\]
+
+<p>and therefore</p>
+
+\[\log\Delta=O(\log n).\]
+
+<p>The running time depends exponentially on $\dim(S)$. Furthermore, in the distance-oracle model, where access to the ambient metric space is restricted to distance queries, this exponential dependence on the doubling dimension is necessary.</p>
+
+<p>So let us first follow a simplified version of the data structure.</p>
+
+<p>Let $(S,d)$ be the metric space against which queries are performed. For the sake of this informal discussion, assume that the minimum interpoint distance in $S$ satisfies</p>
+
+\[\min\{d(x,y): x,y\in S,\ x\neq y\}=1.\]
+
+<p>Under this assumption, the aspect ratio $\Delta$ is simply the diameter of $S$.</p>
+
+<p>In what follows, for a subset $R\subseteq S$ and a point $x\in M$, we define</p>
+
+\[d(x,R)=\inf_{y\in R} d(x,y).\]
+
+<p>Let $k=\log \Delta$, and for each $i=0,1,\ldots,k$, let $Y_i$ be a $2^i$-net of $S$. For every point $y\in Y_i$, define the set</p>
+
+\[L_{y,i} = \left\{ z\in Y_{i-1} : d(y,z)\leq \gamma 2^i \right\},\]
+
+<p>where $\gamma$ is a constant to be specified later.</p>
+
+<p>So what are we going to do here? We are providing details from coarse to fine for the underlying data structure! And $L_{y,i}$ gives us a means to search through the metric space. I would rather call them approximate $2^{i-1}$ neighbors of the given point. So we have a means of sparsifying the metric space, and we build a tree based on the sparsification. It is obvious that we can build the nets in a greedy manner.</p>
+
+<p>Since $L_{y,i}\subseteq Y_{i-1}$, and $Y_{i-1}$ is a $2^{i-1}$-net, any two distinct points of $L_{y,i}$ satisfy</p>
+
+\[d(z_1,z_2)\ge 2^{i-1}, \qquad \forall\, z_1\neq z_2\in L_{y,i}.\]
+
+<p>Hence, the minimum interpoint distance in $L_{y,i}$ is $2^{i-1}$.</p>
+
+<p>Moreover, by the definition</p>
+
+\[L_{y,i} = \{z\in Y_{i-1}: d(y,z)\le \gamma 2^i\},\]
+
+<p>every point of $L_{y,i}$ lies within distance $\gamma 2^i$ of the center $y$. Therefore, for any $z_1,z_2\in L_{y,i}$, the triangle inequality gives</p>
+
+\[d(z_1,z_2) \le d(z_1,y)+d(y,z_2) \le \gamma 2^i+\gamma 2^i = \gamma 2^{i+1}.\]
+
+<p>Thus,</p>
+
+\[\operatorname{diam}(L_{y,i}) \le \gamma 2^{i+1}.\]
+
+<p>Consequently, the aspect ratio of $L_{y,i}$ is bounded by</p>
+
+\[\frac{\operatorname{diam}(L_{y,i})}{\min\{d(z_1,z_2):z_1\neq z_2,\ z_1,z_2\in L_{y,i}\}} \le \frac{\gamma 2^{i+1}}{2^{i-1}} = 4\gamma,\]
+
+<p>which is a constant.</p>
+
+<p>So, in order to count the number of children of any node in the tree, we use the doubling property and use that to count the number of children.</p>
+
+<p><strong>Lemma.</strong> Let $(S,d)$ be a metric space, and let $Y\subseteq S$. If the aspect ratio of the metric induced on $Y$ is at most $\alpha$, where $\alpha\ge 2$, then</p>
+
+\[|Y|\le \alpha^{O(\dim(S))}.\]
+
+<p><em>Proof.</em> Let</p>
+
+\[d_{\min} = \inf\{d(x,y):x,y\in Y,\ x\neq y\}\]
+
+<p>and</p>
+
+\[d_{\max} = \sup\{d(x,y):x,y\in Y\}\]
+
+<p>be the minimum and maximum interpoint distances in $Y$, respectively. Assume that</p>
+
+\[\alpha=\frac{d_{\max}}{d_{\min}}&lt;\infty.\]
+
+<p>Notice that $Y$ is contained in a ball of radius</p>
+
+\[2d_{\max}\le 2\alpha d_{\min},\]
+
+<p>centered at any point of $Y$.</p>
+
+<p>Applying the definition of doubling dimension iteratively, this ball (and hence $Y$) can be covered by</p>
+
+\[2^{\dim(S)\cdot O(\log\alpha)}\]
+
+<p>balls of radius</p>
+
+\[\frac{d_{\min}}{3}.\]
+
+<p>Each such ball can contain at most one point of $Y$. Indeed, if two distinct points of $Y$ were contained in the same ball, then by the triangle inequality their distance would be at most</p>
+
+\[2\cdot\frac{d_{\min}}{3} = \frac{2d_{\min}}{3} &lt; d_{\min},\]
+
+<p>contradicting the definition of $d_{\min}$.</p>
+
+<p>Therefore,</p>
+
+\[|Y| \le 2^{\dim(S)\cdot O(\log\alpha)} = \alpha^{O(\dim(S))}.\]
+
+<p>When $S$ is a doubling metric, the Lemma implies that</p>
+
+\[|L_{y,i}|=O(1),\]
+
+<p>where the hidden constant depends only on the choice of $\gamma$ (and the doubling dimension of $S$).</p>
+
+<p>Furthermore, the top-level net $Y_k$ contains exactly one (arbitrary) point, which we denote by</p>
+
+\[y_{\mathrm{top}}.\]
+
+<p>Given a query point $q\in M$, we first set</p>
+
+\[y=y_{\mathrm{top}}.\]
+
+<p>Then, iteratively for</p>
+
+\[i=k,k-1,\ldots,1,\]
+
+<p>we find the point in</p>
+
+\[L_{y,i}\subseteq Y_{i-1}\]
+
+<p>that is closest to $q$, and update $y$ to be this point for the next iteration.</p>
+
+<p>If, at some stage, we reach a point such that</p>
+
+\[d(q,L_{y,i})&gt;3\cdot 2^{i-1},\]
+
+<p>then we stop the procedure and output the current value of $y$. Otherwise, after completing all iterations, we output the final value</p>
+
+\[y\in Y_0.\]
+
+<p>First, notice that the running time of this algorithm is at most</p>
+
+\[O(\log \Delta),\]
+
+<p>since finding the closest point to $q$ among a list $L_{y,i}$ takes constant time. This follows from the fact that every list has size</p>
+
+\[|L_{y,i}|=O(1).\]
+
+<p>It remains only to prove that the output point $y$ is a $3$-approximation to the nearest neighbor. Let $a\in S$ be the true nearest neighbor of $q$. We need to show that</p>
+
+\[d(q,y)\leq 3d(q,a).\]
+
+<p>To this end, let $j$ be such that</p>
+
+\[d(q,y)\leq 3\cdot 2^j,\]
+
+<p>but</p>
+
+\[d(q,L_{y,j})&gt;3\cdot 2^{j-1},\]
+
+<p>i.e., the step in which the distance does not decrease by a factor of $2$. Since the closest $2^{j-1}$-net point to $a$ satisfies</p>
+
+\[d(a,L_{y,j})\leq 2^{j-1},\]
+
+<p>the closest $2^{j-1}$-net point to $a$ is contained in $L_{y,j}$. Let $y^*\in Y_{j-1}$ be such that</p>
+
+\[d(a,y^*)\leq 2^{j-1}.\]
+
+<p>We need to show that</p>
+
+\[d(y^*,y)\leq \gamma 2^j.\]
+
+<p>In this case, we have $y^*\in L_{y,j}$. Using the triangle inequality,</p>
+
+\[\begin{aligned}
+d(y^*,y) &amp;\leq d(y^*,a)+d(a,y)\\
+&amp;\leq 2^{j-1}+d(a,q)+d(q,y)\\
+&amp;\leq 2^{j-1}+2d(q,y)\\
+&amp;\leq 7\cdot 2^j .
+\end{aligned}\]
+
+<p>Therefore, choosing</p>
+
+\[\gamma=7\]
+
+<p>suffices.</p>
+
+<p>This shows that the descent process “tracks” the closest net point to $a$. Now, we have</p>
+
+\[3\cdot 2^{j-1} &lt; d(q,L_{y,j}) \leq d(q,a)+d(a,L_{y,j}) \leq d(q,a)+2^{j-1}.\]
+
+<p>Hence,</p>
+
+\[d(q,a)&gt;2^j.\]
+
+<p>Since</p>
+
+\[d(q,y)\leq 3\cdot 2^j,\]
+
+<p>we conclude that</p>
+
+\[d(q,y)\leq 3d(q,a).\]
+
+<p>Therefore, $y$ is a $3$-approximate nearest neighbor of $q$.</p>
+
+<p>Similar arguments show that if the algorithm terminates with</p>
+
+\[y\in Y_0,\]
+
+<p>then $y$ is actually the closest point to $q$ in $S$, because we have a $1$-net and we have the closest point to $a$ in the set $L_{y,i}$.</p>
+
+<p>For a technical reason, the above data structure does not support efficient deletions and might require space</p>
+
+\[\Omega(n\log\Delta).\]
+
+<p>The main remedy for these latter problems is to choose $Y_i$ to be a $2^i$-net of $Y_{i-1}$ rather than a $2^i$-net of $S$.</p>
+
+<p>Let us get into the main algorithm.</p>
+
+<p>Let</p>
+
+\[\Gamma=\{2^i:i\in\mathbb{Z}\},\]
+
+<p>and call every value $r\in\Gamma$ a <em>scale</em>. Only $O(\log\Delta)$ of these scales are relevant; the remaining scales are trivial.</p>
+
+<p>For every $r\in\Gamma$, let $Y_r$ be an $r$-net of $Y_{r/2}$. We define</p>
+
+\[Y_r:=S\]
+
+<p>for all scales</p>
+
+\[r\leq d_{\min}.\]
+
+<p>For every $r\in\Gamma$ and every $y\in Y_r$, …</p>
+
+<p>so we are making the details more coarse by only having the nets in $Y_i$ instead of $S$.</p>
+
+<p>For every $r\in\Gamma$ and every $y\in Y_r$, the data structure stores a list of the nearby points to $y$ among the $(r/2)$-net $Y_{r/2}$. This scale-$r$ navigation list of $y$ is defined as</p>
+
+\[L_{y,r} := \left\{ z\in Y_{r/2}: d(z,y)\leq \gamma r \right\},\]
+
+<p>where $\gamma&gt;0$ is a universal constant.</p>
+
+<p>So we are roughly halving the distance at each step.</p>
+
+<p><strong>Lemma.</strong> For every scale $r$, the following properties hold:</p>
+
+<ol>
+  <li>
+    <p><strong>Covering:</strong>
+\(d(z,Y_r)&lt;2r\)
+for every $z\in S$.</p>
+  </li>
+  <li>
+    <p><strong>Packing:</strong>
+\(d(x,y)\geq r\)
+for every $x,y\in Y_r$ with $x\neq y$.</p>
+  </li>
+</ol>
+
+<p>The proofs are easy, and the first one follows by induction. So, it adheres to our intuition of having a rougher estimation while also helping us to preserve space in our algorithm.</p>
+
+<p>We also have the following lemma.</p>
+
+<p><strong>Lemma.</strong> The size of every navigation list is at most</p>
+
+\[2^{O(\dim(S))}.\]
+
+<p>which has the same proof as before.</p>
+
+<p>The data structure maintains this point $y_{\mathrm{top}}$ and the cutoff scale</p>
+
+\[r_{\max} := \min\{r\in\Gamma:\forall r'\geq r,\ |Y_{r'}|=1\},\]
+
+<p>for the sake of bootstrapping most of the operations.</p>
+
+<p>Third, for all scales</p>
+
+\[r\leq d_{\min},\]
+
+<p>the net $Y_r$ is equal to $S$. Therefore, for scales</p>
+
+\[r\leq d_{\min}/2,\]
+
+<p>every point $x\in S$ has a trivial list</p>
+
+\[L_{x,r}=\{x\}.\]
+
+<p>These trivial lists can be represented succinctly by storing, for every $x\in S$, a scale $r_x\in\Gamma$ below which all lists of $x$ are trivial. For the sake of analysis, define</p>
+
+\[r_{\min}:=\min\{r_x:x\in S\}.\]
+
+<p><strong>Lemma.</strong> The cutoff scales satisfy</p>
+
+\[r_{\max}=\Theta(d_{\max})\]
+
+<p>and</p>
+
+\[r_{\min}=\Theta(d_{\min}).\]
+
+<p>Consequently, every point has</p>
+
+\[O(\log\Delta)\]
+
+<p>non-trivial navigation lists.</p>
+
+<p>The proof is easy.</p>
+
+<p>Combining the above results, we obtain an upper bound on the total space required by the data structure. Specifically, the space complexity is</p>
+
+\[n\cdot 2^{O(\dim(X))}\log\Delta .\]
+
+<p>For each point $x\in S$, the non-trivial navigation lists of $x$ are stored using, for example, a balanced search tree. This requires linear space and supports the operations find, insert, and delete in logarithmic time.</p>
+
+<p>It then follows from Lemma 2.3 that inserting a new navigation list for a point can be performed in time</p>
+
+\[O(\log\log\Delta).\]
+
+<p><strong>Theorem.</strong> The size of the data structure is</p>
+
+\[2^{O(\dim(S))}\cdot n\]
+
+<p>words.</p>
+
+<p><em>Proof.</em> The proof bounds the size using a charging argument.</p>
+
+<p><strong>Definition.</strong> A subset $Z_r\subseteq Y_r$ is called <em>non-proper</em> if it contains only one point $x$ and</p>
+
+\[r_x&gt;r.\]
+
+<p>Otherwise, $Z_r$ is called <em>proper</em>.</p>
+
+<p><strong>Algorithm: Approx-NNS</strong></p>
+
+<p><em>Input:</em> $q\in X$ and $\varepsilon&gt;0$.</p>
+
+<ol>
+  <li>Set</li>
+</ol>
+
+\[r=r_{\max}\]
+
+<p>and</p>
+
+\[Z_r=\{y_{\mathrm{top}}\}.\]
+
+<ol>
+  <li>While</li>
+</ol>
+
+\[2r\left(1+\frac{1}{\varepsilon}\right)&gt;d(q,Z_r)\]
+
+<p>and $Z_r$ is proper, do:</p>
+
+<p>a. Set</p>
+
+\[Z_{r/2} = \left\{ y\in \bigcup_{z\in Z_r}L_{z,r} : d(q,y)\leq d(q,Z_r)+r \right\}.\]
+
+<p>b. Set</p>
+
+\[r=r/2.\]
+
+<ol>
+  <li>Return the point $z\in Z_r$ for which</li>
+</ol>
+
+\[d(q,z)\]
+
+<p>is minimal.</p>
+
+<p><strong>Lemma.</strong> Let $a$ be a closest point to $q$ among $S$. Then every set $Z_r$ computed by Procedure Approx-NNS contains a point $z_r$ such that</p>
+
+\[d(a,z_r)\leq 2r.\]
+
+<p><strong>Lemma.</strong> Procedure Approx-NNS outputs a point whose distance from $q$ is at most</p>
+
+\[(1+\varepsilon)d(q,S).\]
+
+<p><em>Proof.</em> Let $r^*$ be the value of $r$ at the end of the procedure. It suffices to prove that</p>
+
+\[d(q,Z_{r^*})\leq (1+\varepsilon)d(q,S),\]
+
+<p>because then the proof follows from the choice made in line 5 of the procedure.</p>
+
+<p>There are two conditions in line 2 that may cause the while-loop to terminate. First, consider the case where</p>
+
+\[2r^*\left(1+\frac{1}{\varepsilon}\right) \leq d(q,Z_{r^*}).\]
+
+<p>By the previous lemma, we know that</p>
+
+\[d(q,Z_{r^*})\leq d(q,S)+2r^*.\]
+
+<p>Combining the above inequalities, we obtain</p>
+
+\[\frac{2r^*}{\varepsilon}\leq d(q,S).\]
+
+<p>Substituting this bound back into the previous inequality gives</p>
+
+\[d(q,Z_{r^*}) \leq d(q,S)+2r^* \leq (1+\varepsilon)d(q,S),\]
+
+<p>as desired.</p>
+
+<p>Consider now the case where $Z_{r^*}$ is non-proper. We may assume that</p>
+
+\[d(q,Z_{r^*})&gt;0,\]
+
+<p>otherwise the claim is immediate.</p>
+
+<p>For analysis, suppose we continue the procedure without the condition that $Z_r$ is proper. This process must terminate, since</p>
+
+\[d(q,Z_r)\geq d(q,S)&gt;0,\]
+
+<p>while</p>
+
+\[2r\left(1+\frac{1}{\varepsilon}\right)\rightarrow 0.\]
+
+<p>Moreover, the returned point remains unchanged, because all further sets $Z_r$ for $r&lt;r^<em>$ contain the same single point as $Z_{r^</em>}$. It is easy to see that the above analysis (including Lemma 2.4) also applies to the modified procedure. Therefore, both the modified and the actual procedure satisfy</p>
+
+\[d(q,Z_{r^*})\leq (1+\varepsilon)d(q,S).\]
+
+<p>In fact, if the procedure stops with a non-proper set $Z_r$, then it returns the unique closest point to $q$ in $S$. This follows by applying the same modified-procedure argument with an arbitrarily small $\varepsilon&gt;0$.</p>
+
+<p><strong>Lemma.</strong> Procedure Approx-NNS runs in time</p>
+
+\[2^{O(\dim(S))}\log\Delta + (1/\varepsilon)^{O(\dim(S))}.\]
+
+<p><em>Proof.</em> Since the distance between any two points of</p>
+
+\[Z_{r/2}\subseteq Y_{r/2}\]
+
+<p>is at least $r/2$, Lemma 1.2 implies that</p>
+
+\[|Z_{r/2}| \leq (2+1/\varepsilon)^{O(\dim(S))}.\]
+
+<p>A simpler bound is obtained by separately bounding the number of iterations of the procedure and the running time of a single iteration. For the first part, consider the number of iterations performed by the procedure.</p>
+
+<p><strong>Theorem.</strong> The data structure can be updated after inserting a point into $S$ in time</p>
+
+\[2^{O(\dim(S))}\log\Delta\log\log\Delta .\]
+
+<p>This update includes</p>
+
+\[2^{O(\dim(S))}\log\Delta\]
+
+<p>distance computations.</p>
+
+<p><em>Proof sketch.</em> The main idea is that, regardless of how the nets were constructed, each $r$-net $Y_r$ can be updated after an insertion of a new point $q$ by either adding $q$ to $Y_r$ or leaving it unchanged.</p>
+
+<p>This follows by induction on the scale $r$. For the base case, consider a sufficiently small scale $r$. By definition, $Y_r$ contains all points of $S$, and therefore $q$ must be added to this net.</p>
+
+<p>For the inductive step, first assume that the update to $Y_{r/2}$ leaves it unchanged. In this case, $Y_r$ also remains unchanged. Otherwise, suppose that $q$ is added to $Y_{r/2}$. We then update $Y_r$ by adding $q$ to it if and only if</p>
+
+\[d(q,Y_r)\geq r.\]
+
+<p>This guarantees that $Y_r$ remains an $r$-net of $Y_{r/2}$ (although other valid updates are also possible).</p>
+
+<p>To decide whether</p>
+
+\[d(q,Y_r)\geq r,\]
+
+<p>we use a set $Z_r$ that contains all points of $Y_r$ that are sufficiently close to $q$.</p>
+
+<p>Recall that the net $Y_r$ is maintained only through its navigation lists. Therefore, adding $q$ to $Y_r$ requires constructing the scale-$r$ navigation list of $q$ and updating the scale-$2r$ navigation lists of nearby points. Both tasks are performed using the sets $Z_r$.</p>
+
+<p>The proof uses induction on the scale $r$ to decide whether a new point $q$ should be added to the net $Y_r$.</p>
+
+<p><strong>Base case (smallest scale).</strong> At the finest scale, $Y_r$ contains all points of $S$ by definition. Therefore, the new point $q$ must be added to $Y_r$.</p>
+
+<p><strong>Inductive step.</strong> Assume that the update rule is correct for the smaller scale $r/2$. We consider two cases.</p>
+
+<ol>
+  <li><strong>$q$ is not added to $Y_{r/2}$.</strong></li>
+</ol>
+
+<p>In this case, $q$ is already within distance less than $r/2$ of some point in $Y_{r/2}$. Hence, it is also covered at scale $r$, and there is no need to add $q$ to $Y_r$.</p>
+
+<ol>
+  <li><strong>$q$ is added to $Y_{r/2}$.</strong></li>
+</ol>
+
+<p>Now we decide whether $q$ should also be added to $Y_r$. The condition is whether $q$ is sufficiently far from all existing points of $Y_r$:</p>
+
+\[d(q,Y_r)\geq r.\]
+
+<p>If this condition holds, we add $q$ to $Y_r$. Otherwise, $Y_r$ remains unchanged.</p>
+
+<p>This update rule preserves the invariant that $Y_r$ is an $r$-net of $Y_{r/2}$.</p>
+
+<p><strong>Step 3: Using $Z_r$ for efficient distance checks.</strong></p>
+
+<p>A naive check of the condition</p>
+
+\[d(q,Y_r)\geq r\]
+
+<p>would require computing the distance from $q$ to every point in $Y_r$, which is too expensive.</p>
+
+<p>Instead, the algorithm maintains a local set $Z_r$ that contains all points of $Y_r$ that are sufficiently close to $q$. Since $S$ has bounded doubling dimension $\dim(S)$, the number of points that can exist in such a local neighborhood while maintaining the packing property of the net is bounded by</p>
+
+\[2^{O(\dim(S))}.\]
+
+<p>Therefore, it is sufficient to check the distance between $q$ and the points in $Z_r$. If no point in $Z_r$ is within distance $r$ of $q$, then</p>
+
+\[d(q,Y_r)\geq r,\]
+
+<p>and we add $q$ to $Y_r$. Otherwise, $Y_r$ remains unchanged.</p>
+
+<p><strong>Step 4: Updating the navigation lists.</strong></p>
+
+<p>If $q$ is added to $Y_r$, the update of the data structure is not complete yet. The navigation lists, which connect points between consecutive scales, must also be updated.</p>
+
+<p>First, we construct the scale-$r$ navigation list of $q$, which contains the nearby points of $q$ in the coarser net $Y_{2r}$.</p>
+
+<p>Second, we update the scale-$2r$ navigation lists of all nearby points in $Y_{2r}$ by adding $q$ as one of their neighbors.</p>
+
+<p>The set $Z_r$ is used to identify exactly the points whose navigation lists must be updated. Since $Z_r$ has size bounded by</p>
+
+\[2^{O(\dim(S))},\]
+
+<p>the update remains local and can be performed efficiently.</p>
+
+<p>The final update time is</p>
+
+\[2^{O(\dim(S))}\log\Delta\log\log\Delta .\]
+
+<p>The complexity can be understood as follows.</p>
+
+<p><strong>Local work.</strong> At each scale, the algorithm only examines the local set $Z_r$. By the doubling dimension bound,</p>
+
+\[|Z_r|\leq 2^{O(\dim(S))}.\]
+
+<p>Therefore, the distance computations and navigation-list updates performed at a single scale require</p>
+
+\[2^{O(\dim(S))}\]
+
+<p>time.</p>
+
+<p><strong>Data structure overhead.</strong> The navigation lists are maintained using balanced search trees. Each insertion or update of a navigation list requires an additional</p>
+
+\[O(\log\log\Delta)\]
+
+<p>overhead. Therefore, the total update time is</p>
+
+\[2^{O(\dim(S))} \cdot \log\Delta \cdot \log\log\Delta .\]
+
+<p>Moreover, at each of the $O(\log\Delta)$ scales, the algorithm computes distances only to the</p>
+
+\[2^{O(\dim(S))}\]
+
+<p>points in the corresponding local set $Z_r$. Hence, the total number of distance computations is</p>
+
+\[2^{O(\dim(S))}\log\Delta .\]
+
+<p>And the scale is handled automatically by the insertion update.</p>
+
+<h2 id="references">References</h2>
+
+<ul>
+  <li>R. Krauthgamer and J. R. Lee, <em>Navigating Nets: Simple Algorithms for Proximity Search</em>. In Proceedings of the Fifteenth Annual ACM-SIAM Symposium on Discrete Algorithms (SODA 2004), pp. 798–807. <a href="https://homes.cs.washington.edu/~jrl/papers/pdf/nn-soda.pdf">PDF</a></li>
+</ul>
+
+
+        
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="https://thomasgraceman.github.io/tags/#data-structures" class="page__taxonomy-item" rel="tag">data structures</a><span class="sep">, </span>
+    
+      
+      
+      <a href="https://thomasgraceman.github.io/tags/#doubling-dimension" class="page__taxonomy-item" rel="tag">doubling dimension</a><span class="sep">, </span>
+    
+      
+      
+      <a href="https://thomasgraceman.github.io/tags/#metric-spaces" class="page__taxonomy-item" rel="tag">metric spaces</a><span class="sep">, </span>
+    
+      
+      
+      <a href="https://thomasgraceman.github.io/tags/#nearest-neighbor-search" class="page__taxonomy-item" rel="tag">nearest neighbor search</a>
+    
+    </span>
+  </p>
+
+
+
+
+      </footer>
+
+      
+
+<section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://bsky.app/intent/compose?text=https://thomasgraceman.github.io/posts/dynamic-approximate-nns/" class="btn btn--bluesky" title="Share on Bluesky"><i class="fab fa-bluesky" aria-hidden="true"></i><span> Bluesky</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https://thomasgraceman.github.io/posts/dynamic-approximate-nns/" class="btn btn--facebook" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://thomasgraceman.github.io/posts/dynamic-approximate-nns/" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+
+  <a href="https://www.addtoany.com/add_to/mastodon?linkurl=https%3A%2F%2Fthomasgraceman.github.io%2Fposts%2Fdynamic-approximate-nns%2F" class="btn btn--mastodon" title="Share on Mastodon"><i class="fab fa-mastodon" aria-hidden="true"></i><span> Mastodon</span></a>
+
+  <a href="https://x.com/intent/post?text=https://thomasgraceman.github.io/posts/dynamic-approximate-nns/" class="btn btn--x" title="Share on X"><i class="fab fa-x-twitter" aria-hidden="true"></i><span> X (formerly Twitter)</span></a>
+</section>
+
+
+      
+
+
+  <nav class="pagination">
+    
+      <a href="https://thomasgraceman.github.io/posts/tree-embedding-high-dimensions-streaming-facility-location-geometric-hashing-2/" class="pagination--pager" title="Tree Embedding in High Dimensions: Dynamic and Massively Parallel, and Streaming Facility Location in High Dimension via Geometric Hashing – 2
+">Previous</a>
+    
+    
+      <a href="https://thomasgraceman.github.io/posts/dynamic-sum-of-radii-clustering/" class="pagination--pager" title="Dynamic Sum-of-Radii Clustering
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      
+        <h4 class="page__related-title">You May Also Enjoy</h4>
+      
+      <div class="grid__wrapper">
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "https://thomasgraceman.github.io/images/profile.png"
+          
+          alt="Dynamic Sum-of-Radii Clustering
+">
+      </div>
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="https://thomasgraceman.github.io/posts/dynamic-sum-of-radii-clustering/" rel="permalink">Dynamic Sum-of-Radii Clustering
+</a>
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  10 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-08-06T00:00:00+00:00">August 06, 2026</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><p>So in this second post, following the <a href="/posts/dynamic-approximate-nns/">previous data structure</a>, I am going to review some algorithms that were devised using the scheme of nearest neighbor search.</p>
+
+</p>
+    
+    
+    
+
+  </article>
+</div>
+
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "https://thomasgraceman.github.io/images/profile.png"
+          
+          alt="Tree Embedding in High Dimensions: Dynamic and Massively Parallel, and Streaming Facility Location in High Dimension via Geometric Hashing – 2
+">
+      </div>
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="https://thomasgraceman.github.io/posts/tree-embedding-high-dimensions-streaming-facility-location-geometric-hashing-2/" rel="permalink">Tree Embedding in High Dimensions: Dynamic and Massively Parallel, and Streaming Facility Location in High Dimension via Geometric Hashing – 2
+</a>
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  3 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-07-02T00:00:00+00:00">July 02, 2026</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><h1 id="tree-embedding-in-high-dimensions">Tree Embedding in High Dimensions</h1>
+<h2 id="dynamic-and-massively-parallel-and-streaming-facility-location-via-geometric-hashing">Dynamic and Massively Parallel, and Streaming Facility Location via Geometric Hashing</h2>
+
+</p>
+    
+    
+    
+
+  </article>
+</div>
+
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "https://thomasgraceman.github.io/images/profile.png"
+          
+          alt="Sparsification of Sums of Norms: Symmetrization, Generic Chaining, and Concentration — Chapter 3
+">
+      </div>
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="https://thomasgraceman.github.io/posts/sparsification-sums-of-norms-symmetrization-generic-chaining-chapter-3/" rel="permalink">Sparsification of Sums of Norms: Symmetrization, Generic Chaining, and Concentration — Chapter 3
+</a>
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  11 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-06-28T00:00:00+00:00">June 28, 2026</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><h1 id="sparsification-of-sums-of-norms">Sparsification of Sums of Norms</h1>
+<h2 id="symmetrization-generic-chaining-and-concentration--chapter-3">Symmetrization, Generic Chaining, and Concentration · Chapter 3</h2>
+
+</p>
+    
+    
+    
+
+  </article>
+</div>
+
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "https://thomasgraceman.github.io/images/profile.png"
+          
+          alt="Tree Embedding in High Dimensions: Dynamic and Massively Parallel
+">
+      </div>
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="https://thomasgraceman.github.io/posts/tree-embedding-high-dimensions-dynamic-mpc/" rel="permalink">Tree Embedding in High Dimensions: Dynamic and Massively Parallel
+</a>
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  13 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-06-17T00:00:00+00:00">June 17, 2026</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><h1 id="tree-embedding-in-high-dimensions-dynamic-and-massively-parallel">Tree Embedding in High Dimensions: Dynamic and Massively Parallel</h1>
+
+</p>
+    
+    
+    
+
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- Support for MatJax -->
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true
+    }
+  };
+</script>
+<script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script"></script>
+
+<!-- Support for Mermaid -->
+<script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({startOnLoad:true, theme:'default'});
+    await mermaid.run({querySelector:'code.language-mermaid'});
+</script>
+
+<!-- New post corner notice -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var notice = document.getElementById('new-post-notice');
+  if (!notice) return;
+
+  var postId = notice.dataset.postId;
+  var key = 'dismissed-post-' + postId;
+
+  if (localStorage.getItem(key) === '1') return;
+
+  notice.hidden = false;
+
+  notice.querySelector('.new-post-notice__close').addEventListener('click', function () {
+    localStorage.setItem(key, '1');
+    notice.remove();
+  });
+});
+</script>
+
+<!-- end custom footer snippets -->
+
+        
+
+
+<div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+    
+      <li><a href="https://github.com/thomasgraceman"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="https://thomasgraceman.github.io/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+
+<div class="page__footer-copyright">
+  &copy; 2026 Taha Hoseinpour, Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://github.com/academicpages/academicpages.github.io">AcademicPages</a>, a fork of <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.<br />
+  Site last updated 2026-08-06, <a href="/sitemap/" style="text-transform: uppercase;">Sitemap</a>
+</div>
+
+      </footer>
+    </div>
+
+    
+
+  
+  
+    
+    
+    
+    
+
+    
+      <div id="new-post-notice"
+           class="new-post-notice"
+           role="status"
+           aria-live="polite"
+           data-post-id="posts-dynamic-sum-of-radii-clustering"
+           hidden>
+        <button type="button" class="new-post-notice__close" aria-label="Dismiss notice">&times;</button>
+        <p class="new-post-notice__label">New post</p>
+        <a class="new-post-notice__link" href="https://thomasgraceman.github.io/posts/dynamic-sum-of-radii-clustering/">
+          Dynamic Sum-of-Radii Clustering
+        </a>
+      </div>
+    
+  
+
+
+    <script type="module" src="https://thomasgraceman.github.io/assets/js/main.min.js"></script>
+
+
+
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MGD7PS6X0W"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-MGD7PS6X0W');
+</script>
+
+
+
+
+
+
+
+
+  </body>
+</html>
+

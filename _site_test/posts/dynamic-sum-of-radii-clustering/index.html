@@ -1,0 +1,1128 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+
+<meta charset="utf-8">
+
+
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Dynamic Sum-of-Radii Clustering - A steeper descent</title>
+
+
+
+
+<meta name="description" content="Study notes on a dynamic algorithm for the sum-of-radii clustering problem in doubling metrics, built on the navigating-nets scheme.">
+
+
+
+
+<meta name="author" content="Taha Hoseinpour">
+
+
+<!-- Academic SEO: Google Scholar citation meta tags -->
+
+  <meta name="citation_title" content="Dynamic Sum-of-Radii Clustering">
+  <meta name="citation_author" content="Taha Hoseinpour">
+  <meta name="citation_publication_date" content="2026/08/06">
+  <meta name="citation_author_institution" content="Sharif University of Technology">
+  
+  <meta name="citation_public_url" content="https://thomasgraceman.github.io/posts/dynamic-sum-of-radii-clustering/">
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2026-08-06T00:00:00+00:00">
+
+
+
+
+  <link rel="canonical" href="https://thomasgraceman.github.io/posts/dynamic-sum-of-radii-clustering/">
+
+
+
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+
+
+
+  <meta name="twitter:site" content="@thomas_ger">
+  <meta name="twitter:title" content="Dynamic Sum-of-Radii Clustering">
+  
+  <meta name="twitter:description" content="Study notes on a dynamic algorithm for the sum-of-radii clustering problem in doubling metrics, built on the navigating-nets scheme.">
+  
+  <meta name="twitter:url" content="https://thomasgraceman.github.io/posts/dynamic-sum-of-radii-clustering/">
+
+  
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://thomasgraceman.github.io/images/profile.png">
+    <meta name="twitter:image:alt" content="Dynamic Sum-of-Radii Clustering">
+  
+
+  
+    <meta name="twitter:creator" content="@thomas_ger">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+
+  <meta name="google-site-verification" content="AZLgMz3hX8xkaa4pei-D3hJXOhMy1S3SWM0x66QI0zk" />
+
+
+
+
+<!-- end SEO -->
+
+<!-- Open Graph protocol data (https://ogp.me/), used by social media -->
+<meta property="og:locale" content="en-US">
+<meta property="og:site_name" content="A steeper descent">
+<meta property="og:title" content="Dynamic Sum-of-Radii Clustering">
+
+  <meta property="og:type" content="article">
+
+
+  <meta property="og:description" content="Study notes on a dynamic algorithm for the sum-of-radii clustering problem in doubling metrics, built on the navigating-nets scheme.">
+
+
+  <meta property="og:url" content="https://thomasgraceman.github.io/posts/dynamic-sum-of-radii-clustering/">
+
+
+  <meta property="og:image" content="https://thomasgraceman.github.io/images/profile.png">
+  <meta property="og:image:alt" content="Dynamic Sum-of-Radii Clustering">
+
+
+
+  
+  <meta property="article:author" content="Taha Hoseinpour">
+  
+  
+  
+  <meta property="article:tag" content="clustering, dynamic algorithms, facility location, doubling dimension, nearest neighbor search">
+  
+
+
+
+
+
+  
+  <meta name="keywords" content="clustering, dynamic algorithms, facility location, doubling dimension, nearest neighbor search">
+
+<!-- end Open Graph protocol -->
+
+<!-- Structured data (https://schema.org/) -->
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "A steeper descent",
+    "url": "https://thomasgraceman.github.io",
+    "description": "Research blog on theoretical computer science — metric embeddings, sparsification, generic chaining, and approximation algorithms. Notes on papers and books by Taha Hoseinpour.",
+    "inLanguage": "en-US"
+  }
+</script>
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": "https://thomasgraceman.github.io#person",
+    "name": "Taha Hoseinpour",
+    "url": "https://thomasgraceman.github.io",
+    "description": "Research blog on theoretical computer science — metric embeddings, sparsification, generic chaining, and approximation algorithms. Notes on papers and books by Taha Hoseinpour."
+    ,
+    "jobTitle": "Graduate Student in Theoretical Computer Science"
+    
+    ,
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Sharif University of Technology"
+    },
+    "affiliation": {
+      "@type": "Organization",
+      "name": "Sharif University of Technology"
+    }
+    
+    ,
+    "homeLocation": {
+      "@type": "Place",
+      "name": "Iran"
+    }
+    
+    ,
+    "alumniOf": [
+      {
+        "@type": "CollegeOrUniversity",
+        "name": "Sharif University of Technology"
+      },
+      {
+        "@type": "CollegeOrUniversity",
+        "name": "Iran University of Science and Technology"
+      }
+      
+    ]
+    
+    ,
+    "image": "https://thomasgraceman.github.io/images/profile.png"
+    
+    ,
+    "email": "tahahoseinpourasli@gmail.com"
+    
+    ,
+    "sameAs": ["https://github.com/thomasgraceman","https://twitter.com/thomas_ger"]
+    
+  }
+</script>
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://thomasgraceman.github.io/posts/dynamic-sum-of-radii-clustering/"
+    },
+    "headline": "Dynamic Sum-of-Radii Clustering",
+    "description": "Study notes on a dynamic algorithm for the sum-of-radii clustering problem in doubling metrics, built on the navigating-nets scheme.",
+    "url": "https://thomasgraceman.github.io/posts/dynamic-sum-of-radii-clustering/",
+    "inLanguage": "en-US",
+    
+    "datePublished": "2026-08-06T00:00:00+00:00",
+    
+    
+    "dateModified": "2026-08-06T00:00:00+00:00",
+    
+    
+    "keywords": ["clustering","dynamic algorithms","facility location","doubling dimension","nearest neighbor search"],
+    
+    "author": {
+      "@type": "Person",
+      "@id": "https://thomasgraceman.github.io#person",
+      "name": "Taha Hoseinpour"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "A steeper descent",
+      "url": "https://thomasgraceman.github.io",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://thomasgraceman.github.io/images/profile.png"
+      }
+    }
+    ,
+    "image": "https://thomasgraceman.github.io/images/profile.png"
+    
+  }
+</script>
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Taha Hoseinpour",
+        "item": "https://thomasgraceman.github.io"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Dynamic Sum-of-Radii Clustering",
+        "item": "https://thomasgraceman.github.io/posts/dynamic-sum-of-radii-clustering/"
+      }
+    ]
+  }
+</script>
+
+
+
+<link href="https://thomasgraceman.github.io/feed.xml" type="application/atom+xml" rel="alternate" title="A steeper descent Feed">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="https://thomasgraceman.github.io/assets/css/main.css">
+
+    
+
+<!-- start custom head snippets -->
+
+<!-- Support for Academicons -->
+<link rel="stylesheet" href="https://thomasgraceman.github.io/assets/css/academicons.css"/>
+
+<!-- New post corner notice -->
+<link rel="stylesheet" href="https://thomasgraceman.github.io/assets/css/new-post-notice.css"/>
+
+<!-- favicon from https://commons.wikimedia.org/wiki/File:OOjs_UI_icon_academic-progressive.svg -->
+<link rel="apple-touch-icon" sizes="180x180" href="https://thomasgraceman.github.io/images/apple-touch-icon-180x180.png"/>
+<link rel="icon" type="image/svg+xml" href="https://thomasgraceman.github.io/images/favicon.svg"/>
+<link rel="icon" type="image/png" href="https://thomasgraceman.github.io/images/favicon-32x32.png" sizes="32x32"/>
+<link rel="icon" type="image/png" href="https://thomasgraceman.github.io/images/favicon-192x192.png" sizes="192x192"/>
+<link rel="manifest" href="https://thomasgraceman.github.io/images/manifest.json"/>
+<link rel="icon" href="/images/favicon.ico"/>
+<meta name="theme-color" content="#ffffff"/>
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <button><span class="navicon"></span></button>
+        <ul class="visible-links">
+          <li class="masthead__menu-item masthead__menu-item--lg persist ">
+            <a href="https://thomasgraceman.github.io/">A steeper descent</a>
+          </li>
+          
+            
+            <li class="masthead__menu-item ">
+              <a href="https://thomasgraceman.github.io/readinglist/">Reading List</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item ">
+              <a href="https://thomasgraceman.github.io/year-archive/">Blog Posts</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item ">
+              <a href="https://thomasgraceman.github.io/cv/">CV</a>
+            </li>
+          
+          <li id="theme-toggle" class="masthead__menu-item persist tail">
+            <a role="button" aria-labelledby="theme-icon"><i id="theme-icon" class="fa-solid fa-sun" aria-hidden="true" title="toggle theme"></i></a>
+          </li>
+        </ul>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+
+
+
+
+  
+    
+
+
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="https://thomasgraceman.github.io/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="https://thomasgraceman.github.ioposts" itemprop="item"><span itemprop="name">Posts</span></a>
+          <meta itemprop="position" content="2" />
+        </li>
+        <span class="sep">/</span>
+      
+    
+      
+      
+        <li class="current">Dynamic Sum-of-Radii Clustering</li>
+      
+    
+  </ol>
+</nav>
+  
+
+
+<div id="main" role="main">
+  
+
+
+  <div class="sidebar sticky">
+  
+
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  <div class="author__avatar">
+    
+    	<img src="https://thomasgraceman.github.io/images/profile.png" class="author__avatar" alt="Taha"  fetchpriority="high" />
+    
+  </div>
+
+  <div class="author__content">
+    <h3 class="author__name">Taha</h3>
+    
+    <p class="author__bio">Hi, I am Taha.</p>
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      <!-- Font Awesome icons / Biographic information  -->
+      
+        <li class="author__desktop"><i class="fas fa-fw fa-location-dot icon-pad-right" aria-hidden="true"></i>Iran</li>
+      
+      
+        <li class="author__desktop"><i class="fas fa-fw fa-building-columns icon-pad-right" aria-hidden="true"></i>Sharif University of Technology</li>
+      
+      
+      
+        <li><a href="mailto:tahahoseinpourasli@gmail.com"><i class="fas fa-fw fa-envelope icon-pad-right" aria-hidden="true"></i>Email</a></li>
+      
+
+      <!-- Font Awesome and Academicons icons / Academic websites -->
+      
+            
+      
+            
+      
+      
+                              
+      
+      
+      
+      
+      
+
+      <!-- Font Awesome icons / Repositories and software development -->
+      
+            
+            
+      
+        <li><a href="https://github.com/thomasgraceman"><i class="fab fa-fw fa-github icon-pad-right" aria-hidden="true"></i>GitHub</a></li>
+      
+            
+            
+
+      <!-- Font Awesome icons / Social media -->
+              
+      
+      
+            
+      
+                  
+                  
+      
+            
+            
+            
+      
+            
+                  
+            
+      
+            
+            
+      
+        <li><a href="https://twitter.com/thomas_ger"><i class="fab fa-fw fa-x-twitter icon-pad-right" aria-hidden="true"></i>X (formerly Twitter)</a></li>
+      
+              
+      
+                      
+      
+      
+            
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Dynamic Sum-of-Radii Clustering">
+    <meta itemprop="description" content="So in this second post, following the previous data structure, I am going to review some algorithms that were devised using the scheme of nearest neighbor search.">
+    <meta itemprop="datePublished" content="August 06, 2026">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Dynamic Sum-of-Radii Clustering
+</h1>
+          
+            <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  16 minute read
+	
+</p>
+          
+        
+        
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-08-06T00:00:00+00:00">August 06, 2026</time></p>
+            
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        <p>So in this second post, following the <a href="/posts/dynamic-approximate-nns/">previous data structure</a>, I am going to review some algorithms that were devised using the scheme of nearest neighbor search.</p>
+
+<p><strong>Definition (Dynamic Sum-of-Radii Clustering).</strong> They studied the dynamic sum-of-radii clustering problem, defined as follows. The original input consists of a (possibly infinite) set $V$ of potential clients or points, a finite set $F \subseteq V$ of facilities with an opening cost $f_j$ for each facility $j \in F$, and a metric $d$ over $V$.</p>
+
+<p>For the online input, a set $C$ of live clients evolves over time: at each timestep $t$, either a new client arrives and is added to $C$, or a client from $C$ departs and is removed from $C$, a query is made for the approximate cost of an optimal solution (<em>cost query</em>), or a query asks for the entire current solution (<em>solution query</em>).</p>
+
+<p>For the output, at each timestep the algorithm maintains a set of open facilities, each open facility $j$ being associated to a radius $R_j$, such that every client of $C$ is covered, i.e., belongs to some open ball $B(j, R_j)$, and the goal is to minimize the cost, namely, the sum over open facilities $j$ of $f_j + R_j$.</p>
+
+<p>The dynamic sum-of-radii clustering problem can actually be interpreted as a special case of dynamic set cover.</p>
+
+<p>The doubling dimension of a metric space $(V, d)$ is said to be bounded by $\kappa$ if any ball $B(x, r)$ in $(V, d)$ can be covered by $2^\kappa$ balls of radius $r/2$, as defined in the previous post based on Lee’s paper.</p>
+
+<p>The algorithm designed by them answers cost queries in constant time and solution queries in linear time in the size of the solution, up to a factor of $\log(W/f_{\min})$, where $W$ is the diameter of the metric space and $f_{\min}$ is the minimum opening cost of any facility.</p>
+
+<p><strong>Theorem.</strong> There exists an algorithm for the dynamic sum-of-radii clustering problem, when clients and facilities live in a metric space with doubling dimension $\kappa$, such that at every timestep the solution has cost at most $O(2^{2\kappa})$ times the cost of an optimal solution at that time, and such that the update time is $O(2^{6\kappa} \log(W/f_{\min}))$, where $W$ is the diameter of the space, $n$ is the current number of clients, and $f_{\min}$ is the minimum opening cost. A cost query can be answered in constant time, and a solution query in time $O(s \log(W/f_{\min}))$, where $s$ is the size of the output.</p>
+
+<p>There exists a collection $\Pi$ of pairs $\langle j, r \rangle$ where $j \in F$ and $r$ is a non-negative integer, each with an associated area $A(j, r)$ of $V$, and an abstract tree $T$ over $\Pi$, with the following properties:</p>
+
+<ol>
+  <li>$T$ has height $O(\log(W/f_{\min}))$ and degree at most $2^{4\kappa}$.</li>
+  <li>The collection $\mathcal{A}$ of areas is a laminar family, its laminar structure is given by $T$, and for each area, $A(j, r) \subseteq B(j, 7 \cdot 5^r)$.</li>
+  <li>For any subset $C$ of $V$, there exists a collection $S$ of areas covering $C$ and whose cost,</li>
+</ol>
+
+\[\sum_{\langle j,r \rangle \in S} \left(f_j + 7 \cdot 5^r\right),\]
+
+<p>is $O(2^{2\kappa})$ times the optimal cost for $C$.</p>
+
+<p>So if you pay close attention, they are really using the scheme and the paradigm used by Lee and his co-author, really by maintaining a tree with nodes as a set of $Z_{r/2}$ (namely, the points that are sufficiently close in the $2^i$ net to the point that is being queried upon). But now the difficulty lies in the fact that we have to keep track of the opening cost, so we have to think of a heuristic there to come up with a good solution.</p>
+
+<p>So the algorithm runs in two phases: one processes the data and finds a solution, and the other maintains the solution by the successive updates that come along the way. They start by discretizing a potential solution to the problem.</p>
+
+<p><strong>Lemma.</strong> For all $C \subseteq V$, there exists a solution such that every ball $B(j, R)$ has $f_{\min} \leq f_j \leq R \leq 5 \cdot W$, the radius $R$ is an integer power of 5, and the cost is $O(\text{OPT})$.</p>
+
+<p><em>Proof.</em> Consider the unknown optimal solution. If some ball is such that $\max(f_j, R) &gt; W$, then replace the entire solution by a ball centered at the facility of cost $f_{\min}$ and of radius $W$. Else, for each ball $B(j, R)$ of the optimal solution:</p>
+
+<ul>
+  <li>if $f_j &gt; R$ then increase the radius of the ball from $R$ to $f_j$.</li>
+  <li>Increase $R$ to the smallest integer power of 5 that is greater than or equal to $R$.</li>
+</ul>
+
+<p>The new solution satisfies the desired constraints, and the cost has increased by a factor of 10 at most, which is not that hard to actually compute.</p>
+
+<p>A <em>logradius</em> is an integer $r$ such that $f_{\min} \leq 5^r \leq 5 \cdot W$. Let $\rho_{\min} = \lfloor \log_5 f_{\min} \rfloor$ and $\rho_{\max} = \lceil \log_5 W \rceil$. Then the number of different logradii, $\rho_{\max} - \rho_{\min} + 1$, is $O(\log(W/f_{\min}))$ (they are the relevant scales that had been used in Lee’s paper, but the scales are maintained by a power of 5).</p>
+
+<p>We construct a set $\Pi$ of pairs $\langle j, r \rangle$ where $j$ is a facility and $r$ is a logradius. For each logradius $r \in [\rho_{\min}, \rho_{\max}]$:</p>
+
+<ul>
+  <li>let $J’_r = {j \in F \mid f_j \leq 5^r }$.</li>
+  <li>let $J_r$ be a maximal subset of $J’_r$ such that any two facilities in $J_r$ are at distance greater than $5^{r+1}$.</li>
+</ul>
+
+\[\Pi \gets \bigcup_r \{ \langle j, r \rangle \mid j \in J_r \}.\]
+
+<p>Note that for $r = \rho_{\max}$, the set $J_r$ contains just one facility.</p>
+
+<p>So after we have constructed the coarse leveled information, we are going to construct a tree here:</p>
+
+<h2 id="hierarchical-decomposition-of-pi">Hierarchical decomposition of $\Pi$</h2>
+
+<p>Construct an abstract tree $T$ over $\Pi$ as follows (with ties broken arbitrarily):</p>
+
+<ul>
+  <li>the root of $T$ is the unique pair $\langle j, \rho_{\max} \rangle$.</li>
+  <li>for all $r &lt; \rho_{\max}$ and $j \in J_r$:
+    <ul>
+      <li>let $j’$ be the facility of $J_{r+1}$ closest to $j$</li>
+      <li>$\text{parent}(j, r) \gets \langle j’, r + 1 \rangle$</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>Lemma (Nesting of balls).</strong> If $\text{parent}(j, r) = \langle j’, r + 1 \rangle$, then $B(j, 7 \cdot 5^r) \subseteq B(j’, 7 \cdot 5^{r+1})$.</p>
+
+<p><em>Proof.</em> We have $\langle j, r \rangle \in \Pi$, so $j \in J’<em>r \subseteq J’</em>{r+1}$. By the Covering property of $\Pi$, the maximum distance from any point in $B(j, 7 \cdot 5^r)$ to $j’$ is $d(j, j’) + 7 \cdot 5^r \leq 5^{r+2} + 7 \cdot 5^r \leq 7 \cdot 5^{r+1}$.</p>
+
+<p><strong>Lemma.</strong> For any point $p$ and radius $r$, the set of pairs</p>
+
+\[\Pi(p, r) = \{ \langle j, r \rangle \in \Pi \mid d(p, j) &lt; 2^\alpha \cdot 5^{r+1} \}\]
+
+<p>has at most $2^{(\alpha+1)\kappa}$ elements, where $\kappa$ is the doubling dimension of the metric space.</p>
+
+<p><em>Proof.</em> By definition of doubling dimension, $B(p, 2^\alpha \cdot 5^{r+1})$ can be covered by a set of at most $(2^\kappa)^{\alpha+1}$ balls of radius $(1/2) \cdot 5^{r+1}$. By the Separating property of $\Pi$, any two pairs $\langle j, r \rangle$ of $\Pi(p, r)$ are at distance greater than $5^{r+1}$ from each other, hence must belong to different balls of the set, and so $\Pi(p, r)$ has cardinality at most $(2^\kappa)^{\alpha+1}$.</p>
+
+<p><strong>Lemma.</strong> A node $\langle j, r \rangle$ of $T$ has at most $2^{4\kappa}$ children.</p>
+
+<p><em>Proof.</em> Children of $\langle j, r \rangle$ have logradius $r - 1$, so by the Covering property of $\Pi$ their distance to $j$ is at most $5^r$. Thus, they belong to $\Pi(j, r - 1)$ for $\alpha = 3$, and so Lemma 4 applies.</p>
+
+<p>So, now just like the sets $Z$ that have been maintained in the data structure, they now construct a set of related areas.</p>
+
+<p>Recall that a collection $\mathcal{A}$ of sets is laminar if for any two $A, B \in \mathcal{A}$, either $A \cap B = \emptyset$ or $A \subseteq B$ or $B \subseteq A$. We partition $V$ into a laminar family of areas, denoted by $\mathcal{A}$, such that no two same-logradius areas overlap.</p>
+
+<p><strong>Algorithm: Constructing Laminar Areas</strong></p>
+
+<ol>
+  <li>For all $\langle j, r \rangle \in \Pi$: $A(j, r) \gets \emptyset$.</li>
+  <li>For all points $p \in V$:
+a. $r^* \gets \min { r \mid \exists \langle j, r \rangle \in \Pi \text{ such that } p \in B(j, 7 \cdot 5^r) }$.
+b. $\langle j^<em>, r^</em> \rangle \gets \arg\min_{\langle j, r^* \rangle} d(p, j)$ among all valid pairs with logradius $r^<em>$.
+c. Add $p$ to $A(j^</em>, r^<em>)$.
+d. For all $\langle j’, r’ \rangle$ that are ancestors of $\langle j^</em>, r^* \rangle$ in $T$:
+    <ul>
+      <li>Add $p$ to $A(j’, r’)$.</li>
+    </ul>
+  </li>
+</ol>
+
+<p><strong>Lemma.</strong> For every $\langle j, r \rangle \in \Pi$, $A(j, r) \subseteq B(j, 7 \cdot 5^r)$.</p>
+
+<p><em>Proof.</em> Let $p \in A(j, r)$. Either it has been added directly, in which case it belongs to $B(j, 7 \cdot 5^r)$, or it has been inherited, in which case it also belongs to it by Lemma 3.</p>
+
+<p><strong>Lemma.</strong> For every subset $C \subseteq V$ of clients there exists $S \subseteq \Pi$ such that $C$ is covered by $\cup {A(j, r) : \langle j, r \rangle \in S}$ and</p>
+
+\[\sum_{\langle j,r \rangle \in S} \left(f_j + 7 \cdot 5^r\right) = O(2^{2\kappa} \cdot \text{OPT}).\]
+
+<p>or:</p>
+
+\[\sum_{\langle j,r \rangle \in S^*} \sum_{\substack{\langle j',r \rangle \in \Pi \\ d(j,j') \leq 8 \cdot 5^r}} \left(f_{j'} + 7 \cdot 5^r\right)\]
+
+<p><em>Proof.</em> Let $S^<em>$ be a solution of cost $O(\text{OPT})$ satisfying the properties of Lemma 2. For each ball $B(j, 5^r)$ of $S^</em>$, put in $S$ all the pairs $\langle j’, r \rangle \in \Pi$ such that $d(j, j’) \leq 8 \cdot 5^r$.</p>
+
+<p>We claim that $C$ is covered by $\cup {A(j’, r) : \langle j’, r \rangle \in S}$. Indeed, consider a client $p \in C$ and a ball $B(j, 5^r)$ of $S^<em>$ containing $p$. By the Covering property of $\Pi$, there exists $\langle j’, r \rangle \in \Pi$ with $d(j, j’) \leq 5^{r+1}$. Then $d(p, j’) \leq 5^{r+1} + 5^r &lt; 7 \cdot 5^r$, and so in the definition of areas covering $p$ we must have $r^</em> \leq r$. Along the path from $\langle j^<em>, r^</em> \rangle$ to the root of $T$, there exists a pair for logradius $r$, $\langle j’’, r \rangle$. By definition of areas and by Lemma 6, $p \in A(j’’, r) \subseteq B(j’’, 7 \cdot 5^r)$, so $d(j, j’’) \leq d(j, p) + d(p, j’’) \leq 8 \cdot 5^r$, and therefore $\langle j’’, r \rangle \in S$ and $p$ is covered.</p>
+
+<p>In terms of costs, since all these areas are associated to pairs within distance $8 \cdot 5^r &lt; 2 \cdot 5^{r+1}$ from $j$, by Lemma 4 for $\alpha = 1$, there are at most $2^{2\kappa}$ of them.</p>
+
+<p>For one optimal ball $B(j, 5^r)$, the proof constructs at most $2^{O(\kappa)}$ nearby pairs. Each pair contributes</p>
+
+\[f_{j'} + 7 \cdot 5^r \leq 8 \cdot 5^r,\]
+
+<p>so the total charge is</p>
+
+\[2^{O(\kappa)} \cdot 5^r.\]
+
+<p>Using the equivalence above,</p>
+
+\[2^{O(\kappa)} \cdot 5^r = O\left(2^{O(\kappa)} (f_j + 5^r)\right),\]
+
+<p>which is exactly a constant-factor multiple of the cost of the original optimal ball. Therefore, summing over all balls in $S^*$,</p>
+
+\[\sum_{\text{optimal balls}} O\left(2^{O(\kappa)} (f_j + 5^r)\right) = O(2^{O(\kappa)} \cdot \text{OPT}).\]
+
+<p>Now, a simple dynamic bottom-up DP approach is used to compute the best possible costs within our coarsened information tree.</p>
+
+<p>Computing the optimal solution to the restricted problem in an offline manner is straightforward, thanks to the laminar structure of the candidate areas. We first compute, for each node $\langle j, r \rangle$ of $T$, the cost $c_{j,r} = f_j + c_2 \cdot 5^r$ of area $A(j, r)$, as well as the number $n_{j,r}$ of clients that are in area $A(j, r)$ but not in any of the areas of children nodes: since areas $A(j’, r-1)$ are all disjoint by laminarity, we have</p>
+
+\[n_{j,r} = |C \cap A(j, r)| - \sum_{\langle j',r-1 \rangle : \text{parent}(j', r-1) = j} |C \cap A(j', r-1)|.\]
+
+<p>We then compute the optimal cost $x_{j,r}$ of covering the clients of $C \cap A(j, r)$ using only areas of the subtree of $T$ rooted at $\langle j, r \rangle$, using the following bottom-up recurrence:</p>
+
+<p>For $\langle j, r \rangle \in \Pi$ in bottom-up order in $T$:</p>
+
+\[x_{j,r} = \begin{cases} c_{j,r} &amp; \text{if } n_{j,r} &gt; 0 \\ \min \left( c_{j,r}, \sum_{\{x_{j',r-1} : \langle j, r \rangle = \text{parent}(j', r-1)\}} x_{j',r-1} \right) &amp; \text{otherwise.} \end{cases}\]
+
+<p>The cost of the optimal restricted solution is then $x_{j, \rho_{\max}}$ for the root $\langle j, \rho_{\max} \rangle$ of $T$. Given $c_{j,r}$ and $x_{j,r}$, computing the optimal restricted solution, a collection $S$ of areas, is done recursively:</p>
+
+\[S(j, r) = \begin{cases} \emptyset &amp; \text{if } x_{j,r} = 0 \\ \{A(j, r)\} &amp; \text{if } x_{j,r} = c_{j,r} \\ \bigcup \{S(j', r - 1) : \text{parent}(j', r - 1) = \langle j, r \rangle\} &amp; \text{otherwise.} \end{cases}\]
+
+<table>
+  <tbody>
+    <tr>
+      <td>Thus the algorithm to compute the optimal set $S$ of areas covering $C$ in the restricted problem, given the values of $c_{j,r}$ and $x_{j,r}$, explores a tree $T’$ that, as it is a partial subtree of $T$, also has height at most $O(\log(W/f_{\min}))$ and degree at most $2^{4\kappa}$; moreover its internal nodes are all ancestors of areas added to the solution $S$, so the running time to compute $S$ itself is $O(2^{4\kappa} \log(W/f_{\min})</td>
+      <td>S</td>
+      <td>)$.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The algorithm will maintain two dynamic data structures:</p>
+
+<ol>
+  <li>a list of the currently existing clients $C \subseteq V$, with, for each client $p$, the $\langle j, r \rangle \in \Pi$ such that $p \in A(j, r)$ and $r$ is minimum; and</li>
+  <li>an annotated dependency tree $T_A$, keeping for each node $v = \langle j, r \rangle$ the following additional information:
+a. its cost $c_v = f_j + 7 \cdot 5^r$,
+b. the number $n_v$ of currently existing clients that belong to $A(j, r)$ but not to any descendant area,
+c. the value $x_v$, which is the minimum cost needed to cover all clients belonging to $A(j, r)$ using only areas $A(j’, r’)$ for $\langle j’, r’ \rangle \in \Pi$, and
+d. the value $y_v = \sum_{u \text{ child of } v} x_u$.</li>
+</ol>
+
+<p>When a client $p$ is inserted, we first find $\langle j, r \rangle$ in $T_A$, such that $p \in A(j, r)$ and $r$ is minimum, in a way to be described shortly; we increment $n_v$, and then we traverse the path from $\langle j, r \rangle$ up to the root of $T_A$, similarly updating $x_v$ and $y_{\text{parent}(v)}$.</p>
+
+<p>Thus, it only remains to determine the pair $\langle j^<em>, r^</em> \rangle$ with smallest logradius such that $p \in A(j^<em>, r^</em>)$. By Lemma 6, $p \in B(j^<em>, 7 \cdot 5^{r^</em>})$. Thus we will first find all pairs $\langle j, r \rangle$ such that $p \in B(j, 7 \cdot 5^r)$, based on them determine $r^<em>$, and then look for $\langle j^</em>, r^* \rangle$ in that set of balls. Thanks to Lemma 4, the first part can be done using a simple recursive algorithm starting from the root of $T_A$ (see below). The second part simply uses the definition of areas, i.e., it finds the pair $\langle j^<em>, r^</em> \rangle$ where $j^<em>$ has minimum distance to $p$ out of all pairs $\langle j, r^</em> \rangle$ with $p \in B(j, 7 \cdot 5^{r^*})$.</p>
+
+\[\text{Pairs}(p, j, r) = \begin{cases} \emptyset &amp; \text{if } p \notin B(j, 7 \cdot 5^r) \\ \{\langle j, r \rangle\} \cup \bigcup \{\text{Pairs}(p, j', r - 1) : \text{parent}(j', r - 1) = \langle j, r \rangle\} &amp; \text{otherwise.} \end{cases}\]
+
+<p>Let $r^<em>$ be minimum such that there exists pairs $\langle j, r^</em> \rangle$ in the set $\text{Pairs}(p, j_{\text{root}}, \rho_{\max})$. Among all such pairs, output the pair $\langle j^<em>, r^</em> \rangle$ minimizing $d(p, j^*)$.</p>
+
+<p>The running time is dominated by the first part, which is $O(2^{4\kappa})$ times the number of pairs $\langle j, r \rangle$ such that $p \in B(j, 7 \cdot 5^r)$. There are $\log(W/f_{\min})$ possible values of $r$. For each $r$, by Lemma 4 there are at most $2^{2\kappa}$ pairs $\langle j, r \rangle \in \Pi$ such that $p \in B(j, c_2 \cdot 5^r)$, and the algorithm has to test the $O(2^{4\kappa})$ children of each of them. Thus the running time to do an insertion is $O(2^{6\kappa} \log(W/f_{\min}))$.</p>
+
+<h2 id="references">References</h2>
+
+<ul>
+  <li>M. Henzinger, D. Leniowski, and C. Mathieu, <em>Dynamic Clustering to Minimize the Sum of Radii</em>. ESA 2017. <a href="https://arxiv.org/abs/1707.02577">arXiv:1707.02577</a></li>
+</ul>
+
+
+        
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="https://thomasgraceman.github.io/tags/#clustering" class="page__taxonomy-item" rel="tag">clustering</a><span class="sep">, </span>
+    
+      
+      
+      <a href="https://thomasgraceman.github.io/tags/#doubling-dimension" class="page__taxonomy-item" rel="tag">doubling dimension</a><span class="sep">, </span>
+    
+      
+      
+      <a href="https://thomasgraceman.github.io/tags/#dynamic-algorithms" class="page__taxonomy-item" rel="tag">dynamic algorithms</a><span class="sep">, </span>
+    
+      
+      
+      <a href="https://thomasgraceman.github.io/tags/#facility-location" class="page__taxonomy-item" rel="tag">facility location</a><span class="sep">, </span>
+    
+      
+      
+      <a href="https://thomasgraceman.github.io/tags/#nearest-neighbor-search" class="page__taxonomy-item" rel="tag">nearest neighbor search</a>
+    
+    </span>
+  </p>
+
+
+
+
+      </footer>
+
+      
+
+<section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://bsky.app/intent/compose?text=https://thomasgraceman.github.io/posts/dynamic-sum-of-radii-clustering/" class="btn btn--bluesky" title="Share on Bluesky"><i class="fab fa-bluesky" aria-hidden="true"></i><span> Bluesky</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https://thomasgraceman.github.io/posts/dynamic-sum-of-radii-clustering/" class="btn btn--facebook" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://thomasgraceman.github.io/posts/dynamic-sum-of-radii-clustering/" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+
+  <a href="https://www.addtoany.com/add_to/mastodon?linkurl=https%3A%2F%2Fthomasgraceman.github.io%2Fposts%2Fdynamic-sum-of-radii-clustering%2F" class="btn btn--mastodon" title="Share on Mastodon"><i class="fab fa-mastodon" aria-hidden="true"></i><span> Mastodon</span></a>
+
+  <a href="https://x.com/intent/post?text=https://thomasgraceman.github.io/posts/dynamic-sum-of-radii-clustering/" class="btn btn--x" title="Share on X"><i class="fab fa-x-twitter" aria-hidden="true"></i><span> X (formerly Twitter)</span></a>
+</section>
+
+
+      
+
+
+  <nav class="pagination">
+    
+      <a href="https://thomasgraceman.github.io/posts/dynamic-approximate-nns/" class="pagination--pager" title="Dynamic Approximate Nearest-Neighbor Search in Doubling Metrics
+">Previous</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      
+        <h4 class="page__related-title">You May Also Enjoy</h4>
+      
+      <div class="grid__wrapper">
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "https://thomasgraceman.github.io/images/profile.png"
+          
+          alt="Dynamic Approximate Nearest-Neighbor Search in Doubling Metrics
+">
+      </div>
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="https://thomasgraceman.github.io/posts/dynamic-approximate-nns/" rel="permalink">Dynamic Approximate Nearest-Neighbor Search in Doubling Metrics
+</a>
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  18 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-08-06T00:00:00+00:00">August 06, 2026</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><p>Well, in this blog post we are going to review several papers and understand the techniques that are utilized in order to tackle several problems related to areas such as nearest neighbor problems, the facility location problem, and so on.</p>
+
+</p>
+    
+    
+    
+
+  </article>
+</div>
+
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "https://thomasgraceman.github.io/images/profile.png"
+          
+          alt="Tree Embedding in High Dimensions: Dynamic and Massively Parallel, and Streaming Facility Location in High Dimension via Geometric Hashing – 2
+">
+      </div>
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="https://thomasgraceman.github.io/posts/tree-embedding-high-dimensions-streaming-facility-location-geometric-hashing-2/" rel="permalink">Tree Embedding in High Dimensions: Dynamic and Massively Parallel, and Streaming Facility Location in High Dimension via Geometric Hashing – 2
+</a>
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  3 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-07-02T00:00:00+00:00">July 02, 2026</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><h1 id="tree-embedding-in-high-dimensions">Tree Embedding in High Dimensions</h1>
+<h2 id="dynamic-and-massively-parallel-and-streaming-facility-location-via-geometric-hashing">Dynamic and Massively Parallel, and Streaming Facility Location via Geometric Hashing</h2>
+
+</p>
+    
+    
+    
+
+  </article>
+</div>
+
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "https://thomasgraceman.github.io/images/profile.png"
+          
+          alt="Sparsification of Sums of Norms: Symmetrization, Generic Chaining, and Concentration — Chapter 3
+">
+      </div>
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="https://thomasgraceman.github.io/posts/sparsification-sums-of-norms-symmetrization-generic-chaining-chapter-3/" rel="permalink">Sparsification of Sums of Norms: Symmetrization, Generic Chaining, and Concentration — Chapter 3
+</a>
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  11 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-06-28T00:00:00+00:00">June 28, 2026</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><h1 id="sparsification-of-sums-of-norms">Sparsification of Sums of Norms</h1>
+<h2 id="symmetrization-generic-chaining-and-concentration--chapter-3">Symmetrization, Generic Chaining, and Concentration · Chapter 3</h2>
+
+</p>
+    
+    
+    
+
+  </article>
+</div>
+
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "https://thomasgraceman.github.io/images/profile.png"
+          
+          alt="Tree Embedding in High Dimensions: Dynamic and Massively Parallel
+">
+      </div>
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="https://thomasgraceman.github.io/posts/tree-embedding-high-dimensions-dynamic-mpc/" rel="permalink">Tree Embedding in High Dimensions: Dynamic and Massively Parallel
+</a>
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  13 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-06-17T00:00:00+00:00">June 17, 2026</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><h1 id="tree-embedding-in-high-dimensions-dynamic-and-massively-parallel">Tree Embedding in High Dimensions: Dynamic and Massively Parallel</h1>
+
+</p>
+    
+    
+    
+
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- Support for MatJax -->
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true
+    }
+  };
+</script>
+<script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script"></script>
+
+<!-- Support for Mermaid -->
+<script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({startOnLoad:true, theme:'default'});
+    await mermaid.run({querySelector:'code.language-mermaid'});
+</script>
+
+<!-- New post corner notice -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var notice = document.getElementById('new-post-notice');
+  if (!notice) return;
+
+  var postId = notice.dataset.postId;
+  var key = 'dismissed-post-' + postId;
+
+  if (localStorage.getItem(key) === '1') return;
+
+  notice.hidden = false;
+
+  notice.querySelector('.new-post-notice__close').addEventListener('click', function () {
+    localStorage.setItem(key, '1');
+    notice.remove();
+  });
+});
+</script>
+
+<!-- end custom footer snippets -->
+
+        
+
+
+<div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+    
+      <li><a href="https://github.com/thomasgraceman"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="https://thomasgraceman.github.io/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+
+<div class="page__footer-copyright">
+  &copy; 2026 Taha Hoseinpour, Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://github.com/academicpages/academicpages.github.io">AcademicPages</a>, a fork of <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.<br />
+  Site last updated 2026-08-06, <a href="/sitemap/" style="text-transform: uppercase;">Sitemap</a>
+</div>
+
+      </footer>
+    </div>
+
+    
+
+  
+  
+
+
+    <script type="module" src="https://thomasgraceman.github.io/assets/js/main.min.js"></script>
+
+
+
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MGD7PS6X0W"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-MGD7PS6X0W');
+</script>
+
+
+
+
+
+
+
+
+  </body>
+</html>
+

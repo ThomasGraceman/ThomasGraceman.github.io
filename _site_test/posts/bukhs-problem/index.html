@@ -1,0 +1,1067 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+
+<meta charset="utf-8">
+
+
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Bukh’s Problem on Coloring Random Subgraphs - A steeper descent</title>
+
+
+
+
+<meta name="description" content="Notes on Shinkar’s paper on coloring random subgraphs and its connection to Bukh’s conjecture on the chromatic number of G_{1/2}.">
+
+
+
+
+<meta name="author" content="Taha Hoseinpour">
+
+
+<!-- Academic SEO: Google Scholar citation meta tags -->
+
+  <meta name="citation_title" content="Bukh&#39;s Problem on Coloring Random Subgraphs">
+  <meta name="citation_author" content="Taha Hoseinpour">
+  <meta name="citation_publication_date" content="2025/08/13">
+  <meta name="citation_author_institution" content="Sharif University of Technology">
+  
+  <meta name="citation_public_url" content="https://thomasgraceman.github.io/posts/bukhs-problem/">
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-08-13T00:00:00+00:00">
+
+
+
+
+  <link rel="canonical" href="https://thomasgraceman.github.io/posts/bukhs-problem/">
+
+
+
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+
+
+
+  <meta name="twitter:site" content="@thomas_ger">
+  <meta name="twitter:title" content="Bukh’s Problem on Coloring Random Subgraphs">
+  
+  <meta name="twitter:description" content="Notes on Shinkar’s paper on coloring random subgraphs and its connection to Bukh’s conjecture on the chromatic number of G_{1/2}.">
+  
+  <meta name="twitter:url" content="https://thomasgraceman.github.io/posts/bukhs-problem/">
+
+  
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://thomasgraceman.github.io/images/profile.png">
+    <meta name="twitter:image:alt" content="Bukh’s Problem on Coloring Random Subgraphs">
+  
+
+  
+    <meta name="twitter:creator" content="@thomas_ger">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+
+  <meta name="google-site-verification" content="AZLgMz3hX8xkaa4pei-D3hJXOhMy1S3SWM0x66QI0zk" />
+
+
+
+
+<!-- end SEO -->
+
+<!-- Open Graph protocol data (https://ogp.me/), used by social media -->
+<meta property="og:locale" content="en-US">
+<meta property="og:site_name" content="A steeper descent">
+<meta property="og:title" content="Bukh’s Problem on Coloring Random Subgraphs">
+
+  <meta property="og:type" content="article">
+
+
+  <meta property="og:description" content="Notes on Shinkar’s paper on coloring random subgraphs and its connection to Bukh’s conjecture on the chromatic number of G_{1/2}.">
+
+
+  <meta property="og:url" content="https://thomasgraceman.github.io/posts/bukhs-problem/">
+
+
+  <meta property="og:image" content="https://thomasgraceman.github.io/images/profile.png">
+  <meta property="og:image:alt" content="Bukh’s Problem on Coloring Random Subgraphs">
+
+
+
+  
+  <meta property="article:author" content="Taha Hoseinpour">
+  
+  
+  
+  <meta property="article:tag" content="graph theory, combinatorics, random graphs">
+  
+
+
+
+
+
+  
+  <meta name="keywords" content="graph theory, combinatorics, random graphs">
+
+<!-- end Open Graph protocol -->
+
+<!-- Structured data (https://schema.org/) -->
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "A steeper descent",
+    "url": "https://thomasgraceman.github.io",
+    "description": "Research blog on theoretical computer science — metric embeddings, sparsification, generic chaining, and approximation algorithms. Notes on papers and books by Taha Hoseinpour.",
+    "inLanguage": "en-US"
+  }
+</script>
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": "https://thomasgraceman.github.io#person",
+    "name": "Taha Hoseinpour",
+    "url": "https://thomasgraceman.github.io",
+    "description": "Research blog on theoretical computer science — metric embeddings, sparsification, generic chaining, and approximation algorithms. Notes on papers and books by Taha Hoseinpour."
+    ,
+    "jobTitle": "Graduate Student in Theoretical Computer Science"
+    
+    ,
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Sharif University of Technology"
+    },
+    "affiliation": {
+      "@type": "Organization",
+      "name": "Sharif University of Technology"
+    }
+    
+    ,
+    "homeLocation": {
+      "@type": "Place",
+      "name": "Iran"
+    }
+    
+    ,
+    "alumniOf": [
+      {
+        "@type": "CollegeOrUniversity",
+        "name": "Sharif University of Technology"
+      },
+      {
+        "@type": "CollegeOrUniversity",
+        "name": "Iran University of Science and Technology"
+      }
+      
+    ]
+    
+    ,
+    "image": "https://thomasgraceman.github.io/images/profile.png"
+    
+    ,
+    "email": "tahahoseinpourasli@gmail.com"
+    
+    ,
+    "sameAs": ["https://github.com/thomasgraceman","https://twitter.com/thomas_ger"]
+    
+  }
+</script>
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://thomasgraceman.github.io/posts/bukhs-problem/"
+    },
+    "headline": "Bukh’s Problem on Coloring Random Subgraphs",
+    "description": "Notes on Shinkar’s paper on coloring random subgraphs and its connection to Bukh’s conjecture on the chromatic number of G_{1/2}.",
+    "url": "https://thomasgraceman.github.io/posts/bukhs-problem/",
+    "inLanguage": "en-US",
+    
+    "datePublished": "2025-08-13T00:00:00+00:00",
+    
+    
+    "dateModified": "2025-08-13T00:00:00+00:00",
+    
+    
+    "keywords": ["graph theory","combinatorics","random graphs"],
+    
+    "author": {
+      "@type": "Person",
+      "@id": "https://thomasgraceman.github.io#person",
+      "name": "Taha Hoseinpour"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "A steeper descent",
+      "url": "https://thomasgraceman.github.io",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://thomasgraceman.github.io/images/profile.png"
+      }
+    }
+    ,
+    "image": "https://thomasgraceman.github.io/images/profile.png"
+    
+  }
+</script>
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Taha Hoseinpour",
+        "item": "https://thomasgraceman.github.io"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Bukh’s Problem on Coloring Random Subgraphs",
+        "item": "https://thomasgraceman.github.io/posts/bukhs-problem/"
+      }
+    ]
+  }
+</script>
+
+
+
+<link href="https://thomasgraceman.github.io/feed.xml" type="application/atom+xml" rel="alternate" title="A steeper descent Feed">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="https://thomasgraceman.github.io/assets/css/main.css">
+
+    
+
+<!-- start custom head snippets -->
+
+<!-- Support for Academicons -->
+<link rel="stylesheet" href="https://thomasgraceman.github.io/assets/css/academicons.css"/>
+
+<!-- New post corner notice -->
+<link rel="stylesheet" href="https://thomasgraceman.github.io/assets/css/new-post-notice.css"/>
+
+<!-- favicon from https://commons.wikimedia.org/wiki/File:OOjs_UI_icon_academic-progressive.svg -->
+<link rel="apple-touch-icon" sizes="180x180" href="https://thomasgraceman.github.io/images/apple-touch-icon-180x180.png"/>
+<link rel="icon" type="image/svg+xml" href="https://thomasgraceman.github.io/images/favicon.svg"/>
+<link rel="icon" type="image/png" href="https://thomasgraceman.github.io/images/favicon-32x32.png" sizes="32x32"/>
+<link rel="icon" type="image/png" href="https://thomasgraceman.github.io/images/favicon-192x192.png" sizes="192x192"/>
+<link rel="manifest" href="https://thomasgraceman.github.io/images/manifest.json"/>
+<link rel="icon" href="/images/favicon.ico"/>
+<meta name="theme-color" content="#ffffff"/>
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <button><span class="navicon"></span></button>
+        <ul class="visible-links">
+          <li class="masthead__menu-item masthead__menu-item--lg persist ">
+            <a href="https://thomasgraceman.github.io/">A steeper descent</a>
+          </li>
+          
+            
+            <li class="masthead__menu-item ">
+              <a href="https://thomasgraceman.github.io/readinglist/">Reading List</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item ">
+              <a href="https://thomasgraceman.github.io/year-archive/">Blog Posts</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item ">
+              <a href="https://thomasgraceman.github.io/cv/">CV</a>
+            </li>
+          
+          <li id="theme-toggle" class="masthead__menu-item persist tail">
+            <a role="button" aria-labelledby="theme-icon"><i id="theme-icon" class="fa-solid fa-sun" aria-hidden="true" title="toggle theme"></i></a>
+          </li>
+        </ul>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+
+
+
+
+  
+    
+
+
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="https://thomasgraceman.github.io/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="https://thomasgraceman.github.ioposts" itemprop="item"><span itemprop="name">Posts</span></a>
+          <meta itemprop="position" content="2" />
+        </li>
+        <span class="sep">/</span>
+      
+    
+      
+      
+        <li class="current">Bukh's Problem on Coloring Random Subgraphs</li>
+      
+    
+  </ol>
+</nav>
+  
+
+
+<div id="main" role="main">
+  
+
+
+  <div class="sidebar sticky">
+  
+
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  <div class="author__avatar">
+    
+    	<img src="https://thomasgraceman.github.io/images/profile.png" class="author__avatar" alt="Taha"  fetchpriority="high" />
+    
+  </div>
+
+  <div class="author__content">
+    <h3 class="author__name">Taha</h3>
+    
+    <p class="author__bio">Hi, I am Taha.</p>
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      <!-- Font Awesome icons / Biographic information  -->
+      
+        <li class="author__desktop"><i class="fas fa-fw fa-location-dot icon-pad-right" aria-hidden="true"></i>Iran</li>
+      
+      
+        <li class="author__desktop"><i class="fas fa-fw fa-building-columns icon-pad-right" aria-hidden="true"></i>Sharif University of Technology</li>
+      
+      
+      
+        <li><a href="mailto:tahahoseinpourasli@gmail.com"><i class="fas fa-fw fa-envelope icon-pad-right" aria-hidden="true"></i>Email</a></li>
+      
+
+      <!-- Font Awesome and Academicons icons / Academic websites -->
+      
+            
+      
+            
+      
+      
+                              
+      
+      
+      
+      
+      
+
+      <!-- Font Awesome icons / Repositories and software development -->
+      
+            
+            
+      
+        <li><a href="https://github.com/thomasgraceman"><i class="fab fa-fw fa-github icon-pad-right" aria-hidden="true"></i>GitHub</a></li>
+      
+            
+            
+
+      <!-- Font Awesome icons / Social media -->
+              
+      
+      
+            
+      
+                  
+                  
+      
+            
+            
+            
+      
+            
+                  
+            
+      
+            
+            
+      
+        <li><a href="https://twitter.com/thomas_ger"><i class="fab fa-fw fa-x-twitter icon-pad-right" aria-hidden="true"></i>X (formerly Twitter)</a></li>
+      
+              
+      
+                      
+      
+      
+            
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Bukh’s Problem on Coloring Random Subgraphs">
+    <meta itemprop="description" content="So, assume that we have a graph $G = (V, E)$. By $G_p$ for some $p \in (0,1)$ we mean a subgraph such that the probability of each edge appearing in that subgraph is independent with probability $p$.">
+    <meta itemprop="datePublished" content="August 13, 2025">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Bukh’s Problem on Coloring Random Subgraphs
+</h1>
+          
+            <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  5 minute read
+	
+</p>
+          
+        
+        
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2025-08-13T00:00:00+00:00">August 13, 2025</time></p>
+            
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        <p>So, assume that we have a graph $G = (V, E)$. By $G_p$ for some $p \in (0,1)$ we mean a subgraph such that the probability of each edge appearing in that subgraph is independent with probability $p$.</p>
+
+<p>Now that we have the definition set, the main motive of <a href="https://arxiv.org/pdf/1612.04319">Shinkar’s paper</a> “On Coloring Random Subgraphs of a Fixed Graph” is to study the $\chi(G_{1/2})$ the coloring number of the subgraph that we randomly get by removing each edge with probability $1/2$. So the study of this graph coloring number is really motivated by the following question from <a href="https://arxiv.org/pdf/2312.08340">Bukh</a>:</p>
+
+<blockquote>
+  <p><strong>Is there a constant $c &gt; 0$ such that</strong> 
+\(E(\chi(G_{1/2})) &gt; c \cdot \frac{\chi(G)}{\log \chi(G)}\)
+<strong>for all graphs $G$?</strong></p>
+</blockquote>
+
+<p>In Shinkar’s paper, Theorem 1.6 goes as follows:</p>
+
+<p><strong>Theorem 1.6.</strong> Let $G = (V, E)$ be a graph with $\alpha(G) \le C \cdot \frac{n}{k}$ for some $C &gt; 1$. Then for all $d \le \frac{k}{16 C \log(k)}$ it holds that</p>
+
+\[\Pr\big[ \chi(G_p) \le d \big] \le \Pr\big[ \alpha(G_p) &gt; \frac{n}{d} \big] \le 2^{-\frac{pkn}{8 C d^2}}\]
+
+<p>In particular, for all $p \ge \frac{1}{k}$ it holds that</p>
+
+\[\mathbb{E} \big[ \chi(G_p) \big] \ge \frac{p k}{32 C \log(p k)}\]
+
+<p>Later at the end of the paper, he asks the following question:</p>
+
+<div class="problem-card">
+<div class="problem-title">Question 6.2</div>
+Is it true that every graph $G$ contains an induced subgraph $G' \subseteq G$ such that 
+$$\chi(G') &gt; c \cdot \chi(G) \quad\text{and}\quad \alpha(G') \le C \,\frac{|V(G')|}{\chi(G')}$$
+for some absolute constants $C, c &gt; 0$?
+</div>
+
+<p>So if there is any positive answer to Question 6.2, then by Theorem 1.6 Bukh’s problem is immediate.</p>
+
+<h2 id="related-work">Related Work</h2>
+
+<p>Some related papers worth noting:</p>
+
+<ul>
+  <li><a href="https://arxiv.org/pdf/1807.06285">Mohar and Wu</a> proved in their paper “Fractional chromatic number of a random subgraph” that by replacing chromatic number with fractional chromatic number, Bukh’s problem holds.</li>
+  <li><a href="https://arxiv.org/pdf/2203.03612">Girão et al</a> in “Induced subgraphs of induced subgraphs of large chromatic number” show how <em>not</em> to construct such an induced subgraph.</li>
+  <li><a href="https://arxiv.org/pdf/2312.08340">Bukh’s recent paper</a> “Colouring random subgraphs” is also worth reading.</li>
+</ul>
+
+<hr />
+
+<p>As I get the time to read papers, I try to share my understanding of the techniques and ways people use to attack problems, for my future self, and you who are currently reading.</p>
+
+<h2 id="remarks-on-shinkars-techniques">Remarks on Shinkar’s Techniques</h2>
+
+<p>Most of Shinkar’s arguments are probabilistic. He tries to divide the vertices into $d$ distinct sets of vertices, then tries to compute the expectation or probability of how feasible or how probable such a dividing yields to a random coloring.</p>
+
+<p>For example: let $A = {A_1, \dots, A_d}$ be such a dividing, and then he defines the <strong>uncut</strong> of such dividing (uncuts represent the sets of edges which have both endpoints in one of the $A_i$’s)  for example, the set of edges that makes our $d$ dividing not a proper coloring.</p>
+
+<p>Let $G_{1/2} = (V, E_{1/2})$ be a random subgraph of $G$, and let $S = E \setminus E_{1/2}$ be the random subset of edges of $G$ that are <strong>not</strong> in $G_{1/2}$. We have</p>
+
+\[\Pr\big[ \chi(G_{1/2}) \le d \big] = \Pr\big[ \exists A \in \mathcal{P}_d : \operatorname{uncut}(A) \subseteq S \big]\]
+
+<p>Let $U$ be the <strong>monotone closure</strong> of ${\operatorname{uncut}(A) : A \in \mathcal{P}_d}$, defined as</p>
+
+\[U = \{ \operatorname{uncut}(A) : A \in \mathcal{P}_d \}^{\uparrow} = \{ S \subseteq E : \exists A \in \mathcal{P}_d \text{ such that } \operatorname{uncut}(A) \subseteq S \} \tag{1}\]
+
+<p>This implies that</p>
+
+\[\Pr\big[ \chi(G_{1/2}) \le d \big] = \Pr[ \exists A : S \supseteq \operatorname{uncut}(A)] = \frac{|U|}{2^{|E|}}\]
+
+<p>Later he goes on to show that this structure satisfies a certain property due to a theorem by Frankl:</p>
+
+\[\Pr\big[ \chi(G_{1/2}) \le d \big] = \Pr\big[ \exists A : S \supseteq \operatorname{uncut}(A) \big] = \frac{|U|}{2^{|E|}} \le \left( \frac{\sqrt{5} - 1}{2} \right)^t\]
+
+<p>where $t$ is an appropriate parameter (e.g., the size of a matching or subset in context).</p>
+
+<p>Then he computes the probability. His usage of defining <strong>martingales</strong> is clever it means a process in which we try to refine the information that we have about a certain process. Then if that certain process reveals the information in a specific manner, we can use it to deduce some probabilistic inequality due to Azuma’s inequality → I guess this technique would work very well in some areas and it is worth noting:</p>
+
+<p><strong>Proposition 3.4.</strong> Let $X_1, \dots, X_k$ be a sequence of random variables adapted to some filtration $(\mathcal{F}_i)$ such that</p>
+
+\[|X_{i+1} - X_i| \le 1 \quad \text{for all } i = 1, \dots, k-1\]
+
+<p>Then for any $0 &lt; \varepsilon &lt; \frac{1}{2}$ it holds that</p>
+
+\[\Pr\left[ \left| \frac{X_k}{\mathbb{E}[X_k]} - 1 \right| &gt; \varepsilon \right] &lt; O\left(e^{-\Omega\left(\varepsilon^2 \mathbb{E}[X_k]\right)}\right)\]
+
+<p>Using this and letting the refining information-gathering kind of process, we could use that lemma to infer something about the probability inequality of the chromatic number.</p>
+
+<p>Let $V = C_1 \cup \cdots \cup C_k$ be a partition of the vertices of $G$ into $k$ color classes, i.e., each $C_i$ is an independent set in $G$. Define a sequence of random variables $X_0, X_1, \dots, X_k$ by</p>
+
+\[X_i = \mathbb{E}\Big[ \chi(G_{1/2}) \;\big|\; G_{1/2}[C_1 \cup \cdots \cup C_i] \Big]\]
+
+<p>In words, the random variable $X_i$ first exposes the edges induced by $C_1 \cup \cdots \cup C_i$, and then takes the expected chromatic number of the random subgraph $G_{1/2}$ conditioned on these exposed edges. In particular,</p>
+
+\[X_0 = \mathbb{E}[\chi(G_{1/2})], \qquad X_k = \chi(G_{1/2})\]
+
+<p>Moreover, for each $i$,</p>
+
+\[X_{i+1} - X_i \in \{0, 1\}\]
+
+<p>since adding edges from an independent set $C_{i+1}$ can increase the chromatic number by at most 1.</p>
+
+<p>I guess we can use some form of the Doob-Dynkin lemma to prove that $X_k = \chi(G_{1/2})$. If I find the proof, I will share it as a blog post.</p>
+
+<div class="problem-card">
+<div class="problem-title">Open Problem 6.2 (compact form)</div>
+Find $G' \subseteq G$ induced with 
+$$\chi(G') &gt; c\,\chi(G), \qquad \alpha(G') \le C\,\frac{|V(G')|}{\chi(G')}$$
+for absolute constants $c,C&gt;0$.
+</div>
+
+<style>
+.problem-card {
+    border: 1px solid #e5e7eb;
+    border-left: 6px solid #3b82f6;
+    border-radius: 0.75rem;
+    padding: 1rem 1.25rem;
+    background: #fafafa;
+    margin: 1.25rem 0;
+}
+
+.problem-title {
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+</style>
+
+
+
+        
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="https://thomasgraceman.github.io/tags/#combinatorics" class="page__taxonomy-item" rel="tag">combinatorics</a><span class="sep">, </span>
+    
+      
+      
+      <a href="https://thomasgraceman.github.io/tags/#graph-theory" class="page__taxonomy-item" rel="tag">graph theory</a><span class="sep">, </span>
+    
+      
+      
+      <a href="https://thomasgraceman.github.io/tags/#random-graphs" class="page__taxonomy-item" rel="tag">random graphs</a>
+    
+    </span>
+  </p>
+
+
+
+
+      </footer>
+
+      
+
+<section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://bsky.app/intent/compose?text=https://thomasgraceman.github.io/posts/bukhs-problem/" class="btn btn--bluesky" title="Share on Bluesky"><i class="fab fa-bluesky" aria-hidden="true"></i><span> Bluesky</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https://thomasgraceman.github.io/posts/bukhs-problem/" class="btn btn--facebook" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://thomasgraceman.github.io/posts/bukhs-problem/" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+
+  <a href="https://www.addtoany.com/add_to/mastodon?linkurl=https%3A%2F%2Fthomasgraceman.github.io%2Fposts%2Fbukhs-problem%2F" class="btn btn--mastodon" title="Share on Mastodon"><i class="fab fa-mastodon" aria-hidden="true"></i><span> Mastodon</span></a>
+
+  <a href="https://x.com/intent/post?text=https://thomasgraceman.github.io/posts/bukhs-problem/" class="btn btn--x" title="Share on X"><i class="fab fa-x-twitter" aria-hidden="true"></i><span> X (formerly Twitter)</span></a>
+</section>
+
+
+      
+
+
+  <nav class="pagination">
+    
+      <a href="#" class="pagination--pager disabled">Previous</a>
+    
+    
+      <a href="https://thomasgraceman.github.io/posts/approximating-mst-weight-sublinear-time/" class="pagination--pager" title="Approximating the Minimum Spanning Tree Weight in Sublinear Time
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      
+        <h4 class="page__related-title">You May Also Enjoy</h4>
+      
+      <div class="grid__wrapper">
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "https://thomasgraceman.github.io/images/profile.png"
+          
+          alt="Dynamic Sum-of-Radii Clustering
+">
+      </div>
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="https://thomasgraceman.github.io/posts/dynamic-sum-of-radii-clustering/" rel="permalink">Dynamic Sum-of-Radii Clustering
+</a>
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  10 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-08-06T00:00:00+00:00">August 06, 2026</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><p>So in this second post, following the <a href="/posts/dynamic-approximate-nns/">previous data structure</a>, I am going to review some algorithms that were devised using the scheme of nearest neighbor search.</p>
+
+</p>
+    
+    
+    
+
+  </article>
+</div>
+
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "https://thomasgraceman.github.io/images/profile.png"
+          
+          alt="Dynamic Approximate Nearest-Neighbor Search in Doubling Metrics
+">
+      </div>
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="https://thomasgraceman.github.io/posts/dynamic-approximate-nns/" rel="permalink">Dynamic Approximate Nearest-Neighbor Search in Doubling Metrics
+</a>
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  14 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-08-06T00:00:00+00:00">August 06, 2026</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><p>Well, in this blog post we are going to review several papers and understand the techniques that are utilized in order to tackle several problems related to areas such as nearest neighbor problems, the facility location problem, and so on.</p>
+
+</p>
+    
+    
+    
+
+  </article>
+</div>
+
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "https://thomasgraceman.github.io/images/profile.png"
+          
+          alt="Tree Embedding in High Dimensions: Dynamic and Massively Parallel, and Streaming Facility Location in High Dimension via Geometric Hashing – 2
+">
+      </div>
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="https://thomasgraceman.github.io/posts/tree-embedding-high-dimensions-streaming-facility-location-geometric-hashing-2/" rel="permalink">Tree Embedding in High Dimensions: Dynamic and Massively Parallel, and Streaming Facility Location in High Dimension via Geometric Hashing – 2
+</a>
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  3 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-07-02T00:00:00+00:00">July 02, 2026</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><h1 id="tree-embedding-in-high-dimensions">Tree Embedding in High Dimensions</h1>
+<h2 id="dynamic-and-massively-parallel-and-streaming-facility-location-via-geometric-hashing">Dynamic and Massively Parallel, and Streaming Facility Location via Geometric Hashing</h2>
+
+</p>
+    
+    
+    
+
+  </article>
+</div>
+
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "https://thomasgraceman.github.io/images/profile.png"
+          
+          alt="Sparsification of Sums of Norms: Symmetrization, Generic Chaining, and Concentration — Chapter 3
+">
+      </div>
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="https://thomasgraceman.github.io/posts/sparsification-sums-of-norms-symmetrization-generic-chaining-chapter-3/" rel="permalink">Sparsification of Sums of Norms: Symmetrization, Generic Chaining, and Concentration — Chapter 3
+</a>
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  8 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-06-28T00:00:00+00:00">June 28, 2026</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><h1 id="sparsification-of-sums-of-norms">Sparsification of Sums of Norms</h1>
+<h2 id="symmetrization-generic-chaining-and-concentration--chapter-3">Symmetrization, Generic Chaining, and Concentration · Chapter 3</h2>
+
+</p>
+    
+    
+    
+
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- Support for MatJax -->
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true
+    }
+  };
+</script>
+<script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script"></script>
+
+<!-- Support for Mermaid -->
+<script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({startOnLoad:true, theme:'default'});
+    await mermaid.run({querySelector:'code.language-mermaid'});
+</script>
+
+<!-- New post corner notice -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var notice = document.getElementById('new-post-notice');
+  if (!notice) return;
+
+  var postId = notice.dataset.postId;
+  var key = 'dismissed-post-' + postId;
+
+  if (localStorage.getItem(key) === '1') return;
+
+  notice.hidden = false;
+
+  notice.querySelector('.new-post-notice__close').addEventListener('click', function () {
+    localStorage.setItem(key, '1');
+    notice.remove();
+  });
+});
+</script>
+
+<!-- end custom footer snippets -->
+
+        
+
+
+<div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+    
+      <li><a href="https://github.com/thomasgraceman"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="https://thomasgraceman.github.io/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+
+<div class="page__footer-copyright">
+  &copy; 2026 Taha Hoseinpour, Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://github.com/academicpages/academicpages.github.io">AcademicPages</a>, a fork of <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.<br />
+  Site last updated 2026-08-06, <a href="/sitemap/" style="text-transform: uppercase;">Sitemap</a>
+</div>
+
+      </footer>
+    </div>
+
+    
+
+  
+  
+    
+    
+    
+    
+
+    
+      <div id="new-post-notice"
+           class="new-post-notice"
+           role="status"
+           aria-live="polite"
+           data-post-id="posts-dynamic-sum-of-radii-clustering"
+           hidden>
+        <button type="button" class="new-post-notice__close" aria-label="Dismiss notice">&times;</button>
+        <p class="new-post-notice__label">New post</p>
+        <a class="new-post-notice__link" href="https://thomasgraceman.github.io/posts/dynamic-sum-of-radii-clustering/">
+          Dynamic Sum-of-Radii Clustering
+        </a>
+      </div>
+    
+  
+
+
+    <script type="module" src="https://thomasgraceman.github.io/assets/js/main.min.js"></script>
+
+
+
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MGD7PS6X0W"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-MGD7PS6X0W');
+</script>
+
+
+
+
+
+
+
+
+  </body>
+</html>
+

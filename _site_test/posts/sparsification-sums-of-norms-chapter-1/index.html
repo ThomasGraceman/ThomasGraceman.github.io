@@ -1,0 +1,1296 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+
+<meta charset="utf-8">
+
+
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Sparsification of Sums of Norms: A General Overview — Chapter 1 - A steeper descent</title>
+
+
+
+
+<meta name="description" content="Chapter 1 overview of sparsifying sums of norms — the problem, motivation, and key techniques from James Lee’s line of work.">
+
+
+
+
+<meta name="author" content="Taha Hoseinpour">
+
+
+<!-- Academic SEO: Google Scholar citation meta tags -->
+
+  <meta name="citation_title" content="Sparsification of Sums of Norms: A General Overview — Chapter 1">
+  <meta name="citation_author" content="Taha Hoseinpour">
+  <meta name="citation_publication_date" content="2026/06/02">
+  <meta name="citation_author_institution" content="Sharif University of Technology">
+  
+  <meta name="citation_public_url" content="https://thomasgraceman.github.io/posts/sparsification-sums-of-norms-chapter-1/">
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2026-06-02T00:00:00+00:00">
+
+
+
+
+  <link rel="canonical" href="https://thomasgraceman.github.io/posts/sparsification-sums-of-norms-chapter-1/">
+
+
+
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+
+
+
+  <meta name="twitter:site" content="@thomas_ger">
+  <meta name="twitter:title" content="Sparsification of Sums of Norms: A General Overview — Chapter 1">
+  
+  <meta name="twitter:description" content="Chapter 1 overview of sparsifying sums of norms — the problem, motivation, and key techniques from James Lee’s line of work.">
+  
+  <meta name="twitter:url" content="https://thomasgraceman.github.io/posts/sparsification-sums-of-norms-chapter-1/">
+
+  
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://thomasgraceman.github.io/images/profile.png">
+    <meta name="twitter:image:alt" content="Sparsification of Sums of Norms: A General Overview — Chapter 1">
+  
+
+  
+    <meta name="twitter:creator" content="@thomas_ger">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+
+  <meta name="google-site-verification" content="AZLgMz3hX8xkaa4pei-D3hJXOhMy1S3SWM0x66QI0zk" />
+
+
+
+
+<!-- end SEO -->
+
+<!-- Open Graph protocol data (https://ogp.me/), used by social media -->
+<meta property="og:locale" content="en-US">
+<meta property="og:site_name" content="A steeper descent">
+<meta property="og:title" content="Sparsification of Sums of Norms: A General Overview — Chapter 1">
+
+  <meta property="og:type" content="article">
+
+
+  <meta property="og:description" content="Chapter 1 overview of sparsifying sums of norms — the problem, motivation, and key techniques from James Lee’s line of work.">
+
+
+  <meta property="og:url" content="https://thomasgraceman.github.io/posts/sparsification-sums-of-norms-chapter-1/">
+
+
+  <meta property="og:image" content="https://thomasgraceman.github.io/images/profile.png">
+  <meta property="og:image:alt" content="Sparsification of Sums of Norms: A General Overview — Chapter 1">
+
+
+
+  
+  <meta property="article:author" content="Taha Hoseinpour">
+  
+  
+  
+  <meta property="article:tag" content="sparsification, metric embeddings, norms">
+  
+
+
+
+
+
+  
+  <meta name="keywords" content="sparsification, metric embeddings, norms">
+
+<!-- end Open Graph protocol -->
+
+<!-- Structured data (https://schema.org/) -->
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "A steeper descent",
+    "url": "https://thomasgraceman.github.io",
+    "description": "Research blog on theoretical computer science — metric embeddings, sparsification, generic chaining, and approximation algorithms. Notes on papers and books by Taha Hoseinpour.",
+    "inLanguage": "en-US"
+  }
+</script>
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": "https://thomasgraceman.github.io#person",
+    "name": "Taha Hoseinpour",
+    "url": "https://thomasgraceman.github.io",
+    "description": "Research blog on theoretical computer science — metric embeddings, sparsification, generic chaining, and approximation algorithms. Notes on papers and books by Taha Hoseinpour."
+    ,
+    "jobTitle": "Graduate Student in Theoretical Computer Science"
+    
+    ,
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Sharif University of Technology"
+    },
+    "affiliation": {
+      "@type": "Organization",
+      "name": "Sharif University of Technology"
+    }
+    
+    ,
+    "homeLocation": {
+      "@type": "Place",
+      "name": "Iran"
+    }
+    
+    ,
+    "alumniOf": [
+      {
+        "@type": "CollegeOrUniversity",
+        "name": "Sharif University of Technology"
+      },
+      {
+        "@type": "CollegeOrUniversity",
+        "name": "Iran University of Science and Technology"
+      }
+      
+    ]
+    
+    ,
+    "image": "https://thomasgraceman.github.io/images/profile.png"
+    
+    ,
+    "email": "tahahoseinpourasli@gmail.com"
+    
+    ,
+    "sameAs": ["https://github.com/thomasgraceman","https://twitter.com/thomas_ger"]
+    
+  }
+</script>
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://thomasgraceman.github.io/posts/sparsification-sums-of-norms-chapter-1/"
+    },
+    "headline": "Sparsification of Sums of Norms: A General Overview — Chapter 1",
+    "description": "Chapter 1 overview of sparsifying sums of norms — the problem, motivation, and key techniques from James Lee’s line of work.",
+    "url": "https://thomasgraceman.github.io/posts/sparsification-sums-of-norms-chapter-1/",
+    "inLanguage": "en-US",
+    
+    "datePublished": "2026-06-02T00:00:00+00:00",
+    
+    
+    "dateModified": "2026-06-02T00:00:00+00:00",
+    
+    
+    "keywords": ["sparsification","metric embeddings","norms"],
+    
+    "author": {
+      "@type": "Person",
+      "@id": "https://thomasgraceman.github.io#person",
+      "name": "Taha Hoseinpour"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "A steeper descent",
+      "url": "https://thomasgraceman.github.io",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://thomasgraceman.github.io/images/profile.png"
+      }
+    }
+    ,
+    "image": "https://thomasgraceman.github.io/images/profile.png"
+    
+  }
+</script>
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Taha Hoseinpour",
+        "item": "https://thomasgraceman.github.io"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Sparsification of Sums of Norms: A General Overview — Chapter 1",
+        "item": "https://thomasgraceman.github.io/posts/sparsification-sums-of-norms-chapter-1/"
+      }
+    ]
+  }
+</script>
+
+
+
+<link href="https://thomasgraceman.github.io/feed.xml" type="application/atom+xml" rel="alternate" title="A steeper descent Feed">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="https://thomasgraceman.github.io/assets/css/main.css">
+
+    
+
+<!-- start custom head snippets -->
+
+<!-- Support for Academicons -->
+<link rel="stylesheet" href="https://thomasgraceman.github.io/assets/css/academicons.css"/>
+
+<!-- New post corner notice -->
+<link rel="stylesheet" href="https://thomasgraceman.github.io/assets/css/new-post-notice.css"/>
+
+<!-- favicon from https://commons.wikimedia.org/wiki/File:OOjs_UI_icon_academic-progressive.svg -->
+<link rel="apple-touch-icon" sizes="180x180" href="https://thomasgraceman.github.io/images/apple-touch-icon-180x180.png"/>
+<link rel="icon" type="image/svg+xml" href="https://thomasgraceman.github.io/images/favicon.svg"/>
+<link rel="icon" type="image/png" href="https://thomasgraceman.github.io/images/favicon-32x32.png" sizes="32x32"/>
+<link rel="icon" type="image/png" href="https://thomasgraceman.github.io/images/favicon-192x192.png" sizes="192x192"/>
+<link rel="manifest" href="https://thomasgraceman.github.io/images/manifest.json"/>
+<link rel="icon" href="/images/favicon.ico"/>
+<meta name="theme-color" content="#ffffff"/>
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <button><span class="navicon"></span></button>
+        <ul class="visible-links">
+          <li class="masthead__menu-item masthead__menu-item--lg persist ">
+            <a href="https://thomasgraceman.github.io/">A steeper descent</a>
+          </li>
+          
+            
+            <li class="masthead__menu-item ">
+              <a href="https://thomasgraceman.github.io/readinglist/">Reading List</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item ">
+              <a href="https://thomasgraceman.github.io/year-archive/">Blog Posts</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item ">
+              <a href="https://thomasgraceman.github.io/cv/">CV</a>
+            </li>
+          
+          <li id="theme-toggle" class="masthead__menu-item persist tail">
+            <a role="button" aria-labelledby="theme-icon"><i id="theme-icon" class="fa-solid fa-sun" aria-hidden="true" title="toggle theme"></i></a>
+          </li>
+        </ul>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+
+
+
+
+  
+    
+
+
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="https://thomasgraceman.github.io/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="https://thomasgraceman.github.ioposts" itemprop="item"><span itemprop="name">Posts</span></a>
+          <meta itemprop="position" content="2" />
+        </li>
+        <span class="sep">/</span>
+      
+    
+      
+      
+        <li class="current">Sparsification of Sums of Norms: A General Overview — Chapter 1</li>
+      
+    
+  </ol>
+</nav>
+  
+
+
+<div id="main" role="main">
+  
+
+
+  <div class="sidebar sticky">
+  
+
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  <div class="author__avatar">
+    
+    	<img src="https://thomasgraceman.github.io/images/profile.png" class="author__avatar" alt="Taha"  fetchpriority="high" />
+    
+  </div>
+
+  <div class="author__content">
+    <h3 class="author__name">Taha</h3>
+    
+    <p class="author__bio">Hi, I am Taha.</p>
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      <!-- Font Awesome icons / Biographic information  -->
+      
+        <li class="author__desktop"><i class="fas fa-fw fa-location-dot icon-pad-right" aria-hidden="true"></i>Iran</li>
+      
+      
+        <li class="author__desktop"><i class="fas fa-fw fa-building-columns icon-pad-right" aria-hidden="true"></i>Sharif University of Technology</li>
+      
+      
+      
+        <li><a href="mailto:tahahoseinpourasli@gmail.com"><i class="fas fa-fw fa-envelope icon-pad-right" aria-hidden="true"></i>Email</a></li>
+      
+
+      <!-- Font Awesome and Academicons icons / Academic websites -->
+      
+            
+      
+            
+      
+      
+                              
+      
+      
+      
+      
+      
+
+      <!-- Font Awesome icons / Repositories and software development -->
+      
+            
+            
+      
+        <li><a href="https://github.com/thomasgraceman"><i class="fab fa-fw fa-github icon-pad-right" aria-hidden="true"></i>GitHub</a></li>
+      
+            
+            
+
+      <!-- Font Awesome icons / Social media -->
+              
+      
+      
+            
+      
+                  
+                  
+      
+            
+            
+            
+      
+            
+                  
+            
+      
+            
+            
+      
+        <li><a href="https://twitter.com/thomas_ger"><i class="fab fa-fw fa-x-twitter icon-pad-right" aria-hidden="true"></i>X (formerly Twitter)</a></li>
+      
+              
+      
+                      
+      
+      
+            
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Sparsification of Sums of Norms: A General Overview — Chapter 1">
+    <meta itemprop="description" content="Sparsification of Sums of NormsA General Overview · Chapter 1">
+    <meta itemprop="datePublished" content="June 02, 2026">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Sparsification of Sums of Norms: A General Overview — Chapter 1
+</h1>
+          
+            <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  9 minute read
+	
+</p>
+          
+        
+        
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-06-02T00:00:00+00:00">June 02, 2026</time></p>
+            
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        <h1 id="sparsification-of-sums-of-norms">Sparsification of Sums of Norms</h1>
+<h2 id="a-general-overview--chapter-1">A General Overview · Chapter 1</h2>
+
+<blockquote>
+  <p>Ok, I want to summarize the <em>sparsification of sums of norms</em> problem. Unlike some of my longer earlier posts, I will not try a full review at once, on purpose. Each chapter should focus on one concept or technique in detail, or at least that is the plan. Hopefully I can finish this series if nothing gets in the way.</p>
+</blockquote>
+
+<hr />
+
+<h2 id="1-from-graphs-to-sums-of-norms">1. From Graphs to Sums of Norms</h2>
+
+<p>Sparsification usually means replacing a large object by a much smaller one while approximately preserving the quantities of interest. The classical starting point in computer science to my knowledge emerged in graph algorithms. Early work of Karger and, subsequently, Benczúr and Karger, <em>Approximating s-t Minimum Cuts in $\tilde{O}(n^2)$ Time</em>, showed that every graph admits a sparse weighted subgraph that approximately preserves all cuts. The field later underwent a major shift with the introduction of spectral sparsification by Spielman and Teng, where the goal is to preserve the entire Laplacian quadratic form rather than only cut values(as far as i know). This viewpoint was refined by Spielman and Srivastava through effective-resistance sampling and by Batson, Spielman, and Srivastava through the construction of nearly optimal linear-size sparsifiers. Over time, sparsification evolved from a graph-theoretic technique into a general paradigm for compressing large geometric and algebraic structures while retaining their essential behavior.</p>
+
+<p>More recently, analogous ideas have appeared beyond graphs. In hypergraph settings, one encounters spectral notions of approximation, such as in the works of Tasuku Soma and James R. Lee and collaborators, where quadratic or energy-like functionals associated with convex bodies replace the classical graph Laplacian. The paper discussed here takes an even broader perspective and studies the sparsification of sums of norms, viewing graph and hypergraph sparsification as special cases of a more general geometric problem. A later development in this direction is the work of Jambulapati, Lee, Liu, and Sidford on generalized linear models <em>Sparsifying Generalized Linear Models</em>. Some techniques utilized also found justifications in <em>Chaining, Group Leverage Score Overestimates, and Fast Spectral Hypergraph Sparsification</em> (in my opinion).</p>
+
+<hr />
+
+<h2 id="2-what-they-prove">2. What They Prove</h2>
+
+<p>I will state the main result in the authors’ wording. For any norms $N_1,\dots,N_m$ on $\mathbb{R}^n$, define</p>
+
+\[N(x) := N_1(x)+\cdots+N_m(x).\]
+
+<p>They show that there exists a sparsified norm</p>
+
+\[\widetilde{N}(x) = w_1 N_1(x)+\cdots+w_m N_m(x),\]
+
+<p>such that</p>
+
+\[\bigl|N(x)-\widetilde{N}(x)\bigr| \leq \varepsilon\,N(x)
+\qquad \text{for all } x\in\mathbb{R}^n,\]
+
+<p>where $w_1,\dots,w_m$ are nonnegative weights, of which only</p>
+
+\[\mathcal{O}\!\left(
+  \varepsilon^{-2}\, n
+  \log\!\left(\frac{n}{\varepsilon}\right)
+  (\log n)^{2.5}
+\right)\]
+
+<p>are nonzero.</p>
+
+<p>The weights can be found with high probability in time</p>
+
+\[\mathcal{O}\!\left(
+  m(\log n)^{\mathcal{O}(1)}
+  +
+  \operatorname{poly}(n)
+\right)T,\]
+
+<p>where $T$ is the time to evaluate one norm $N_i(x)$, assuming $N$ is $\operatorname{poly}(n)$-equivalent to the Euclidean norm.</p>
+
+<p>This abstraction covers graph sparsification and other cases (for example some submodular functions related to cuts). That is why the general statement is worth the setup.</p>
+
+<hr />
+
+<h2 id="3-the-problem-in-one-place">3. The Problem in One Place</h2>
+
+<p>Let \(N_1,\ldots,N_m : \mathbb{R}^n \to \mathbb{R}_{+}\) be seminorms and \(N(x) := \sum_{i=1}^{m} N_i(x)\). Given weights \(w_1,\ldots,w_m \ge 0\), the weighted seminorm is</p>
+
+\[\widetilde{N}(x) := \sum_{i=1}^{m} w_i\, N_i(x).\]
+
+<p>We call $\widetilde{N}$ <strong>$s$-sparse</strong> if at most $s$ of the $w_i$ are nonzero, and an <strong>$\varepsilon$-approximation</strong> of $N$ if</p>
+
+\[\bigl|N(x)-\widetilde{N}(x)\bigr| \leq \varepsilon\,N(x),
+\qquad \forall\, x\in\mathbb{R}^n.\]
+
+<p>The question is whether one can build such a $\widetilde{N}$ using only a small number of nonzero weights.</p>
+
+<hr />
+
+<h2 id="4-how-the-paper-proceeds">4. How the Paper Proceeds</h2>
+
+<p>At a high level the workflow is:</p>
+
+<ol>
+  <li>Assign an <strong>importance</strong> to each term.</li>
+  <li><strong>Sample</strong> terms to get an unbiased estimator while controlling variance and deviation.</li>
+  <li><strong>Compute</strong> those importances efficiently, via a homotopy method.</li>
+</ol>
+
+<p>I will unpack each step in later chapters; the homotopy method especially seems worth its own post.</p>
+
+<hr />
+
+<h2 id="5-lewis-weights-and-row-sampling">5. Lewis Weights and Row Sampling</h2>
+
+<p>The specific algorithmic use of Lewis weights, to my knowledge, goes back to Cohen and Peng, <a href="https://arxiv.org/abs/1412.0588"><em>$\ell_p$ Row Sampling by Lewis Weights</em></a>. Randomized row sampling is a nice technique that can be use to design many algorithms. A standard instance: given</p>
+
+\[A \in \mathbb{R}^{n\times d},
+\qquad n \gg d,\]
+
+<p>and $\varepsilon&gt;0$, find a matrix $A’$ built from few rescaled rows of $A$ such that</p>
+
+\[\|Ax\|_p \approx_{1+\varepsilon} \|A'x\|_p,
+\qquad \forall\, x\in\mathbb{R}^d,\]
+
+<p>where $a \approx_{1+\varepsilon} b$ means $\frac{1}{1+\varepsilon}\,b \le a \le (1+\varepsilon)b$.</p>
+
+<p>Strong $\ell_p$ row-sampling bounds use Lewis’s change-of-density construction (<a href="https://eudml.org/doc/218208">Lewis, 1978</a>), later used by Talagrand and others (<a href="https://doi.org/10.1007/BF02392835">Bourgain–Lindenstrauss–Milman, 1989</a>; <a href="https://archive.org/details/isbn_9783764352073_77">Talagrand, 1995</a>): assign a weight to each row (like a leverage score), sample by those weights aka the <strong>Lewis weights</strong>. In short, Lewis weights let us study an $\ell_p$ matrix through an associated $\ell_2$ matrix $B$, where the space is much nicer in general.</p>
+
+<hr />
+
+<blockquote>
+  <p><strong>Definition (Leverage Score).</strong></p>
+
+  <p>Let $A\in\mathbb{R}^{n\times d}$, and let $a_i$ denote its $i$-th row. The leverage score of the $i$-th row is defined by</p>
+
+\[\tau_i(A) := a_i^{\top}(A^{\top}A)^{-1}a_i.\]
+
+  <p>Equivalently,</p>
+
+\[\tau_i(A) = \bigl\|(A^{\top}A)^{-1/2}a_i\bigr\|_2^2.\]
+</blockquote>
+
+<hr />
+
+<blockquote>
+  <p><strong>Definition ($\ell_p$ Lewis Weights).</strong></p>
+
+  <p>Given a matrix $A\in\mathbb{R}^{n\times d}$, the $\ell_p$ Lewis weights are the unique weights</p>
+
+\[w_1,\ldots,w_n \ge 0\]
+
+  <p>such that, if $W=\operatorname{diag}(w_1,\ldots,w_n)$, then for every row $i$,</p>
+
+\[w_i = \tau_i\!\left(W^{\,\frac12-\frac1p}A\right),\]
+
+  <p>where $\tau_i(B)$ denotes the leverage score of the $i$-th row of the matrix $B$.</p>
+</blockquote>
+
+<hr />
+
+<p>Existence and uniqueness in the general setting can be shown via the optimization problem</p>
+
+\[\begin{array}{ll}
+\text{maximize}   &amp; \det(M) \\[6pt]
+\text{subject to} &amp; \displaystyle\sum_{i}\bigl(a_i^{\top}M\,a_i\bigr)^{p/2}\le d, \\[10pt]
+                  &amp; M \succeq 0.
+\end{array}\]
+
+<p>Used carefully, this theory is one route toward sparsification. As in <a href="https://homes.cs.washington.edu/~jrl/teaching/cse599au23">Lee’s course notes</a> (<em>Sparsification, sampling, and optimization</em>, Autumn 2023), we start from a concrete $\ell_2$ setting and build outward, that is what the next sections do. For a slower treatment of leverage scores, Lewis weights, and the connection to statistical whitening, see <a href="/posts/lewis-weights-leverage-scores-whitening-chapter-2/">Chapter 2</a>.</p>
+
+<hr />
+
+<h2 id="6-unbiased-estimators">6. Unbiased Estimators</h2>
+
+<p>A standard sparsifier starts from independent random sampling. Let $F(x)=\sum_{i=1}^m f_i(x)$ and let $\rho=(\rho_1,\ldots,\rho_m)$ be a probability distribution on ${1,\ldots,m}$. Sample $i_1,\ldots,i_M$ independently from $\rho$ and set</p>
+
+\[\widetilde{F}(x)
+:=
+\frac{1}{M}
+\sum_{j=1}^{M}
+\frac{f_{i_j}(x)}{\rho_{i_j}}.\]
+
+<p>Rescaling by $\rho_{i_j}$ makes $\widetilde{F}$ unbiased: for every $x$,</p>
+
+\[\mathbb{E}\!\left[\frac{f_{i_1}(x)}{\rho_{i_1}}\right]
+=
+\sum_{i=1}^{m}f_i(x)
+=
+F(x),\]
+
+<p>so $\mathbb{E}[\widetilde{F}(x)] = F(x)$.</p>
+
+<hr />
+
+<h2 id="7-importance-sampling">7. Importance Sampling</h2>
+
+<p>Unbiasedness holds for any $\rho$, but a good $\varepsilon$-approximation with small $M$ needs $\rho$ chosen to <strong>lower variance</strong>, importance sampling: sample large contributors more often.</p>
+
+<p>With $\rho \in (0,1]^m$, sample $i_1,\ldots,i_M$ from $\rho$ and define</p>
+
+\[\widetilde{N}(x)
+:=
+\frac{1}{M}
+\sum_{j=1}^{M}
+\frac{N_{i_j}(x)}{\rho_{i_j}}.\]
+
+<p>Since $\widetilde{N}$ is unbiased, we study how far it can deviate from its mean:</p>
+
+\[\mathbb{E}
+\left[
+  \sup_{x\in B_N}
+  \left|
+    \widetilde{N}(x) - \mathbb{E}[\widetilde{N}(x)]
+  \right|
+\right],
+\qquad
+B_N = \{x\in\mathbb{R}^n : N(x)\le 1\}.\]
+
+<hr />
+
+<h2 id="8-symmetrization-and-chaining">8. Symmetrization and Chaining</h2>
+
+<p>To control that deviation we symmetrize and obtain a subgaussian process, then bound it by generic chaining.</p>
+
+<p>Introduce independent Rademachers $\varepsilon_1,\ldots,\varepsilon_M \in {-1,+1}$. By symmetrization it suffices to bound</p>
+
+\[\mathbb{E}_{\varepsilon_1,\ldots,\varepsilon_M}\!\left[
+  \sup_{x\in B_N}
+  \frac{1}{M}
+  \sum_{j=1}^{M}
+  \varepsilon_j\,
+  \frac{N_{i_j}(x)}{\rho_{i_j}}
+\right].\]
+
+<p>The target is a bound of the form</p>
+
+\[\delta\left(\sup_{x\in B_N}\widetilde{N}(x)\right)^{1/2}.\]
+
+<p>Define</p>
+
+\[V_x
+:=
+\frac{1}{M}
+\sum_{j=1}^{M}
+\varepsilon_j\,
+\frac{N_{i_j}(x)}{\rho_{i_j}},
+\qquad x\in\mathbb{R}^n.\]
+
+<p>The family ${V_x : x\in\mathbb{R}^n}$ is subgaussian, with metric</p>
+
+\[d(x,y)
+:=
+\Bigl(\mathbb{E}|V_x-V_y|^2\Bigr)^{1/2}
+=
+\frac{1}{M}
+\left(
+  \sum_{j=1}^{M}
+  \left(
+    \frac{N_{i_j}(x)-N_{i_j}(y)}{\rho_{i_j}}
+  \right)^2
+\right)^{1/2},\]
+
+<p>using orthogonality of the Rademacher variables.</p>
+
+<hr />
+
+<h2 id="9-a-concrete-ell_2-bound-from-the-course">9. A Concrete $\ell_2$ Bound (from the course)</h2>
+
+<p>For $p=2$, following <a href="https://homes.cs.washington.edu/~jrl/teaching/cse599au23">Lee’s course</a>, fix a sample $\nu=(\nu_1,\ldots,\nu_M)$ and set</p>
+
+\[d_{\nu}(x,y)
+:=
+\left(
+  \sum_{j=1}^{M}
+  \left(
+    \frac{f_{\nu_j}(x)-f_{\nu_j}(y)}{M\rho_{\nu_j}}
+  \right)^2
+\right)^{1/2}.\]
+
+<p>One wants</p>
+
+\[\mathbb{E}_{\varepsilon}\!\left[
+  \sup_{F(x)\le 1}
+  \sum_{j=1}^{M}
+  \varepsilon_j\,
+  \frac{f_{\nu_j}(x)}{M\rho_{\nu_j}}
+\right]
+\le
+\delta
+\left(
+  \sup_{F(x)\le 1}
+  \widetilde{F}_{\nu}(x)
+\right)^{1/2},
+\qquad
+\widetilde{F}_{\nu}(x)
+=
+\sum_{j=1}^{M}
+\frac{f_{\nu_j}(x)}{M\rho_{\nu_j}}.\]
+
+<p>Let $B_F={x: F(x)\le 1}$. Dudley’s entropy bound on the subgaussian process gives</p>
+
+\[\mathbb{E}_{\varepsilon}\!\left[
+  \sup_{x\in B_F}
+  \sum_{j=1}^{M}
+  \varepsilon_j\,
+  \frac{f_{\nu_j}(x)}{M\rho_{\nu_j}}
+\right]
+\lesssim
+\sum_{h\ge 0}
+2^{h/2}\,e_h(B_F,\,d_{\nu}),\]
+
+<p>where $e_h(B_F,d_{\nu})$ is the $h$-th entropy number of $B_F$ for $d_{\nu}$.</p>
+
+<p>The remaining work is covering numbers $N(B_2^n,d_U,\varepsilon)$ for rows</p>
+
+\[u_j
+:=
+\frac{(A^\top A)^{-1/2}a_{\nu_j}}{\sqrt{M\rho_{\nu_j}}}.\]
+
+<p>With the Lewis-type choice of $\rho$,</p>
+
+\[\|u_j\|_2 = \sqrt{\frac{n}{M}}.\]
+
+<p>Combining entropy estimates for $B_2^n$, Dudley’s bound, and chaining yields</p>
+
+\[\mathbb{E}_{\varepsilon}\!\left[
+  \sup_{F(x)\le 1}
+  \sum_{j=1}^{M}
+  \varepsilon_j\,
+  \frac{f_{\nu_j}(x)}{M\rho_{\nu_j}}
+\right]
+\lesssim
+\sqrt{\frac{n(\log n)^2\log M}{M}}
+\left(
+  \sup_{F(x)\le 1}
+  \widetilde{F}_{\nu}(x)
+\right)^{1/2}.\]
+
+<p>Taking</p>
+
+\[M = C\,\frac{n}{\varepsilon^2}(\log n)^2\log\!\left(\frac{n}{\varepsilon}\right)\]
+
+<p>for large enough $C$ gives the $\varepsilon$-scale bound needed for the approximation. That is the $\ell_2$ backbone; later chapters push the same pattern toward sums of general norms.</p>
+
+<p>(I will try to keep the notes really short, and also try to add some novelty into them hopefully, i perhaps will investigate this paper through the lens of banach space theory, but it will take a lot of time and effort.)</p>
+
+<hr />
+
+<h2 id="references">References</h2>
+
+<h3 id="main-sources-for-this-chapter">Main Sources for this Chapter</h3>
+
+<ul>
+  <li>James R. Lee et al., <a href="https://homes.cs.washington.edu/~jrl/papers/pdf/norm-sparsify.pdf"><em>Sparsifying Sums of Norms</em></a></li>
+  <li>James R. Lee, <a href="https://homes.cs.washington.edu/~jrl/teaching/cse599au23"><em>CSE 599: Sparsification, sampling, and optimization</em></a> (Autumn 2023; see also <a href="https://homes.cs.washington.edu/~jrl/teaching/cse599au23/notes/lewisweights.html">Lewis weights notes</a>)</li>
+  <li>Michael B. Cohen and Richard Peng, <a href="https://arxiv.org/abs/1412.0588"><em>$\ell_p$ Row Sampling by Lewis Weights</em></a> (<a href="https://arxiv.org/pdf/1412.0588">PDF</a>)</li>
+</ul>
+
+<h3 id="related-sparsification">Related Sparsification</h3>
+
+<ul>
+  <li>Jambulapati, Lee, Liu, Sidford, <a href="https://arxiv.org/abs/2311.18145"><em>Sparsifying Generalized Linear Models</em></a></li>
+  <li>Jambulapati, Liu, Sidford, <a href="https://arxiv.org/abs/2209.10539"><em>Chaining, Group Leverage Score Overestimates, and Fast Spectral Hypergraph Sparsification</em></a></li>
+  <li>James R. Lee, <a href="https://arxiv.org/abs/2209.04539"><em>Spectral Hypergraph Sparsification via Chaining</em></a></li>
+  <li>Tasuku Soma, <em>Spectral Sparsification of Hypergraphs</em></li>
+  <li>Benczúr and Karger (1996), <em>Approximating s-t Minimum Cuts in $\tilde{O}(n^2)$ Time</em></li>
+</ul>
+
+<h3 id="classical-lewis-weight-literature">Classical Lewis-Weight Literature</h3>
+
+<ul>
+  <li>D. R. Lewis, <a href="https://eudml.org/doc/218208"><em>Finite dimensional subspaces of $L_p$</em></a>, <em>Studia Mathematica</em> <strong>63</strong> (1978), 207–212 — change of density</li>
+  <li>J. Bourgain, J. Lindenstrauss, and V. D. Milman, <a href="https://doi.org/10.1007/BF02392835"><em>Approximation of zonoids by zonotopes</em></a>, <em>Acta Mathematica</em> <strong>162</strong> (1989), 73–141</li>
+  <li>M. Talagrand, <em>Embedding subspaces of $L_p$ in $\ell_p^N$</em>, in <em>Geometric Aspects of Functional Analysis</em> (Israel Seminar 1992–94), Oper. Theory Adv. Appl. <strong>77</strong>, Birkhäuser, 1995, pp. 311–326 (<a href="https://archive.org/details/isbn_9783764352073_77">volume</a>)</li>
+</ul>
+
+
+        
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="https://thomasgraceman.github.io/tags/#metric-embeddings" class="page__taxonomy-item" rel="tag">metric embeddings</a><span class="sep">, </span>
+    
+      
+      
+      <a href="https://thomasgraceman.github.io/tags/#norms" class="page__taxonomy-item" rel="tag">norms</a><span class="sep">, </span>
+    
+      
+      
+      <a href="https://thomasgraceman.github.io/tags/#sparsification" class="page__taxonomy-item" rel="tag">sparsification</a>
+    
+    </span>
+  </p>
+
+
+
+
+      </footer>
+
+      
+
+<section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://bsky.app/intent/compose?text=https://thomasgraceman.github.io/posts/sparsification-sums-of-norms-chapter-1/" class="btn btn--bluesky" title="Share on Bluesky"><i class="fab fa-bluesky" aria-hidden="true"></i><span> Bluesky</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https://thomasgraceman.github.io/posts/sparsification-sums-of-norms-chapter-1/" class="btn btn--facebook" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://thomasgraceman.github.io/posts/sparsification-sums-of-norms-chapter-1/" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+
+  <a href="https://www.addtoany.com/add_to/mastodon?linkurl=https%3A%2F%2Fthomasgraceman.github.io%2Fposts%2Fsparsification-sums-of-norms-chapter-1%2F" class="btn btn--mastodon" title="Share on Mastodon"><i class="fab fa-mastodon" aria-hidden="true"></i><span> Mastodon</span></a>
+
+  <a href="https://x.com/intent/post?text=https://thomasgraceman.github.io/posts/sparsification-sums-of-norms-chapter-1/" class="btn btn--x" title="Share on X"><i class="fab fa-x-twitter" aria-hidden="true"></i><span> X (formerly Twitter)</span></a>
+</section>
+
+
+      
+
+
+  <nav class="pagination">
+    
+      <a href="https://thomasgraceman.github.io/posts/separations-proof-complexity-tfnp-part-1/" class="pagination--pager" title="Separations in Proof Complexity and TFNP — Part 1
+">Previous</a>
+    
+    
+      <a href="https://thomasgraceman.github.io/posts/tree-embeddings-hierarchical-cut-decompositions/" class="pagination--pager" title="Probabilistic Tree Embeddings and Hierarchical Cut Decompositions
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      
+        <h4 class="page__related-title">You May Also Enjoy</h4>
+      
+      <div class="grid__wrapper">
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "https://thomasgraceman.github.io/images/profile.png"
+          
+          alt="Dynamic Sum-of-Radii Clustering
+">
+      </div>
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="https://thomasgraceman.github.io/posts/dynamic-sum-of-radii-clustering/" rel="permalink">Dynamic Sum-of-Radii Clustering
+</a>
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  10 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-08-06T00:00:00+00:00">August 06, 2026</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><p>So in this second post, following the <a href="/posts/dynamic-approximate-nns/">previous data structure</a>, I am going to review some algorithms that were devised using the scheme of nearest neighbor search.</p>
+
+</p>
+    
+    
+    
+
+  </article>
+</div>
+
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "https://thomasgraceman.github.io/images/profile.png"
+          
+          alt="Dynamic Approximate Nearest-Neighbor Search in Doubling Metrics
+">
+      </div>
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="https://thomasgraceman.github.io/posts/dynamic-approximate-nns/" rel="permalink">Dynamic Approximate Nearest-Neighbor Search in Doubling Metrics
+</a>
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  14 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-08-06T00:00:00+00:00">August 06, 2026</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><p>Well, in this blog post we are going to review several papers and understand the techniques that are utilized in order to tackle several problems related to areas such as nearest neighbor problems, the facility location problem, and so on.</p>
+
+</p>
+    
+    
+    
+
+  </article>
+</div>
+
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "https://thomasgraceman.github.io/images/profile.png"
+          
+          alt="Tree Embedding in High Dimensions: Dynamic and Massively Parallel, and Streaming Facility Location in High Dimension via Geometric Hashing – 2
+">
+      </div>
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="https://thomasgraceman.github.io/posts/tree-embedding-high-dimensions-streaming-facility-location-geometric-hashing-2/" rel="permalink">Tree Embedding in High Dimensions: Dynamic and Massively Parallel, and Streaming Facility Location in High Dimension via Geometric Hashing – 2
+</a>
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  3 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-07-02T00:00:00+00:00">July 02, 2026</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><h1 id="tree-embedding-in-high-dimensions">Tree Embedding in High Dimensions</h1>
+<h2 id="dynamic-and-massively-parallel-and-streaming-facility-location-via-geometric-hashing">Dynamic and Massively Parallel, and Streaming Facility Location via Geometric Hashing</h2>
+
+</p>
+    
+    
+    
+
+  </article>
+</div>
+
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "https://thomasgraceman.github.io/images/profile.png"
+          
+          alt="Sparsification of Sums of Norms: Symmetrization, Generic Chaining, and Concentration — Chapter 3
+">
+      </div>
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="https://thomasgraceman.github.io/posts/sparsification-sums-of-norms-symmetrization-generic-chaining-chapter-3/" rel="permalink">Sparsification of Sums of Norms: Symmetrization, Generic Chaining, and Concentration — Chapter 3
+</a>
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  8 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-06-28T00:00:00+00:00">June 28, 2026</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><h1 id="sparsification-of-sums-of-norms">Sparsification of Sums of Norms</h1>
+<h2 id="symmetrization-generic-chaining-and-concentration--chapter-3">Symmetrization, Generic Chaining, and Concentration · Chapter 3</h2>
+
+</p>
+    
+    
+    
+
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- Support for MatJax -->
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true
+    }
+  };
+</script>
+<script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script"></script>
+
+<!-- Support for Mermaid -->
+<script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({startOnLoad:true, theme:'default'});
+    await mermaid.run({querySelector:'code.language-mermaid'});
+</script>
+
+<!-- New post corner notice -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var notice = document.getElementById('new-post-notice');
+  if (!notice) return;
+
+  var postId = notice.dataset.postId;
+  var key = 'dismissed-post-' + postId;
+
+  if (localStorage.getItem(key) === '1') return;
+
+  notice.hidden = false;
+
+  notice.querySelector('.new-post-notice__close').addEventListener('click', function () {
+    localStorage.setItem(key, '1');
+    notice.remove();
+  });
+});
+</script>
+
+<!-- end custom footer snippets -->
+
+        
+
+
+<div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+    
+      <li><a href="https://github.com/thomasgraceman"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="https://thomasgraceman.github.io/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+
+<div class="page__footer-copyright">
+  &copy; 2026 Taha Hoseinpour, Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://github.com/academicpages/academicpages.github.io">AcademicPages</a>, a fork of <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.<br />
+  Site last updated 2026-08-06, <a href="/sitemap/" style="text-transform: uppercase;">Sitemap</a>
+</div>
+
+      </footer>
+    </div>
+
+    
+
+  
+  
+    
+    
+    
+    
+
+    
+      <div id="new-post-notice"
+           class="new-post-notice"
+           role="status"
+           aria-live="polite"
+           data-post-id="posts-dynamic-sum-of-radii-clustering"
+           hidden>
+        <button type="button" class="new-post-notice__close" aria-label="Dismiss notice">&times;</button>
+        <p class="new-post-notice__label">New post</p>
+        <a class="new-post-notice__link" href="https://thomasgraceman.github.io/posts/dynamic-sum-of-radii-clustering/">
+          Dynamic Sum-of-Radii Clustering
+        </a>
+      </div>
+    
+  
+
+
+    <script type="module" src="https://thomasgraceman.github.io/assets/js/main.min.js"></script>
+
+
+
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MGD7PS6X0W"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-MGD7PS6X0W');
+</script>
+
+
+
+
+
+
+
+
+  </body>
+</html>
+

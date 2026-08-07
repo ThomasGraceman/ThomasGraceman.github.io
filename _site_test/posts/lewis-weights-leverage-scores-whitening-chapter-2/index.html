@@ -1,0 +1,1165 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+
+<meta charset="utf-8">
+
+
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Lewis Weights, Leverage Scores, and Whitening — Chapter 2 - A steeper descent</title>
+
+
+
+
+<meta name="description" content="Chapter 2 on Lewis weights, leverage scores, and whitening in the sparsification of sums of norms series.">
+
+
+
+
+<meta name="author" content="Taha Hoseinpour">
+
+
+<!-- Academic SEO: Google Scholar citation meta tags -->
+
+  <meta name="citation_title" content="Lewis Weights, Leverage Scores, and Whitening — Chapter 2">
+  <meta name="citation_author" content="Taha Hoseinpour">
+  <meta name="citation_publication_date" content="2026/06/13">
+  <meta name="citation_author_institution" content="Sharif University of Technology">
+  
+  <meta name="citation_public_url" content="https://thomasgraceman.github.io/posts/lewis-weights-leverage-scores-whitening-chapter-2/">
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2026-06-13T00:00:00+00:00">
+
+
+
+
+  <link rel="canonical" href="https://thomasgraceman.github.io/posts/lewis-weights-leverage-scores-whitening-chapter-2/">
+
+
+
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+
+
+
+  <meta name="twitter:site" content="@thomas_ger">
+  <meta name="twitter:title" content="Lewis Weights, Leverage Scores, and Whitening — Chapter 2">
+  
+  <meta name="twitter:description" content="Chapter 2 on Lewis weights, leverage scores, and whitening in the sparsification of sums of norms series.">
+  
+  <meta name="twitter:url" content="https://thomasgraceman.github.io/posts/lewis-weights-leverage-scores-whitening-chapter-2/">
+
+  
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://thomasgraceman.github.io/images/profile.png">
+    <meta name="twitter:image:alt" content="Lewis Weights, Leverage Scores, and Whitening — Chapter 2">
+  
+
+  
+    <meta name="twitter:creator" content="@thomas_ger">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+
+  <meta name="google-site-verification" content="AZLgMz3hX8xkaa4pei-D3hJXOhMy1S3SWM0x66QI0zk" />
+
+
+
+
+<!-- end SEO -->
+
+<!-- Open Graph protocol data (https://ogp.me/), used by social media -->
+<meta property="og:locale" content="en-US">
+<meta property="og:site_name" content="A steeper descent">
+<meta property="og:title" content="Lewis Weights, Leverage Scores, and Whitening — Chapter 2">
+
+  <meta property="og:type" content="article">
+
+
+  <meta property="og:description" content="Chapter 2 on Lewis weights, leverage scores, and whitening in the sparsification of sums of norms series.">
+
+
+  <meta property="og:url" content="https://thomasgraceman.github.io/posts/lewis-weights-leverage-scores-whitening-chapter-2/">
+
+
+  <meta property="og:image" content="https://thomasgraceman.github.io/images/profile.png">
+  <meta property="og:image:alt" content="Lewis Weights, Leverage Scores, and Whitening — Chapter 2">
+
+
+
+  
+  <meta property="article:author" content="Taha Hoseinpour">
+  
+  
+  
+  <meta property="article:tag" content="sparsification, Lewis weights, leverage scores, norms">
+  
+
+
+
+
+
+  
+  <meta name="keywords" content="sparsification, Lewis weights, leverage scores, norms">
+
+<!-- end Open Graph protocol -->
+
+<!-- Structured data (https://schema.org/) -->
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "A steeper descent",
+    "url": "https://thomasgraceman.github.io",
+    "description": "Research blog on theoretical computer science — metric embeddings, sparsification, generic chaining, and approximation algorithms. Notes on papers and books by Taha Hoseinpour.",
+    "inLanguage": "en-US"
+  }
+</script>
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": "https://thomasgraceman.github.io#person",
+    "name": "Taha Hoseinpour",
+    "url": "https://thomasgraceman.github.io",
+    "description": "Research blog on theoretical computer science — metric embeddings, sparsification, generic chaining, and approximation algorithms. Notes on papers and books by Taha Hoseinpour."
+    ,
+    "jobTitle": "Graduate Student in Theoretical Computer Science"
+    
+    ,
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Sharif University of Technology"
+    },
+    "affiliation": {
+      "@type": "Organization",
+      "name": "Sharif University of Technology"
+    }
+    
+    ,
+    "homeLocation": {
+      "@type": "Place",
+      "name": "Iran"
+    }
+    
+    ,
+    "alumniOf": [
+      {
+        "@type": "CollegeOrUniversity",
+        "name": "Sharif University of Technology"
+      },
+      {
+        "@type": "CollegeOrUniversity",
+        "name": "Iran University of Science and Technology"
+      }
+      
+    ]
+    
+    ,
+    "image": "https://thomasgraceman.github.io/images/profile.png"
+    
+    ,
+    "email": "tahahoseinpourasli@gmail.com"
+    
+    ,
+    "sameAs": ["https://github.com/thomasgraceman","https://twitter.com/thomas_ger"]
+    
+  }
+</script>
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://thomasgraceman.github.io/posts/lewis-weights-leverage-scores-whitening-chapter-2/"
+    },
+    "headline": "Lewis Weights, Leverage Scores, and Whitening — Chapter 2",
+    "description": "Chapter 2 on Lewis weights, leverage scores, and whitening in the sparsification of sums of norms series.",
+    "url": "https://thomasgraceman.github.io/posts/lewis-weights-leverage-scores-whitening-chapter-2/",
+    "inLanguage": "en-US",
+    
+    "datePublished": "2026-06-13T00:00:00+00:00",
+    
+    
+    "dateModified": "2026-06-13T00:00:00+00:00",
+    
+    
+    "keywords": ["sparsification","Lewis weights","leverage scores","norms"],
+    
+    "author": {
+      "@type": "Person",
+      "@id": "https://thomasgraceman.github.io#person",
+      "name": "Taha Hoseinpour"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "A steeper descent",
+      "url": "https://thomasgraceman.github.io",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://thomasgraceman.github.io/images/profile.png"
+      }
+    }
+    ,
+    "image": "https://thomasgraceman.github.io/images/profile.png"
+    
+  }
+</script>
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Taha Hoseinpour",
+        "item": "https://thomasgraceman.github.io"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Lewis Weights, Leverage Scores, and Whitening — Chapter 2",
+        "item": "https://thomasgraceman.github.io/posts/lewis-weights-leverage-scores-whitening-chapter-2/"
+      }
+    ]
+  }
+</script>
+
+
+
+<link href="https://thomasgraceman.github.io/feed.xml" type="application/atom+xml" rel="alternate" title="A steeper descent Feed">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="https://thomasgraceman.github.io/assets/css/main.css">
+
+    
+
+<!-- start custom head snippets -->
+
+<!-- Support for Academicons -->
+<link rel="stylesheet" href="https://thomasgraceman.github.io/assets/css/academicons.css"/>
+
+<!-- New post corner notice -->
+<link rel="stylesheet" href="https://thomasgraceman.github.io/assets/css/new-post-notice.css"/>
+
+<!-- favicon from https://commons.wikimedia.org/wiki/File:OOjs_UI_icon_academic-progressive.svg -->
+<link rel="apple-touch-icon" sizes="180x180" href="https://thomasgraceman.github.io/images/apple-touch-icon-180x180.png"/>
+<link rel="icon" type="image/svg+xml" href="https://thomasgraceman.github.io/images/favicon.svg"/>
+<link rel="icon" type="image/png" href="https://thomasgraceman.github.io/images/favicon-32x32.png" sizes="32x32"/>
+<link rel="icon" type="image/png" href="https://thomasgraceman.github.io/images/favicon-192x192.png" sizes="192x192"/>
+<link rel="manifest" href="https://thomasgraceman.github.io/images/manifest.json"/>
+<link rel="icon" href="/images/favicon.ico"/>
+<meta name="theme-color" content="#ffffff"/>
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <button><span class="navicon"></span></button>
+        <ul class="visible-links">
+          <li class="masthead__menu-item masthead__menu-item--lg persist ">
+            <a href="https://thomasgraceman.github.io/">A steeper descent</a>
+          </li>
+          
+            
+            <li class="masthead__menu-item ">
+              <a href="https://thomasgraceman.github.io/readinglist/">Reading List</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item ">
+              <a href="https://thomasgraceman.github.io/year-archive/">Blog Posts</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item ">
+              <a href="https://thomasgraceman.github.io/cv/">CV</a>
+            </li>
+          
+          <li id="theme-toggle" class="masthead__menu-item persist tail">
+            <a role="button" aria-labelledby="theme-icon"><i id="theme-icon" class="fa-solid fa-sun" aria-hidden="true" title="toggle theme"></i></a>
+          </li>
+        </ul>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+
+
+
+
+  
+    
+
+
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="https://thomasgraceman.github.io/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="https://thomasgraceman.github.ioposts" itemprop="item"><span itemprop="name">Posts</span></a>
+          <meta itemprop="position" content="2" />
+        </li>
+        <span class="sep">/</span>
+      
+    
+      
+      
+        <li class="current">Lewis Weights, Leverage Scores, and Whitening — Chapter 2</li>
+      
+    
+  </ol>
+</nav>
+  
+
+
+<div id="main" role="main">
+  
+
+
+  <div class="sidebar sticky">
+  
+
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  <div class="author__avatar">
+    
+    	<img src="https://thomasgraceman.github.io/images/profile.png" class="author__avatar" alt="Taha"  fetchpriority="high" />
+    
+  </div>
+
+  <div class="author__content">
+    <h3 class="author__name">Taha</h3>
+    
+    <p class="author__bio">Hi, I am Taha.</p>
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      <!-- Font Awesome icons / Biographic information  -->
+      
+        <li class="author__desktop"><i class="fas fa-fw fa-location-dot icon-pad-right" aria-hidden="true"></i>Iran</li>
+      
+      
+        <li class="author__desktop"><i class="fas fa-fw fa-building-columns icon-pad-right" aria-hidden="true"></i>Sharif University of Technology</li>
+      
+      
+      
+        <li><a href="mailto:tahahoseinpourasli@gmail.com"><i class="fas fa-fw fa-envelope icon-pad-right" aria-hidden="true"></i>Email</a></li>
+      
+
+      <!-- Font Awesome and Academicons icons / Academic websites -->
+      
+            
+      
+            
+      
+      
+                              
+      
+      
+      
+      
+      
+
+      <!-- Font Awesome icons / Repositories and software development -->
+      
+            
+            
+      
+        <li><a href="https://github.com/thomasgraceman"><i class="fab fa-fw fa-github icon-pad-right" aria-hidden="true"></i>GitHub</a></li>
+      
+            
+            
+
+      <!-- Font Awesome icons / Social media -->
+              
+      
+      
+            
+      
+                  
+                  
+      
+            
+            
+            
+      
+            
+                  
+            
+      
+            
+            
+      
+        <li><a href="https://twitter.com/thomas_ger"><i class="fab fa-fw fa-x-twitter icon-pad-right" aria-hidden="true"></i>X (formerly Twitter)</a></li>
+      
+              
+      
+                      
+      
+      
+            
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Lewis Weights, Leverage Scores, and Whitening — Chapter 2">
+    <meta itemprop="description" content="This is the second chapter in my series on Sparsifying Sums of Norms. Chapter 1 set up the general problem and briefly mentioned Lewis weights. In the second post of this series on sparsification of the norm, I want to turn to the $\ell_p$ row sampling paper. I’ll be spending a few posts on this one, because I think it is genuinely revealing on the subject  it is worth pondering carefully and going through in some detail. The paper relies heavily on the works of Milman and Talagrand(for example), so I may cover those seminal papers too at some point. At a high level, this paper is a vast generalization of the Johnson–Lindenstrauss lemma, with a few extremely technical steps, but the overall theme is clear and elegant. I especially like how they used Talagrand’s result and intuition, and the way they brought in Lewis weights to pull everything together.">
+    <meta itemprop="datePublished" content="June 13, 2026">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Lewis Weights, Leverage Scores, and Whitening — Chapter 2
+</h1>
+          
+            <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  12 minute read
+	
+</p>
+          
+        
+        
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-06-13T00:00:00+00:00">June 13, 2026</time></p>
+            
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        <p>This is the second chapter in my series on <a href="https://homes.cs.washington.edu/~jrl/papers/pdf/norm-sparsify.pdf">Sparsifying Sums of Norms</a>. <a href="/posts/sparsification-sums-of-norms-chapter-1/">Chapter 1</a> set up the general problem and briefly mentioned Lewis weights. In the second post of this series on sparsification of the norm, I want to turn to the $\ell_p$ row sampling paper. I’ll be spending a few posts on this one, because I think it is genuinely revealing on the subject  it is worth pondering carefully and going through in some detail. The paper relies heavily on the works of Milman and Talagrand(for example), so I may cover those seminal papers too at some point. At a high level, this paper is a vast generalization of the Johnson–Lindenstrauss lemma, with a few extremely technical steps, but the overall theme is clear and elegant. I especially like how they used Talagrand’s result and intuition, and the way they brought in Lewis weights to pull everything together.</p>
+
+<hr />
+
+<h2 id="what-is-this-paper-about">What Is This Paper About?</h2>
+
+<p>Randomized sampling is a very powerful tool in the literature. There are many instances where the number of rows vastly exceeds the dimension of interest. The most obvious and easy such problem is <strong>Least Squares</strong>: if $d \gg n$, we can sample enough rows and keep going with our life while finding a good minimizer that approximates the original one. So how do we approach this algorithmically?</p>
+
+<p>For the case where the norm is $p = 2$, we have the concept of <strong>leverage scores</strong>, which assign a score to each row based on its importance. We then sample each row a proportional number of times to get an unbiased estimator. The key step is then proving some sort of concentration inequality  just like Johnson–Lindenstrauss  and showing that with high probability we get a good approximation, to get that we actually need to have all the basises and directions to have a uniform impact on the question at hand, and in this setting a statistical white transform is utilized.</p>
+
+<hr />
+
+<h2 id="1-whitening-as-a-change-of-coordinates">1. Whitening as a Change of Coordinates</h2>
+
+<p>In statistics and machine learning, <strong>whitening</strong> means transforming data so that its covariance becomes the identity. Good expositions are <a href="https://andrewcharlesjones.github.io/journal/whitening.html">Andy Jones’s notes on statistical whitening</a> and Dustin Stansbury’s post <a href="https://theclevermachine.wordpress.com/2013/03/30/the-statistical-whitening-transform/"><em>The Statistical Whitening Transform</em></a> on The Clever Machine.</p>
+
+<p>Suppose $X \in \mathbb{R}^{n \times p}$ has (centered) covariance $\Sigma = \frac{1}{n} X^\top X$. A whitening matrix $W$ satisfies</p>
+
+\[\frac{1}{n} W^\top X^\top X W = W^\top \Sigma W = I_p,\]
+
+<p>so the whitened data $Y = XW$ has identity covariance. One standard choice is</p>
+
+\[W = \Sigma^{-1/2} = U \Lambda^{-1/2} U^\top,\]
+
+<p>where $\Sigma = U \Lambda U^\top$ is the eigendecomposition. Geometrically (as Stansbury explains): first rotate into the eigenbasis of $\Sigma$, then scale each direction by the inverse of its standard deviation. The result is a sphere of unit variance in every coordinate.</p>
+
+<p>The key point for us is not PCA versus ZCA whitening, but the appearance of <strong>$\Sigma^{-1/2}$</strong>: a symmetric square root of the inverse covariance. That object reweights directions so that none dominates.</p>
+
+<hr />
+
+<h2 id="what-is-a-leverage-score">What Is a Leverage Score?</h2>
+
+<p>A leverage score is a kind of <strong>Statistical Whitening Transform</strong>.</p>
+
+<p>In many modeling applications, data are transformed to have an identity covariance matrix, a process known as <em>statistical whitening</em>. After whitening, the features are uncorrelated and each dimension has unit variance.</p>
+
+<p>Given a data matrix $X \in \mathbb{R}^{n \times p}$ with covariance matrix</p>
+
+\[\Sigma = \frac{1}{n} X^\top X,\]
+
+<p>a whitening transformation seeks a matrix $W$ such that the transformed data has identity covariance:</p>
+
+\[W^\top \Sigma W = I_p.\]
+
+<p>Consequently, the whitening matrix satisfies $WW^\top = \Sigma^{-1}$. After whitening, the variables are uncorrelated and each dimension has unit variance.</p>
+
+<p>By making the data uncorrelated and viewing it in this special way  which is the key intuition here  we can change the density of rows and then sparsify the matrix.</p>
+
+<p>The <strong>statistical leverage score</strong> of the $i$th row $a_i$ is defined as</p>
+
+\[\tau_i(A) \stackrel{\text{def}}{=} a_i^\top (A^\top A)^{-1} a_i = \left\|(A^\top A)^{-1/2} a_i \right\|_2^2.\]
+
+<p>Equivalently, it is the squared Euclidean norm of the $i$th row after applying the statistical whitening transform.</p>
+
+<hr />
+
+<h2 id="3-from-ell_2-leverage-to-ell_p-lewis-weights">3. From $\ell_2$ Leverage to $\ell_p$ Lewis Weights</h2>
+
+<p>For general $p$, the analogue of leverage scores is less obvious because $|\cdot|_p$ is not induced by a single inner product in the same clean way. Lewis’s classical <strong>change-of-density</strong> construction (<a href="https://eudml.org/doc/218208">Lewis, 1978</a>, <em>Finite dimensional subspaces of $L_p$</em>) produces weights $w_1, \ldots, w_n \ge 0$ such that an $\ell_p$ norm on rows can be studied through an associated $\ell_2$ geometry. Bourgain, Lindenstrauss, and Milman (<a href="https://doi.org/10.1007/BF02392835">1989</a>, <em>Approximation of zonoids by zonotopes</em>) and Talagrand (<a href="https://archive.org/details/isbn_9783764352073_77">1995</a>, <em>Embedding subspaces of $L_p$ in $\ell_p^N$</em>) developed and used this framework in convex geometry and functional analysis.</p>
+
+<p>On the algorithmic side, Cohen and Peng made Lewis weights into a practical row-sampling tool in <a href="https://arxiv.org/abs/1412.0588"><em>$\ell_p$ Row Sampling by Lewis Weights</em></a> (<a href="https://arxiv.org/pdf/1412.0588">PDF</a>). Their problem: given $A \in \mathbb{R}^{n \times d}$ with $n \gg d$, build a sparse matrix $A’$ from rescaled rows of $A$ such that</p>
+
+\[\|Ax\|_p \approx_{1+\varepsilon} \|A'x\|_p,
+\qquad \forall\, x \in \mathbb{R}^d.\]
+
+<p>The sampling probabilities come from the <strong>$\ell_p$ Lewis weights</strong>, defined as follows.</p>
+
+<blockquote>
+  <p><strong>Definition ($\ell_p$ Lewis weights).</strong></p>
+
+  <p>Given $A \in \mathbb{R}^{n \times d}$, the Lewis weights $w_1, \ldots, w_n \ge 0$ are the unique weights such that, for $W = \operatorname{diag}(w_1, \ldots, w_n)$ and every row $i$,</p>
+
+\[w_i = \tau_i\!\left(W^{\,\frac12 - \frac1p} A\right).\]
+</blockquote>
+
+<p>When $p = 2$, this reduces to ordinary leverage scores (up to the normalization built into $W$). For general $p$, the matrix $W^{\frac12 - \frac1p} A$ is a <strong>$p$-dependent reweighting</strong> of rows before applying the whitening map $(\cdot)^\top A^\top W’ A (\cdot)$ in disguise. One can also characterize Lewis weights variationally: they arise from maximizing $\det(M)$ subject to $\sum_i (a_i^\top M a_i)^{p/2} \le d$, $M \succeq 0$ (see <a href="https://homes.cs.washington.edu/~jrl/teaching/cse599au23/notes/lewisweights.html">Lee’s Lewis weights notes</a>).</p>
+
+<p>Cohen and Peng show that sampling $\tilde{O}(\varepsilon^{-2} d \log d)$ rows with probabilities proportional to Lewis weights yields a $(1 \pm \varepsilon)$-approximate $\ell_p$ subspace embedding. That is the backbone for many fast regression and optimization algorithms.</p>
+
+<hr />
+
+<h2 id="setup-and-goal">Setup and Goal</h2>
+
+<p>The $\ell_p$-norm of a vector $x \in \mathbb{R}^d$ is defined as</p>
+
+\[\|x\|_p = \left(\sum_{i=1}^{d} |x_i|^p\right)^{1/p}.\]
+
+<p>For a matrix $A \in \mathbb{R}^{n \times d}$, let $a_i$ denote its $i$th row (viewed as a column vector). Then,</p>
+
+\[\|Ax\|_p = \left(\sum_{i=1}^{n} |a_i^{\top}x|^p\right)^{1/p}.\]
+
+<p>Throughout, we assume that $A$ has full column rank; otherwise, one may restrict to its column space or use the Moore–Penrose pseudoinverse.</p>
+
+<p>For an $n \times d$ matrix $A$ with $n \gg d$ and $\varepsilon &gt; 0$, the goal is to select a small set of (rescaled) rows to form $A’$ such that</p>
+
+\[\|Ax\|_p \approx_{1+\varepsilon} \|A'x\|_p\]
+
+<p>for all $x \in \mathbb{R}^d$, where $\approx_{1+\varepsilon}$ denotes multiplicative error within a factor of $1 + \varepsilon$.</p>
+
+<p>The main theorem we want to prove is the following  but we consider the case $p = 1$ first.</p>
+
+<blockquote>
+  <p><strong>Theorem.</strong> Given a matrix $A$ and $\varepsilon &gt; 0$, there exists a distribution over sampling matrices $S$ with $O(d \log d \cdot \varepsilon^{-2})$ rows and one nonzero entry per row such that, with high probability,</p>
+
+\[\|SAx\|_1 \approx_{1+\varepsilon} \|Ax\|_1\]
+
+  <p>for all $x \in \mathbb{R}^d$. Moreover, a sample from this distribution can be generated using $O(\log \log n)$ calls to a procedure that computes $2$-approximate statistical leverage scores of matrices of the form $WA$, where $W$ is a nonneg diagonal matrix.</p>
+</blockquote>
+
+<hr />
+
+<h2 id="the-key-intuitions-from-talagrand">The Key Intuitions from Talagrand</h2>
+
+<p>From the literature especially Talagrand’s papers  we get two central intuitions:</p>
+
+<ol>
+  <li>
+    <p><strong>Matrix concentration bound:</strong> uniform sampling works (for all $p$) when all leverage scores are close, i.e., $O(d/n)$.</p>
+  </li>
+  <li>
+    <p><strong>$\ell_p$ whitening transformation:</strong> split $a_i$ into $w_i$ (fractional) “copies” with the same leverage scores.</p>
+  </li>
+</ol>
+
+<p>The $\ell_p$ spaces are significantly more complex than $\ell_2$ and lack many of its useful properties. The Lewis weight framework can be viewed as a way to recover some of the structure of $\ell_2$ by associating to any matrix $A$ a matrix $B$ such that $|Ax|_p$ is closely related to $|Bx|_2$.</p>
+
+<hr />
+
+<h2 id="from-ell_p-to-ell_2-lewis-weights">From $\ell_p$ to $\ell_2$: Lewis Weights</h2>
+
+<p><strong>How should we relate the norms to the well-studied $\ell_2$ case?</strong></p>
+
+<p>A naive approach is to set $B = A$. However, this fails because $|Bx|_2$ is not invariant under changes of density. For example, splitting a row $a_i$ of $A$ into $k$ copies of $k^{-1/p} a_i$ leaves $|Ax|_p$ unchanged, but $|Ax|_2$ can change arbitrarily depending on how the splitting is done.</p>
+
+<p>To address this, we modify the notion of density. We view each row $a_i$ as representing $w_i$ copies of $w_i^{-1/p} a_i$, where $w_i$ need not be an integer but acts as a weight in a weighted $\ell_p$ norm. Under an $\ell_2$ transformation, this corresponds to a single row $w_i^{1/2 - 1/p} a_i$. Hence, defining $W = \mathrm{diag}(w_i)$, we set</p>
+
+\[B = W^{1/2 - 1/p} A.\]
+
+<hr />
+
+<h2 id="defining-lewis-weights">Defining Lewis Weights</h2>
+
+<p>Intuitively, we want the split rows $w_i^{-1/p} a_i$ to be normalized in a consistent way. Lewis’s change of density formalizes this: each normalized row should have leverage score $1$ which makes the matrix isotropic under the geometry induced by the weighted covariance.</p>
+
+<p>This is a circular definition $w_i$ depends on the leverage scores of $B$, while $B$ itself depends on $w_i$  but it turns out to have a unique solution. The Gram matrix of $B$ is $A^\top W^{1 - 2/p} A$.</p>
+
+<blockquote>
+  <p><strong>Definition (Lewis Weights).</strong> For a matrix $A$ and $p \ge 1$, the $\ell_p$ Lewis weights $w$ are the unique vector satisfying, for each $i$,</p>
+
+\[w_i = \tau_i\!\left(W^{1/2 - 1/p}A\right).\]
+
+  <p>Equivalently,</p>
+
+\[a_i^\top \left(A^\top W^{1 - 2/p} A\right)^{-1} a_i = w_i^{2/p}.\]
+</blockquote>
+
+<p>For $p = 1$, the Lewis quadratic form is $A^\top W^{-1} A$, and the defining condition becomes $w_i^2 = a_i^\top (A^\top W^{-1} A)^{-1} a_i$, which says the leverage score of each weighted row $w_i a_i$ is exactly $1$. We are setting all leverage scores to $1$ precisely because we want a uniform matrix  and to do that we use the change-of-density trick where a row is broken into several fractional copies, we must note that what i’m explaining here is extremely simplified, namely we should be exploring what things are meant here in detailed mannar.</p>
+
+<hr />
+
+<h2 id="the-ell_1-matrix-concentration-bound">The $\ell_1$ Matrix Concentration Bound</h2>
+
+<p>Once we have the Lewis weights in hand, the sampling result follows:</p>
+
+<blockquote>
+  <p><strong>Theorem ($\ell_1$ matrix concentration bound).</strong> There exists an absolute constant $C_s$ such that the following holds. Let $A$ be a matrix with $\ell_1$ Lewis weights $w_i$, and let $p_i$ be sampling values satisfying $\sum_i p_i = N$ and</p>
+
+\[p_i \ge C_s\, w_i \log N \cdot \varepsilon^{-2}.\]
+
+  <p>Construct a sampling matrix $S \in \mathbb{R}^{N \times n}$ by independently choosing each row to be the $i$th standard basis vector $e_i$ scaled by $1/p_i$ with probability $p_i/N$.</p>
+
+  <p>Then, with high probability,</p>
+
+\[\|SAx\|_1 \approx_{1+\varepsilon} \|Ax\|_1 \quad \text{for all } x \in \mathbb{R}^d.\]
+
+  <p>In particular, using constant-factor approximations to the Lewis weights, $O(d \log(d/\varepsilon) \cdot \varepsilon^{-2})$ row samples suffice.</p>
+</blockquote>
+
+<p>The big remaining questions  how we should set the Lewis weights so that all leverage scores become uniform, and how to compute them efficiently  will be the subject of the next post.</p>
+
+<hr />
+
+<h2 id="references">References</h2>
+
+<h3 id="main-sources-for-this-chapter">Main sources for this chapter</h3>
+
+<ul>
+  <li>James R. Lee et al., <a href="https://homes.cs.washington.edu/~jrl/papers/pdf/norm-sparsify.pdf"><em>Sparsifying Sums of Norms</em></a></li>
+  <li>James R. Lee, <a href="https://homes.cs.washington.edu/~jrl/teaching/cse599au23"><em>CSE 599: Sparsification, sampling, and optimization</em></a> (Autumn 2023; see also <a href="https://homes.cs.washington.edu/~jrl/teaching/cse599au23/notes/lewisweights.html">Lewis weights notes</a>)</li>
+  <li>Michael B. Cohen and Richard Peng, <a href="https://arxiv.org/abs/1412.0588"><em>$\ell_p$ Row Sampling by Lewis Weights</em></a> (<a href="https://arxiv.org/pdf/1412.0588">PDF</a>)</li>
+</ul>
+
+<h3 id="whitening-and-leverage-score-intuition">Whitening and leverage-score intuition</h3>
+
+<ul>
+  <li>Andy Jones, <a href="https://andrewcharlesjones.github.io/journal/whitening.html"><em>Statistical whitening transformations</em></a></li>
+  <li>Dustin Stansbury, <a href="https://theclevermachine.wordpress.com/2013/03/30/the-statistical-whitening-transform/"><em>The Statistical Whitening Transform</em></a> (The Clever Machine, 2013)</li>
+  <li>Kessy, Lewin, and Strimmer, <em>Optimal whitening and decorrelation</em>, <em>The American Statistician</em> <strong>72</strong> (2018), 309–314 — cited in Jones’s post for ZCA versus PCA whitening</li>
+</ul>
+
+<h3 id="classical-lewis-weight-literature">Classical Lewis-weight literature</h3>
+
+<ul>
+  <li>D. R. Lewis, <a href="https://eudml.org/doc/218208"><em>Finite dimensional subspaces of $L_p$</em></a>, <em>Studia Mathematica</em> <strong>63</strong> (1978), 207–212 — change of density</li>
+  <li>J. Bourgain, J. Lindenstrauss, and V. D. Milman, <a href="https://doi.org/10.1007/BF02392835"><em>Approximation of zonoids by zonotopes</em></a>, <em>Acta Mathematica</em> <strong>162</strong> (1989), 73–141</li>
+  <li>M. Talagrand, <em>Embedding subspaces of $L_p$ in $\ell_p^N$</em>, in <em>Geometric Aspects of Functional Analysis</em> (Israel Seminar 1992–94), Oper. Theory Adv. Appl. <strong>77</strong>, Birkhäuser, 1995, pp. 311–326 (<a href="https://archive.org/details/isbn_9783764352073_77">volume</a>)</li>
+</ul>
+
+<h3 id="previous-chapter-in-this-series">Previous chapter in this series</h3>
+
+<ul>
+  <li><a href="/posts/sparsification-sums-of-norms-chapter-1/">Chapter 1: A General Overview</a></li>
+</ul>
+
+
+        
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="https://thomasgraceman.github.io/tags/#leverage-scores" class="page__taxonomy-item" rel="tag">leverage scores</a><span class="sep">, </span>
+    
+      
+      
+      <a href="https://thomasgraceman.github.io/tags/#lewis-weights" class="page__taxonomy-item" rel="tag">Lewis weights</a><span class="sep">, </span>
+    
+      
+      
+      <a href="https://thomasgraceman.github.io/tags/#norms" class="page__taxonomy-item" rel="tag">norms</a><span class="sep">, </span>
+    
+      
+      
+      <a href="https://thomasgraceman.github.io/tags/#sparsification" class="page__taxonomy-item" rel="tag">sparsification</a>
+    
+    </span>
+  </p>
+
+
+
+
+      </footer>
+
+      
+
+<section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://bsky.app/intent/compose?text=https://thomasgraceman.github.io/posts/lewis-weights-leverage-scores-whitening-chapter-2/" class="btn btn--bluesky" title="Share on Bluesky"><i class="fab fa-bluesky" aria-hidden="true"></i><span> Bluesky</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https://thomasgraceman.github.io/posts/lewis-weights-leverage-scores-whitening-chapter-2/" class="btn btn--facebook" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://thomasgraceman.github.io/posts/lewis-weights-leverage-scores-whitening-chapter-2/" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+
+  <a href="https://www.addtoany.com/add_to/mastodon?linkurl=https%3A%2F%2Fthomasgraceman.github.io%2Fposts%2Flewis-weights-leverage-scores-whitening-chapter-2%2F" class="btn btn--mastodon" title="Share on Mastodon"><i class="fab fa-mastodon" aria-hidden="true"></i><span> Mastodon</span></a>
+
+  <a href="https://x.com/intent/post?text=https://thomasgraceman.github.io/posts/lewis-weights-leverage-scores-whitening-chapter-2/" class="btn btn--x" title="Share on X"><i class="fab fa-x-twitter" aria-hidden="true"></i><span> X (formerly Twitter)</span></a>
+</section>
+
+
+      
+
+
+  <nav class="pagination">
+    
+      <a href="https://thomasgraceman.github.io/posts/tree-embeddings-hierarchical-cut-decompositions/" class="pagination--pager" title="Probabilistic Tree Embeddings and Hierarchical Cut Decompositions
+">Previous</a>
+    
+    
+      <a href="https://thomasgraceman.github.io/posts/tree-embedding-high-dimensions-dynamic-mpc/" class="pagination--pager" title="Tree Embedding in High Dimensions: Dynamic and Massively Parallel
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      
+        <h4 class="page__related-title">You May Also Enjoy</h4>
+      
+      <div class="grid__wrapper">
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "https://thomasgraceman.github.io/images/profile.png"
+          
+          alt="Dynamic Sum-of-Radii Clustering
+">
+      </div>
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="https://thomasgraceman.github.io/posts/dynamic-sum-of-radii-clustering/" rel="permalink">Dynamic Sum-of-Radii Clustering
+</a>
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  10 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-08-06T00:00:00+00:00">August 06, 2026</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><p>So in this second post, following the <a href="/posts/dynamic-approximate-nns/">previous data structure</a>, I am going to review some algorithms that were devised using the scheme of nearest neighbor search.</p>
+
+</p>
+    
+    
+    
+
+  </article>
+</div>
+
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "https://thomasgraceman.github.io/images/profile.png"
+          
+          alt="Dynamic Approximate Nearest-Neighbor Search in Doubling Metrics
+">
+      </div>
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="https://thomasgraceman.github.io/posts/dynamic-approximate-nns/" rel="permalink">Dynamic Approximate Nearest-Neighbor Search in Doubling Metrics
+</a>
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  14 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-08-06T00:00:00+00:00">August 06, 2026</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><p>Well, in this blog post we are going to review several papers and understand the techniques that are utilized in order to tackle several problems related to areas such as nearest neighbor problems, the facility location problem, and so on.</p>
+
+</p>
+    
+    
+    
+
+  </article>
+</div>
+
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "https://thomasgraceman.github.io/images/profile.png"
+          
+          alt="Tree Embedding in High Dimensions: Dynamic and Massively Parallel, and Streaming Facility Location in High Dimension via Geometric Hashing – 2
+">
+      </div>
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="https://thomasgraceman.github.io/posts/tree-embedding-high-dimensions-streaming-facility-location-geometric-hashing-2/" rel="permalink">Tree Embedding in High Dimensions: Dynamic and Massively Parallel, and Streaming Facility Location in High Dimension via Geometric Hashing – 2
+</a>
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  3 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-07-02T00:00:00+00:00">July 02, 2026</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><h1 id="tree-embedding-in-high-dimensions">Tree Embedding in High Dimensions</h1>
+<h2 id="dynamic-and-massively-parallel-and-streaming-facility-location-via-geometric-hashing">Dynamic and Massively Parallel, and Streaming Facility Location via Geometric Hashing</h2>
+
+</p>
+    
+    
+    
+
+  </article>
+</div>
+
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "https://thomasgraceman.github.io/images/profile.png"
+          
+          alt="Sparsification of Sums of Norms: Symmetrization, Generic Chaining, and Concentration — Chapter 3
+">
+      </div>
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="https://thomasgraceman.github.io/posts/sparsification-sums-of-norms-symmetrization-generic-chaining-chapter-3/" rel="permalink">Sparsification of Sums of Norms: Symmetrization, Generic Chaining, and Concentration — Chapter 3
+</a>
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  8 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-06-28T00:00:00+00:00">June 28, 2026</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><h1 id="sparsification-of-sums-of-norms">Sparsification of Sums of Norms</h1>
+<h2 id="symmetrization-generic-chaining-and-concentration--chapter-3">Symmetrization, Generic Chaining, and Concentration · Chapter 3</h2>
+
+</p>
+    
+    
+    
+
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- Support for MatJax -->
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true
+    }
+  };
+</script>
+<script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script"></script>
+
+<!-- Support for Mermaid -->
+<script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({startOnLoad:true, theme:'default'});
+    await mermaid.run({querySelector:'code.language-mermaid'});
+</script>
+
+<!-- New post corner notice -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var notice = document.getElementById('new-post-notice');
+  if (!notice) return;
+
+  var postId = notice.dataset.postId;
+  var key = 'dismissed-post-' + postId;
+
+  if (localStorage.getItem(key) === '1') return;
+
+  notice.hidden = false;
+
+  notice.querySelector('.new-post-notice__close').addEventListener('click', function () {
+    localStorage.setItem(key, '1');
+    notice.remove();
+  });
+});
+</script>
+
+<!-- end custom footer snippets -->
+
+        
+
+
+<div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+    
+      <li><a href="https://github.com/thomasgraceman"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="https://thomasgraceman.github.io/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+
+<div class="page__footer-copyright">
+  &copy; 2026 Taha Hoseinpour, Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://github.com/academicpages/academicpages.github.io">AcademicPages</a>, a fork of <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.<br />
+  Site last updated 2026-08-06, <a href="/sitemap/" style="text-transform: uppercase;">Sitemap</a>
+</div>
+
+      </footer>
+    </div>
+
+    
+
+  
+  
+    
+    
+    
+    
+
+    
+      <div id="new-post-notice"
+           class="new-post-notice"
+           role="status"
+           aria-live="polite"
+           data-post-id="posts-dynamic-sum-of-radii-clustering"
+           hidden>
+        <button type="button" class="new-post-notice__close" aria-label="Dismiss notice">&times;</button>
+        <p class="new-post-notice__label">New post</p>
+        <a class="new-post-notice__link" href="https://thomasgraceman.github.io/posts/dynamic-sum-of-radii-clustering/">
+          Dynamic Sum-of-Radii Clustering
+        </a>
+      </div>
+    
+  
+
+
+    <script type="module" src="https://thomasgraceman.github.io/assets/js/main.min.js"></script>
+
+
+
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MGD7PS6X0W"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-MGD7PS6X0W');
+</script>
+
+
+
+
+
+
+
+
+  </body>
+</html>
+

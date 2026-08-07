@@ -1,0 +1,1483 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+
+<meta charset="utf-8">
+
+
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Sparsification of Sums of Norms: Symmetrization, Generic Chaining, and Concentration — Chapter 3 - A steeper descent</title>
+
+
+
+
+<meta name="description" content="Chapter 3 covering symmetrization, generic chaining, and concentration inequalities in the sparsification of sums of norms.">
+
+
+
+
+<meta name="author" content="Taha Hoseinpour">
+
+
+<!-- Academic SEO: Google Scholar citation meta tags -->
+
+  <meta name="citation_title" content="Sparsification of Sums of Norms: Symmetrization, Generic Chaining, and Concentration — Chapter 3">
+  <meta name="citation_author" content="Taha Hoseinpour">
+  <meta name="citation_publication_date" content="2026/06/28">
+  <meta name="citation_author_institution" content="Sharif University of Technology">
+  
+  <meta name="citation_public_url" content="https://thomasgraceman.github.io/posts/sparsification-sums-of-norms-symmetrization-generic-chaining-chapter-3/">
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2026-06-28T00:00:00+00:00">
+
+
+
+
+  <link rel="canonical" href="https://thomasgraceman.github.io/posts/sparsification-sums-of-norms-symmetrization-generic-chaining-chapter-3/">
+
+
+
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+
+
+
+  <meta name="twitter:site" content="@thomas_ger">
+  <meta name="twitter:title" content="Sparsification of Sums of Norms: Symmetrization, Generic Chaining, and Concentration — Chapter 3">
+  
+  <meta name="twitter:description" content="Chapter 3 covering symmetrization, generic chaining, and concentration inequalities in the sparsification of sums of norms.">
+  
+  <meta name="twitter:url" content="https://thomasgraceman.github.io/posts/sparsification-sums-of-norms-symmetrization-generic-chaining-chapter-3/">
+
+  
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://thomasgraceman.github.io/images/profile.png">
+    <meta name="twitter:image:alt" content="Sparsification of Sums of Norms: Symmetrization, Generic Chaining, and Concentration — Chapter 3">
+  
+
+  
+    <meta name="twitter:creator" content="@thomas_ger">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+
+  <meta name="google-site-verification" content="AZLgMz3hX8xkaa4pei-D3hJXOhMy1S3SWM0x66QI0zk" />
+
+
+
+
+<!-- end SEO -->
+
+<!-- Open Graph protocol data (https://ogp.me/), used by social media -->
+<meta property="og:locale" content="en-US">
+<meta property="og:site_name" content="A steeper descent">
+<meta property="og:title" content="Sparsification of Sums of Norms: Symmetrization, Generic Chaining, and Concentration — Chapter 3">
+
+  <meta property="og:type" content="article">
+
+
+  <meta property="og:description" content="Chapter 3 covering symmetrization, generic chaining, and concentration inequalities in the sparsification of sums of norms.">
+
+
+  <meta property="og:url" content="https://thomasgraceman.github.io/posts/sparsification-sums-of-norms-symmetrization-generic-chaining-chapter-3/">
+
+
+  <meta property="og:image" content="https://thomasgraceman.github.io/images/profile.png">
+  <meta property="og:image:alt" content="Sparsification of Sums of Norms: Symmetrization, Generic Chaining, and Concentration — Chapter 3">
+
+
+
+  
+  <meta property="article:author" content="Taha Hoseinpour">
+  
+  
+  
+  <meta property="article:tag" content="sparsification, generic chaining, concentration inequalities, norms">
+  
+
+
+
+
+
+  
+  <meta name="keywords" content="sparsification, generic chaining, concentration inequalities, norms">
+
+<!-- end Open Graph protocol -->
+
+<!-- Structured data (https://schema.org/) -->
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "A steeper descent",
+    "url": "https://thomasgraceman.github.io",
+    "description": "Research blog on theoretical computer science — metric embeddings, sparsification, generic chaining, and approximation algorithms. Notes on papers and books by Taha Hoseinpour.",
+    "inLanguage": "en-US"
+  }
+</script>
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": "https://thomasgraceman.github.io#person",
+    "name": "Taha Hoseinpour",
+    "url": "https://thomasgraceman.github.io",
+    "description": "Research blog on theoretical computer science — metric embeddings, sparsification, generic chaining, and approximation algorithms. Notes on papers and books by Taha Hoseinpour."
+    ,
+    "jobTitle": "Graduate Student in Theoretical Computer Science"
+    
+    ,
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Sharif University of Technology"
+    },
+    "affiliation": {
+      "@type": "Organization",
+      "name": "Sharif University of Technology"
+    }
+    
+    ,
+    "homeLocation": {
+      "@type": "Place",
+      "name": "Iran"
+    }
+    
+    ,
+    "alumniOf": [
+      {
+        "@type": "CollegeOrUniversity",
+        "name": "Sharif University of Technology"
+      },
+      {
+        "@type": "CollegeOrUniversity",
+        "name": "Iran University of Science and Technology"
+      }
+      
+    ]
+    
+    ,
+    "image": "https://thomasgraceman.github.io/images/profile.png"
+    
+    ,
+    "email": "tahahoseinpourasli@gmail.com"
+    
+    ,
+    "sameAs": ["https://github.com/thomasgraceman","https://twitter.com/thomas_ger"]
+    
+  }
+</script>
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://thomasgraceman.github.io/posts/sparsification-sums-of-norms-symmetrization-generic-chaining-chapter-3/"
+    },
+    "headline": "Sparsification of Sums of Norms: Symmetrization, Generic Chaining, and Concentration — Chapter 3",
+    "description": "Chapter 3 covering symmetrization, generic chaining, and concentration inequalities in the sparsification of sums of norms.",
+    "url": "https://thomasgraceman.github.io/posts/sparsification-sums-of-norms-symmetrization-generic-chaining-chapter-3/",
+    "inLanguage": "en-US",
+    
+    "datePublished": "2026-06-28T00:00:00+00:00",
+    
+    
+    "dateModified": "2026-06-28T00:00:00+00:00",
+    
+    
+    "keywords": ["sparsification","generic chaining","concentration inequalities","norms"],
+    
+    "author": {
+      "@type": "Person",
+      "@id": "https://thomasgraceman.github.io#person",
+      "name": "Taha Hoseinpour"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "A steeper descent",
+      "url": "https://thomasgraceman.github.io",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://thomasgraceman.github.io/images/profile.png"
+      }
+    }
+    ,
+    "image": "https://thomasgraceman.github.io/images/profile.png"
+    
+  }
+</script>
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Taha Hoseinpour",
+        "item": "https://thomasgraceman.github.io"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Sparsification of Sums of Norms: Symmetrization, Generic Chaining, and Concentration — Chapter 3",
+        "item": "https://thomasgraceman.github.io/posts/sparsification-sums-of-norms-symmetrization-generic-chaining-chapter-3/"
+      }
+    ]
+  }
+</script>
+
+
+
+<link href="https://thomasgraceman.github.io/feed.xml" type="application/atom+xml" rel="alternate" title="A steeper descent Feed">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="https://thomasgraceman.github.io/assets/css/main.css">
+
+    
+
+<!-- start custom head snippets -->
+
+<!-- Support for Academicons -->
+<link rel="stylesheet" href="https://thomasgraceman.github.io/assets/css/academicons.css"/>
+
+<!-- New post corner notice -->
+<link rel="stylesheet" href="https://thomasgraceman.github.io/assets/css/new-post-notice.css"/>
+
+<!-- favicon from https://commons.wikimedia.org/wiki/File:OOjs_UI_icon_academic-progressive.svg -->
+<link rel="apple-touch-icon" sizes="180x180" href="https://thomasgraceman.github.io/images/apple-touch-icon-180x180.png"/>
+<link rel="icon" type="image/svg+xml" href="https://thomasgraceman.github.io/images/favicon.svg"/>
+<link rel="icon" type="image/png" href="https://thomasgraceman.github.io/images/favicon-32x32.png" sizes="32x32"/>
+<link rel="icon" type="image/png" href="https://thomasgraceman.github.io/images/favicon-192x192.png" sizes="192x192"/>
+<link rel="manifest" href="https://thomasgraceman.github.io/images/manifest.json"/>
+<link rel="icon" href="/images/favicon.ico"/>
+<meta name="theme-color" content="#ffffff"/>
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <button><span class="navicon"></span></button>
+        <ul class="visible-links">
+          <li class="masthead__menu-item masthead__menu-item--lg persist ">
+            <a href="https://thomasgraceman.github.io/">A steeper descent</a>
+          </li>
+          
+            
+            <li class="masthead__menu-item ">
+              <a href="https://thomasgraceman.github.io/readinglist/">Reading List</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item ">
+              <a href="https://thomasgraceman.github.io/year-archive/">Blog Posts</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item ">
+              <a href="https://thomasgraceman.github.io/cv/">CV</a>
+            </li>
+          
+          <li id="theme-toggle" class="masthead__menu-item persist tail">
+            <a role="button" aria-labelledby="theme-icon"><i id="theme-icon" class="fa-solid fa-sun" aria-hidden="true" title="toggle theme"></i></a>
+          </li>
+        </ul>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+
+
+
+
+  
+    
+
+
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="https://thomasgraceman.github.io/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="https://thomasgraceman.github.ioposts" itemprop="item"><span itemprop="name">Posts</span></a>
+          <meta itemprop="position" content="2" />
+        </li>
+        <span class="sep">/</span>
+      
+    
+      
+      
+        <li class="current">Sparsification of Sums of Norms: Symmetrization, Generic Chaining, and Concentration — Chapter 3</li>
+      
+    
+  </ol>
+</nav>
+  
+
+
+<div id="main" role="main">
+  
+
+
+  <div class="sidebar sticky">
+  
+
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  <div class="author__avatar">
+    
+    	<img src="https://thomasgraceman.github.io/images/profile.png" class="author__avatar" alt="Taha"  fetchpriority="high" />
+    
+  </div>
+
+  <div class="author__content">
+    <h3 class="author__name">Taha</h3>
+    
+    <p class="author__bio">Hi, I am Taha.</p>
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      <!-- Font Awesome icons / Biographic information  -->
+      
+        <li class="author__desktop"><i class="fas fa-fw fa-location-dot icon-pad-right" aria-hidden="true"></i>Iran</li>
+      
+      
+        <li class="author__desktop"><i class="fas fa-fw fa-building-columns icon-pad-right" aria-hidden="true"></i>Sharif University of Technology</li>
+      
+      
+      
+        <li><a href="mailto:tahahoseinpourasli@gmail.com"><i class="fas fa-fw fa-envelope icon-pad-right" aria-hidden="true"></i>Email</a></li>
+      
+
+      <!-- Font Awesome and Academicons icons / Academic websites -->
+      
+            
+      
+            
+      
+      
+                              
+      
+      
+      
+      
+      
+
+      <!-- Font Awesome icons / Repositories and software development -->
+      
+            
+            
+      
+        <li><a href="https://github.com/thomasgraceman"><i class="fab fa-fw fa-github icon-pad-right" aria-hidden="true"></i>GitHub</a></li>
+      
+            
+            
+
+      <!-- Font Awesome icons / Social media -->
+              
+      
+      
+            
+      
+                  
+                  
+      
+            
+            
+            
+      
+            
+                  
+            
+      
+            
+            
+      
+        <li><a href="https://twitter.com/thomas_ger"><i class="fab fa-fw fa-x-twitter icon-pad-right" aria-hidden="true"></i>X (formerly Twitter)</a></li>
+      
+              
+      
+                      
+      
+      
+            
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Sparsification of Sums of Norms: Symmetrization, Generic Chaining, and Concentration — Chapter 3">
+    <meta itemprop="description" content="Sparsification of Sums of NormsSymmetrization, Generic Chaining, and Concentration · Chapter 3">
+    <meta itemprop="datePublished" content="June 28, 2026">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Sparsification of Sums of Norms: Symmetrization, Generic Chaining, and Concentration — Chapter 3
+</h1>
+          
+            <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  11 minute read
+	
+</p>
+          
+        
+        
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-06-28T00:00:00+00:00">June 28, 2026</time></p>
+            
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        <h1 id="sparsification-of-sums-of-norms">Sparsification of Sums of Norms</h1>
+<h2 id="symmetrization-generic-chaining-and-concentration--chapter-3">Symmetrization, Generic Chaining, and Concentration · Chapter 3</h2>
+
+<p>How to compute the things?</p>
+
+<p>So in this post I am going to recite some of the results of the paper in some generality. As I was going through it, there are still some concepts I have difficulty grasping — like the clustering in generic chaining, or the concentration of measure, and the convex body inequalities that are existing within the paper. More specifically, I think I should study Milman’s paper for a more fundamental understanding; and besides their own paper, I wonder how best to study and deepen my understanding further.</p>
+
+<p>Well, let’s go through the inner dynamics of the paper, to learn something out of it. We must be aware that some classes of norms are studied because they can guarantee some nice analytic results, and in a way they give us control over the problem of sparsification — otherwise we would be hopeless.</p>
+
+<p>In the paper, lots of concentration results and convex body inequalities are used. Most importantly, I would say that this paper is a nice application of the concentration of measure phenomena. Everything else is built around it. I will use one early theorem in Talagrand’s book <em>Probability in Banach Spaces</em> to showcase the first principles concerning some inequalities used. The base observation is that, in really high dimensions, behavior is in a sense deterministically random — the law of large numbers is one such example.</p>
+
+<p>Ok, let’s go through the paper:</p>
+
+<p>The base observation is that we want to sparsify the norms based on importance sampling (which is a general scheme in solving several sparsification problems; for example you can study the paper <em>Streaming Facility Location in High Dimension via Geometric Hashing</em> to see another nice application of this scheme).</p>
+
+<p>More formally:</p>
+
+<p>Consider a probability distribution $\rho = (\rho_1, \ldots, \rho_m) \in (0,1]^m$ on ${1,\ldots,m}$, and sample $M$ indices $i_1,\ldots,i_M$ independently from $\rho$. Define</p>
+
+\[\widetilde{N}(x) := \frac{1}{M}\left(
+\frac{N_{i_1}(x)}{\rho_{i_1}} + \cdots + \frac{N_{i_M}(x)}{\rho_{i_M}}
+\right).\]
+
+<p>We have</p>
+
+\[\mathbb{E}\left[\frac{N_{i_1}(x)}{\rho_{i_1}}\right] = N(x),\]
+
+<p>and therefore</p>
+
+\[\mathbb{E}[\widetilde{N}(x)] = N(x)\]
+
+<p>for any fixed $x$.</p>
+
+<p>So the whole paper is now about concentration, and controlling the behavior of probabilities in some way.</p>
+
+<p>The authors use a nice application of symmetrization (which is heavily used in Talagrand’s book) to show that, basically, the sparsification of norms can be reduced to a stochastic process of Bernoulli variables, which is sub-Gaussian with respect to the norm — hence you can use several theorems of generic chaining to provide some sort of concentration results.</p>
+
+<p>We want to control the following:</p>
+
+\[\mathbb{E}\Bigg[\max_{x \in B_N}
+\Big( \widetilde{N}(x) - \mathbb{E}[\widetilde{N}(x)] \Big)\Bigg].\]
+
+<p>More formally, consider this. Fix a metric space $(T,d)$. A random process ${V_x : x \in T}$ is said to be <em>subgaussian with respect to $d$</em> if there exists a constant $\alpha &gt; 0$ such that for all $x,y \in T$ and all $t &gt; 0$,</p>
+
+\[\mathbb{P}\big(|V_x - V_y| &gt; t\big)
+\leq \exp\!\left(-\frac{t^2}{\alpha^2 d(x,y)^2}\right).\]
+
+<p>We say that ${V_x : x \in T}$ is <em>centered</em> if</p>
+
+\[\mathbb{E}[V_x] = 0 \quad \text{for all } x \in T.\]
+
+<p>Given a metric space $(T,d)$, define the ball</p>
+
+\[B(x,r) := \{y \in T : d(x,y) \le r\}.\]
+
+<p>For a subset $\Omega \subseteq \mathbb{R}^n$, we use the notation</p>
+
+\[\|F\|_{C(\Omega)} := \sup_{x \in \Omega} |F(x)|.\]
+
+<p>The authors really consider the following set, which is ok because everything else works up to scaling:</p>
+
+\[\Omega = \{x \in \mathbb{R}^n : F(x) \le 1\}.\]
+
+<p>So how does symmetrization work?</p>
+
+<p>Note that</p>
+
+\[\mathbb{E}[\widetilde{F}_{\rho,\nu}(x)] = F(x) \quad \text{for every } x \in \mathbb{R}^n.\]
+
+<p>Thus, for any convex function $\psi : \mathbb{R}<em>+ \to \mathbb{R}</em>+$,</p>
+
+\[\mathbb{E}_{\nu}\,\psi\!\left(\max_{x \in \Omega} \big(F(x) - \widetilde{F}_{\rho,\nu}(x)\big)\right)
+\le
+\mathbb{E}_{\nu,\tilde{\nu}}\,
+\psi\!\left(\max_{x \in \Omega} \big(\widetilde{F}_{\rho,\nu}(x) - \widetilde{F}_{\rho,\tilde{\nu}}(x)\big)\right),
+\tag{2.13}\]
+
+<p>where $\tilde{\nu}$ is an independent copy of $\nu$.</p>
+
+<p>The argument inside $\psi$ on the right-hand side can be written as</p>
+
+\[\max_{x \in \Omega}
+\frac{1}{M} \sum_{j=1}^M
+\left(
+\frac{\varphi_{\nu_j}(x)}{\rho_{\nu_j}}
+-
+\frac{\varphi_{\tilde{\nu}_j}(x)}{\rho_{\tilde{\nu}_j}}
+\right).\]
+
+<p>Since the distribution of</p>
+
+\[\frac{\varphi_{\nu_j}(x)}{\rho_{\nu_j}}
+-
+\frac{\varphi_{\tilde{\nu}_j}(x)}{\rho_{\tilde{\nu}_j}}\]
+
+<p>is symmetric, we have</p>
+
+\[\sum_{j=1}^M \frac{\varphi_{\nu_j}(x)}{\rho_{\nu_j}}
+-
+\sum_{j=1}^M \frac{\varphi_{\tilde{\nu}_j}(x)}{\rho_{\tilde{\nu}_j}}
+\;\overset{\text{law}}{=}\;
+\sum_{j=1}^M \varepsilon_j \left(
+\frac{\varphi_{\nu_j}(x)}{\rho_{\nu_j}}
+-
+\frac{\varphi_{\tilde{\nu}_j}(x)}{\rho_{\tilde{\nu}_j}}
+\right)\]
+
+<p>for any choice of signs $\varepsilon_1,\ldots,\varepsilon_M \in {-1,1}$.</p>
+
+<p>This yields the stochastic domination</p>
+
+\[\max_{x \in \Omega}
+\frac{1}{M} \sum_{j=1}^M \frac{\varphi_{\nu_j}(x)}{\rho_{\nu_j}}
+-
+\frac{1}{M} \sum_{j=1}^M \frac{\varphi_{\tilde{\nu}_j}(x)}{\rho_{\tilde{\nu}_j}}
+\;\preceq\;
+\max_{x \in \Omega}
+\frac{1}{M} \sum_{j=1}^M \varepsilon_j \frac{\varphi_{\nu_j}(x)}{\rho_{\nu_j}}
++
+\max_{x \in \Omega}
+\frac{1}{M} \sum_{j=1}^M \varepsilon_j \frac{\varphi_{\tilde{\nu}_j}(x)}{\rho_{\tilde{\nu}_j}}.\]
+
+<p>So, basically, we can now study the sub-Gaussian stochastic process as we try to randomly sparsify the norms and then find some sort of result to bound the concentration.</p>
+
+<p>And they go on to prove the following lemma:</p>
+
+<hr />
+
+<h2 id="lemma-26">Lemma 2.6</h2>
+
+<p>Let $M \ge 1$, let $\Omega \subseteq \mathbb{R}^n$, and let $\rho \in \mathbb{R}_+^m$ be a probability vector. Assume that</p>
+
+\[\exists x_0 \in \Omega \ \text{s.t.} \ \varphi_1(x_0) = \cdots = \varphi_m(x_0) = 0.
+\tag{2.8}\]
+
+<p>Suppose further that for some $0 &lt; \delta \le 1$, and every $\nu \in [m]^M$, it holds that</p>
+
+\[\gamma_2(\Omega, d_{\rho,\nu})
+\le \delta \, \|\widetilde{F}_{\rho,\nu}\|_{C(\Omega)}^{1/2}
+\, \|F\|_{C(\Omega)}^{1/2}.
+\tag{2.9}\]
+
+<p>If $\nu_1,\ldots,\nu_M$ are sampled independently from $\rho$, then</p>
+
+\[\mathbb{E}\max_{x \in \Omega}
+\big(F(x) - \widetilde{F}_{\rho,\nu}(x)\big)
+\;\lesssim\;
+\mathbb{E}\,\gamma_2(\Omega, d_{\rho,\nu})
+\;\le\;
+8\delta \|F\|_{C(\Omega)}.
+\tag{2.10}\]
+
+<p>If it also holds that, for all $\nu \in [m]^M$,</p>
+
+\[\mathrm{diam}(\Omega, d_{\rho,\nu})
+\le \hat{\delta}\,
+\|\widetilde{F}_{\rho,\nu}\|_{C(\Omega)}^{1/2}
+\, \|F\|_{C(\Omega)}^{1/2},
+\tag{2.11}\]
+
+<p>then there exists a universal constant $K&gt;0$ such that for all
+$0 \le t \le \frac{1}{2K\hat{\delta}}$,</p>
+
+\[\mathbb{P}\left(
+\max_{x \in \Omega}
+\big(F(x) - \widetilde{F}_{\rho,\nu}(x)\big)
+&gt;
+K(\delta + t\hat{\delta})\|F\|_{C(\Omega)}
+\right)
+\le
+e^{-Kt^2/4}.
+\tag{2.12}\]
+
+<hr />
+
+<p>let me first examine a nice application of the concentration of measure, which roughly suggests that a function behaves like a constant on almost all of the space.</p>
+
+<hr />
+
+<h2 id="theorem-11">Theorem 1.1</h2>
+
+<p>If $A$ is a Borel set in $S^{N-1}$ and $H$ is a cap (i.e. a ball for the geodesic distance $p$) with the same measure</p>
+
+\[U^{N-1}(H) = U^{N-1}(A),\]
+
+<p>then for any $r &gt; 0$,</p>
+
+\[U^{N-1}(A_r) \;\gtrsim\; U^{N-1}(H_r),\]
+
+<p>where we recall that</p>
+
+\[A_r = \{x \in S^{N-1} : p(x,A) &lt; r\}\]
+
+<p>is the $r$-neighborhood of $A$ for the geodesic distance.</p>
+
+<hr />
+
+<p><strong>The Isoperimetric Problem.</strong>
+Given $a \in (0,1)$ and $\varepsilon &gt; 0$, the isoperimetric problem asks to determine the Borel subsets $A \subseteq X$ satisfying</p>
+
+\[\mu(A)=a,\]
+
+<p>for which the measure of the $\varepsilon$-neighborhood</p>
+
+\[A_\varepsilon
+=
+\{x\in X:\, d(x,A)&lt;\varepsilon\},\]
+
+<p>is as small as possible, where</p>
+
+\[d(x,A):=\inf_{y\in A} d(x,y).\]
+
+<p>Equivalently, one seeks to solve</p>
+
+\[\min\left\{
+\mu(A_\varepsilon):
+A\subseteq X \text{ is Borel and }
+\mu(A)=a
+\right\}.\]
+
+<p>So the theorem that is mentioned in the start of the book of the Talagrand’s mentions a rather nice theorem about the set that has the lowest expansion, among other sets. But what is the significance of studying the isoperimetric problem in the $S^{n-1}$? it is useful because by using Poincaré limit, or rather by a nice application of the law of large numbers, we can relate studying the inequalities in the Sphere down to the $\mathbb{R}^d$ using projection, and excessive larger Dimension of the sphere.</p>
+
+<p>what I mean by that is if we consider:</p>
+
+<p>For every $N$, let $U^{N-1}$ denote the normalized uniform probability measure on the sphere</p>
+
+\[\sqrt{N}\,S^{N-1}
+=
+\left\{x\in\mathbb{R}^N:\|x\|_2=\sqrt{N}\right\}.\]
+
+<p>Let $\Pi_{N,d}$, with $N\ge d$, denote the canonical projection from $\sqrt{N}\,S^{N-1}$ onto $\mathbb{R}^d$, namely,</p>
+
+\[\Pi_{N,d}(x_1,\ldots,x_N)
+=
+(x_1,\ldots,x_d).\]
+
+<p>Then the sequence of probability measures</p>
+
+\[\left\{\Pi_{N,d}\left(U^{N-1}\right)\right\}_{N\ge d}\]
+
+<p>on $\mathbb{R}^d$ converges weakly, as $N\to\infty$, to the canonical Gaussian measure on $\mathbb{R}^d$.</p>
+
+<p>Let</p>
+
+\[G=(G_1,\ldots,G_N),\]
+
+<p>where $G_1,\ldots,G_N$ are independent and identically distributed random variables with</p>
+
+\[G_i\sim\mathcal{N}(0,1).\]
+
+<p>Define</p>
+
+\[X:=\sqrt{N}\,\frac{G}{\|G\|}.\]
+
+<p>Then $X$ is uniformly distributed on the sphere $\sqrt{N}\,S^{N-1}$.</p>
+
+<p>Now write</p>
+
+\[X_i
+=
+\frac{\sqrt{N}}{\|G\|}G_i
+=
+\frac{G_i}
+{\sqrt{\frac{1}{N}\sum_{j=1}^{N}G_j^2}}.\]
+
+<p>By the Law of Large Numbers,</p>
+
+\[\frac{1}{N}\sum_{j=1}^{N}G_j^2
+\xrightarrow{\mathbb{P}}
+\mathbb{E}[G_1^2]
+=
+1.\]
+
+<p>Hence,</p>
+
+\[\sqrt{\frac{1}{N}\sum_{j=1}^{N}G_j^2}
+\xrightarrow{\mathbb{P}}
+1.\]
+
+<p>Since $G_i$ is asymptotically independent of the denominator (or, equivalently, by Slutsky’s theorem),</p>
+
+\[X_i
+=
+\frac{G_i}
+{\sqrt{\frac{1}{N}\sum_{j=1}^{N}G_j^2}}
+\xrightarrow{d}
+\mathcal{N}(0,1).\]
+
+<p>where $I_d$ denotes the $d\times d$ identity matrix.
+furthermore The concentration of measure phenomenon is thus usually derived from an isoperimetric inequalities. to illustrate we use an example from Assaf Naor lecture notes about concentration of the measure.</p>
+
+<hr />
+
+<h2 id="lemma">Lemma</h2>
+
+<p>Let $(X,d)$ be a metric space equipped with a Borel probability measure $\mu$. Let $f:X\to\mathbb{R}$ be an $L$-Lipschitz function. Then there exists $M\in\mathbb{R}$ such that, for every $\varepsilon&gt;0$,</p>
+
+\[\mu\bigl(\{x\in X:|f(x)-M|\ge\varepsilon\}\bigr)
+\le
+2\left(1-\phi_{1/2}\!\left(\frac{\varepsilon}{L}\right)\right).\]
+
+<p><em>Proof.</em>
+Let $M$ be a median of $f$, namely,</p>
+
+\[M=\inf\left\{t\in\mathbb{R}:
+\mu\bigl(\{x\in X:f(x)\le t\}\bigr)\ge\frac12
+\right\}.\]
+
+<p>Set</p>
+
+\[A=\{x\in X:f(x)&gt;M\}.\]
+
+<p>If $x\in A_{\varepsilon/L}$, then there exists $y\in A$ such that</p>
+
+\[d(x,y)&lt;\frac{\varepsilon}{L}.\]
+
+<p>Since $f$ is $L$-Lipschitz,</p>
+
+\[|f(x)-f(y)|
+\le
+Ld(x,y)
+&lt;
+\varepsilon.\]
+
+<p>As $y\in A$, we have $f(y)&gt;M$, and therefore</p>
+
+\[f(x)&gt;M-\varepsilon.\]
+
+<p>Hence</p>
+
+\[\{x\in X:f(x)\le M-\varepsilon\}
+\subseteq
+X\setminus A_{\varepsilon/L}.\]
+
+<p>Since $\mu(A)\ge\frac12$, the definition of the isoperimetric profile $\phi_{1/2}$ yields</p>
+
+\[\mu\bigl(\{x\in X:f(x)\le M-\varepsilon\}\bigr)
+\le
+1-\phi_{1/2}\!\left(\frac{\varepsilon}{L}\right).\]
+
+<p>Similarly, let</p>
+
+\[B=\{x\in X:f(x)\le M\}.\]
+
+<p>Then $\mu(B)\ge\frac12$, and the same argument gives</p>
+
+\[\mu\bigl(\{x\in X:f(x)\ge M+\varepsilon\}\bigr)
+\le
+1-\phi_{1/2}\!\left(\frac{\varepsilon}{L}\right).\]
+
+<p>Finally,</p>
+
+\[\{|f-M|\ge\varepsilon\}
+=
+\{f\le M-\varepsilon\}
+\cup
+\{f\ge M+\varepsilon\},\]
+
+<p>where the two sets are disjoint. Therefore,</p>
+
+\[\mu\bigl(\{x\in X:|f(x)-M|\ge\varepsilon\}\bigr)
+\le
+2\left(
+1-\phi_{1/2}\!\left(\frac{\varepsilon}{L}\right)
+\right),\]
+
+<p>which completes the proof. $\square$</p>
+
+<hr />
+
+<p>so lets get back to an application of the first theorem, on how to make sense of these things.</p>
+
+<p>Denote by $\gamma_N$ the canonical Gaussian probability measure on $\mathbb{R}^N$, Denote further by $\Phi$ the distribution function of $\gamma_1$, i.e.,</p>
+
+\[\Phi(t)
+=
+\frac{1}{\sqrt{2\pi}}
+\int_{-\infty}^{t}
+e^{-x^{2}/2}\,dx,
+\qquad
+t\in(-\infty,+\infty).\]
+
+<hr />
+
+<h2 id="theorem-12">Theorem 1.2</h2>
+
+<p>If $A$ is a Borel set in $\mathbb{R}^N$ and if</p>
+
+\[H=\{x\in\mathbb{R}^N:\langle x,u\rangle&lt;\lambda\},\]
+
+<p>is a half-space, where $u\in\mathbb{R}^N$, $|u|=1$, and $\lambda\in(-\infty,+\infty)$, with the same Gaussian measure</p>
+
+\[\gamma_N(H)=\gamma_N(A),\]
+
+<p>then, for every $r&gt;0$,</p>
+
+\[\gamma_N(A_r)\geq\gamma_N(H_r),\]
+
+<p>where</p>
+
+\[A_r=\{x\in\mathbb{R}^N:d(x,A)&lt;r\}\]
+
+<p>is the Euclidean neighborhood of order $r$ of $A$.</p>
+
+<p>Equivalently,</p>
+
+\[\Phi^{-1}\!\bigl(\gamma_N(A_r)\bigr)
+\geq
+\Phi^{-1}\!\bigl(\gamma_N(A)\bigr)+r.\]
+
+<p>In particular, if</p>
+
+\[\gamma_N(A)\geq\frac12,\]
+
+<p>then</p>
+
+\[1-\gamma_N(A_r)
+\leq
+\Psi(r)
+\leq
+\frac12\exp\!\left(-\frac{r^2}{2}\right),\]
+
+<p>where</p>
+
+\[\Psi(r)=1-\Phi(r)
+=\frac{1}{\sqrt{2\pi}}
+\int_r^\infty e^{-t^2/2}\,dt\]
+
+<p>is the Gaussian tail function.</p>
+
+<hr />
+
+<p>so a half space has the least enlargement over the other sets with equal measure, we can suppose that enlargement works in a single dimension, because everything is rotationally invariant. So we can suppose that the half plane is orthogonal to an axis.</p>
+
+<p>Now,</p>
+
+\[H_r = \{x : \langle x, u \rangle &lt; \lambda + r\}.\]
+
+<p>Therefore,</p>
+
+\[\gamma_N(H_r) = \Phi(\lambda + r).\]
+
+<p>Since</p>
+
+\[\lambda = \Phi^{-1}(\gamma_N(H)),\]
+
+<p>we obtain</p>
+
+\[\gamma_N(H_r) = \Phi\big(\Phi^{-1}(\gamma_N(H)) + r\big).\]
+
+<p>Since</p>
+
+\[\gamma_N(H) = \gamma_N(A),\]
+
+<p>this becomes</p>
+
+\[\gamma_N(H_r) = \Phi\big(\Phi^{-1}(\gamma_N(A)) + r\big).\]
+
+<p>Now combine this with</p>
+
+\[\gamma_N(A_r) \ge \gamma_N(H_r).\]
+
+<p>Since $\Phi^{-1}$ is increasing, we obtain</p>
+
+\[\Phi^{-1}\big(\gamma_N(A_r)\big)
+\ge
+\Phi^{-1}\big(\gamma_N(A)\big) + r.\]
+
+<p>define</p>
+
+\[a = \Phi^{-1}(\gamma_N(A)).\]
+
+<p>Since</p>
+
+\[\Phi^{-1}(0) = -\infty,\]
+
+<p>they may assume that $a &gt; -\infty$.</p>
+
+<p>As we have shown, Poincaré’s argument says that as $k \to \infty$, the first coordinates become approximately standard Gaussian:</p>
+
+\[\Pi_{k,N}(X) \Rightarrow \gamma_N.\]
+
+<p>Because $b &lt; a$, as $k \to \infty$,</p>
+
+\[\sigma_{k-1}^{k}\big(\Pi_{k,N}^{-1}(A)\big) \to \gamma_N(A),\]
+
+<p>while</p>
+
+\[\sigma_{k-1}^{k}\big(\Pi_{k,1}^{-1}((-\infty, b])\big) \to \Phi(b).\]
+
+<p>Hence for $k$ large enough,</p>
+
+\[\sigma_{k-1}^{k}\big(\Pi_{k,N}^{-1}(A)\big)
+&gt;
+\sigma_{k-1}^{k}\big(\Pi_{k,1}^{-1}((-\infty, b])\big).\]
+
+<p>It is easy to see that</p>
+
+\[\Pi_{k,N}^{-1}(A_r) \sim \big(\Pi_{k,N}^{-1}(A)\big)_r,\]
+
+<p>where the neighborhood of order $r$ on the right is understood with respect to the geodesic distance on $\sqrt{k}\,S^{k-1}$.</p>
+
+<p>Since $\Pi_{k,1}^{-1}((-\infty,b])$ is a cap on $\sqrt{k}\,S^{k-1}$, by the isoperimetric inequality on spheres, we obtain</p>
+
+\[\sigma_{k}^{k-1}\big(\Pi_{k,N}^{-1}(A_r)\big)
+\;\ge\;
+\sigma_{k}^{k-1}\big((\Pi_{k,N}^{-1}(A))_r\big)
+\;\ge\;
+\sigma_{k}^{k-1}\big((\Pi_{k,1}^{-1}((-\infty,b]))_r\big).\]
+
+<p>Now,</p>
+
+\[(\Pi_{k,1}^{-1}((-\infty,b]))_r = \Pi_{k,1}^{-1}((-\infty, b + r(k)])\]
+
+<p>for some $r(k) \ge 0$ satisfying</p>
+
+\[\lim_{k \to \infty} r(k) = r.\]
+
+<p>Therefore, in the Poincaré limit, we get</p>
+
+\[\gamma_N(A_r) \sim \Phi(b + r),\]
+
+<p>and hence the result since</p>
+
+\[b &lt; \Phi^{-1}(\gamma_N(A))\]
+
+<p>is arbitrary.</p>
+
+<p>so really it is a variant of limiting argument and an application of law of large numbers, plus the geometry of sphere. So use the rotational invariance of Gaussian product measures, and basically go to the sphere to prove the inequality for large enough K, as you get the same measure for really high dimension, so it pinpoints that you may use a limiting argument.</p>
+
+<p>so lets back to Lee’s paper.</p>
+
+
+
+        
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="https://thomasgraceman.github.io/tags/#concentration-inequalities" class="page__taxonomy-item" rel="tag">concentration inequalities</a><span class="sep">, </span>
+    
+      
+      
+      <a href="https://thomasgraceman.github.io/tags/#generic-chaining" class="page__taxonomy-item" rel="tag">generic chaining</a><span class="sep">, </span>
+    
+      
+      
+      <a href="https://thomasgraceman.github.io/tags/#norms" class="page__taxonomy-item" rel="tag">norms</a><span class="sep">, </span>
+    
+      
+      
+      <a href="https://thomasgraceman.github.io/tags/#sparsification" class="page__taxonomy-item" rel="tag">sparsification</a>
+    
+    </span>
+  </p>
+
+
+
+
+      </footer>
+
+      
+
+<section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://bsky.app/intent/compose?text=https://thomasgraceman.github.io/posts/sparsification-sums-of-norms-symmetrization-generic-chaining-chapter-3/" class="btn btn--bluesky" title="Share on Bluesky"><i class="fab fa-bluesky" aria-hidden="true"></i><span> Bluesky</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https://thomasgraceman.github.io/posts/sparsification-sums-of-norms-symmetrization-generic-chaining-chapter-3/" class="btn btn--facebook" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://thomasgraceman.github.io/posts/sparsification-sums-of-norms-symmetrization-generic-chaining-chapter-3/" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+
+  <a href="https://www.addtoany.com/add_to/mastodon?linkurl=https%3A%2F%2Fthomasgraceman.github.io%2Fposts%2Fsparsification-sums-of-norms-symmetrization-generic-chaining-chapter-3%2F" class="btn btn--mastodon" title="Share on Mastodon"><i class="fab fa-mastodon" aria-hidden="true"></i><span> Mastodon</span></a>
+
+  <a href="https://x.com/intent/post?text=https://thomasgraceman.github.io/posts/sparsification-sums-of-norms-symmetrization-generic-chaining-chapter-3/" class="btn btn--x" title="Share on X"><i class="fab fa-x-twitter" aria-hidden="true"></i><span> X (formerly Twitter)</span></a>
+</section>
+
+
+      
+
+
+  <nav class="pagination">
+    
+      <a href="https://thomasgraceman.github.io/posts/tree-embedding-high-dimensions-dynamic-mpc/" class="pagination--pager" title="Tree Embedding in High Dimensions: Dynamic and Massively Parallel
+">Previous</a>
+    
+    
+      <a href="https://thomasgraceman.github.io/posts/tree-embedding-high-dimensions-streaming-facility-location-geometric-hashing-2/" class="pagination--pager" title="Tree Embedding in High Dimensions: Dynamic and Massively Parallel, and Streaming Facility Location in High Dimension via Geometric Hashing – 2
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      
+        <h4 class="page__related-title">You May Also Enjoy</h4>
+      
+      <div class="grid__wrapper">
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "https://thomasgraceman.github.io/images/profile.png"
+          
+          alt="Dynamic Sum-of-Radii Clustering
+">
+      </div>
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="https://thomasgraceman.github.io/posts/dynamic-sum-of-radii-clustering/" rel="permalink">Dynamic Sum-of-Radii Clustering
+</a>
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  10 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-08-06T00:00:00+00:00">August 06, 2026</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><p>So in this second post, following the <a href="/posts/dynamic-approximate-nns/">previous data structure</a>, I am going to review some algorithms that were devised using the scheme of nearest neighbor search.</p>
+
+</p>
+    
+    
+    
+
+  </article>
+</div>
+
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "https://thomasgraceman.github.io/images/profile.png"
+          
+          alt="Dynamic Approximate Nearest-Neighbor Search in Doubling Metrics
+">
+      </div>
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="https://thomasgraceman.github.io/posts/dynamic-approximate-nns/" rel="permalink">Dynamic Approximate Nearest-Neighbor Search in Doubling Metrics
+</a>
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  14 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-08-06T00:00:00+00:00">August 06, 2026</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><p>Well, in this blog post we are going to review several papers and understand the techniques that are utilized in order to tackle several problems related to areas such as nearest neighbor problems, the facility location problem, and so on.</p>
+
+</p>
+    
+    
+    
+
+  </article>
+</div>
+
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "https://thomasgraceman.github.io/images/profile.png"
+          
+          alt="Tree Embedding in High Dimensions: Dynamic and Massively Parallel, and Streaming Facility Location in High Dimension via Geometric Hashing – 2
+">
+      </div>
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="https://thomasgraceman.github.io/posts/tree-embedding-high-dimensions-streaming-facility-location-geometric-hashing-2/" rel="permalink">Tree Embedding in High Dimensions: Dynamic and Massively Parallel, and Streaming Facility Location in High Dimension via Geometric Hashing – 2
+</a>
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  3 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-07-02T00:00:00+00:00">July 02, 2026</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><h1 id="tree-embedding-in-high-dimensions">Tree Embedding in High Dimensions</h1>
+<h2 id="dynamic-and-massively-parallel-and-streaming-facility-location-via-geometric-hashing">Dynamic and Massively Parallel, and Streaming Facility Location via Geometric Hashing</h2>
+
+</p>
+    
+    
+    
+
+  </article>
+</div>
+
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "https://thomasgraceman.github.io/images/profile.png"
+          
+          alt="Tree Embedding in High Dimensions: Dynamic and Massively Parallel
+">
+      </div>
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="https://thomasgraceman.github.io/posts/tree-embedding-high-dimensions-dynamic-mpc/" rel="permalink">Tree Embedding in High Dimensions: Dynamic and Massively Parallel
+</a>
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  13 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-06-17T00:00:00+00:00">June 17, 2026</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><h1 id="tree-embedding-in-high-dimensions-dynamic-and-massively-parallel">Tree Embedding in High Dimensions: Dynamic and Massively Parallel</h1>
+
+</p>
+    
+    
+    
+
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- Support for MatJax -->
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true
+    }
+  };
+</script>
+<script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script"></script>
+
+<!-- Support for Mermaid -->
+<script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({startOnLoad:true, theme:'default'});
+    await mermaid.run({querySelector:'code.language-mermaid'});
+</script>
+
+<!-- New post corner notice -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var notice = document.getElementById('new-post-notice');
+  if (!notice) return;
+
+  var postId = notice.dataset.postId;
+  var key = 'dismissed-post-' + postId;
+
+  if (localStorage.getItem(key) === '1') return;
+
+  notice.hidden = false;
+
+  notice.querySelector('.new-post-notice__close').addEventListener('click', function () {
+    localStorage.setItem(key, '1');
+    notice.remove();
+  });
+});
+</script>
+
+<!-- end custom footer snippets -->
+
+        
+
+
+<div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+    
+      <li><a href="https://github.com/thomasgraceman"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="https://thomasgraceman.github.io/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+
+<div class="page__footer-copyright">
+  &copy; 2026 Taha Hoseinpour, Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://github.com/academicpages/academicpages.github.io">AcademicPages</a>, a fork of <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.<br />
+  Site last updated 2026-08-06, <a href="/sitemap/" style="text-transform: uppercase;">Sitemap</a>
+</div>
+
+      </footer>
+    </div>
+
+    
+
+  
+  
+    
+    
+    
+    
+
+    
+      <div id="new-post-notice"
+           class="new-post-notice"
+           role="status"
+           aria-live="polite"
+           data-post-id="posts-dynamic-sum-of-radii-clustering"
+           hidden>
+        <button type="button" class="new-post-notice__close" aria-label="Dismiss notice">&times;</button>
+        <p class="new-post-notice__label">New post</p>
+        <a class="new-post-notice__link" href="https://thomasgraceman.github.io/posts/dynamic-sum-of-radii-clustering/">
+          Dynamic Sum-of-Radii Clustering
+        </a>
+      </div>
+    
+  
+
+
+    <script type="module" src="https://thomasgraceman.github.io/assets/js/main.min.js"></script>
+
+
+
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MGD7PS6X0W"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-MGD7PS6X0W');
+</script>
+
+
+
+
+
+
+
+
+  </body>
+</html>
+

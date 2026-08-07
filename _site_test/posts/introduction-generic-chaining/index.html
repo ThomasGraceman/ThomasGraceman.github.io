@@ -1,0 +1,1371 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+
+<meta charset="utf-8">
+
+
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>An Introduction to Generic Chaining - A steeper descent</title>
+
+
+
+
+<meta name="description" content="Introduction to stochastic processes, sub-Gaussian inequalities, and generic chaining techniques used in metric embedding theory.">
+
+
+
+
+<meta name="author" content="Taha Hoseinpour">
+
+
+<!-- Academic SEO: Google Scholar citation meta tags -->
+
+  <meta name="citation_title" content="An Introduction to Generic Chaining">
+  <meta name="citation_author" content="Taha Hoseinpour">
+  <meta name="citation_publication_date" content="2025/10/17">
+  <meta name="citation_author_institution" content="Sharif University of Technology">
+  
+  <meta name="citation_public_url" content="https://thomasgraceman.github.io/posts/introduction-generic-chaining/">
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2025-10-17T00:00:00+00:00">
+
+
+
+
+  <link rel="canonical" href="https://thomasgraceman.github.io/posts/introduction-generic-chaining/">
+
+
+
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+
+
+
+  <meta name="twitter:site" content="@thomas_ger">
+  <meta name="twitter:title" content="An Introduction to Generic Chaining">
+  
+  <meta name="twitter:description" content="Introduction to stochastic processes, sub-Gaussian inequalities, and generic chaining techniques used in metric embedding theory.">
+  
+  <meta name="twitter:url" content="https://thomasgraceman.github.io/posts/introduction-generic-chaining/">
+
+  
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://thomasgraceman.github.io/images/profile.png">
+    <meta name="twitter:image:alt" content="An Introduction to Generic Chaining">
+  
+
+  
+    <meta name="twitter:creator" content="@thomas_ger">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+
+  <meta name="google-site-verification" content="AZLgMz3hX8xkaa4pei-D3hJXOhMy1S3SWM0x66QI0zk" />
+
+
+
+
+<!-- end SEO -->
+
+<!-- Open Graph protocol data (https://ogp.me/), used by social media -->
+<meta property="og:locale" content="en-US">
+<meta property="og:site_name" content="A steeper descent">
+<meta property="og:title" content="An Introduction to Generic Chaining">
+
+  <meta property="og:type" content="article">
+
+
+  <meta property="og:description" content="Introduction to stochastic processes, sub-Gaussian inequalities, and generic chaining techniques used in metric embedding theory.">
+
+
+  <meta property="og:url" content="https://thomasgraceman.github.io/posts/introduction-generic-chaining/">
+
+
+  <meta property="og:image" content="https://thomasgraceman.github.io/images/profile.png">
+  <meta property="og:image:alt" content="An Introduction to Generic Chaining">
+
+
+
+  
+  <meta property="article:author" content="Taha Hoseinpour">
+  
+  
+  
+  <meta property="article:tag" content="generic chaining, stochastic processes, probability, metric embeddings">
+  
+
+
+
+
+
+  
+  <meta name="keywords" content="generic chaining, stochastic processes, probability, metric embeddings">
+
+<!-- end Open Graph protocol -->
+
+<!-- Structured data (https://schema.org/) -->
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "A steeper descent",
+    "url": "https://thomasgraceman.github.io",
+    "description": "Research blog on theoretical computer science — metric embeddings, sparsification, generic chaining, and approximation algorithms. Notes on papers and books by Taha Hoseinpour.",
+    "inLanguage": "en-US"
+  }
+</script>
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": "https://thomasgraceman.github.io#person",
+    "name": "Taha Hoseinpour",
+    "url": "https://thomasgraceman.github.io",
+    "description": "Research blog on theoretical computer science — metric embeddings, sparsification, generic chaining, and approximation algorithms. Notes on papers and books by Taha Hoseinpour."
+    ,
+    "jobTitle": "Graduate Student in Theoretical Computer Science"
+    
+    ,
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Sharif University of Technology"
+    },
+    "affiliation": {
+      "@type": "Organization",
+      "name": "Sharif University of Technology"
+    }
+    
+    ,
+    "homeLocation": {
+      "@type": "Place",
+      "name": "Iran"
+    }
+    
+    ,
+    "alumniOf": [
+      {
+        "@type": "CollegeOrUniversity",
+        "name": "Sharif University of Technology"
+      },
+      {
+        "@type": "CollegeOrUniversity",
+        "name": "Iran University of Science and Technology"
+      }
+      
+    ]
+    
+    ,
+    "image": "https://thomasgraceman.github.io/images/profile.png"
+    
+    ,
+    "email": "tahahoseinpourasli@gmail.com"
+    
+    ,
+    "sameAs": ["https://github.com/thomasgraceman","https://twitter.com/thomas_ger"]
+    
+  }
+</script>
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://thomasgraceman.github.io/posts/introduction-generic-chaining/"
+    },
+    "headline": "An Introduction to Generic Chaining",
+    "description": "Introduction to stochastic processes, sub-Gaussian inequalities, and generic chaining techniques used in metric embedding theory.",
+    "url": "https://thomasgraceman.github.io/posts/introduction-generic-chaining/",
+    "inLanguage": "en-US",
+    
+    "datePublished": "2025-10-17T00:00:00+00:00",
+    
+    
+    "dateModified": "2025-10-17T00:00:00+00:00",
+    
+    
+    "keywords": ["generic chaining","stochastic processes","probability","metric embeddings"],
+    
+    "author": {
+      "@type": "Person",
+      "@id": "https://thomasgraceman.github.io#person",
+      "name": "Taha Hoseinpour"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "A steeper descent",
+      "url": "https://thomasgraceman.github.io",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://thomasgraceman.github.io/images/profile.png"
+      }
+    }
+    ,
+    "image": "https://thomasgraceman.github.io/images/profile.png"
+    
+  }
+</script>
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Taha Hoseinpour",
+        "item": "https://thomasgraceman.github.io"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "An Introduction to Generic Chaining",
+        "item": "https://thomasgraceman.github.io/posts/introduction-generic-chaining/"
+      }
+    ]
+  }
+</script>
+
+
+
+<link href="https://thomasgraceman.github.io/feed.xml" type="application/atom+xml" rel="alternate" title="A steeper descent Feed">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="https://thomasgraceman.github.io/assets/css/main.css">
+
+    
+
+<!-- start custom head snippets -->
+
+<!-- Support for Academicons -->
+<link rel="stylesheet" href="https://thomasgraceman.github.io/assets/css/academicons.css"/>
+
+<!-- New post corner notice -->
+<link rel="stylesheet" href="https://thomasgraceman.github.io/assets/css/new-post-notice.css"/>
+
+<!-- favicon from https://commons.wikimedia.org/wiki/File:OOjs_UI_icon_academic-progressive.svg -->
+<link rel="apple-touch-icon" sizes="180x180" href="https://thomasgraceman.github.io/images/apple-touch-icon-180x180.png"/>
+<link rel="icon" type="image/svg+xml" href="https://thomasgraceman.github.io/images/favicon.svg"/>
+<link rel="icon" type="image/png" href="https://thomasgraceman.github.io/images/favicon-32x32.png" sizes="32x32"/>
+<link rel="icon" type="image/png" href="https://thomasgraceman.github.io/images/favicon-192x192.png" sizes="192x192"/>
+<link rel="manifest" href="https://thomasgraceman.github.io/images/manifest.json"/>
+<link rel="icon" href="/images/favicon.ico"/>
+<meta name="theme-color" content="#ffffff"/>
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <button><span class="navicon"></span></button>
+        <ul class="visible-links">
+          <li class="masthead__menu-item masthead__menu-item--lg persist ">
+            <a href="https://thomasgraceman.github.io/">A steeper descent</a>
+          </li>
+          
+            
+            <li class="masthead__menu-item ">
+              <a href="https://thomasgraceman.github.io/readinglist/">Reading List</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item ">
+              <a href="https://thomasgraceman.github.io/year-archive/">Blog Posts</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item ">
+              <a href="https://thomasgraceman.github.io/cv/">CV</a>
+            </li>
+          
+          <li id="theme-toggle" class="masthead__menu-item persist tail">
+            <a role="button" aria-labelledby="theme-icon"><i id="theme-icon" class="fa-solid fa-sun" aria-hidden="true" title="toggle theme"></i></a>
+          </li>
+        </ul>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+
+
+
+
+  
+    
+
+
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="https://thomasgraceman.github.io/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="https://thomasgraceman.github.ioposts" itemprop="item"><span itemprop="name">Posts</span></a>
+          <meta itemprop="position" content="2" />
+        </li>
+        <span class="sep">/</span>
+      
+    
+      
+      
+        <li class="current">An Introduction to Generic Chaining</li>
+      
+    
+  </ol>
+</nav>
+  
+
+
+<div id="main" role="main">
+  
+
+
+  <div class="sidebar sticky">
+  
+
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  <div class="author__avatar">
+    
+    	<img src="https://thomasgraceman.github.io/images/profile.png" class="author__avatar" alt="Taha"  fetchpriority="high" />
+    
+  </div>
+
+  <div class="author__content">
+    <h3 class="author__name">Taha</h3>
+    
+    <p class="author__bio">Hi, I am Taha.</p>
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      <!-- Font Awesome icons / Biographic information  -->
+      
+        <li class="author__desktop"><i class="fas fa-fw fa-location-dot icon-pad-right" aria-hidden="true"></i>Iran</li>
+      
+      
+        <li class="author__desktop"><i class="fas fa-fw fa-building-columns icon-pad-right" aria-hidden="true"></i>Sharif University of Technology</li>
+      
+      
+      
+        <li><a href="mailto:tahahoseinpourasli@gmail.com"><i class="fas fa-fw fa-envelope icon-pad-right" aria-hidden="true"></i>Email</a></li>
+      
+
+      <!-- Font Awesome and Academicons icons / Academic websites -->
+      
+            
+      
+            
+      
+      
+                              
+      
+      
+      
+      
+      
+
+      <!-- Font Awesome icons / Repositories and software development -->
+      
+            
+            
+      
+        <li><a href="https://github.com/thomasgraceman"><i class="fab fa-fw fa-github icon-pad-right" aria-hidden="true"></i>GitHub</a></li>
+      
+            
+            
+
+      <!-- Font Awesome icons / Social media -->
+              
+      
+      
+            
+      
+                  
+                  
+      
+            
+            
+            
+      
+            
+                  
+            
+      
+            
+            
+      
+        <li><a href="https://twitter.com/thomas_ger"><i class="fab fa-fw fa-x-twitter icon-pad-right" aria-hidden="true"></i>X (formerly Twitter)</a></li>
+      
+              
+      
+                      
+      
+      
+            
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="An Introduction to Generic Chaining">
+    <meta itemprop="description" content="Stochastic Processes and Generic Chaining">
+    <meta itemprop="datePublished" content="October 17, 2025">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">An Introduction to Generic Chaining
+</h1>
+          
+            <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  19 minute read
+	
+</p>
+          
+        
+        
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2025-10-17T00:00:00+00:00">October 17, 2025</time></p>
+            
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        <h1 id="stochastic-processes-and-generic-chaining">Stochastic Processes and Generic Chaining</h1>
+
+<p>So, let us talk a little bit about stochastic processes and generic chaining, which I got introduced to after reading a paper written by James Lee.</p>
+
+<p>A collection of random variables $(X_t)$, where $t$ belongs to a certain index set $T$, is called a stochastic process, and now suppose that we want to study the upper and lower bounds for the quantity</p>
+
+\[\mathbb{E}\left[\sup_{t \in T} X_t\right].\]
+
+<p>Then what should we do? And how can we tackle this problem?</p>
+
+<p>In this blog post we see how bounding the expectation of a stochastic process relates to the underlying metric structure, namely it depends on the geometry of the underlying set.</p>
+
+<h2 id="sub-gaussian-processes-motivation-and-basic-inequalities">Sub-Gaussian Processes: Motivation and Basic Inequalities</h2>
+
+<p>First let us study a bit about certain inequalities and the weak law of large numbers and the central limit theorem:</p>
+
+<p>Consider the following inequality:</p>
+
+\[\forall\, u &gt; 0, \quad \mathbb{P}\big(|X_s - X_t| \ge u\big) \le 2 \exp\left(-\frac{u^2}{2 d(s, t)^2}\right).\]
+
+<p>We will talk a little bit about the above inequality, which is true if our processes are sub-Gaussian. In general it seems like variance and gradient could be related concepts; variance is defined to measure the fluctuation of the distribution or the function, and gradient is used to compute how sensitive a function is to small changes.</p>
+
+<p>Let us suppose that we have this function:</p>
+
+\[f(X_1, \ldots, X_n)\]
+
+<p>By the weak law of large numbers, we expect that the fluctuations are of order</p>
+
+\[f(X_1, \ldots, X_n) - \mathbb{E}[f(X_1, \ldots, X_n)] \sim \frac{\sigma}{\sqrt{n}}.\]
+
+<p>So based on this observation we can deduce something about fluctuations of the function $f$, namely because we can sort of guess the behaviour of the fluctuations, and approximate the size of these fluctuations. But what about the distribution of the said fluctuations? Here we can invoke the central limit theorem and further deduce that:</p>
+
+\[f(X_1, \ldots, X_n) - \mathbb{E}[f(X_1, \ldots, X_n)] \approx \mathcal{N}\left(0, \frac{\sigma^2}{n}\right)\]
+
+<p>Now as we can see, using the central limit theorem we have more control and much sharper information about the behaviour of fluctuations, and we can approximate it with a Gaussian! Now we can use the inequalities of the Gaussian processes to have certain types of control over tails, namely: we can make a wide guess and deduce that these inequalities exist:</p>
+
+\[\mathbb{P}\left( \left| f(X_1, \ldots, X_n) - \mathbb{E}[f(X_1, \ldots, X_n)] \right| \ge t \right) \le e^{-\frac{n t^2}{2\sigma^2}}\]
+
+<p>Note that what I am writing here is not a precise argument but rather a kind of motivation for why we should consider sub-Gaussian processes.</p>
+
+<h3 id="the-chernoff-bound">The Chernoff Bound</h3>
+
+<p><strong>Lemma (Chernoff bound):</strong> Let $X$ be a random variable. Define its log-moment generating function $\psi$ and the Legendre dual $\psi^*$ as</p>
+
+\[\psi(\lambda) := \log \mathbb{E}\left[e^{\lambda (X - \mathbb{E}X)}\right], \quad \psi^*(t) := \sup_{\lambda \ge 0} \{\lambda t - \psi(\lambda)\}.\]
+
+<p>Then, for all $t \ge 0$,</p>
+
+\[\mathbb{P}[X - \mathbb{E}X \ge t] \le e^{-\psi^*(t)}.\]
+
+<p><strong>Proof:</strong> The proof is easy; we know that $e^{\lambda x}$ is increasing and using Markov’s inequality it is obvious. □</p>
+
+<p>Because the log-moment generating function is continuous, we can use tools from calculus, and that is what makes it interesting for us to use the Chernoff bound.</p>
+
+<h3 id="example-gaussian-random-variables">Example: Gaussian Random Variables</h3>
+
+<p>Let $X \sim \mathcal{N}(\mu, \sigma^2)$. Then</p>
+
+\[\mathbb{E}[e^{\lambda(X - \mathbb{E}X)}] = e^{\lambda^2 \sigma^2 / 2},\]
+
+<p>so that</p>
+
+\[\psi(\lambda) = \frac{\lambda^2 \sigma^2}{2}, \quad \psi^*(t) = \frac{t^2}{2\sigma^2}.\]
+
+<p>In particular, the Chernoff bound gives</p>
+
+\[\mathbb{P}[X - \mathbb{E}X \ge t] \le e^{-t^2 / 2\sigma^2}.\]
+
+<p>Note that if the log-moment generating function was bounded above by $\frac{\lambda^2 \sigma^2}{2}$ we could deduce the above inequality too.</p>
+
+<h3 id="example-bernoulli-processes">Example: Bernoulli Processes</h3>
+
+<p>Suppose that $\varepsilon_1, \dots, \varepsilon_m$ are i.i.d. uniform $\pm 1$ random variables, and for $t \in T$, we define</p>
+
+\[X_t := \varepsilon_1 t_1 + \varepsilon_2 t_2 + \cdots + \varepsilon_m t_m.\]
+
+<p>Then the family ${ X_t : t \in \mathbb{R}^n }$ is a collection of subgaussian random variables with the same parameters: $c = 1/2$ and</p>
+
+\[d(s,t) = \left( \mathbb{E}|X_s - X_t|^2 \right)^{1/2}.\]
+
+<h3 id="definition-sub-gaussian-random-variables">Definition: Sub-Gaussian Random Variables</h3>
+
+<p>A random variable $X$ is called <strong>$\sigma^2$-subgaussian</strong> if its log-moment generating function</p>
+
+\[\psi(\lambda) := \log \mathbb{E}[e^{\lambda (X - \mathbb{E}X)}]\]
+
+<p>satisfies</p>
+
+\[\psi(\lambda) \le \frac{\lambda^2 \sigma^2}{2} \quad \text{for all } \lambda \in \mathbb{R}.\]
+
+<p>The constant $\sigma^2$ is called the <strong>variance proxy</strong> of $X$.</p>
+
+<p>Note that by Hoeffding’s lemma we can prove that every bounded random variable is sub-Gaussian, so it makes sense for us to consider sub-Gaussian processes and random variables because they have good tail inequalities and they cover a good part of random variables. Using this definition we can introduce a certain sense of well-behavedness. What I wanted to argue is that considering sub-Gaussian processes is meaningful, from computing fluctuations, down to Gaussian and Bernoulli processes and etc.</p>
+
+<h2 id="the-framework-metric-structure-and-sub-gaussian-processes">The Framework: Metric Structure and Sub-Gaussian Processes</h2>
+
+<p>We will always assume that</p>
+
+\[\forall t \in T, \quad \mathbb{E}[X_t] = 0.\]
+
+<p>And also suppose that the underlying metric space is given by the metric:</p>
+
+\[d(s, t) = \left( \mathbb{E}[(X_s - X_t)^2] \right)^{1/2}\]
+
+<p>where $T$ is the index set. Then based on the above inequality we have the following:</p>
+
+\[\text{For } u &gt; 0, \quad \mathbb{P}\bigl(|X_s - X_t| \ge u\bigr) \le 2 \exp\left(- \frac{u^2}{2 d(s, t)^2} \right).\]
+
+<p>Furthermore, we could a bit more abstractly suppose any metric space $(T,d)$ in which the above inequality holds too.</p>
+
+<p>Now we want to compute</p>
+
+\[\mathbb{E} \left[ \sup_{t \in T} X_t \right].\]
+
+<p>What could this value really mean? Intuitively, it represents an upper bound on the “largest” value the stochastic process $(X_t)_{t \in T}$ might take on average. By taking the expectation of the supremum, we are averaging over all possible realizations of the process, which makes it possible to analyze its typical behavior using probabilistic methods.</p>
+
+<p>To examine this further, we observe that for any fixed $t_0 \in T$, we have</p>
+
+\[\mathbb{E} \left[ \sup_{t \in T} X_t \right] = \mathbb{E} \left[ \sup_{t \in T} (X_t - X_{t_0}) \right].\]
+
+<p>This equality is useful because centering the process at $X_{t_0}$ often simplifies computations, especially when using concentration inequalities or metric-based bounds, and it makes the random variables non-negative too.</p>
+
+<p>By the standard identity for non-negative random variables, we have</p>
+
+\[\mathbb{E}[Y] = \int_0^{\infty} \mathbb{P}(Y &gt; u) \, du.\]
+
+<p>Thus, to bound $\mathbb{E} \left[ \sup_{t \in T} (X_t - X_{t_0}) \right]$, it suffices to find bounds for</p>
+
+\[\mathbb{P} \left( \sup_{t \in T} (X_t - X_{t_0}) \ge u \right).\]
+
+<h2 id="the-chaining-idea-from-union-bound-to-successive-approximation">The Chaining Idea: From Union Bound to Successive Approximation</h2>
+
+<p>The most obvious way to give a rough approximation would be to compute the union bound, of course:</p>
+
+\[\mathbb{P} \left( \sup_{t \in T} (X_t - X_{t_0}) \ge u \right) \le \sum_{t \in T} \mathbb{P}(X_t - X_{t_0} \ge u).\]
+
+<p>The problem with it is that if we have too many processes the series for example might diverge, or if they are too correlated with each other the estimate would be really off the chart. So what can we do now? <strong>The solution would be to regroup highly correlated processes with each other and choose one process from each group to be computed in the union bound.</strong> Hence we can control both the number of processes and the correlation of them. Now that’s an interesting idea.</p>
+
+<p>To handle the case where the points are nearly identical, we consider a subset $T_1 \subset T$, and for each $t \in T$, we select a point $\pi_1(t) \in T_1$, which we can think of as a first approximation of $t$. The elements of $T$ that correspond to the same point $\pi_1(t)$ are, at this level of approximation, considered identical.</p>
+
+<p>We then decompose</p>
+
+\[X_t - X_{t_0} = (X_t - X_{\pi_1(t)}) + (X_{\pi_1(t)} - X_{t_0}).\]
+
+<p>For $n \ge 0$, we consider a subset $T_n \subset T$, and for each $t \in T$, we select a point $\pi_n(t) \in T_n$. (The idea is, of course, that the points $\pi_n(t)$ are successive approximations of $t$.) We assume that $T_0$ consists of a single element $t_0$, so that $\pi_0(t) = t_0$ for each $t \in T$.</p>
+
+<p>The fundamental relation is</p>
+
+\[X_t - X_{t_0} = \sum_{n \ge 1} \left( X_{\pi_n(t)} - X_{\pi_{n-1}(t)} \right),\]
+
+<p>which holds provided we arrange that $\pi_n(t) = t$ for $n$ large enough, in which case the series is actually a finite sum. This relation decomposes the increments of the process $X_t - X_{t_0}$ along the “chain” $(\pi_n(t))_{n \ge 0}$.</p>
+
+<p>Now, this is what we call the <strong>successive approximation agenda</strong>: by breaking down the process into smaller increments, we are essentially following a divide-and-conquer paradigm. Moreover, this perspective naturally leads us to consider the geometry of the underlying metric space. If we can provide good approximations for example, by covering the whole space with finer sets then the chaining approximation becomes correspondingly finer, allowing us to better control the supremum of the process, what i mean is that each subset $T_i$ represents a way of breaking down the wholw sum down to Controllable nice parts that might behave nicely, over all the possible such $T_i$’s.</p>
+
+<h2 id="entropy-numbers-and-covering">Entropy Numbers and Covering</h2>
+
+<p>It will be convenient to control the set $T_n$ through its cardinality, with</p>
+
+\[\mathrm{card}\, T_n \le N_n,\]
+
+<p>where</p>
+
+\[N_0 = 1, \quad N_n = 2^{2^n} \quad \text{if } n \ge 1.\]
+
+<p>Let $(T,d)$ be a metric space. Define the quantity $e_h(T,d)$ as the smallest radius $r$ such that $(T,d)$ can be covered by at most $2^{2^h}$ balls of radius $r$, where a ball in $(T,d)$ is given by</p>
+
+\[B(t,r) := \{ s \in T : d(s,t) \le r \}.\]
+
+<p>It follows by a greedy construction that there exists a <strong>net</strong> $N_h \subseteq T$ such that
+ $|N_h| \le 2^{2^h}$ and every point of T is within distance at most $e_h(T,d)$ of a point in $N_h$.</p>
+
+<p>Since $\pi_n(t)$ approximates $t$, it is natural to assume that</p>
+
+\[d(t, \pi_n(t)) = d(t, T_n) := \inf_{s \in T_n} d(t, s).\]
+
+<p>What we denoted by $e_h(T,d)$ is the <strong>entropy number</strong>. We could think of it as the number of how many bits or covers are needed to convey enough information regarding the underlying space.</p>
+
+<h2 id="the-union-bound-with-chaining">The Union Bound with Chaining</h2>
+
+<p>And assuming that they are sub-Gaussian processes like we have argued before, we can use the inequality:</p>
+
+\[\mathbb{P}\left( \left| X_{\pi_n(t)} - X_{\pi_{n-1}(t)} \right| \ge \frac{u 2^n}{2} \, d(\pi_n(t), \pi_{n-1}(t)) \right) \le 2 \exp\left( - u^2 2^n \right).\]
+
+<p>The number of possible pairs $(\pi_n(t), \pi_{n-1}(t))$ is bounded by</p>
+
+\[\mathrm{card}\, T_n \cdot \mathrm{card}\, T_{n-1} \le N_n N_{n-1} \le N_{n+1} = 2^{2^{n+1}}.\]
+
+<p>Now we wanted to approximate using the union bound. Therefore:</p>
+
+<p>Thus, if we denote by $\Omega_u$ the event</p>
+
+\[\forall n \ge 1, \ \forall t \in T, \quad \left| X_{\pi_n(t)} - X_{\pi_{n-1}(t)} \right| \le \frac{u 2^n}{2} \, d(\pi_n(t), \pi_{n-1}(t)),\]
+
+<p>we see that</p>
+
+\[\mathbb{P}(\Omega_u^c) \le p(u) := \sum_{n \ge 1} 2 \cdot 2^{2^{n+1}} \, \exp(-u^2 2^n).\]
+
+<p>When $\Omega_u$ occurs, from previous formulas we have that:</p>
+
+\[|X_t - X_{t_0}| \le u \sum_{n \ge 1} 2^{n/2} d(\pi_n(t), \pi_{n-1}(t)),\]
+
+<p>so that</p>
+
+\[\sup_{t \in T} |X_t - X_{t_0}| \le u S,\]
+
+<p>where</p>
+
+\[S := \sup_{t \in T} \sum_{n \ge 1} 2^{n/2} d(\pi_n(t), \pi_{n-1}(t)).\]
+
+<p>Thus, we have</p>
+
+\[\mathbb{P}\left( \sup_{t \in T} |X_t - X_{t_0}| &gt; u S \right) \le p(u).\]
+
+<p>Writing</p>
+
+\[u^2 2^n \ge \frac{u^2}{2} + u^2 2^{n-1} \ge \frac{u^2}{2} + 2^{n+1} \quad \text{for } u \ge 2,\]
+
+<p>we see that for $u \ge 2$,</p>
+
+\[p(u) \le L \, \exp\left(-\frac{u^2}{2}\right),\]
+
+<p>for some constant $L$.</p>
+
+<p>Therefore:</p>
+
+\[\mathbb{E} \left[ \sup_{t \in T} X_t \right] \le L S.\]
+
+<p>Using the triangle inequality, and if we expand the distances in $S$ we can get:</p>
+
+\[d(\pi_n(t), \pi_{n-1}(t)) \le d(t, \pi_n(t)) + d(t, \pi_{n-1}(t)) \le d(t, T_n) + d(t, T_{n-1}),\]
+
+<p>where $d(t, T_n) := \inf_{s \in T_n} d(t,s)$, because we want the approximation to be as fine as possible.</p>
+
+<p>Thus,</p>
+
+\[S \le L \, \sup_{t \in T} \sum_{n \ge 0} 2^{n/2} d(t, T_n),\]
+
+<p>and we have proved that</p>
+
+\[\mathbb{E} \left[ \sup_{t \in T} X_t \right] \le L \, \sup_{t \in T} \sum_{n \ge 0} 2^{n/2} d(t, T_n)\]
+
+<p>where here $L$ is a different constant.</p>
+
+<p>As I have mentioned, we are using a greedy approach to construct $T_n$’s. A problem that has arisen for me is: <strong>is there any better paradigm, at least bounded to certain classes of metric spaces, that yields better results?</strong> Let’s move on.</p>
+
+<p>We define</p>
+
+\[e_n(T) := \inf \sup_{t \in T} d(t, T_n),\]
+
+<p>where the infimum is taken over all subsets $T_n \subset T$ with $\mathrm{card}\, T_n \le N_n$. (Since $T$ is finite here, the infimum is actually a minimum.)</p>
+
+<p>It is good to observe that (since $N_0 = 1$)</p>
+
+\[\frac{\Delta(T)}{2} \le e_0(T) \le \Delta(T),\]
+
+<p>where, here and in the sequel, $\Delta(T)$ denotes the diameter of $T$,</p>
+
+\[\Delta(T) := \sup_{t_1, t_2 \in T} d(t_1, t_2).\]
+
+<p>Why? Because:</p>
+
+<p>Suppose $t_1, t_2 \in T$ realize the diameter, i.e.,</p>
+
+\[d(t_1, t_2) = \Delta(T).\]
+
+<p>Then for any $t_0 \in T$, the triangle inequality gives</p>
+
+\[d(t_1, t_0) + d(t_0, t_2) \ge d(t_1, t_2) = \Delta(T).\]
+
+<p>Let us then choose, for each $n$, a subset $T_n \subset T$ with $\mathrm{card}\, T_n \le N_n$ such that</p>
+
+\[e_n(T) = \sup_{t \in T} d(t, T_n).\]
+
+<p>Since $d(t, T_n) \le e_n(T)$ for each $t$, it follows from the previous inequality that we have proved the following result.</p>
+
+<h2 id="dudleys-entropy-bound">Dudley’s Entropy Bound</h2>
+
+<p><strong>Proposition (Dudley’s entropy bound):</strong> Under the increment condition of sub-Gaussianness, we have</p>
+
+\[\mathbb{E} \left[ \sup_{t \in T} X_t \right] \le L \sum_{n \ge 0} 2^{n/2} e_n(T).\]
+
+<p>Let us rephrase Dudley’s entropy bound by covering number. Here the relationship with the underlying shape and metric space arises:</p>
+
+<p>The <strong>covering number</strong> $N(T,d,\varepsilon)$ is defined as the smallest integer $N$ such that there exists a subset $F \subset T$ with $\mathrm{card}\, F \le N$ and</p>
+
+\[\forall t \in T, \quad d(t, F) \le \varepsilon.\]
+
+<p>Thus,</p>
+
+\[e_n(T) = \inf \left\{ \varepsilon : N(T,d,\varepsilon) \le N_n \right\},\]
+
+<p>and</p>
+
+\[\varepsilon &lt; e_n(T) \ \Rightarrow \ N(T,d,\varepsilon) &gt; N_n \ \Rightarrow \ N(T,d,\varepsilon) \ge 1 + N_n.\]
+
+<p>We have</p>
+
+\[\sqrt{\log(1 + N_n)} \, \left(e_n(T) - e_{n+1}(T)\right) \le \int_{e_{n+1}(T)}^{e_n(T)} \sqrt{\log N(T,d,\varepsilon)} \, d\varepsilon.\]
+
+<p>Since $\log(1 + N_n) \ge 2^n \log 2$ for $n \ge 0$, summation over $n \ge 0$ yields</p>
+
+\[\sqrt{\log 2} \sum_{n \ge 0} 2^{n/2} \left(e_n(T) - e_{n+1}(T)\right) \le \int_{0}^{e_0(T)} \sqrt{\log N(T,d,\varepsilon)} \, d\varepsilon.\]
+
+<p>Now,</p>
+
+\[\begin{align*}
+\sum_{n \ge 0} 2^{n/2} \left(e_n(T) - e_{n+1}(T)\right) &amp;= \sum_{n \ge 0} 2^{n/2} e_n(T) - \sum_{n \ge 1} 2^{(n-1)/2} e_n(T) \\
+&amp;\ge \left(1 - \frac{1}{\sqrt{2}}\right) \sum_{n \ge 0} 2^{n/2} e_n(T).
+\end{align*}\]
+
+<p>Thus, we obtain</p>
+
+\[\sum_{n \ge 0} 2^{n/2} e_n(T) \le L \int_{0}^{\infty} \sqrt{\log N(T,d,\varepsilon)} \, d\varepsilon,\]
+
+<p>and hence, the <strong>integral form of Dudley’s entropy bound</strong>:</p>
+
+\[\mathbb{E} \left[ \sup_{t \in T} X_t \right] \le L \int_{0}^{\infty} \sqrt{\log N(T,d,\varepsilon)} \, d\varepsilon.\]
+
+<h2 id="generic-chaining-and-the-majorizing-measure-theorem">Generic Chaining and the Majorizing Measure Theorem</h2>
+
+<p>Hence we will have the following theorem:</p>
+
+<p><strong>Theorem (The generic chaining bound):</strong> Under the increment condition (0.4), and assuming that $\mathbb{E}X_t = 0$, for each admissible sequence ${A_n(t)}_{n \ge 0}$ we have</p>
+
+\[\mathbb{E} \sup_{t \in T} X_t \le L \, \sup_{t \in T} \sum_{n \ge 0} 2^{n/2} \, \Delta(A_n(t)),\]
+
+<p>where $\Delta(A_n(t))$ denotes the diameter of the set $A_n(t)$ with respect to the metric $d$,</p>
+
+\[\Delta(A_n(t)) = \sup_{s_1, s_2 \in A_n(t)} d(s_1, s_2).\]
+
+<p>Given a set $T$, an <strong>admissible sequence</strong> is an increasing sequence  $(\mathcal{A}<em>n)</em>{n \ge 0}$  of partitions of T 
+such that</p>
+
+\[\mathrm{card}(\mathcal{A}_n) \le N_n.\]
+
+<p>Given $\alpha &gt; 0$ and a metric space $(T, d)$ (that need not be finite), we define</p>
+
+\[\gamma_\alpha(T, d) = \inf_{(\mathcal{A}_n)} \sup_{t \in T} \sum_{n \ge 0} 2^{n / \alpha} \, \Delta(\mathcal{A}_n(t)),\]
+
+<p>where the infimum is taken over all admissible sequences \((\mathcal{A}_n)_{n \ge 0}\).</p>
+
+<p>It is good to observe that, since \(\mathcal{A}_0(t) = T\),
+we have
+\(\gamma_\alpha(T, d) \ge \Delta(T).\)</p>
+
+<p><strong>Proof:</strong> Fix any admissible sequence \((\mathcal{A}_n)_{n\ge 0}\).
+For every $t\in T$ the sum in the definition of 
+$\gamma_\alpha$
+contains the $n=0$ term</p>
+
+\[2^{0/\alpha}\,\Delta(\mathcal{A}_0(t)) = 1\cdot \Delta(\mathcal{A}_0(t)).\]
+
+<p>By admissibility \(\mathcal{A}_0(t)=T\)
+, hence this term equals $\Delta(T)$. Since all remaining terms of the sum are nonnegative,
+ we obtain for every $t\in T$</p>
+
+\[\sum_{n\ge 0} 2^{n/\alpha}\,\Delta(\mathcal{A}_n(t)) \ge \Delta(T).\]
+
+<p>Taking the supremum over $t\in T$ yields</p>
+
+\[\sup_{t\in T}\sum_{n\ge 0} 2^{n/\alpha}\,\Delta(\mathcal{A}_n(t)) \ge \Delta(T).\]
+
+<p>Finally, taking the infimum over all admissible sequences gives</p>
+
+\[\gamma_\alpha(T,d)=\inf_{(\mathcal{A}_n)}\sup_{t\in T}\sum_{n\ge 0} 
+ 2^{n/\alpha}\,\Delta(\mathcal{A}_n(t)) \ge \Delta(T),\]
+
+<p>as claimed. □</p>
+
+<p><strong>Theorem (Majorizing measure theorem / Generic chaining for Gaussian processes):</strong> Let $(X_t)_{t \in T}$ be a centered Gaussian process, and denote by</p>
+
+\[d(t, s) = \left( \mathbb{E} |X_t - X_s|^2 \right)^{1/2}\]
+
+<p>the associated natural metric on $T$. Then</p>
+
+\[\mathbb{E} \left[ \sup_{t \in T} X_t \right] \asymp \gamma_2(T),\]
+
+<p>where</p>
+
+\[\gamma_2(T) := \inf_{(T_n)} \sup_{t \in T} \sum_{n \ge 0} 2^{n/2} \, d(t, T_n),\]
+
+<p>and the infimum is taken over all sequences of subsets $T_n \subset T$ 
+with $|T_n| &lt; 2^{2^n}$.</p>
+
+<h2 id="reflections-on-multiscale-approximation">Reflections on Multiscale Approximation</h2>
+
+<p>So let me cite some monographs from the paper: <em>CHAINING, INTERPOLATION, AND CONVEXITY</em></p>
+
+<p>If I had time to further examine this topic and write a further blog post…</p>
+
+<blockquote>
+  <p>However, when presented with any specific situation, it often proves to be remarkably difficult to control $\gamma_2(T)$ efficiently and to obtain sharp results, unless one is able to construct a nearly optimal sequence of nets $(T_n)$. This task is significantly complicated by the multiscale nature of $\gamma_2(T)$.</p>
+
+  <p>The aim of this paper is to exhibit some surprisingly elementary principles that make it possible to obtain sharp control of $\gamma_2(T)$ in various interesting examples, and that shed new light on the underlying geometric phenomena.</p>
+
+  <p>There are essentially two general approaches that have been used to control $\gamma_2(T)$. The simplest and by far the most useful approach is obtained by bringing the supremum over $t \in T$ inside the sum in the definition of $\gamma_2(T)$. This yields
+\(\gamma_2(T) \le \sum_{n \ge 0} 2^{n/2} e_n(T),\)
+where the <em>entropy number</em> $e_n(T)$ is defined as the smallest $\varepsilon &gt; 0$ such that there exists an $\varepsilon$-net in $T$ of cardinality less than $2^{2^n}$.</p>
+
+  <p>This bound, due to Dudley, long predates Theorem 1.1 and has found widespread use. Its utility stems from the fact that controlling entropy numbers only requires us to approximate the set $T$ at a single scale.</p>
+
+  <p>Unfortunately, Dudley’s bound can fail to be sharp even in the simplest examples, such as ellipsoids in Hilbert space. In fact, the supremum of a random process on $T$ cannot in general be understood in terms of the entropy numbers of $T$: one can easily construct two such sets with comparable entropy numbers on which a Gaussian process behaves very differently.</p>
+
+  <p>It is therefore a crucial feature of Theorem 1.1 that the use of entropy numbers is replaced by a genuinely multiscale form of approximation. The construction of such a multiscale approximation in any given situation is, however, a highly nontrivial task.</p>
+</blockquote>
+
+<hr />
+
+<h2 id="references">References</h2>
+
+<p>The references for this blogpost:</p>
+
+<ul>
+  <li><em>CHAINING, INTERPOLATION, AND CONVEXITY</em> by Ramon van Handel</li>
+  <li><em>Probability in High Dimension</em> by Ramon van Handel</li>
+  <li><em>The Generic Chaining</em> by the great Michel Talagrand</li>
+  <li><em>Upper and Lower Bounds for Stochastic Processes</em> by the great Michel Talagrand</li>
+  <li><em>Sparsification, sampling, and optimization</em> lecture notes by James R. Lee</li>
+</ul>
+
+
+        
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="https://thomasgraceman.github.io/tags/#generic-chaining" class="page__taxonomy-item" rel="tag">generic chaining</a><span class="sep">, </span>
+    
+      
+      
+      <a href="https://thomasgraceman.github.io/tags/#metric-embeddings" class="page__taxonomy-item" rel="tag">metric embeddings</a><span class="sep">, </span>
+    
+      
+      
+      <a href="https://thomasgraceman.github.io/tags/#probability" class="page__taxonomy-item" rel="tag">probability</a><span class="sep">, </span>
+    
+      
+      
+      <a href="https://thomasgraceman.github.io/tags/#stochastic-processes" class="page__taxonomy-item" rel="tag">stochastic processes</a>
+    
+    </span>
+  </p>
+
+
+
+
+      </footer>
+
+      
+
+<section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://bsky.app/intent/compose?text=https://thomasgraceman.github.io/posts/introduction-generic-chaining/" class="btn btn--bluesky" title="Share on Bluesky"><i class="fab fa-bluesky" aria-hidden="true"></i><span> Bluesky</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https://thomasgraceman.github.io/posts/introduction-generic-chaining/" class="btn btn--facebook" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://thomasgraceman.github.io/posts/introduction-generic-chaining/" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+
+  <a href="https://www.addtoany.com/add_to/mastodon?linkurl=https%3A%2F%2Fthomasgraceman.github.io%2Fposts%2Fintroduction-generic-chaining%2F" class="btn btn--mastodon" title="Share on Mastodon"><i class="fab fa-mastodon" aria-hidden="true"></i><span> Mastodon</span></a>
+
+  <a href="https://x.com/intent/post?text=https://thomasgraceman.github.io/posts/introduction-generic-chaining/" class="btn btn--x" title="Share on X"><i class="fab fa-x-twitter" aria-hidden="true"></i><span> X (formerly Twitter)</span></a>
+</section>
+
+
+      
+
+
+  <nav class="pagination">
+    
+      <a href="https://thomasgraceman.github.io/posts/measure-theory-sobolev-fourier-analysis-part-1/" class="pagination--pager" title="Measure Theory, Sobolev Spaces, and Fourier Analysis — Part 1
+">Previous</a>
+    
+    
+      <a href="https://thomasgraceman.github.io/posts/separations-proof-complexity-tfnp-part-1/" class="pagination--pager" title="Separations in Proof Complexity and TFNP — Part 1
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      
+        <h4 class="page__related-title">You May Also Enjoy</h4>
+      
+      <div class="grid__wrapper">
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "https://thomasgraceman.github.io/images/profile.png"
+          
+          alt="Dynamic Sum-of-Radii Clustering
+">
+      </div>
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="https://thomasgraceman.github.io/posts/dynamic-sum-of-radii-clustering/" rel="permalink">Dynamic Sum-of-Radii Clustering
+</a>
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  10 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-08-06T00:00:00+00:00">August 06, 2026</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><p>So in this second post, following the <a href="/posts/dynamic-approximate-nns/">previous data structure</a>, I am going to review some algorithms that were devised using the scheme of nearest neighbor search.</p>
+
+</p>
+    
+    
+    
+
+  </article>
+</div>
+
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "https://thomasgraceman.github.io/images/profile.png"
+          
+          alt="Dynamic Approximate Nearest-Neighbor Search in Doubling Metrics
+">
+      </div>
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="https://thomasgraceman.github.io/posts/dynamic-approximate-nns/" rel="permalink">Dynamic Approximate Nearest-Neighbor Search in Doubling Metrics
+</a>
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  14 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-08-06T00:00:00+00:00">August 06, 2026</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><p>Well, in this blog post we are going to review several papers and understand the techniques that are utilized in order to tackle several problems related to areas such as nearest neighbor problems, the facility location problem, and so on.</p>
+
+</p>
+    
+    
+    
+
+  </article>
+</div>
+
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "https://thomasgraceman.github.io/images/profile.png"
+          
+          alt="Tree Embedding in High Dimensions: Dynamic and Massively Parallel, and Streaming Facility Location in High Dimension via Geometric Hashing – 2
+">
+      </div>
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="https://thomasgraceman.github.io/posts/tree-embedding-high-dimensions-streaming-facility-location-geometric-hashing-2/" rel="permalink">Tree Embedding in High Dimensions: Dynamic and Massively Parallel, and Streaming Facility Location in High Dimension via Geometric Hashing – 2
+</a>
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  3 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-07-02T00:00:00+00:00">July 02, 2026</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><h1 id="tree-embedding-in-high-dimensions">Tree Embedding in High Dimensions</h1>
+<h2 id="dynamic-and-massively-parallel-and-streaming-facility-location-via-geometric-hashing">Dynamic and Massively Parallel, and Streaming Facility Location via Geometric Hashing</h2>
+
+</p>
+    
+    
+    
+
+  </article>
+</div>
+
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "https://thomasgraceman.github.io/images/profile.png"
+          
+          alt="Sparsification of Sums of Norms: Symmetrization, Generic Chaining, and Concentration — Chapter 3
+">
+      </div>
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="https://thomasgraceman.github.io/posts/sparsification-sums-of-norms-symmetrization-generic-chaining-chapter-3/" rel="permalink">Sparsification of Sums of Norms: Symmetrization, Generic Chaining, and Concentration — Chapter 3
+</a>
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  8 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-06-28T00:00:00+00:00">June 28, 2026</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><h1 id="sparsification-of-sums-of-norms">Sparsification of Sums of Norms</h1>
+<h2 id="symmetrization-generic-chaining-and-concentration--chapter-3">Symmetrization, Generic Chaining, and Concentration · Chapter 3</h2>
+
+</p>
+    
+    
+    
+
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- Support for MatJax -->
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true
+    }
+  };
+</script>
+<script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script"></script>
+
+<!-- Support for Mermaid -->
+<script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({startOnLoad:true, theme:'default'});
+    await mermaid.run({querySelector:'code.language-mermaid'});
+</script>
+
+<!-- New post corner notice -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var notice = document.getElementById('new-post-notice');
+  if (!notice) return;
+
+  var postId = notice.dataset.postId;
+  var key = 'dismissed-post-' + postId;
+
+  if (localStorage.getItem(key) === '1') return;
+
+  notice.hidden = false;
+
+  notice.querySelector('.new-post-notice__close').addEventListener('click', function () {
+    localStorage.setItem(key, '1');
+    notice.remove();
+  });
+});
+</script>
+
+<!-- end custom footer snippets -->
+
+        
+
+
+<div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+    
+      <li><a href="https://github.com/thomasgraceman"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="https://thomasgraceman.github.io/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+
+<div class="page__footer-copyright">
+  &copy; 2026 Taha Hoseinpour, Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://github.com/academicpages/academicpages.github.io">AcademicPages</a>, a fork of <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.<br />
+  Site last updated 2026-08-06, <a href="/sitemap/" style="text-transform: uppercase;">Sitemap</a>
+</div>
+
+      </footer>
+    </div>
+
+    
+
+  
+  
+    
+    
+    
+    
+
+    
+      <div id="new-post-notice"
+           class="new-post-notice"
+           role="status"
+           aria-live="polite"
+           data-post-id="posts-dynamic-sum-of-radii-clustering"
+           hidden>
+        <button type="button" class="new-post-notice__close" aria-label="Dismiss notice">&times;</button>
+        <p class="new-post-notice__label">New post</p>
+        <a class="new-post-notice__link" href="https://thomasgraceman.github.io/posts/dynamic-sum-of-radii-clustering/">
+          Dynamic Sum-of-Radii Clustering
+        </a>
+      </div>
+    
+  
+
+
+    <script type="module" src="https://thomasgraceman.github.io/assets/js/main.min.js"></script>
+
+
+
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MGD7PS6X0W"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-MGD7PS6X0W');
+</script>
+
+
+
+
+
+
+
+
+  </body>
+</html>
+

@@ -1,0 +1,1320 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+
+<meta charset="utf-8">
+
+
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Tree Embedding in High Dimensions: Dynamic and Massively Parallel - A steeper descent</title>
+
+
+
+
+<meta name="description" content="Study notes on Goranci et al.’s SODA 2026 paper on dynamic and massively parallel tree embeddings in high-dimensional Euclidean spaces.">
+
+
+
+
+<meta name="author" content="Taha Hoseinpour">
+
+
+<!-- Academic SEO: Google Scholar citation meta tags -->
+
+  <meta name="citation_title" content="Tree Embedding in High Dimensions: Dynamic and Massively Parallel">
+  <meta name="citation_author" content="Taha Hoseinpour">
+  <meta name="citation_publication_date" content="2026/06/17">
+  <meta name="citation_author_institution" content="Sharif University of Technology">
+  
+  <meta name="citation_public_url" content="https://thomasgraceman.github.io/posts/tree-embedding-high-dimensions-dynamic-mpc/">
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2026-06-17T00:00:00+00:00">
+
+
+
+
+  <link rel="canonical" href="https://thomasgraceman.github.io/posts/tree-embedding-high-dimensions-dynamic-mpc/">
+
+
+
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+
+
+
+  <meta name="twitter:site" content="@thomas_ger">
+  <meta name="twitter:title" content="Tree Embedding in High Dimensions: Dynamic and Massively Parallel">
+  
+  <meta name="twitter:description" content="Study notes on Goranci et al.’s SODA 2026 paper on dynamic and massively parallel tree embeddings in high-dimensional Euclidean spaces.">
+  
+  <meta name="twitter:url" content="https://thomasgraceman.github.io/posts/tree-embedding-high-dimensions-dynamic-mpc/">
+
+  
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://thomasgraceman.github.io/images/profile.png">
+    <meta name="twitter:image:alt" content="Tree Embedding in High Dimensions: Dynamic and Massively Parallel">
+  
+
+  
+    <meta name="twitter:creator" content="@thomas_ger">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+
+  <meta name="google-site-verification" content="AZLgMz3hX8xkaa4pei-D3hJXOhMy1S3SWM0x66QI0zk" />
+
+
+
+
+<!-- end SEO -->
+
+<!-- Open Graph protocol data (https://ogp.me/), used by social media -->
+<meta property="og:locale" content="en-US">
+<meta property="og:site_name" content="A steeper descent">
+<meta property="og:title" content="Tree Embedding in High Dimensions: Dynamic and Massively Parallel">
+
+  <meta property="og:type" content="article">
+
+
+  <meta property="og:description" content="Study notes on Goranci et al.’s SODA 2026 paper on dynamic and massively parallel tree embeddings in high-dimensional Euclidean spaces.">
+
+
+  <meta property="og:url" content="https://thomasgraceman.github.io/posts/tree-embedding-high-dimensions-dynamic-mpc/">
+
+
+  <meta property="og:image" content="https://thomasgraceman.github.io/images/profile.png">
+  <meta property="og:image:alt" content="Tree Embedding in High Dimensions: Dynamic and Massively Parallel">
+
+
+
+  
+  <meta property="article:author" content="Taha Hoseinpour">
+  
+  
+  
+  <meta property="article:tag" content="metric embeddings, tree embeddings, high-dimensional algorithms, parallel algorithms">
+  
+
+
+
+
+
+  
+  <meta name="keywords" content="metric embeddings, tree embeddings, high-dimensional algorithms, parallel algorithms">
+
+<!-- end Open Graph protocol -->
+
+<!-- Structured data (https://schema.org/) -->
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "A steeper descent",
+    "url": "https://thomasgraceman.github.io",
+    "description": "Research blog on theoretical computer science — metric embeddings, sparsification, generic chaining, and approximation algorithms. Notes on papers and books by Taha Hoseinpour.",
+    "inLanguage": "en-US"
+  }
+</script>
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": "https://thomasgraceman.github.io#person",
+    "name": "Taha Hoseinpour",
+    "url": "https://thomasgraceman.github.io",
+    "description": "Research blog on theoretical computer science — metric embeddings, sparsification, generic chaining, and approximation algorithms. Notes on papers and books by Taha Hoseinpour."
+    ,
+    "jobTitle": "Graduate Student in Theoretical Computer Science"
+    
+    ,
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Sharif University of Technology"
+    },
+    "affiliation": {
+      "@type": "Organization",
+      "name": "Sharif University of Technology"
+    }
+    
+    ,
+    "homeLocation": {
+      "@type": "Place",
+      "name": "Iran"
+    }
+    
+    ,
+    "alumniOf": [
+      {
+        "@type": "CollegeOrUniversity",
+        "name": "Sharif University of Technology"
+      },
+      {
+        "@type": "CollegeOrUniversity",
+        "name": "Iran University of Science and Technology"
+      }
+      
+    ]
+    
+    ,
+    "image": "https://thomasgraceman.github.io/images/profile.png"
+    
+    ,
+    "email": "tahahoseinpourasli@gmail.com"
+    
+    ,
+    "sameAs": ["https://github.com/thomasgraceman","https://twitter.com/thomas_ger"]
+    
+  }
+</script>
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://thomasgraceman.github.io/posts/tree-embedding-high-dimensions-dynamic-mpc/"
+    },
+    "headline": "Tree Embedding in High Dimensions: Dynamic and Massively Parallel",
+    "description": "Study notes on Goranci et al.’s SODA 2026 paper on dynamic and massively parallel tree embeddings in high-dimensional Euclidean spaces.",
+    "url": "https://thomasgraceman.github.io/posts/tree-embedding-high-dimensions-dynamic-mpc/",
+    "inLanguage": "en-US",
+    
+    "datePublished": "2026-06-17T00:00:00+00:00",
+    
+    
+    "dateModified": "2026-06-17T00:00:00+00:00",
+    
+    
+    "keywords": ["metric embeddings","tree embeddings","high-dimensional algorithms","parallel algorithms"],
+    
+    "author": {
+      "@type": "Person",
+      "@id": "https://thomasgraceman.github.io#person",
+      "name": "Taha Hoseinpour"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "A steeper descent",
+      "url": "https://thomasgraceman.github.io",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://thomasgraceman.github.io/images/profile.png"
+      }
+    }
+    ,
+    "image": "https://thomasgraceman.github.io/images/profile.png"
+    
+  }
+</script>
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Taha Hoseinpour",
+        "item": "https://thomasgraceman.github.io"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Tree Embedding in High Dimensions: Dynamic and Massively Parallel",
+        "item": "https://thomasgraceman.github.io/posts/tree-embedding-high-dimensions-dynamic-mpc/"
+      }
+    ]
+  }
+</script>
+
+
+
+<link href="https://thomasgraceman.github.io/feed.xml" type="application/atom+xml" rel="alternate" title="A steeper descent Feed">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="https://thomasgraceman.github.io/assets/css/main.css">
+
+    
+
+<!-- start custom head snippets -->
+
+<!-- Support for Academicons -->
+<link rel="stylesheet" href="https://thomasgraceman.github.io/assets/css/academicons.css"/>
+
+<!-- New post corner notice -->
+<link rel="stylesheet" href="https://thomasgraceman.github.io/assets/css/new-post-notice.css"/>
+
+<!-- favicon from https://commons.wikimedia.org/wiki/File:OOjs_UI_icon_academic-progressive.svg -->
+<link rel="apple-touch-icon" sizes="180x180" href="https://thomasgraceman.github.io/images/apple-touch-icon-180x180.png"/>
+<link rel="icon" type="image/svg+xml" href="https://thomasgraceman.github.io/images/favicon.svg"/>
+<link rel="icon" type="image/png" href="https://thomasgraceman.github.io/images/favicon-32x32.png" sizes="32x32"/>
+<link rel="icon" type="image/png" href="https://thomasgraceman.github.io/images/favicon-192x192.png" sizes="192x192"/>
+<link rel="manifest" href="https://thomasgraceman.github.io/images/manifest.json"/>
+<link rel="icon" href="/images/favicon.ico"/>
+<meta name="theme-color" content="#ffffff"/>
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <button><span class="navicon"></span></button>
+        <ul class="visible-links">
+          <li class="masthead__menu-item masthead__menu-item--lg persist ">
+            <a href="https://thomasgraceman.github.io/">A steeper descent</a>
+          </li>
+          
+            
+            <li class="masthead__menu-item ">
+              <a href="https://thomasgraceman.github.io/readinglist/">Reading List</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item ">
+              <a href="https://thomasgraceman.github.io/year-archive/">Blog Posts</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item ">
+              <a href="https://thomasgraceman.github.io/cv/">CV</a>
+            </li>
+          
+          <li id="theme-toggle" class="masthead__menu-item persist tail">
+            <a role="button" aria-labelledby="theme-icon"><i id="theme-icon" class="fa-solid fa-sun" aria-hidden="true" title="toggle theme"></i></a>
+          </li>
+        </ul>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+
+
+
+
+  
+    
+
+
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="https://thomasgraceman.github.io/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="https://thomasgraceman.github.ioposts" itemprop="item"><span itemprop="name">Posts</span></a>
+          <meta itemprop="position" content="2" />
+        </li>
+        <span class="sep">/</span>
+      
+    
+      
+      
+        <li class="current">Tree Embedding in High Dimensions: Dynamic and Massively Parallel</li>
+      
+    
+  </ol>
+</nav>
+  
+
+
+<div id="main" role="main">
+  
+
+
+  <div class="sidebar sticky">
+  
+
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  <div class="author__avatar">
+    
+    	<img src="https://thomasgraceman.github.io/images/profile.png" class="author__avatar" alt="Taha"  fetchpriority="high" />
+    
+  </div>
+
+  <div class="author__content">
+    <h3 class="author__name">Taha</h3>
+    
+    <p class="author__bio">Hi, I am Taha.</p>
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      <!-- Font Awesome icons / Biographic information  -->
+      
+        <li class="author__desktop"><i class="fas fa-fw fa-location-dot icon-pad-right" aria-hidden="true"></i>Iran</li>
+      
+      
+        <li class="author__desktop"><i class="fas fa-fw fa-building-columns icon-pad-right" aria-hidden="true"></i>Sharif University of Technology</li>
+      
+      
+      
+        <li><a href="mailto:tahahoseinpourasli@gmail.com"><i class="fas fa-fw fa-envelope icon-pad-right" aria-hidden="true"></i>Email</a></li>
+      
+
+      <!-- Font Awesome and Academicons icons / Academic websites -->
+      
+            
+      
+            
+      
+      
+                              
+      
+      
+      
+      
+      
+
+      <!-- Font Awesome icons / Repositories and software development -->
+      
+            
+            
+      
+        <li><a href="https://github.com/thomasgraceman"><i class="fab fa-fw fa-github icon-pad-right" aria-hidden="true"></i>GitHub</a></li>
+      
+            
+            
+
+      <!-- Font Awesome icons / Social media -->
+              
+      
+      
+            
+      
+                  
+                  
+      
+            
+            
+            
+      
+            
+                  
+            
+      
+            
+            
+      
+        <li><a href="https://twitter.com/thomas_ger"><i class="fab fa-fw fa-x-twitter icon-pad-right" aria-hidden="true"></i>X (formerly Twitter)</a></li>
+      
+              
+      
+                      
+      
+      
+            
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Tree Embedding in High Dimensions: Dynamic and Massively Parallel">
+    <meta itemprop="description" content="Tree Embedding in High Dimensions: Dynamic and Massively Parallel">
+    <meta itemprop="datePublished" content="June 17, 2026">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Tree Embedding in High Dimensions: Dynamic and Massively Parallel
+</h1>
+          
+            <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  13 minute read
+	
+</p>
+          
+        
+        
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-06-17T00:00:00+00:00">June 17, 2026</time></p>
+            
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        <h1 id="tree-embedding-in-high-dimensions-dynamic-and-massively-parallel">Tree Embedding in High Dimensions: Dynamic and Massively Parallel</h1>
+
+<p>Let $(V,\mathrm{dist})$ be a metric space. Define</p>
+
+\[B(x,r) := \{\, y\in V : \mathrm{dist}(x,y)\le r \,\}, \qquad x\in V,\; r\ge 0.\]
+
+<p>For a subset $P\subseteq V$, define</p>
+
+\[B_P(x,r) := B(x,r)\cap P.\]
+
+<p>Let $\pi:P\to [0,1]$ be a random map, and let $r\sim \mathrm{Unif}!\left[\frac{w}{4},\frac{w}{2}\right]$.</p>
+
+<p>For each $p\in P$, define</p>
+
+\[\ell_p := \operatorname*{arg\,min} \left\{ \pi(q): q\in B_P(p,r) \right\}.\]
+
+<p>A <strong>$\tau$-bounded decomposition</strong> ($\tau$-BD) is a partition of $V$ such that every part has diameter at most $\tau$.</p>
+
+<p>Let $\phi:V\to U$ be a hash function. For $x\in V$, define its bucket</p>
+
+\[\operatorname{buk}(x) := \phi^{-1}(\phi(x)),\]
+
+<p>and for any set $S\subseteq V$,</p>
+
+\[\operatorname{buk}^{P}(x) := \operatorname{buk}(x)\cap P.\]
+
+<p>Define the bucketed neighborhood</p>
+
+\[\operatorname{buks}^{P}(S) := \bigcup_{x\in S}\operatorname{buk}^{P}(x).\]
+
+<p>Finally, define</p>
+
+\[\ell_p := \pi_{\min}\!\bigl(\widetilde{B}_P(p,r)\bigr),
+\qquad \text{where} \qquad
+\pi_{\min}(S) := \operatorname*{arg\,min}_{x\in S}\pi(x).\]
+
+<h3 id="assumptions-and-parameters">Assumptions and Parameters</h3>
+
+<p>For the sake of presentation( as in the paper ), we assume, without loss of generality, that the dataset $P\subseteq V$ has the smallest inter-point distance greater than $1$, and that its diameter $\Delta := \operatorname{diam}(P)$ satisfies</p>
+
+\[\Delta = 2^{m-1}\]
+
+<p>for some $m\in\mathbb{N}$. For every integer $i$, let $w_i := 2^{m-i}$.</p>
+
+<hr />
+
+<p>Well recently I have come across a really cool paper, <em>Tree Embedding in High Dimensions: Dynamic and Massively Parallel</em>, which is a nice and cool utilization of geometric hashing  which in turn is itself a sparse partition of the space and metric space at hand. Basically how the algorithm at the basic level works is the same as its predecessors like the CKR process: put a randomization forward, break down the metric space in a recursive ( in predecessors) manner, and the structure and analysis help you get an ultrametric with distortion of $O(\log n)$. But the novelty of their paper lies in the fact that they propose a cool dynamic algorithm, work in a more general setting, and make novel use of the dynamic paradigm, which also works extremely well in the MPC agenda, a distributed version of streaming where parallelism replaces sequential access. Without consistent hashing or geometric hashing such a thing may not have been possible.</p>
+
+<p>So the intuition is really there: find a good neighborhood of points, put a random priority map, decompose the labels in the appropriate buckets according to distance at each level. But it takes a more sophisticated approach which I am going to explain. Instead of a top-down recursive approach  a rather greedy paradigm which in this setting may force more computational power  we build it independently at each level. This helps in the design of the dynamic algorithm.</p>
+
+<p>So, the base intuition is there, but I may start with some technical analysis like the authors did or just outright explain the algorithm. Explaining the analysis is more revealing, so we start with that.</p>
+
+<hr />
+
+<p>It is a standard fact that the distance between points $p,q$ in the tree $T$ is determined by their LCA (least common ancestor) in the tree. The following notation defines the level of the LCA (minus $1$) with respect to the labels $\ell$.</p>
+
+<p><strong>Algorithm 1:</strong> Tree embedding on input $P \subseteq V$ with access to metric hashes ${\phi_i}_{i\in[m]}$</p>
+
+<blockquote>
+  <p><strong>Note:</strong> $\phi_i$ is a metric hashing with diameter bound $\tau_i := w_i/2$</p>
+
+  <ol>
+    <li>Sample $\beta \in \left[\tfrac{1}{4}, \tfrac{1}{2}\right]$ uniformly at random</li>
+    <li>Let $\pi$ be a uniform random map from $P$ to $[0,1]$</li>
+    <li><strong>For</strong> $i \leftarrow 1$ to $m$:
+      <ul>
+        <li>$r_i \leftarrow \frac{\beta}{\Gamma} \cdot w_i$</li>
+        <li><strong>For</strong> each \(p \in P\):
+          <ul>
+            <li>
+\[\ell^{(i)}_p \leftarrow \pi_{\min}\!\big(\widetilde{B}^{P}_i(p,r_i)\big)\]
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><strong>Return</strong> \(\{\ell^{(i)}_p\}_{i\in[m],\,p\in P}\)</li>
+  </ol>
+</blockquote>
+
+<blockquote>
+  <p><strong>Definition (Tree level).</strong>
+For $p,q\in P$, define
+\(\operatorname{lv}(p,q) := \min\left\{\, i\in [m] : \ell^{(i)}_{p}\neq \ell^{(i)}_{q} \,\right\}.\)</p>
+</blockquote>
+
+<p>Since the embedding tree is a $2$-HST, it is immediate that</p>
+
+\[\operatorname{dist}_T(p,q)
+= \sum_{i=\operatorname{lv}(p,q)}^{m} 2w_i
+\in \left[\,2w_{\operatorname{lv}(p,q)},\;4w_{\operatorname{lv}(p,q)}\right).\]
+
+<p>The embedding tree $T$ has height $m$, and the edge weight from every level-$i$ node to every level-$(i+1)$ node is $w_i$. Here, level $1$ is the root (which consists of a singleton partition), and level $m$ consists of the leaves, each of which contains at most a single data point.</p>
+
+<p>Fix $p,q\in P$, and let</p>
+
+\[i := \operatorname{lv}(p,q)-1,\]
+
+<p>so that we are one level higher than the separator in the tree. Since the embedding tree is a $2$-HST, we have</p>
+
+\[\operatorname{dist}_T(p,q)\ge 2w_{i+1}.\]
+
+<p>Moreover, by the definition of $\operatorname{lv}(p,q)$, we have $\ell^{(i)}_p=\ell^{(i)}_q$. Let</p>
+
+\[p' := \pi^{-1}\!\left(\ell^{(i)}_p\right).\]
+
+<p><img src="/images/treemetric.png" alt="Tree metric embedding illustration" style="max-width: 400px; height: auto;" /></p>
+
+<p>the image belongs to CSC2414 - Metric Embeddings 
+Lecture 3: Embedding to Random Trees
+Notes taken by Nilesh Bansal and Ilya Sutskever
+Revised by Hamed Hatami.</p>
+
+<p>Then we also have $p’=\pi^{-1}!\left(\ell^{(i)}_q\right)$, because this follows directly from the definition. In other words, $p$ and $q$ are placed in the same bucket at the upper levels; namely, the hash functions classify them identically.</p>
+
+<p>Therefore,</p>
+
+\[\operatorname{buks}_i(p')\cap B(p,r_i)\neq\varnothing
+\qquad\text{and}\qquad
+\operatorname{buks}_i(p')\cap B(q,r_i)\neq\varnothing.\]
+
+<p>What we are really doing is taking the neighborhood of a point and using the sparsification palette (or agenda) induced by the hashing functions. We then label the point according to the highest-priority point that lies in the corresponding buckets, according to the hash function, and that also belongs to $P$.</p>
+
+<p>Hence, by the definition of $\widetilde{B}_i^P$, we can see that</p>
+
+\[\phi_i(p')\in \phi_i\bigl(B(p,r_i)\bigr)
+\qquad\text{and}\qquad
+\phi_i(p')\in \phi_i\bigl(B(q,r_i)\bigr),\]
+
+<p>so the claim is proved. We use this fact to obtain an upper bound on $\operatorname{dist}(p,q)$.</p>
+
+<p>Now, let $\hat{p}$ be an arbitrary point in $\operatorname{buks}_i(p’) \cap B(p,r_i)$, and let $\hat{q}$ be an arbitrary point in $\operatorname{buks}_i(p’) \cap B(q,r_i)$.</p>
+
+<p>Since $\hat{p}$ and $\hat{q}$ belong to the same bucket $\operatorname{buks}_i(p’)$, i.e., $\phi_i(\hat{p})=\phi_i(\hat{q})$, by the diameter bound of $\phi_i$ we have</p>
+
+\[\operatorname{dist}(\hat{p},\hat{q})\le \tau_i=w_{i+1}.\]
+
+<p>Also observe that $\operatorname{dist}(p,\hat{p})\le r_i$ and $\operatorname{dist}(q,\hat{q})\le r_i$. Hence,</p>
+
+\[\operatorname{dist}(p,q)
+\le \operatorname{dist}(p,\hat{p})
+   + \operatorname{dist}(\hat{p},\hat{q})
+   + \operatorname{dist}(\hat{q},q)
+\le 2r_i + w_{i+1}
+\le 2w_{i+1}
+\le \operatorname{dist}_T(p,q).\]
+
+<p>The proof of</p>
+
+\[\mathbb{E}\!\left[\operatorname{dist}_T(p,q)\right]
+\le
+O(\Gamma\log\Gamma)\cdot \log n \cdot \operatorname{dist}(p,q)\]
+
+<p>is interesting in its own right, but it is too technical for a general reader. Nevertheless, it can be studied to prove similar results and is quite helpful in those settings. Therefore, I omit it from this post and may discuss it in a future post.</p>
+
+<p>However, we now turn to Lemma 3.3, which is used for the distortion result.</p>
+
+<blockquote>
+  <p><strong>Lemma 3.3.</strong>
+For every $p,q\in P$, $i\in[m]$, and $0 \le r’ \le \tfrac{1}{2} r^{\max}_i$ such that
+$B(p,r’) \subseteq B!\left(q,\tfrac{1}{2} r^{\max}_i\right)$, it holds that</p>
+
+\[\Pr\!\big[\ell^{(i)}_p \ne \ell^{(i)}_q\big]
+\le
+8 \cdot \frac{\operatorname{dist}(p,q)}{r^{\max}_i}
+\left(
+H_{|\widetilde{B}^{P}_i(p,r^{\max}_i)|}
+-
+H_{|\widetilde{B}^{P}_i(p,r')|}
+\right).\]
+</blockquote>
+
+<p>The dynamics of the proof of this lemma are really interesting and revealing, so I will dedicate a separate post to it  I find it the most sophisticated part of the paper.</p>
+
+<p>This lemma is particularly revealing and intuitive in parts, as it captures how the separation probability depends on the local growth of the bucketed neighborhood structure.
+But the neighborhood definition which the authors defined was so hard to work with in analysis so they came up with a rather nice object to solve the problem.</p>
+
+<p>Their solution was to come up with the <strong>representative set</strong>, which is a way to keep the geometric structure nice and steady  ball-like even  while at the same time maintaining crucial information necessary for the analysis of the algorithm, there have been another problem in finding the upperbounds for probabilities which they solved by defining axuliry events, these two key observations are rather interesting.</p>
+
+<p>I will try to explain these concepts.</p>
+
+<hr />
+
+<h3 id="representative-sets">Representative Sets</h3>
+
+<p>Their proof strategy is to utilize the structure of $\widetilde{B}^{P}_i(\cdot,\cdot)$, and argue that a carefully chosen set of representatives of $\widetilde{B}^{P}_i(p,r)$ has similar geometric properties kind of like a standard ball.</p>
+
+<blockquote>
+  <p><strong>Definition (Representative sets).</strong>
+A collection of sets $\operatorname{rep}_i(p,r) \subseteq V$ (which may not necessarily be a subset of $P$), defined for every $p\in P$, $i\in[m]$, and $r\ge 0$, is called a <strong>family of representative sets</strong> if for every $i\in[m]$, $p\in P$, and $r\ge 0$, the following properties hold:</p>
+
+  <ol>
+    <li>
+      <p><strong>(distinct)</strong> For all $x \neq y \in \operatorname{rep}_i(p,r)$,
+\(\operatorname{buks}_i(x) \cap \operatorname{buks}_i(y) = \emptyset.\)</p>
+    </li>
+    <li>
+      <p><strong>(monotone)</strong> For all $r’ \in (0,r)$,
+\(\operatorname{rep}_i(p,r') \subseteq \operatorname{rep}_i(p,r).\)</p>
+    </li>
+    <li>
+      <p><strong>(ball-preserving)</strong>
+\(\operatorname{rep}_i(p,r) \subseteq B(p,r)\cap \operatorname{buks}_i(P),\)
+and
+\(\operatorname{buks}^{P}_i\!\big(\operatorname{rep}_i(p,r)\big) = \operatorname{buks}^{P}_i\!\big(B(p,r)\big).\)</p>
+    </li>
+  </ol>
+</blockquote>
+
+<p>Property 1 is useful for several results in the upcoming analysis. Properties 2 and 3 ensure that the representative sets behave similarly to metric balls, so that no essential information is lost in the abstraction.</p>
+
+<blockquote>
+  <p><strong>Lemma.</strong>
+There exists a family ${\operatorname{rep}_i(p,r) : i\in[m],\, p\in P,\, r\ge 0}$ satisfying the definition above.</p>
+</blockquote>
+
+<p><em>Proof.</em> We introduce the following notation to define $\operatorname{rep}$.</p>
+
+<p>For each $i\in[m]$, $p\in P$, and $x\in V$, define</p>
+
+\[\operatorname{NNbuks}_i(p,x)
+:=
+\arg\min_{y\in \operatorname{buks}_i(x)} \operatorname{dist}(p,y)
+\in V.\]
+
+<p>This is the nearest point in $\operatorname{buks}_i(x)$ to $p$, which may not necessarily lie in $P$. Then, for each $i\in[m]$, $p\in P$, and $S\subseteq V$, define</p>
+
+\[\operatorname{NNbuks}_i(p,S) := \left\{ \operatorname{NNbuks}_i(p,x) : x\in S \right\}.\]
+
+<p>Note that for any $x,y\in S$, if $\phi_i(x)=\phi_i(y)$, then $\operatorname{NNbuks}_i(p,x) = \operatorname{NNbuks}_i(p,y)$, so $\operatorname{NNbuks}_i(p,S)$ contains at most one point from each bucket.</p>
+
+<blockquote>
+  <p><strong>Definition (Key representative).</strong>
+For each $i\in[m]$, $p\in P$, and $r&gt;0$, define $\operatorname{rep}^{*}_i(p,r)$ as the minimum point in $\operatorname{rep}_i(p,r)$ with respect to $\pi$:</p>
+
+\[\operatorname{rep}^{*}_i(p,r)
+:=
+\arg\min \left\{
+\pi_{\min}\!\big(\operatorname{buks}^{P}_i(x)\big)
+: x \in \operatorname{rep}_i(p,r)
+\right\}.\]
+
+  <p>Note that $\operatorname{rep}^{*}_i(p,r)$ is unique, since all values of $\pi$ are distinct with probability $1$.</p>
+</blockquote>
+
+<p>Moreover, this key representative precisely realizes the minimizer of the $\pi$-value within $\operatorname{rep}_i(p,r)$:</p>
+
+\[\ell^{(i)}_p = \pi_{\min}\!\big(\operatorname{buks}^{P}_i(\operatorname{rep}^{*}_i(p,r_i))\big).\]
+
+<p>To give a rough sketch, we define the probability of separation based on the key representative, and introduce auxiliary events to analyze the resulting probabilities.</p>
+
+<p>First, notice that the event $\ell^{(i)}_p \neq \ell^{(i)}_q$ is equivalent to either $\ell^{(i)}_p &lt; \ell^{(i)}_q$ or $\ell^{(i)}_p &gt; \ell^{(i)}_q$, and these two events are symmetric. Therefore, it suffices to bound $\Pr\big[\ell^{(i)}_p &lt; \ell^{(i)}_q\big]$.</p>
+
+<p>Specifically, we show that the event $\ell^{(i)}_p &lt; \ell^{(i)}_q$ implies a geometric fact about the key representative; namely,</p>
+
+\[\operatorname{rep}^{*}_i(p,r_i) \notin B(q,r_i).\]
+
+<p>To see this, by the key representative identity and Algorithm 1 (line 5), we have</p>
+
+\[\ell^{(i)}_p
+= \pi_{\min}\!\big(\operatorname{buks}^{P}_i(\operatorname{rep}^{*}_i(p,r_i))\big)
+&lt; \ell^{(i)}_q
+= \pi_{\min}\!\big(\operatorname{buks}^{P}_i(B(q,r_i))\big).\]
+
+<p>This implies that</p>
+
+\[\operatorname{buks}^{P}_i(\operatorname{rep}^{*}_i(p,r_i))
+\not\subseteq
+\operatorname{buks}^{P}_i(B(q,r_i)),\]
+
+<p>which leads to $\operatorname{rep}^{*}_i(p,r_i) \notin B(q,r_i)$. Therefore,</p>
+
+\[\Pr\big[\ell^{(i)}_p &lt; \ell^{(i)}_q\big]
+\le
+\Pr\big[\operatorname{rep}^{*}_i(p,r_i) \notin B(q,r_i)\big].\]
+
+<h4 id="analyzing-the-probability-via-an-auxiliary-event">Analyzing the probability via an auxiliary event</h4>
+
+<p>One difficulty in analyzing $\Pr[\operatorname{rep}^{*}_i(p,r_i) \notin B(q,r_i)]$ is that it depends on two sources of randomness: the hash function $\pi$ and the random radius $r_i$. To separate these sources, we define an auxiliary event $E$, whose randomness depends only on $\pi$.</p>
+
+<p>This event is defined with respect to $i\in[m]$, $p\in P$, and $x\in V$. It captures whether $x$ achieves the minimum $\pi$-value in $\widetilde{B}^{P}_i(p,r)$, where $r=\operatorname{dist}(p,x)$.</p>
+
+<blockquote>
+  <p><strong>Definition (Auxiliary event).</strong>
+For every $i\in[m]$, $p\in P$, and $x\in V$, define the event (with respect to the randomness of $\pi$)</p>
+
+\[E^{(i)}_p(x)
+:=
+\left\{
+\pi_{\min}\!\big(\operatorname{buks}^{P}_i(x)\big)
+=
+\pi_{\min}\!\big(\operatorname{buks}^{P}_i(\operatorname{rep}_i(p,r))\big)
+\right\},\]
+
+  <p>where $r = \operatorname{dist}(p,x)$.</p>
+</blockquote>
+
+<p>Now we turn to the most interesting part of the paper.</p>
+
+<blockquote>
+  <p><strong>Definition ($(\Gamma,\Lambda)$-hash function).</strong>
+A (randomized) hash function $\phi : \mathbb{R}^d \to \mathbb{R}^d$ is called a <strong>$\Gamma$-gap $\Lambda$-consistent hash</strong> with diameter bound $\tau&gt;0$, or simply a <strong>$(\Gamma,\Lambda)$-hash function</strong>, if it satisfies:</p>
+
+  <ol>
+    <li>
+      <p><strong>(Diameter)</strong> For every image $z \in \phi(\mathbb{R}^d)$,
+\(\operatorname{diam}(\phi^{-1}(z)) \le \tau.\)</p>
+    </li>
+    <li>
+      <p><strong>(Consistency)</strong> For every $S \subseteq \mathbb{R}^d$ with $\operatorname{diam}(S) \le \tau/\Gamma$,
+\(\mathbb{E}\big[|\phi(S)|\big] \le \Lambda.\)</p>
+    </li>
+  </ol>
+</blockquote>
+
+<p>In words, this definition formalizes a geometric hashing scheme in which small-diameter sets are expected to remain concentrated under the hash, while each bucket itself has bounded diameter.</p>
+
+<p>Without the notion of consistent hashing, it would not be possible to implement the algorithm in an MPC model, where computation may be performed in a streaming fashion as mentioned and implemented in the original papers.</p>
+
+<blockquote>
+  <p><strong>Theorem 4.2.</strong>
+Assume there exists a $(\Gamma,\Lambda)$-hash function $\phi : \mathbb{R}^d \to \mathbb{R}^d$ with diameter bound $\tau$, such that for $p \in \mathbb{R}^d$, the hash value $\phi(p)$ and the set of hash values $\phi(B(p,\tau/\Gamma))$ can be evaluated in $O(\mathrm{poly}(d))$ time and $O(|\phi(B(p,\tau/\Gamma))|\cdot \mathrm{poly}(d))$ time, respectively.</p>
+
+  <p>Then there exists a dynamic algorithm which, for a dynamic set of points 
+$P \subseteq \mathbb{R}^d$ with $|P|\le n$ undergoing point insertions and deletions, maintains a tree embedding of $P$ with
+$O(\Gamma \log \Gamma \log n)$ distortion and $\tilde{O}(d+\Lambda)$ expected amortized update time.</p>
+
+  <p>The underlying tree embedding is rebuilt by the algorithm after every $n$ updates. An update to the point set $P$ results in $\tilde{O}(1)$ expected updates to the tree embedding of the following types:</p>
+
+  <ul>
+    <li><strong>Type 1:</strong> A leaf of the embedding becomes inactive, in the sense that no point in $P$ corresponds to it.</li>
+    <li><strong>Type 2:</strong> A new leaf and a path connecting the leaf to an existing node in the tree embedding are inserted into the embedding.</li>
+  </ul>
+</blockquote>
+
+<p><strong>Algorithm 2:</strong> Insertion-procedure$(p)$</p>
+
+<blockquote>
+  <p><strong>Note:</strong> $\phi_i$ is a metric hashing with diameter bound $\tau_i := w_i/2$</p>
+
+  <ol>
+    <li>Draw $\pi(p)$ and compute $\phi_i(p)$ for all $i \in [m]$</li>
+    <li><strong>For</strong> $i \leftarrow 1$ to $m$:
+      <ul>
+        <li>Compute hash values $X_i \leftarrow {\phi_i(x) \mid x \in B(p,r_i)}$</li>
+        <li><em>(Computing label $\ell^{(i)}_p = \pi_{\min}(\widetilde{B}^{P}_i(p,r_i))$)</em></li>
+        <li>Update \(\phi_i^{-1}(x)$ and $\pi_{\min}(\phi_i^{-1}(x)\cap P)\) for all \(x \in X_i\)</li>
+        <li>
+\[\ell^{(i)}_p \leftarrow \pi_{\min}\!\left(\bigcup_{x\in X_i} \widetilde{B}^{P}_i(p,r_i)\right)\]
+        </li>
+        <li><em>(Updating labels $\ell^{(i)}_q$ for $q \in P$)</em></li>
+        <li><strong>If</strong> $\pi(p) = \pi_{\min}(\phi_i^{-1}(\phi_i(p)))$:
+          <ul>
+            <li><strong>For</strong> all $x \in X_i$ and all $p’ \in \phi_i^{-1}(x)\cap P$:
+              <ul>
+                <li><strong>If</strong> \(\pi(x) &lt; \ell^{(i)}_{p'}\): update \(\ell^{(i)}_{p'} \leftarrow \pi(x)\)</li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ol>
+</blockquote>
+
+<p>So based on the theorems of consistent hashing we can provide the preferred amortized upper bound on the insertion.</p>
+
+<p>But how does the dynamic algorithm work? It basically follows the intuition of the previous algorithm in the first half, by finding the path and labels of the inserted point, and the second half updates the path for other nodes in $P$, by altering the labels which need to change.</p>
+
+
+        
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+  
+
+
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="https://thomasgraceman.github.io/tags/#high-dimensional-algorithms" class="page__taxonomy-item" rel="tag">high-dimensional algorithms</a><span class="sep">, </span>
+    
+      
+      
+      <a href="https://thomasgraceman.github.io/tags/#metric-embeddings" class="page__taxonomy-item" rel="tag">metric embeddings</a><span class="sep">, </span>
+    
+      
+      
+      <a href="https://thomasgraceman.github.io/tags/#parallel-algorithms" class="page__taxonomy-item" rel="tag">parallel algorithms</a><span class="sep">, </span>
+    
+      
+      
+      <a href="https://thomasgraceman.github.io/tags/#tree-embeddings" class="page__taxonomy-item" rel="tag">tree embeddings</a>
+    
+    </span>
+  </p>
+
+
+
+
+      </footer>
+
+      
+
+<section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://bsky.app/intent/compose?text=https://thomasgraceman.github.io/posts/tree-embedding-high-dimensions-dynamic-mpc/" class="btn btn--bluesky" title="Share on Bluesky"><i class="fab fa-bluesky" aria-hidden="true"></i><span> Bluesky</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https://thomasgraceman.github.io/posts/tree-embedding-high-dimensions-dynamic-mpc/" class="btn btn--facebook" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://thomasgraceman.github.io/posts/tree-embedding-high-dimensions-dynamic-mpc/" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+
+  <a href="https://www.addtoany.com/add_to/mastodon?linkurl=https%3A%2F%2Fthomasgraceman.github.io%2Fposts%2Ftree-embedding-high-dimensions-dynamic-mpc%2F" class="btn btn--mastodon" title="Share on Mastodon"><i class="fab fa-mastodon" aria-hidden="true"></i><span> Mastodon</span></a>
+
+  <a href="https://x.com/intent/post?text=https://thomasgraceman.github.io/posts/tree-embedding-high-dimensions-dynamic-mpc/" class="btn btn--x" title="Share on X"><i class="fab fa-x-twitter" aria-hidden="true"></i><span> X (formerly Twitter)</span></a>
+</section>
+
+
+      
+
+
+  <nav class="pagination">
+    
+      <a href="https://thomasgraceman.github.io/posts/lewis-weights-leverage-scores-whitening-chapter-2/" class="pagination--pager" title="Lewis Weights, Leverage Scores, and Whitening — Chapter 2
+">Previous</a>
+    
+    
+      <a href="https://thomasgraceman.github.io/posts/sparsification-sums-of-norms-symmetrization-generic-chaining-chapter-3/" class="pagination--pager" title="Sparsification of Sums of Norms: Symmetrization, Generic Chaining, and Concentration — Chapter 3
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      
+        <h4 class="page__related-title">You May Also Enjoy</h4>
+      
+      <div class="grid__wrapper">
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "https://thomasgraceman.github.io/images/profile.png"
+          
+          alt="Dynamic Sum-of-Radii Clustering
+">
+      </div>
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="https://thomasgraceman.github.io/posts/dynamic-sum-of-radii-clustering/" rel="permalink">Dynamic Sum-of-Radii Clustering
+</a>
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  10 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-08-06T00:00:00+00:00">August 06, 2026</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><p>So in this second post, following the <a href="/posts/dynamic-approximate-nns/">previous data structure</a>, I am going to review some algorithms that were devised using the scheme of nearest neighbor search.</p>
+
+</p>
+    
+    
+    
+
+  </article>
+</div>
+
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "https://thomasgraceman.github.io/images/profile.png"
+          
+          alt="Dynamic Approximate Nearest-Neighbor Search in Doubling Metrics
+">
+      </div>
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="https://thomasgraceman.github.io/posts/dynamic-approximate-nns/" rel="permalink">Dynamic Approximate Nearest-Neighbor Search in Doubling Metrics
+</a>
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  14 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-08-06T00:00:00+00:00">August 06, 2026</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><p>Well, in this blog post we are going to review several papers and understand the techniques that are utilized in order to tackle several problems related to areas such as nearest neighbor problems, the facility location problem, and so on.</p>
+
+</p>
+    
+    
+    
+
+  </article>
+</div>
+
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "https://thomasgraceman.github.io/images/profile.png"
+          
+          alt="Tree Embedding in High Dimensions: Dynamic and Massively Parallel, and Streaming Facility Location in High Dimension via Geometric Hashing – 2
+">
+      </div>
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="https://thomasgraceman.github.io/posts/tree-embedding-high-dimensions-streaming-facility-location-geometric-hashing-2/" rel="permalink">Tree Embedding in High Dimensions: Dynamic and Massively Parallel, and Streaming Facility Location in High Dimension via Geometric Hashing – 2
+</a>
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  3 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-07-02T00:00:00+00:00">July 02, 2026</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><h1 id="tree-embedding-in-high-dimensions">Tree Embedding in High Dimensions</h1>
+<h2 id="dynamic-and-massively-parallel-and-streaming-facility-location-via-geometric-hashing">Dynamic and Massively Parallel, and Streaming Facility Location via Geometric Hashing</h2>
+
+</p>
+    
+    
+    
+
+  </article>
+</div>
+
+        
+          
+
+
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src=
+          
+            "https://thomasgraceman.github.io/images/profile.png"
+          
+          alt="Sparsification of Sums of Norms: Symmetrization, Generic Chaining, and Concentration — Chapter 3
+">
+      </div>
+    
+
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="https://thomasgraceman.github.io/posts/sparsification-sums-of-norms-symmetrization-generic-chaining-chapter-3/" rel="permalink">Sparsification of Sums of Norms: Symmetrization, Generic Chaining, and Concentration — Chapter 3
+</a>
+      
+    </h2>
+    
+    
+      <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> 
+
+
+  
+	  8 minute read
+	
+</p>
+    
+
+        
+         <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Published:</strong> <time datetime="2026-06-28T00:00:00+00:00">June 28, 2026</time></p>
+        
+
+    
+    <p class="archive__item-excerpt" itemprop="description"><h1 id="sparsification-of-sums-of-norms">Sparsification of Sums of Norms</h1>
+<h2 id="symmetrization-generic-chaining-and-concentration--chapter-3">Symmetrization, Generic Chaining, and Concentration · Chapter 3</h2>
+
+</p>
+    
+    
+    
+
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- Support for MatJax -->
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true
+    }
+  };
+</script>
+<script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script"></script>
+
+<!-- Support for Mermaid -->
+<script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({startOnLoad:true, theme:'default'});
+    await mermaid.run({querySelector:'code.language-mermaid'});
+</script>
+
+<!-- New post corner notice -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var notice = document.getElementById('new-post-notice');
+  if (!notice) return;
+
+  var postId = notice.dataset.postId;
+  var key = 'dismissed-post-' + postId;
+
+  if (localStorage.getItem(key) === '1') return;
+
+  notice.hidden = false;
+
+  notice.querySelector('.new-post-notice__close').addEventListener('click', function () {
+    localStorage.setItem(key, '1');
+    notice.remove();
+  });
+});
+</script>
+
+<!-- end custom footer snippets -->
+
+        
+
+
+<div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+    
+      <li><a href="https://github.com/thomasgraceman"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    
+    <li><a href="https://thomasgraceman.github.io/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+
+<div class="page__footer-copyright">
+  &copy; 2026 Taha Hoseinpour, Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://github.com/academicpages/academicpages.github.io">AcademicPages</a>, a fork of <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.<br />
+  Site last updated 2026-08-06, <a href="/sitemap/" style="text-transform: uppercase;">Sitemap</a>
+</div>
+
+      </footer>
+    </div>
+
+    
+
+  
+  
+    
+    
+    
+    
+
+    
+      <div id="new-post-notice"
+           class="new-post-notice"
+           role="status"
+           aria-live="polite"
+           data-post-id="posts-dynamic-sum-of-radii-clustering"
+           hidden>
+        <button type="button" class="new-post-notice__close" aria-label="Dismiss notice">&times;</button>
+        <p class="new-post-notice__label">New post</p>
+        <a class="new-post-notice__link" href="https://thomasgraceman.github.io/posts/dynamic-sum-of-radii-clustering/">
+          Dynamic Sum-of-Radii Clustering
+        </a>
+      </div>
+    
+  
+
+
+    <script type="module" src="https://thomasgraceman.github.io/assets/js/main.min.js"></script>
+
+
+
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MGD7PS6X0W"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-MGD7PS6X0W');
+</script>
+
+
+
+
+
+
+
+
+  </body>
+</html>
+

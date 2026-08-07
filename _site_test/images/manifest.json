@@ -1,0 +1,19 @@
+{
+	"name": "A steeper descent",
+	"short_name": "Taha Hoseinpour",
+	"description": "Research blog on theoretical computer science — metric embeddings, sparsification, generic chaining, and approximation algorithms. Notes on papers and books by Taha Hoseinpour.",
+	"start_url": "/",
+	"lang": "en-US",
+	"icons": [
+		{
+			"src": "/images/favicon-192x192.png",
+			"sizes": "192x192",
+			"type": "image/png"
+		},
+		{
+			"src": "/images/favicon-512x512.png",
+			"sizes": "512x512",
+			"type": "image/png"
+		}
+	]
+}
