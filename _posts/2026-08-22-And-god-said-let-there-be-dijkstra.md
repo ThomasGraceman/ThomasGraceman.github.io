@@ -29,6 +29,8 @@ Recall that a good $$r$$-division of $$\Sigma$$ is a subdivision of $$\Sigma$$ i
 - Each piece has $$O(\sqrt{r})$$ boundary vertices (that is, vertices that are shared with other pieces).
 - Each piece has $$O(1)$$ holes (faces of the piece that are not faces of $$\Sigma$$).
 
+<img src="/images/fr-r-division.png" alt="An r-division piece: about r interior nodes, O(sqrt r) boundary nodes, and distances from a source s into the boundary" style="max-width: 520px; height: auto; display: block; margin: 1.5em auto;">
+
 **Recall.**
 An MSSP (Multiple-Source Shortest Paths) data structure for a planar graph with $$n$$ vertices can be constructed in $$O(n\log n)$$ preprocessing time and space, and supports distance queries in $$O(\log n)$$ time. The queries are restricted to sources lying on a single face.
 
@@ -103,6 +105,10 @@ $$n'=O\left(\frac{n}{\sqrt{r}}\right) \qquad\text{and}\qquad m'=O(n).$$
 
 And actually this is possible because we have the information of paths and distances implicitly stored in the distance subgraph, so for each boundary, to go into another boundary we must traverse different pieces from boundary to boundary, so running Dijkstra actually gives us the desired distances.
 
+<img src="/images/fr-klein-fig-8-2.png" alt="Klein Figure 8.2: cycle separator splitting G into an external subgraph G0 and an internal subgraph G1, with r-to-v shortest paths in each piece" style="max-width: 640px; height: auto; display: block; margin: 1.5em auto;">
+
+<img src="/images/fr-klein-fig-8-3.png" alt="Klein Figure 8.3: an r-to-v shortest path in G decomposed into subpaths that alternate between G0 and G1, meeting only at boundary vertices" style="max-width: 640px; height: auto; display: block; margin: 1.5em auto;">
+
 Finally, for each piece $$P$$, we attach an artificial source $$s'$$ to each boundary vertex $$u$$ with an edge of length
 
 $$d(s,u),$$
@@ -175,7 +181,11 @@ the convex Monge property holds:
 
 $$A_{k\ell}+A_{k'\ell'} \ge A_{k\ell'}+A_{k'\ell}.$$
 
-picture here.
+<img src="/images/fr-klein-fig-8-1.png" alt="Klein Figure 8.1: vertices k less than k-prime less than ell less than ell-prime in clockwise order; the two paths must cross at some node w" style="max-width: 640px; height: auto; display: block; margin: 1.5em auto;">
+
+<img src="/images/fr-crossing-w.png" alt="Crossing shortest paths in a piece meeting at an intersection node w" style="max-width: 640px; height: auto; display: block; margin: 1.5em auto;">
+
+<img src="/images/fr-uncrossing.png" alt="Uncrossing two paths at their intersection to derive the Monge inequality" style="max-width: 520px; height: auto; display: block; margin: 1.5em auto;">
 
 **Proof.** It is simply a case of using the Jordan curve theorem, finding a middle node or intersection node and uncrossing the nodes to derive the inequality.
 
@@ -204,11 +214,11 @@ $$n=|A|+|B|.$$
 
 Or constructively we can start from a row to find the min element in the column and use a binary search to add a row, and compute the local minima, which takes the same complexity and is basically the same algorithm.
 
-picture here
-
 so ok.
 
 General complete graphs are not Monge. We can preserve the information that the dense distance graph gives us using $$O(\log n)$$ Monge arrays, by halving the cycle separator in half and considering only the distances between the two halves and continuing to do this recursively. This way we have at most $$O(\log n)$$ levels of Monge matrix, which we can find the possible relaxation candidates simultaneously in $$O(k\log k)$$ for which $$k$$ is the number of rows and columns in one of the Monge arrays.
+
+<img src="/images/fr-monge-arrays.png" alt="Fakcharoenphol–Rao Fig. 3: recursive partitions of boundary nodes into O(log n) Monge arrays" style="max-width: 700px; height: auto; display: block; margin: 1.5em auto;">
 
 **Citing the paper.**
 
@@ -248,7 +258,9 @@ The algorithm computes shortest paths by combining several instances of the foll
 
 Actually the way that we can recursively partition the graph has been improved since the time of the paper publication; they would halve the graph horizontally following the Tarjan–Lipton paper, but we can decompose the planar map cyclically in each step.
 
-picture here.
+<img src="/images/fr-nested-separators.png" alt="Cyclic nested separators: first level and second level inside a piece" style="max-width: 480px; height: auto; display: block; margin: 1.5em auto;">
+
+<img src="/images/fr-recursive-levels.png" alt="Recursive separator levels: a first-level cut, then second-level cuts in each half" style="max-width: 520px; height: auto; display: block; margin: 1.5em auto;">
 
 So for each step we can compute the global to local structure of that piece, and we may at most do it $$\log n$$ times, so the time complexity would be $$\log n$$ times whatever complexity that we get.
 
@@ -256,6 +268,8 @@ And we recursively perform the algorithm that beat Dijkstra recursively to get f
 
 **On-line bipartite Monge search.**
 Given $$d(x,y)$$, representing a dense distance graph for $$X\times Y$$, maintain a parent $$x\in X$$ for every $$y\in Y$$, while the initialization value $$D(\cdot)$$ for each $$x\in X$$ is revealed on-line, one node at a time.
+
+<img src="/images/fr-online-bipartite-monge.png" alt="On-line bipartite Monge search: activated left nodes and the intervals of Y they currently parent" style="max-width: 700px; height: auto; display: block; margin: 1.5em auto;">
 
 The matching can be computed on-line in overall time
 
