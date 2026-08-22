@@ -146,7 +146,7 @@ $$O(n\log\log n).$$
 So as you can see, we incorporated terse sparsified local structures and their information to traverse the graph in a more efficient manner, then when we come sufficiently close, we can consider a piece or region with all of its nodes.
 
 So now here come the ideas of the paper actually.
-We want to use Dijkstra and Bellman–Ford in case we have negative cases eventually, but we want to do it in a more efficient manner. And one of the more useful techniques of doing so is to bypass the $$O(m)$$ complexity of the relaxation phase for each vertex. And to do so, we must use some characteristics of planar graphs. And we will see how we can do it, do kind of bring it down to something like $$O(m^{1/2})$$. It's a rough idea, and so in order to do that we must use the idea of a Monge array.
+We want to use Dijkstra and Bellman–Ford in case we have negative cases eventually, but we want to do it in a more efficient manner. And one of the more useful techniques of doing so is to bypass the $$O(m)$$ complexity of the relaxation phase for each vertex. And to do so, we must use some characteristics of planar graphs. And we will see how we can do it, do kind of bring it down to something like $$O(log(m))$$. It's a rough idea, and so in order to do that we must use the idea of a Monge array, that lets us to do a search like binary search.
 
 A matrix $$M=(M_{ij})$$ is *totally monotone* if for every $$i,i',j,j'$$ such that $$i<i'$$ and $$j<j'$$, if
 
