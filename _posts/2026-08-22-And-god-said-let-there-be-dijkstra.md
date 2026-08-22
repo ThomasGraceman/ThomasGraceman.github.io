@@ -29,7 +29,6 @@ Recall that a good $$r$$-division of $$\Sigma$$ is a subdivision of $$\Sigma$$ i
 - Each piece has $$O(\sqrt{r})$$ boundary vertices (that is, vertices that are shared with other pieces).
 - Each piece has $$O(1)$$ holes (faces of the piece that are not faces of $$\Sigma$$).
 
-<img src="/images/fr-r-division.png" alt="An r-division piece: about r interior nodes, O(sqrt r) boundary nodes, and distances from a source s into the boundary" style="max-width: 520px; height: auto; display: block; margin: 1.5em auto;">
 
 **Recall.**
 An MSSP (Multiple-Source Shortest Paths) data structure for a planar graph with $$n$$ vertices can be constructed in $$O(n\log n)$$ preprocessing time and space, and supports distance queries in $$O(\log n)$$ time. The queries are restricted to sources lying on a single face.
@@ -89,6 +88,7 @@ time.
 
 So, how can we use this rough structure to beat Dijkstra in an efficient manner? Let's do what one naturally may do:
 
+
 **Theorem.**
 Given any planar map $$\Sigma$$ with non-negative lengths on its edges, we can compute the shortest paths from any vertex $$s$$ to every other vertex of $$\Sigma$$ in $$O(n\log\log n)$$ time.
 
@@ -102,6 +102,9 @@ $$O(n'\log n' + m') = O\left(\frac{n}{\sqrt{r}}\log n+n\right)$$
 time, since
 
 $$n'=O\left(\frac{n}{\sqrt{r}}\right) \qquad\text{and}\qquad m'=O(n).$$
+
+<img src="/images/fr-r-division.png" alt="An r-division piece: about r interior nodes, O(sqrt r) boundary nodes, and distances from a source s into the boundary" style="max-width: 520px; height: auto; display: block; margin: 1.5em auto;">
+
 
 And actually this is possible because we have the information of paths and distances implicitly stored in the distance subgraph, so for each boundary, to go into another boundary we must traverse different pieces from boundary to boundary, so running Dijkstra actually gives us the desired distances.
 
@@ -181,7 +184,6 @@ the convex Monge property holds:
 
 $$A_{k\ell}+A_{k'\ell'} \ge A_{k\ell'}+A_{k'\ell}.$$
 
-<img src="/images/fr-klein-fig-8-1.png" alt="Klein Figure 8.1: vertices k less than k-prime less than ell less than ell-prime in clockwise order; the two paths must cross at some node w" style="max-width: 640px; height: auto; display: block; margin: 1.5em auto;">
 
 <img src="/images/fr-crossing-w.png" alt="Crossing shortest paths in a piece meeting at an intersection node w" style="max-width: 640px; height: auto; display: block; margin: 1.5em auto;">
 
