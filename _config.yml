@@ -77,8 +77,8 @@ publication_category:
     title: 'Conference Papers'
 
 # Site Settings
-teaser                   : "profile.png" # fallback social preview image in /images/
-logo                     : "profile.png"    # brand logo in /images/ used by structured data
+teaser                   : "og-card.png" # fallback social preview image in /images/ (not the author photo)
+logo                     : "favicon.svg"    # brand logo in /images/ used by structured data
 breadcrumbs              : true
 words_per_minute         : 160
 future                   : true
@@ -129,7 +129,7 @@ facebook:
   username               :
   app_id                 :
   publisher              :
-og_image                 : "profile.png"
+og_image                 : "og-card.png" # used by LinkedIn, Telegram, etc.; keep distinct from author avatar
 og_description           : *description
 # For specifying social profiles
 # - https://developers.google.com/structured-data/customize/social-profiles
