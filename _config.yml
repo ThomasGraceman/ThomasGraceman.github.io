@@ -129,7 +129,7 @@ facebook:
   username               :
   app_id                 :
   publisher              :
-og_image                 : "500x300.png" # used by LinkedIn, Telegram, etc.; keep distinct from author avatar
+og_image                 : "og-card.png" # used by LinkedIn, Telegram, etc.; keep distinct from author avatar
 og_description           : *description
 # For specifying social profiles
 # - https://developers.google.com/structured-data/customize/social-profiles
